@@ -18,3 +18,11 @@ code {
   align-items: center;
   vertical-align: middle;
 }
+.content-loading{
+  position: relative;
+}
+#loading_connect{
+  position: absolute;
+  top: 32px;
+  left: 69px;
+}

@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import NotFound from  './NotFound';
 import Connection from './Connection';
+import Liste from './Liste'
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const Root = () => (
     <Switch>
       <Route exact path='/' component={Connection} />
-      <Route path='/card/:name' component={NotFound} />
+      <Route path='/liste' component={Liste} />
       <Route component={NotFound} />
     </Switch>
 );
+
+
 
 class Routeur extends Component {
   render() {
