@@ -23,9 +23,17 @@ code {
 }
 #loading_connect{
   position: absolute;
-  top: 32px;
-  left: 69px;
+  top: 33px;
+  left: 72px;
 }
 #search-table{
   float:right;
+}
+#loading_liste{
+  position: absolute;
+  top: 200px;
+  left: 50%;
+}
+.navbar1{
+  margin-bottom: 60px;
 }

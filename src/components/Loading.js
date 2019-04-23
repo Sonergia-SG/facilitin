@@ -8,7 +8,8 @@ class Loading extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            show:false
+            show:false,
+            typeprops:this.props.type === undefined ? 'Puff' : this.props.type
         };
     }
 
@@ -23,7 +24,7 @@ class Loading extends Component {
         if (this.state.show) {
             return (
                 <Loader
-                    type="Puff"
+                    type={this.state.typeprops}
                     color="#EE6D42"
                     height="110"
                     width="110"
