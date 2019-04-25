@@ -8,7 +8,7 @@ class Loading extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            show:false,
+            show:this.props.show === undefined ? false : this.props.show,
             typeprops:this.props.type === undefined ? 'Puff' : this.props.type
         };
     }

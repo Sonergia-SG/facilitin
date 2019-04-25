@@ -33,7 +33,17 @@ code {
   position: absolute;
   top: 200px;
   left: 50%;
+  z-index: 1000;
 }
 .navbar1{
   margin-bottom: 60px;
 }
+.footersonergia{
+  width:100%;
+  margin-top:80px;
+  text-align: center;
+}
+.tilebordered{
+  border:1px solid #4A4A4A;
+}
+
