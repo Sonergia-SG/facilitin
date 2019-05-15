@@ -1,18 +1,33 @@
 /**
  * Created by stephane.mallaroni on 15/04/2019.
  */
-import React, { Component } from 'react';
 
 function StateToColor(str){
-    var colour = '#4A4A4A';
-    var colour_auto_non_satisfaisant = '#ea9696';
-    var colour_litige = '#f28b24';
-    var colour_valide ='#2ba048';
-    var colour_manuel_non_coche = '#b2adad';
-    var colour_current = '#16a0e0'
+    let colour = '';
 
-    
+    let manuel_is_empty = pointManuelNonCoche(str.point_controle);
+
+    if(str.nb_bad_controle_auto > 0){
+        colour = 'accordion_bad_controle';
+    }else if(str.litige === 1){
+        colour = 'accordion_litige';
+    }else if(manuel_is_empty){
+        colour = 'accordion_empty';
+    }else{
+        colour = 'accordion_ok';
+    }
+
     return colour;
+}
+
+function pointManuelNonCoche(point_controle){
+    let nonCoche = true;
+    for(var i = 0; i <  point_controle.length; i++) {
+        if(point_controle[i].controle_valide === 1){
+            nonCoche = false;
+        }
+    }
+    return nonCoche;
 }
 
 export default StateToColor;

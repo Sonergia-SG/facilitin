@@ -46,4 +46,54 @@ code {
 .tilebordered{
   border:1px solid #4A4A4A;
 }
-
+.bigplus{
+  cursor:pointer;
+  font-size: 50px;
+}
+.notif-file{
+  font-size: 10px;
+  padding: 0px;
+}
+.floatleft{
+  float:right;
+}
+button.togglesonergia {
+  font-size: 18px;
+  background-color: inherit !important;
+}
+.accordions .accordion.is-active .accordion-header {
+  background-color: #16a0e0 !important;
+}
+.accordion_bad_controle{
+  background-color: #FF7878 !important;
+}
+.accordion_litige{
+  background-color: #f28b24 !important;
+}
+.accordion_empty{
+  background-color: #b2adad !important;
+}
+.accordion_ok{
+  background-color: #2ba048 !important;
+}
+.accordions .accordion .accordion-header {
+  border-radius: 4px !important;
+}
+.divAccordion{
+  margin-top: 35px;
+}
+.left-active{
+  background-color: #16a0e0;
+}
+.item_menu_gauche{
+  padding: 3px;
+}
+.modal_title{
+  font-size: 30px;
+  margin-bottom: 40px;
+}
+.modal_table{
+  width:669px;
+  height:150px;
+  margin-bottom:40px;
+}
