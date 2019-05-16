@@ -26,8 +26,15 @@ code {
   top: 33px;
   left: 72px;
 }
-#search-table{
+.search-table{
   float:right;
+  width:300px;
+}
+#search-action{
+  width:200px;
+}
+.cur_pointer{
+  cursor:pointer;
 }
 #loading_liste{
   position: absolute;
@@ -96,4 +103,10 @@ button.togglesonergia {
   width:669px;
   height:150px;
   margin-bottom:40px;
+}
+#button-litige{
+  width:106px;
+}
+#div-but-litige{
+  margin-top:-80px !important;
 }
