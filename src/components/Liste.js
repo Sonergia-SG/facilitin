@@ -71,7 +71,8 @@ class Liste extends Component {
             accessor: 'id_dossierprime'
         }, {
             Header: 'MOA',
-            accessor: 'id_dossierprime'
+            id: 'moa_nom',
+            accessor: d => `${d.moa_nom} ${d.moa_prenom} ${d.moa_denomination}`,
         }, {
             Header: 'FOST',
             accessor: 'code_operation'
