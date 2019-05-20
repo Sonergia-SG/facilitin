@@ -1,5 +1,5 @@
 # Add any directories, files, or patterns you don't want to be tracked by version control# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
+/src/variables.js
 # dependencies
 /node_modules
 /.pnp
