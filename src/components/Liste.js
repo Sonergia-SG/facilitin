@@ -50,7 +50,18 @@ class Liste extends Component {
             this.setState({isLoading: false});
         });
     };
-    
+    getTrProps = (state, rowInfo, instance) => {
+        if (rowInfo) {
+            if(rowInfo.row._original.statut_operation === 13) {
+                return { style: { background: '#FF7878',color: 'white'} }
+            }else if(rowInfo.row._original.statut_operation === 0) {
+                if(rowInfo.row._original.is_avant_projet === 0) {
+                    return {style: {background: '#16A0E0', color: 'white'}}
+                }
+            }
+        }
+        return {};
+    };
     render(){
         if(this.state.api_key === false){
             return <Redirect to='/' />
@@ -65,10 +76,10 @@ class Liste extends Component {
             //Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
         }, {
             Header: 'Etat',
-            accessor: 'statut_operation'
+            accessor: 'label_public'
         }, {
             Header: 'Nb Jours res',
-            accessor: 'id_dossierprime'
+            accessor: 'delai_instruction'
         }, {
             Header: 'MOA',
             id: 'moa_nom',
@@ -112,7 +123,8 @@ class Liste extends Component {
                     <Tabs defaultIndex={this.state.num_tab} onSelect={index => this.handleData(index)}>
                         <TabList>
                             <Tab>A traiter</Tab>
-                            <Tab>En ligne</Tab>
+                            <Tab>Incomplet</Tab>
+                            <Tab>Rejet</Tab>
                             <Tab>Validés</Tab>
                         </TabList>
 
@@ -124,7 +136,8 @@ class Liste extends Component {
                                 className="-striped -highlight cur_pointer"
                                 noDataText="Aucun traitement pour cet onglet"
                                 columns={columns}
-                                getTrProps={onRowClick}
+                                getTdProps={onRowClick}
+                                getTrProps={this.getTrProps}
                             />
                         </TabPanel>
                         <TabPanel>
@@ -135,7 +148,8 @@ class Liste extends Component {
                                 className="-striped -highlight cur_pointer"
                                 noDataText="Aucun traitement pour cet onglet"
                                 columns={columns}
-                                getTrProps={onRowClick}
+                                getTdProps={onRowClick}
+                                getTrProps={this.getTrProps}
                             />
                         </TabPanel>
                         <TabPanel>
@@ -146,7 +160,20 @@ class Liste extends Component {
                                 className="-striped -highlight cur_pointer"
                                 noDataText="Aucun traitement pour cet onglet"
                                 columns={columns}
-                                getTrProps={onRowClick}
+                                getTdProps={onRowClick}
+                                getTrProps={this.getTrProps}
+                            />
+                        </TabPanel>
+                        <TabPanel>
+                            <ReactTable
+                                {...translations}
+                                data={data}
+                                defaultPageSize={10}
+                                className="-striped -highlight cur_pointer"
+                                noDataText="Aucun traitement pour cet onglet"
+                                columns={columns}
+                                getTdProps={onRowClick}
+                                getTrProps={this.getTrProps}
                             />
                         </TabPanel>
 

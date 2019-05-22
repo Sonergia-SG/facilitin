@@ -53,7 +53,15 @@ class Connection extends Component {
         if(formIsValid){
             fetch(API_PATH+'login?email='+email+'&password='+mdp)
                 .then( (response) => {
-                    return response.json()
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json()
+                    } else {
+                        var error = new Error(response.statusText || response.status)
+                        this.setState({isLoading: false});
+                        errors["formulaire"] = "Une erreur s'est produite";
+                        this.setState({errors: errors});
+                        return Promise.reject(error)
+                    }
                 })
                 .then( (json) => {
                     if(json.status === 'success'){
