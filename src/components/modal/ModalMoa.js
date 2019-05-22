@@ -12,7 +12,6 @@ class  ModalMoa extends Component {
             open: this.props.open,
             moa:this.props.moaValues
         }
-        console.log(this.state.moa[0].moa_nom);
     };
 
     componentWillReceiveProps(newProps) {
