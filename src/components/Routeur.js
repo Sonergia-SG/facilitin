@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import NotFound from './NotFound';
 import Connection from './Connection';
 import Liste from './Liste';
@@ -16,14 +16,10 @@ const Root = () => (
 );
 
 
-class Routeur extends Component {
-  render() {
-    return (
-      <Router>
-        <Root />
-      </Router>
-    );
-  }
-}
+const Router = () => (
+  <BrowserRouter>
+    <Root />
+  </BrowserRouter>
+);
 
-export default Routeur;
+export default Router;

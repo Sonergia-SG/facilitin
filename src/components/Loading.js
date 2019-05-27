@@ -5,26 +5,26 @@ import React, { Component } from 'react';
 import Loader from 'react-loader-spinner';
 
 class Loading extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: this.props.show === undefined ? false : this.props.show,
-      typeprops: this.props.type === undefined ? 'Puff' : this.props.type,
-    };
+  state = {
+    show: this.props.show === undefined ? false : this.props.show,
+    typeprops: this.props.type === undefined ? 'Puff' : this.props.type,
   }
 
   componentDidUpdate(prevProps) {
+    const { show } = this.props;
     // Typical usage (don't forget to compare props):
-    if (this.props.show !== prevProps.show) {
-      this.setState({ show: this.props.show });
+    if (show !== prevProps.show) {
+      // ! this.setState in didUpate is dangerous
+      this.setState({ show });
     }
   }
 
   render() {
-    if (this.state.show) {
+    const { show, typeprops } = this.state;
+    if (show) {
       return (
         <Loader
-          type={this.state.typeprops}
+          type={typeprops}
           color="#EE6D42"
           height="110"
           width="110"
