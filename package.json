@@ -22,9 +22,6 @@
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -34,6 +31,8 @@
   "homepage": "https://themis.sonergia.fr/",
   "devDependencies": {
     "babel-eslint": "^10.0.1",
-    "eslint-config-airbnb": "^17.1.0"
+    "eslint-config-airbnb": "^17.1.0",
+    "husky": "^2.3.0",
+    "lint-staged": "^8.1.7"
   }
 }
