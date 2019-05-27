@@ -31,5 +31,9 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "homepage": "https://themis.sonergia.fr/"
+  "homepage": "https://themis.sonergia.fr/",
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint-config-airbnb": "^17.1.0"
+  }
 }
