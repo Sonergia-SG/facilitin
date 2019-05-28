@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 import Accordion from './Accordion';
 
 class Collapsed extends Component {
+  accordion = []
+
   componentDidMount() {
     this.accordion = bulmaAccordion.attach();
   }

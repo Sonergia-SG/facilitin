@@ -67,7 +67,7 @@ class DropZone extends Component {
 }
 
 DropZone.propTypes = {
-  id_file: PropTypes.string.isRequired,
+  id_file: PropTypes.number.isRequired,
 };
 
 export default DropZone;

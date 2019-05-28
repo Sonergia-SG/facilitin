@@ -171,7 +171,7 @@ class Dossierprime extends Component {
 Dossierprime.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
-      id_dp_operation: PropTypes.string.isRequired,
+      id_dp_operation: PropTypes.number.isRequired,
       api_key: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
