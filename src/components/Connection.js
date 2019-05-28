@@ -2,162 +2,132 @@
  * Created by stephane.mallaroni on 11/04/2019.
  */
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { API_PATH } from '../variables';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import { API_PATH, WRONG_ID, ERROR_APPEND } from '../variables';
 import logo from '../images/sonergia.png';
+
 import Loading from './Loading';
 
 class Connection extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      mdp: '',
-      data: '',
-      errors: {},
-      step: 1,
-      api_key: '',
-      isLoading: false,
-      redirect: false,
-    };
-  }
+  state = {
+    email: '',
+    mdp: '',
+    errors: {},
+    isLoading: false,
+  };
 
-  handleFormSubmit = (e) => {
+  handleFormSubmit = async (e) => {
     e.preventDefault();
-    this.setState({ isLoading: true });
-    const errors = {};
-    const email = this.state.email;
-    const mdp = this.state.mdp;
-    let formIsValid = true;
+    const { email, mdp } = this.state;
 
-    if (!email) {
-      errors.email = 'Email ne peut pas être vide';
-      formIsValid = false;
-    }
-    if (!mdp) {
-      errors.mdp = 'Mot de passe ne peut pas être vide';
-      formIsValid = false;
-    }
+    const validEmail = email && /^.+@.+\..{2,}$/.test(email);
+    const validMdp = !!mdp;
 
-    if (typeof email !== 'undefined') {
-      const lastAtPos = email.lastIndexOf('@');
-      const lastDotPos = email.lastIndexOf('.');
+    const { errors } = this.state;
 
-      if (
-        !(
-          lastAtPos < lastDotPos
-          && lastAtPos > 0
-          && email.indexOf('@@') === -1
-          && lastDotPos > 2
-          && email.length - lastDotPos > 2
-        )
-      ) {
-        formIsValid = false;
-        errors.email = "Cet email n'est pas valide";
-      }
-    }
+    this.setState({
+      errors: {
+        ...errors,
+        email: validEmail ? null : 'Email ne peut pas être vide',
+        mdp: validMdp ? null : 'Mot de passe ne peut pas être vide',
+      },
+    });
+
+    const formIsValid = validEmail && validMdp;
 
     if (formIsValid) {
-      fetch(`${API_PATH}login?email=${email}&password=${mdp}`)
-        .then((response) => {
-          if (response.status >= 200 && response.status < 300) {
-            return response.json();
-          }
-          const error = new Error(response.statusText || response.status);
-          this.setState({ isLoading: false });
-          errors.formulaire = "Une erreur s'est produite";
-          this.setState({ errors });
-          return Promise.reject(error);
-        })
-        .then((json) => {
-          if (json.status === 'success') {
-            this.setState({
-              step: 2,
-              api_key: json.api_key,
-              redirect: true,
-            });
-            if (this.isComponentMounted) {
-              this.setState({ isLoading: false });
-            }
-            // this.props.callbackFromParent({step: this.state.step, api_key: this.state.api_key});
-          } else {
-            this.setState({ isLoading: false });
-            errors.formulaire = 'Identifiants inconnus';
-            this.setState({ errors });
-          }
-          if (this.isComponentMounted) {
-            this.setState({ isLoading: false });
-          }
-        })
-        .catch((error) => {
-          errors.formulaire = "Une erreur s'est produite connexion impossible";
-        });
-    } else {
-      this.setState({ isLoading: false });
-    }
+      this.setState({ isLoading: true, errors: { formulaire: null } });
+      try {
+        const response = await fetch(`${API_PATH}login?email=${email}&password=${mdp}`);
 
-    this.setState({ errors });
+        if (response.status < 200 || response.status >= 300) {
+          throw new Error(ERROR_APPEND);
+        }
+
+        if (response.status >= 200 && response.status < 300) {
+          const json = response.json();
+
+          if (json.status !== 'success') throw new Error(WRONG_ID);
+
+          this.setState({
+            isLoading: false,
+          });
+
+          this.props.history.push('/liste');
+        }
+      } catch (error) {
+        const knowErrors = {
+          [ERROR_APPEND]: "Une erreur s'est produite",
+          [WRONG_ID]: 'Identifiants inconnus',
+          default: "Une erreur s'est produite connexion impossible",
+        };
+
+        this.setState({
+          errors: {
+            ...errors,
+            formulaire: knowErrors[error.message] || knowErrors.default,
+          },
+          isLoading: false,
+        });
+      }
+    }
   };
 
   render() {
-    if (this.state.redirect) {
-      return (
-        <Redirect
-          push
-          to={{
-            pathname: '/liste',
-            state: { api_key: this.state.api_key },
-          }}
-        />
-      );
-    }
+    const {
+      isLoading, email, mdp, errors,
+    } = this.state;
+
     return (
       <div className="Connection columns is-mobile is-centered is-vcentered">
         <div className="box is-half has-text-centered">
           <div className="has-text-centered content-loading">
             <div id="loading_connect">
-              <Loading show={this.state.isLoading} type="Puff" />
+              <Loading show={isLoading} type="Puff" />
             </div>
             <img src={logo} alt="logo sonergia" width="250" />
           </div>
           <div className="has-text-centered">
-            <form action="#">
+            <form onSubmit={this.handleFormSubmit}>
               <div className="field">
                 <input
-                  type="text"
+                  type="email"
                   id="email"
                   name="email"
                   placeholder="Votre Email"
                   className="input"
-                  value={this.state.email}
+                  value={email}
                   onChange={e => this.setState({ email: e.target.value })}
+                  required
                 />
-                <p style={{ color: 'red' }}>{this.state.errors.email}</p>
+                <p style={{ color: 'red' }}>{errors.email}</p>
               </div>
               <div className="field">
                 <input
-                  type="email"
+                  type="password"
                   id="mdp"
                   name="mdp"
                   placeholder="Votre Mot de passe"
                   className="input"
-                  value={this.state.mdp}
+                  value={mdp}
                   onChange={e => this.setState({ mdp: e.target.value })}
+                  required
                 />
-                <p style={{ color: 'red' }}>{this.state.errors.mdp}</p>
+                <p style={{ color: 'red' }}>{errors.mdp}</p>
               </div>
               <div className="field">
                 <div className="control">
                   <input
                     type="submit"
-                    onClick={e => this.handleFormSubmit(e)}
                     className="button is-primary is-outlined is-fullwidth"
                     value="Connexion"
                   />
                 </div>
               </div>
             </form>
-            <p style={{ color: 'red' }}>{this.state.errors.formulaire}</p>
+            <p style={{ color: 'red' }}>{errors.formulaire}</p>
           </div>
         </div>
       </div>
@@ -165,4 +135,10 @@ class Connection extends Component {
   }
 }
 
-export default Connection;
+Connection.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default withRouter(Connection);

@@ -4,5 +4,6 @@
  * Fichier dans gitignore à modifier pour chaque environnement (local, dev, prod...)
  */
 
-// eslint-disable-next-line import/prefer-default-export
 export const API_PATH = 'http://127.0.0.1:8000/';
+export const WRONG_ID = 'WRONG_ID';
+export const ERROR_APPEND = 'ERROR_APPEND';
