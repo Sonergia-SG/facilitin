@@ -4,6 +4,6 @@
  * Fichier dans gitignore à modifier pour chaque environnement (local, dev, prod...)
  */
 
-export const API_PATH = 'http://127.0.0.1:8000/';
+export const API_PATH = process.env.API_PATH || 'https://api-public-dev.sonergia.fr/';
 export const WRONG_ID = 'WRONG_ID';
 export const ERROR_APPEND = 'ERROR_APPEND';

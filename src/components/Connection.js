@@ -47,7 +47,7 @@ class Connection extends Component {
         }
 
         if (response.status >= 200 && response.status < 300) {
-          const json = response.json();
+          const json = await response.json();
 
           if (json.status !== 'success') throw new Error(WRONG_ID);
 
@@ -55,9 +55,10 @@ class Connection extends Component {
             isLoading: false,
           });
 
-          this.props.history.push('/liste');
+          this.props.history.push('/liste', { api_key: json.api_key });
         }
       } catch (error) {
+        console.warn(error);
         const knowErrors = {
           [ERROR_APPEND]: "Une erreur s'est produite",
           [WRONG_ID]: 'Identifiants inconnus',
