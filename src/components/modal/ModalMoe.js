@@ -3,23 +3,11 @@
  */
 import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
+import PropTypes from 'prop-types';
 
 
 class ModalMoe extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: this.props.open,
-      moe: this.props.moeValues,
-    };
-  }
-
-  componentWillReceiveProps(newProps) {
-    this.setState({ open: newProps.open });
-  }
-
     onCloseModal = () => {
-      this.setState({ open: false });
       this.props.onCloseModalType('moe');
     };
 
@@ -27,7 +15,7 @@ class ModalMoe extends Component {
       return (
         <div>
           <Modal
-            open={this.state.open}
+            open={this.props.open}
             onClose={this.onCloseModal}
             center
             styles={{ modal: { border: '2px #00D1B2 solid' } }}
@@ -39,5 +27,10 @@ class ModalMoe extends Component {
       );
     }
 }
+
+ModalMoe.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onCloseModalType: PropTypes.func.isRequired,
+};
 
 export default ModalMoe;
