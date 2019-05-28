@@ -5,39 +5,38 @@ import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
 
 
-class  ModalMoe extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            open: this.props.open,
-            moe:this.props.moeValues
-        }
+class ModalMoe extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: this.props.open,
+      moe: this.props.moeValues,
     };
+  }
 
-    componentWillReceiveProps(newProps) {
-        this.setState({open: newProps.open});
-    }
+  componentWillReceiveProps(newProps) {
+    this.setState({ open: newProps.open });
+  }
 
     onCloseModal = () => {
-        this.setState({ open: false });
-        this.props.onCloseModalType('moe');
+      this.setState({ open: false });
+      this.props.onCloseModalType('moe');
     };
 
-    render(){
-        return(
-            <div>
-                <Modal open={this.state.open}
-                       onClose={this.onCloseModal}
-                       center
-                       styles={{ modal: {border:"2px #00D1B2 solid", }}}
-                >
-                    <h1 className="modal_title">MOE</h1>
-                    <table className="modal_table">
-
-                    </table>
-                </Modal>
-            </div>
-        )
+    render() {
+      return (
+        <div>
+          <Modal
+            open={this.state.open}
+            onClose={this.onCloseModal}
+            center
+            styles={{ modal: { border: '2px #00D1B2 solid' } }}
+          >
+            <h1 className="modal_title">MOE</h1>
+            <table className="modal_table" />
+          </Modal>
+        </div>
+      );
     }
 }
 

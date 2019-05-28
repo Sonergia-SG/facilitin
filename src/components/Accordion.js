@@ -73,13 +73,13 @@ class Accordion extends Component {
                     <div className="tile is-parent is-vertical">
                       <div className="tile is-child notification has-text-centered tilebordered">
                         <div className="content">
-                            <DropZone id_file={this.state.val.id_file} />
-                          </div>
+                          <DropZone id_file={this.state.val.id_file} />
+                        </div>
                       </div>
                       <div className="tile is-child notification tilebordered">
                         <div className="content has-text-centered bigplus">
-                            <i className="fas fa-file-download fa-2x" />
-                          </div>
+                          <i className="fas fa-file-download fa-2x" />
+                        </div>
                       </div>
                     </div>
                   </div>

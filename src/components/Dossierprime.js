@@ -123,6 +123,16 @@ class Dossierprime extends Component {
               <div className="tile is-parent is-vertical">
                 <div className="tile is-child notification has-text-centered">
                   <p className="title">
+
+
+
+
+
+
+
+
+
+
 Dossier N°
                     {this.state.data.id_dossierprime}
                   </p>
@@ -137,6 +147,16 @@ Dossier N°
                 <div className="tile is-child">
                   <div className="content has-text-centered">
                     <button className="button is-primary is-outlined is-medium">
+
+
+
+
+
+
+
+
+
+
 Terminer
                     </button>
                   </div>
@@ -160,18 +180,48 @@ Terminer
               className="button is-primary is-outlined is-medium"
               onClick={e => this.onOpenModal('moa')}
             >
+
+
+
+
+
+
+
+
+
+
 MOA
             </span>
             <span
               className="button is-primary is-outlined is-medium"
               onClick={e => this.onOpenModal('moe')}
             >
+
+
+
+
+
+
+
+
+
+
 MOE
             </span>
             <span
               className="button is-primary is-outlined is-medium"
               onClick={e => this.onOpenModal('travaux')}
             >
+
+
+
+
+
+
+
+
+
+
 TRAVAUX
             </span>
           </div>

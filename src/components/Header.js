@@ -63,8 +63,8 @@ class HeaderNav extends Component {
                 <div className="buttons">
                   {button_retour}
                   <button className="button is-primary" onClick={e => this.deconnexionSubmit(e)}>
-                          <strong>Déconnexion</strong>
-                        </button>
+                    <strong>Déconnexion</strong>
+                  </button>
                 </div>
               </div>
             </div>
