@@ -1,19 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 
 import 'bulma/css/bulma.css';
 import './css/index.css';
 
-import Router from './components/Router';
 import * as serviceWorker from './serviceWorker';
+import Init from './Init';
 
-import store from './store';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router />
-  </Provider>,
+  <Init />,
   document.getElementById('root'),
 );
 
