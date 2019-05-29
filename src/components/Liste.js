@@ -77,8 +77,12 @@ class Liste extends Component {
 
     onRowClick = (state, rowInfo) => ({
       onClick: () => {
-        this.props.history.push('/dossierprime', { id_dp_operation: rowInfo.original.id_dp_operation });
-        /* eslint-enable */
+        if (rowInfo) {
+          this.props.history.push(
+            '/dossierprime',
+            { id_dp_operation: rowInfo.original.id_dp_operation },
+          );
+        }
       },
     })
 
