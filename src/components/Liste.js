@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import {
@@ -47,7 +48,6 @@ const TRANSLATIONS = {
 
 class Liste extends Component {
   state = {
-    api_key: this.props.location.state === undefined ? false : this.props.location.state.api_key,
     num_tab: 0,
     data: [],
     isLoading: true,
@@ -75,10 +75,7 @@ class Liste extends Component {
 
     onRowClick = (state, rowInfo) => ({
       onClick: () => {
-        /* eslint-disable camelcase */
-        const { api_key } = this.state;
-
-        this.props.history.push('/dossierprime', { id_dp_operation: rowInfo.original.id_dp_operation, api_key });
+        this.props.history.push('/dossierprime', { id_dp_operation: rowInfo.original.id_dp_operation });
         /* eslint-enable */
       },
     })
@@ -92,7 +89,7 @@ class Liste extends Component {
           headers: new Headers({
             'user-agent': 'Mozilla/4.0 MDN Example',
             'content-type': 'application/json',
-            Authorization: `bearer ${this.state.api_key}`,
+            Authorization: `bearer ${this.props.apiKey}`,
           }),
         });
 
@@ -117,7 +114,6 @@ class Liste extends Component {
         data,
         search,
         isLoading,
-        api_key,
         num_tab,
       } = this.state;
 
@@ -127,7 +123,7 @@ class Liste extends Component {
 
       return (
         <div>
-          <HeaderNav api_key={api_key} from="liste" />
+          <HeaderNav from="liste" />
           <div className="has-text-centered content-loading">
             <div id="loading_liste"><Loading show={isLoading} type="ThreeDots" /></div>
           </div>
@@ -195,14 +191,10 @@ class Liste extends Component {
 }
 
 Liste.propTypes = {
-  location: PropTypes.shape({
-    state: PropTypes.shape({
-      api_key: PropTypes.string.isRequired,
-    }),
-  }).isRequired,
+  apiKey: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default withRouter(Liste);
+export default connect(s => ({ apiKey: s.user.apiKey }))(withRouter(Liste));

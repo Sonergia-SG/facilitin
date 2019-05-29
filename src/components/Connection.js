@@ -41,7 +41,7 @@ const Connection = ({
               onChange={e => updateEmail(e.target.value)}
               required
             />
-            <p style={{ color: 'red' }}>{loginState.errors.email}</p>
+            {loginState.errors.email && <p style={{ color: 'red' }}>{loginState.errors.email}</p>}
           </div>
           <div className="field">
             <input
@@ -54,7 +54,9 @@ const Connection = ({
               onChange={e => updatePassword(e.target.value)}
               required
             />
-            <p style={{ color: 'red' }}>{loginState.errors.password}</p>
+            {loginState.errors.password && (
+              <p style={{ color: 'red' }}>{loginState.errors.password}</p>
+            )}
           </div>
           <div className="field">
             <div className="control">
@@ -66,7 +68,7 @@ const Connection = ({
             </div>
           </div>
         </form>
-        <p style={{ color: 'red' }}>{loginState.errors.form}</p>
+        {loginState.errors.form && <p style={{ color: 'red' }}>{loginState.errors.form}</p>}
       </div>
     </div>
   </div>
@@ -80,9 +82,9 @@ Connection.propTypes = {
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     errors: PropTypes.shape({
-      email: PropTypes.string.isRequired,
-      password: PropTypes.string.isRequired,
-      form: PropTypes.string.isRequired,
+      email: PropTypes.string,
+      password: PropTypes.string,
+      form: PropTypes.string,
     }).isRequired,
     loading: PropTypes.bool.isRequired,
   }).isRequired,

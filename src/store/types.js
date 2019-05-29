@@ -3,6 +3,8 @@ export const DECREMENT = 'DECREMENT';
 
 export const INIT = '@@INIT';
 
+export const LOGOUT = 'LOGOUT';
+
 export const LOGIN_LOADING = 'LOGIN_LOADING';
 export const LOGIN_LOADED = 'LOGIN_LOADED';
 export const LOGIN_ERROR = 'LOGIN_ERROR';

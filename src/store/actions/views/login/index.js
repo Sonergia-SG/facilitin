@@ -5,6 +5,7 @@ import {
   LOGIN_UPDATE_ERRORS,
   LOGIN_UPDATE_EMAIL,
   LOGIN_UPDATE_PASSWORD,
+  LOGOUT,
 } from '../../../types';
 
 import { API_PATH, ERROR_APPEND, WRONG_ID } from '../../../../variables';
@@ -22,6 +23,10 @@ export const loginLoaded = () => ({
 export const loginError = errors => ({
   type: LOGIN_ERROR,
   errors,
+});
+
+export const logout = () => ({
+  type: LOGOUT,
 });
 
 export const updateErrors = errors => ({

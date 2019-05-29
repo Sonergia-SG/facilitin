@@ -5,6 +5,7 @@ import {
   LOGIN_UPDATE_ERRORS,
   LOGIN_UPDATE_EMAIL,
   LOGIN_UPDATE_PASSWORD,
+  LOGOUT,
   INIT,
 } from '../../../types';
 
@@ -12,15 +13,16 @@ const initialState = {
   email: '',
   password: '',
   errors: {
-    email: '',
-    password: '',
-    form: '',
+    email: null,
+    password: null,
+    form: null,
   },
   loading: false,
 };
 
 const login = (state = initialState, action) => {
   switch (action.type) {
+    case LOGOUT:
     case INIT:
       return initialState;
     case LOGIN_LOADING:
@@ -34,6 +36,7 @@ const login = (state = initialState, action) => {
       };
     case LOGIN_LOADED:
       return {
+        ...state,
         password: '',
         errors: initialState.errors,
         loading: false,

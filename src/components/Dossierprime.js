@@ -14,7 +14,6 @@ import { datahand } from './mockApi';
 
 class Dossierprime extends Component {
   state = {
-    api_key: this.props.location.state === undefined ? false : this.props.location.state.api_key,
     id_dp_operation:
       this.props.location.state === undefined ? false : this.props.location.state.id_dp_operation,
     data: [],
@@ -56,7 +55,7 @@ class Dossierprime extends Component {
             headers: new Headers({
                 'user-agent': 'Mozilla/4.0 MDN Example',
                 'content-type': 'application/json',
-                'Authorization': 'bearer '+this.state.api_key
+                'Authorization': 'bearer '+this.props.apiKey
             })}).then( (response) => {
             return response.json()
         })
@@ -75,14 +74,14 @@ class Dossierprime extends Component {
   render() {
     /* eslint-disable camelcase */
     const {
-      data, api_key, open_moa, open_moe, open_travaux,
+      data, open_moa, open_moe, open_travaux,
     } = this.state;
 
     const title = `Dossier N° ${data.id_dossierprime}`;
 
     return (
       <div>
-        <HeaderNav api_key={api_key} from="dossier" />
+        <HeaderNav from="dossier" />
         <div className="tile is-ancestor">
           <div className="tile is-vertical is-3">
             <div className="tile">
@@ -172,7 +171,6 @@ Dossierprime.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       id_dp_operation: PropTypes.number.isRequired,
-      api_key: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 };

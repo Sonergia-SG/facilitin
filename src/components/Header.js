@@ -3,17 +3,16 @@
  */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import logoSmall from '../images/sonergia_small.png';
 
-class HeaderNav extends Component {
-  state = {
-    from: this.props.from,
-  };
+import { logout } from '../store/actions/views/login';
 
+class HeaderNav extends Component {
   deconnexionSubmit = () => {
-    this.props.history.push('/');
+    this.props.logout();
   };
 
   retourListe = () => {
@@ -21,8 +20,9 @@ class HeaderNav extends Component {
   };
 
   render() {
-    const { from } = this.state;
-    const buttonRetour = from === 'dossier' ? (
+    const { pathname } = this.props.location;
+    const displayBack = pathname.includes('dossierprime');
+    const buttonRetour = displayBack ? (
       <button type="button" className="button is-primary is-outlined" onClick={this.retourListe}>Retour liste dossiers</button>
     ) : null;
 
@@ -61,10 +61,13 @@ class HeaderNav extends Component {
 }
 
 HeaderNav.propTypes = {
-  from: PropTypes.string.isRequired,
+  logout: PropTypes.func.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default withRouter(HeaderNav);
+export default connect(null, { logout })(withRouter(HeaderNav));
