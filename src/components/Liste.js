@@ -14,6 +14,8 @@ import PropTypes from 'prop-types';
 
 import { API_PATH } from '../variables';
 
+import capture from '../tools/errorReporting/captureException';
+
 import Loading from './Loading';
 import HeaderNav from './Header';
 
@@ -104,6 +106,7 @@ class Liste extends Component {
           this.setState({ isLoading: false });
         }
       } catch (e) {
+        capture(e);
         this.setState({ isLoading: false });
       }
     }

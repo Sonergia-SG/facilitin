@@ -10,6 +10,8 @@ import {
 
 import { API_PATH, ERROR_APPEND, WRONG_ID } from '../../../../variables';
 
+import capture from '../../../../tools/errorReporting/captureException';
+
 import { addToken } from '../../user';
 
 export const loginLoading = () => ({
@@ -82,7 +84,6 @@ export const loginRequest = () => async (dispatch, getState) => {
         dispatch(addToken(json.api_key));
       }
     } catch (error) {
-      console.warn(error);
       const knowErrors = {
         [ERROR_APPEND]: "Une erreur s'est produite",
         [WRONG_ID]: 'Identifiants inconnus',
@@ -95,6 +96,10 @@ export const loginRequest = () => async (dispatch, getState) => {
           form: knowErrors[error.message] || knowErrors.default,
         }),
       );
+
+      if (error.message !== ERROR_APPEND && error.message !== WRONG_ID) {
+        capture(error);
+      }
     }
   }
 };

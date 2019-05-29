@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import './tools/errorReporting';
+
 import 'bulma/css/bulma.css';
 import './css/index.css';
 
