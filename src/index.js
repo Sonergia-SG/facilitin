@@ -5,14 +5,14 @@ import { Provider } from 'react-redux';
 import 'bulma/css/bulma.css';
 import './css/index.css';
 
-import Routeur from './components/Routeur';
+import Router from './components/Router';
 import * as serviceWorker from './serviceWorker';
 
 import store from './store';
 
 ReactDOM.render(
   <Provider store={store}>
-    <Routeur />
+    <Router />
   </Provider>,
   document.getElementById('root'),
 );
