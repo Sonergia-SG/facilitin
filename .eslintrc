@@ -1,0 +1,17 @@
+{
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
+    "react/destructuring-assignment": [
+      1,
+      "always",
+      { "ignoreClassFields": true }
+    ],
+    "linebreak-style": [1, "windows"]
+  }
+}

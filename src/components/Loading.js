@@ -1,39 +1,32 @@
 /**
  * Created by stephane.mallaroni on 17/04/2019.
  */
-import React, { Component } from 'react';
-import Loader from 'react-loader-spinner'
+import React from 'react';
+import Loader from 'react-loader-spinner';
+import PropTypes from 'prop-types';
 
-class Loading extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            show:this.props.show === undefined ? false : this.props.show,
-            typeprops:this.props.type === undefined ? 'Puff' : this.props.type
-        };
-    }
+const Loading = ({ show, type }) => {
+  if (show) {
+    return (
+      <Loader
+        type={type}
+        color="#EE6D42"
+        height="110"
+        width="110"
+      />
+    );
+  }
+  return (<span />);
+};
 
-    componentDidUpdate(prevProps) {
-        // Typical usage (don't forget to compare props):
-        if (this.props.show !== prevProps.show) {
-            this.setState({show:this.props.show});
-        }
-    }
+Loading.propTypes = {
+  show: PropTypes.bool,
+  type: PropTypes.string,
+};
 
-    render() {
-        if (this.state.show) {
-            return (
-                <Loader
-                    type={this.state.typeprops}
-                    color="#EE6D42"
-                    height="110"
-                    width="110"
-                />
-            );
-        }else{
-            return (<span></span>);
-        }
-    }
-}
+Loading.defaultProps = {
+  show: false,
+  type: 'Puff',
+};
 
 export default Loading;

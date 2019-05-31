@@ -2,37 +2,36 @@
  * Created by stephane.mallaroni on 15/04/2019.
  */
 import React, { Component } from 'react';
-import bulmaAccordion from 'bulma-accordion/dist/js/bulma-accordion.js'
+import bulmaAccordion from 'bulma-accordion/dist/js/bulma-accordion';
 import 'bulma-accordion/dist/css/bulma-accordion.min.css';
-import Accordion from './Accordion'
+import PropTypes from 'prop-types';
 
-class  Collapsed extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            accordions:[],
-            documents: this.props.valeur
-        }
-    }
+import Accordion from './Accordion';
 
-    componentDidMount(){
-        this.setState({accordions: bulmaAccordion.attach()})
-    }
+class Collapsed extends Component {
+  accordion = []
 
-    render(){
-        let accordion = [];
-        accordion = this.state.documents.map((value, index)=> {
-            return <Accordion valeur={value} key={index} numero={index} />
-        })
+  componentDidMount() {
+    this.accordion = bulmaAccordion.attach();
+  }
 
-        return(
-            <div>
-                <section className="accordions">
-                    {accordion}
-                </section>
-            </div>
-        )
-    }
+  render() {
+    const { valeur } = this.props;
+
+    return (
+      <div>
+        <section className="accordions">
+          {valeur.map((value, index) => (
+            <Accordion valeur={value} key={value.id_file} numero={index} />
+          ))}
+        </section>
+      </div>
+    );
+  }
 }
+
+Collapsed.propTypes = {
+  valeur: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+};
 
 export default Collapsed;
