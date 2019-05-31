@@ -1,3 +1,5 @@
+import { normalize } from 'normalizr';
+
 import {
   LIST_LOADING,
   LIST_LOADED,
@@ -7,6 +9,7 @@ import {
 } from '../../../types';
 
 import { API_PATH } from '../../../../variables';
+import { folder } from '../../../reducer/entities/schema';
 
 import capture from '../../../../tools/errorReporting/captureException';
 
@@ -15,9 +18,9 @@ export const listLoading = tab => ({
   tab,
 });
 
-export const listLoaded = (values, tab) => ({
+export const listLoaded = (normalized, tab) => ({
   type: LIST_LOADED,
-  values,
+  normalized,
   tab,
 });
 
@@ -60,7 +63,8 @@ export const loadList = toTab => async (dispatch, getState) => {
 
     if (json.status === 'success') {
       // ! add flat values here
-      dispatch(listLoaded(json.values, tab));
+      const normalized = normalize(json, { values: [folder] });
+      dispatch(listLoaded(normalized, tab));
     } else {
       dispatch(listError());
     }

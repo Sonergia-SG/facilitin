@@ -94,15 +94,15 @@ class Liste extends Component {
   };
 
   render() {
-    /* eslint-disable camelcase */
-    const {
-      selectedTab, tab, search,
-    } = this.props.listState;
-    const { loading, tempData } = tab[selectedTab];
+    const { listState, allFolders } = this.props;
+    const { selectedTab, tab, search } = listState;
+    const { loading, data } = tab[selectedTab];
+    console.log(loading);
 
+    const mappedData = data.map(id => allFolders[id]);
     const filteredData = search
-      ? tempData.filter(row => String(row.id_dp_operation).includes(search))
-      : tempData;
+      ? mappedData.filter(row => String(row.id_dp_operation).includes(search))
+      : mappedData;
 
     return (
       <div>
@@ -183,8 +183,9 @@ Liste.propTypes = {
   loadList: PropTypes.func.isRequired,
   listUpdateSearch: PropTypes.func.isRequired,
   apiKey: PropTypes.string.isRequired,
+  allFolders: PropTypes.shape({}).isRequired,
   listState: PropTypes.shape({
-    selectedTab: PropTypes.bool.isRequired,
+    selectedTab: PropTypes.number.isRequired,
     tab: PropTypes.shape({}).isRequired,
     search: PropTypes.string.isRequired,
   }).isRequired,
@@ -197,6 +198,7 @@ export default connect(
   s => ({
     apiKey: s.user.apiKey,
     listState: s.views.list,
+    allFolders: s.entities.folders,
   }),
   { loadList, listUpdateSearch },
 )(withRouter(Liste));

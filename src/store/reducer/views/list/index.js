@@ -14,22 +14,18 @@ const initialState = {
   tab: {
     0: {
       data: [],
-      tempData: [],
       loading: false,
     },
     1: {
       data: [],
-      tempData: [],
       loading: false,
     },
     2: {
       data: [],
-      tempData: [],
       loading: false,
     },
     3: {
       data: [],
-      tempData: [],
       loading: false,
     },
   },
@@ -61,7 +57,7 @@ const list = (state = initialState, action) => {
           [action.tab]: {
             ...state.tab[action.tab],
             loading: false,
-            tempData: action.values,
+            data: action.normalized.result.values,
           },
         },
       };
