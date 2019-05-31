@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 // import { API_PATH } from '../variables';
 import HeaderNav from './Header';
@@ -11,11 +12,10 @@ import ModalMoa from './modal/ModalMoa';
 import ModalMoe from './modal/ModalMoe';
 import ModalTravaux from './modal/ModalTravaux';
 import { datahand } from './mockApi';
+import { fetchFolder } from '../store/actions/views/folder';
 
 class Dossierprime extends Component {
   state = {
-    id_dp_operation:
-      this.props.location.state === undefined ? false : this.props.location.state.id_dp_operation,
     data: [],
     open_moa: false,
     open_moe: false,
@@ -23,7 +23,8 @@ class Dossierprime extends Component {
   };
 
   componentWillMount() {
-    this.getData(this.state.id_dp_operation);
+    this.getData(this.props.match.params.dpId);
+    this.props.fetchFolder(this.props.match.params.dpId);
   }
 
   onOpenModal = type => () => {
@@ -46,28 +47,7 @@ class Dossierprime extends Component {
     }
   };
 
-  // eslint-disable-next-line no-unused-vars, camelcase
-  getData = (id_dp_operation) => {
-    // a décommenter et a régler pour faire un véritable appel à l'api
-    /* this.setState({isLoading: true});
-        fetch(API_PATH+'detailaction/'+id_dp_operation, {
-            method: 'get',
-            headers: new Headers({
-                'user-agent': 'Mozilla/4.0 MDN Example',
-                'content-type': 'application/json',
-                'Authorization': 'bearer '+this.props.apiKey
-            })}).then( (response) => {
-            return response.json()
-        })
-        .then( (json) => {
-            if(json.status === 'success'){
-                this.setState({
-                    data:json.values
-                })
-                this.setState({isLoading: false});
-            }
-            this.setState({isLoading: false});
-        }); */
+  getData = () => {
     this.setState({ data: datahand });
   };
 
@@ -168,11 +148,15 @@ class Dossierprime extends Component {
 }
 
 Dossierprime.propTypes = {
-  location: PropTypes.shape({
-    state: PropTypes.shape({
-      id_dp_operation: PropTypes.number.isRequired,
+  fetchFolder: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      dpId: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 };
 
-export default Dossierprime;
+export default connect(
+  () => ({}),
+  { fetchFolder },
+)(Dossierprime);

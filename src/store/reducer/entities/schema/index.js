@@ -1,4 +1,23 @@
 import { schema } from 'normalizr';
 
-// eslint-disable-next-line import/prefer-default-export
-export const folder = new schema.Entity('folders', {}, { idAttribute: 'id_dp_operation' });
+export const checkPoint = new schema.Entity(
+  'checkPoints',
+  {},
+  { idAttribute: 'id_controle' },
+);
+
+export const file = new schema.Entity(
+  'files',
+  {
+    point_controle: [checkPoint],
+  },
+  { idAttribute: 'id_file' },
+);
+
+export const folder = new schema.Entity(
+  'folders',
+  {
+    documents: [file],
+  },
+  { idAttribute: 'id_dossierprime' },
+);

@@ -88,9 +88,7 @@ class Liste extends Component {
   onRowClick = (state, rowInfo) => ({
     onClick: () => {
       if (rowInfo) {
-        this.props.history.push('/dossierprime', {
-          id_dp_operation: rowInfo.original.id_dp_operation,
-        });
+        this.props.history.push(`/folder/${rowInfo.original.id_dp_operation}`);
       }
     },
   });

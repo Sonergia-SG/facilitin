@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 
 import folders from './folders';
-import documents from './documents';
+import checkPoints from './checkPoints';
+import files from './files';
 import moa from './moa';
 import moe from './moe';
 import travaux from './travaux';
@@ -11,5 +12,6 @@ export default combineReducers({
   moa,
   moe,
   travaux,
-  documents,
+  checkPoints,
+  files,
 });

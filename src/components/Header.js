@@ -16,7 +16,7 @@ class HeaderNav extends Component {
   };
 
   retourListe = () => {
-    this.props.history.push('/liste');
+    this.props.history.push('/list');
   };
 
   render() {

@@ -11,9 +11,9 @@ const Root = ({ logged }) => {
   if (logged) {
     return (
       <Switch>
-        <Route path="/liste" component={Liste} />
-        <Route path="/dossierprime" component={Dossierprime} />
-        <Redirect to="/liste" />
+        <Route path="/list" component={Liste} />
+        <Route path="/folder/:dpId" component={Dossierprime} />
+        <Redirect to="/list" />
       </Switch>
     );
   }
