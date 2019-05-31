@@ -6,7 +6,7 @@ import bulmaAccordion from 'bulma-accordion/dist/js/bulma-accordion';
 import 'bulma-accordion/dist/css/bulma-accordion.min.css';
 import PropTypes from 'prop-types';
 
-import Accordion from './Accordion';
+import Accordion from '../Accordion';
 
 class Collapsed extends Component {
   accordion = []

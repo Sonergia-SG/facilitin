@@ -4,27 +4,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { denormalize } from 'normalizr';
 
 // import { API_PATH } from '../variables';
-import HeaderNav from './Header';
+import HeaderNav from '../Header';
 import Collapsed from './Collapsed';
-import ModalMoa from './modal/ModalMoa';
-import ModalMoe from './modal/ModalMoe';
-import ModalTravaux from './modal/ModalTravaux';
-import { datahand } from './mockApi';
-import { fetchFolder } from '../store/actions/views/folder';
+import Modal from './Modal';
+import { fetchFolder } from '../../store/actions/views/folder';
 
-class Dossierprime extends Component {
+import { folder as folderSchema } from '../../store/reducer/entities/schema';
+
+class Folder extends Component {
   state = {
-    data: [],
     open_moa: false,
     open_moe: false,
     open_travaux: false,
   };
 
   componentWillMount() {
-    this.getData(this.props.match.params.dpId);
-    this.props.fetchFolder(this.props.match.params.dpId);
+    this.props.fetchFolder(this.props.match.params.folderId);
   }
 
   onOpenModal = type => () => {
@@ -47,16 +45,18 @@ class Dossierprime extends Component {
     }
   };
 
-  getData = () => {
-    this.setState({ data: datahand });
-  };
-
   render() {
     /* eslint-disable camelcase */
-    const {
-      data, open_moa, open_moe, open_travaux,
-    } = this.state;
+    const { open_moa, open_moe, open_travaux } = this.state;
+    const { entities, match } = this.props;
+    const { folderId } = match.params;
+    const folder = entities.folders[folderId];
 
+    if (!folder) {
+      return <div>loading</div>;
+    }
+
+    const data = denormalize(folder, folderSchema, entities);
     const title = `Dossier N° ${data.id_dossierprime}`;
 
     return (
@@ -104,59 +104,35 @@ class Dossierprime extends Component {
             </div>
           </div>
         </div>
-        <div className="container footersonergia">
-          <div className="buttons has-addons is-centered">
-            <span
-              role="button"
-              tabIndex={0}
-              className="button is-primary is-outlined is-medium"
-              onClick={this.onOpenModal('moa')}
-              onKeyUp={this.onOpenModal('moa')}
-            >
-              {'MOA'}
-            </span>
-            <span
-              role="button"
-              tabIndex={0}
-              className="button is-primary is-outlined is-medium"
-              onClick={this.onOpenModal('moe')}
-              onKeyUp={this.onOpenModal('moe')}
-            >
-              {'MOE'}
-            </span>
-            <span
-              role="button"
-              tabIndex={0}
-              className="button is-primary is-outlined is-medium"
-              onClick={this.onOpenModal('travaux')}
-              onKeyUp={this.onOpenModal('travaux')}
-            >
-              {'TRAVAUX'}
-            </span>
-          </div>
-        </div>
-        <ModalMoa open={open_moa} moaValues={data.moa} onCloseModalType={this.onCloseModalType} />
-        <ModalMoe open={open_moe} moeValues={data.moe} onCloseModalType={this.onCloseModalType} />
-        <ModalTravaux
-          open={open_travaux}
-          travauxValues={data.travaux}
+        <Modal
+          openMoa={open_moa}
+          openMoe={open_moe}
+          openSite={open_travaux}
+          onOpenModal={this.onOpenModal}
           onCloseModalType={this.onCloseModalType}
+          data={data}
         />
       </div>
     );
   }
 }
 
-Dossierprime.propTypes = {
+Folder.propTypes = {
+  entities: PropTypes.shape({
+    folders: PropTypes.shape({}).isRequired,
+  }).isRequired,
+  folder: PropTypes.shape({
+    pending: PropTypes.shape({}).isRequired,
+  }).isRequired,
   fetchFolder: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
-      dpId: PropTypes.string.isRequired,
+      folderId: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 };
 
 export default connect(
-  () => ({}),
+  s => ({ entities: s.entities, folder: s.views.folder }),
   { fetchFolder },
-)(Dossierprime);
+)(Folder);

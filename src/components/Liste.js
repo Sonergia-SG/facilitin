@@ -88,7 +88,8 @@ class Liste extends Component {
   onRowClick = (state, rowInfo) => ({
     onClick: () => {
       if (rowInfo) {
-        this.props.history.push(`/folder/${rowInfo.original.id_dp_operation}`);
+        // this.props.history.push(`/folder/${rowInfo.original.id_dossierprime}`);
+        this.props.history.push('/folder/13555');
       }
     },
   });
@@ -237,6 +238,10 @@ export default connect(
     allFolders: s.entities.folders,
   }),
   {
-    loadList, listUpdateSearch, listUpdatePage, listUpdatePageSize, listUpdateSorted,
+    loadList,
+    listUpdateSearch,
+    listUpdatePage,
+    listUpdatePageSize,
+    listUpdateSorted,
   },
 )(withRouter(Liste));
