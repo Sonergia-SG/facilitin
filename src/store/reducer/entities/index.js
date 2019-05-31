@@ -1,26 +1,15 @@
-import { LIST_LOADED } from '../../types';
+import { combineReducers } from 'redux';
 
-const initialState = {
-  folders: {},
-  documents: {},
-  moa: {},
-  moe: {},
-  travaux: {},
-};
+import folders from './folders';
+import documents from './documents';
+import moa from './moa';
+import moe from './moe';
+import travaux from './travaux';
 
-const entities = (state = initialState, action) => {
-  switch (action.type) {
-    case LIST_LOADED:
-      return {
-        ...state,
-        folders: {
-          ...state.folders,
-          ...action.normalized.entities.folders,
-        },
-      };
-    default:
-      return state;
-  }
-};
-
-export default entities;
+export default combineReducers({
+  folders,
+  moa,
+  moe,
+  travaux,
+  documents,
+});
