@@ -21,7 +21,7 @@ class HeaderNav extends Component {
 
   render() {
     const { pathname } = this.props.location;
-    const displayBack = pathname.includes('dossierprime');
+    const displayBack = pathname.includes('folder');
     const buttonRetour = displayBack ? (
       <button type="button" className="button is-primary is-outlined" onClick={this.retourListe}>Retour liste dossiers</button>
     ) : null;

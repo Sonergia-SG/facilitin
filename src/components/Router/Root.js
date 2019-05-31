@@ -5,14 +5,14 @@ import PropTypes from 'prop-types';
 
 import Connection from '../Connection';
 import Liste from '../Liste';
-import Dossierprime from '../Dossierprime';
+import Folder from '../Folder';
 
 const Root = ({ logged }) => {
   if (logged) {
     return (
       <Switch>
         <Route path="/list" component={Liste} />
-        <Route path="/folder/:dpId" component={Dossierprime} />
+        <Route path="/folder/:folderId" component={Folder} />
         <Redirect to="/list" />
       </Switch>
     );
