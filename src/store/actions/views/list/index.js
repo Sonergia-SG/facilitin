@@ -40,10 +40,10 @@ export const listUpdateSearch = search => ({
 });
 
 export const loadList = toTab => async (dispatch, getState) => {
-  dispatch(listLoading());
-  const { apiKey } = getState().user;
-
   const tab = toTab || getState().views.list.selectedTab;
+
+  dispatch(listLoading(tab));
+  const { apiKey } = getState().user;
 
   if (toTab !== undefined && toTab !== getState().views.list.selectedTab) {
     dispatch(listChangeTab(toTab));

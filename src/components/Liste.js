@@ -97,7 +97,6 @@ class Liste extends Component {
     const { listState, allFolders } = this.props;
     const { selectedTab, tab, search } = listState;
     const { loading, data } = tab[selectedTab];
-    console.log(loading);
 
     const mappedData = data.map(id => allFolders[id]);
     const filteredData = search
