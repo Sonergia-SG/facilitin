@@ -114,6 +114,7 @@ class Liste extends Component {
         <input
           className="input search-table"
           placeholder="N° Action"
+          defaultValue={search}
           onChange={e => this.props.listUpdateSearch(e.target.value)}
         />
         <Tabs defaultIndex={selectedTab} onSelect={index => this.handleData(index)}>
