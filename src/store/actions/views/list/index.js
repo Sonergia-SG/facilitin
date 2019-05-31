@@ -6,6 +6,9 @@ import {
   LIST_ERROR,
   LIST_CHANGE_TAB,
   LIST_CHANGE_SEARCH,
+  LIST_PAGE_UPDATE,
+  LIST_PAGE_SIZE_UPDATE,
+  LIST_SORTED_UPDATE,
 } from '../../../types';
 
 import { API_PATH } from '../../../../variables';
@@ -37,6 +40,21 @@ export const listError = tab => ({
 export const listUpdateSearch = search => ({
   type: LIST_CHANGE_SEARCH,
   search,
+});
+
+export const listUpdatePage = page => ({
+  type: LIST_PAGE_UPDATE,
+  page,
+});
+
+export const listUpdatePageSize = pageSize => ({
+  type: LIST_PAGE_SIZE_UPDATE,
+  pageSize,
+});
+
+export const listUpdateSorted = sorted => ({
+  type: LIST_SORTED_UPDATE,
+  sorted,
 });
 
 export const loadList = toTab => async (dispatch, getState) => {

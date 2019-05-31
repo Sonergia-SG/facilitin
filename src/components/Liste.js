@@ -15,7 +15,13 @@ import PropTypes from 'prop-types';
 import Loading from './Loading';
 import HeaderNav from './Header';
 
-import { loadList, listUpdateSearch } from '../store/actions/views/list';
+import {
+  loadList,
+  listUpdateSearch,
+  listUpdatePage,
+  listUpdatePageSize,
+  listUpdateSorted,
+} from '../store/actions/views/list';
 
 const COLUMNS = [
   {
@@ -95,8 +101,12 @@ class Liste extends Component {
 
   render() {
     const { listState, allFolders } = this.props;
-    const { selectedTab, tab, search } = listState;
-    const { loading, data } = tab[selectedTab];
+    const {
+      selectedTab, tab, search, pageSize,
+    } = listState;
+    const {
+      loading, data, page, sorted,
+    } = tab[selectedTab];
 
     const mappedData = data.map(id => allFolders[id]);
     const filteredData = search
@@ -128,11 +138,18 @@ class Liste extends Component {
           <TabPanel>
             <ReactTable
               {...TRANSLATIONS}
+              filterable
               data={filteredData}
               defaultPageSize={10}
               className="-striped -highlight cur_pointer"
               noDataText="Aucun traitement pour cet onglet"
               columns={COLUMNS}
+              page={page}
+              onPageChange={this.props.listUpdatePage}
+              pageSize={pageSize}
+              onPageSizeChange={this.props.listUpdatePageSize}
+              sorted={sorted}
+              onSortedChange={this.props.listUpdateSorted}
               getTdProps={this.onRowClick}
               getTrProps={this.getTrProps}
             />
@@ -145,6 +162,12 @@ class Liste extends Component {
               className="-striped -highlight cur_pointer"
               noDataText="Aucun traitement pour cet onglet"
               columns={COLUMNS}
+              page={page}
+              onPageChange={this.props.listUpdatePage}
+              pageSize={pageSize}
+              onPageSizeChange={this.props.listUpdatePageSize}
+              sorted={sorted}
+              onSortedChange={this.props.listUpdateSorted}
               getTdProps={this.onRowClick}
               getTrProps={this.getTrProps}
             />
@@ -157,6 +180,12 @@ class Liste extends Component {
               className="-striped -highlight cur_pointer"
               noDataText="Aucun traitement pour cet onglet"
               columns={COLUMNS}
+              page={page}
+              onPageChange={this.props.listUpdatePage}
+              pageSize={pageSize}
+              onPageSizeChange={this.props.listUpdatePageSize}
+              sorted={sorted}
+              onSortedChange={this.props.listUpdateSorted}
               getTdProps={this.onRowClick}
               getTrProps={this.getTrProps}
             />
@@ -169,6 +198,12 @@ class Liste extends Component {
               className="-striped -highlight cur_pointer"
               noDataText="Aucun traitement pour cet onglet"
               columns={COLUMNS}
+              page={page}
+              onPageChange={this.props.listUpdatePage}
+              pageSize={pageSize}
+              onPageSizeChange={this.props.listUpdatePageSize}
+              sorted={sorted}
+              onSortedChange={this.props.listUpdateSorted}
               getTdProps={this.onRowClick}
               getTrProps={this.getTrProps}
             />
@@ -182,6 +217,9 @@ class Liste extends Component {
 Liste.propTypes = {
   loadList: PropTypes.func.isRequired,
   listUpdateSearch: PropTypes.func.isRequired,
+  listUpdatePage: PropTypes.func.isRequired,
+  listUpdatePageSize: PropTypes.func.isRequired,
+  listUpdateSorted: PropTypes.func.isRequired,
   apiKey: PropTypes.string.isRequired,
   allFolders: PropTypes.shape({}).isRequired,
   listState: PropTypes.shape({
@@ -200,5 +238,7 @@ export default connect(
     listState: s.views.list,
     allFolders: s.entities.folders,
   }),
-  { loadList, listUpdateSearch },
+  {
+    loadList, listUpdateSearch, listUpdatePage, listUpdatePageSize, listUpdateSorted,
+  },
 )(withRouter(Liste));
