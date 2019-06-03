@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
 
-import HeaderNav from '../Header';
 import Collapsed from './Collapsed';
 import Left from './Left';
 import Modal from './Modal';
@@ -58,25 +57,21 @@ class Folder extends Component {
 
     if (!folder || !data) {
       return (
-        <div style={{ height: '100%' }}>
-          <HeaderNav />
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: 'calc(100% - 120px)',
-            }}
-          >
-            <Loading show />
-          </div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 'calc(100% - 120px)',
+          }}
+        >
+          <Loading show />
         </div>
       );
     }
 
     return (
-      <div>
-        <HeaderNav from="dossier" />
+      <>
         <div className="tile is-ancestor">
           <Left data={data} />
           {data.documents && <Collapsed valeur={data.documents} />}
@@ -89,7 +84,7 @@ class Folder extends Component {
           onCloseModalType={this.toggleModal}
           data={data}
         />
-      </div>
+      </>
     );
   }
 }

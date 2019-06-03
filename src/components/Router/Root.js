@@ -6,15 +6,19 @@ import PropTypes from 'prop-types';
 import Connection from '../Connection';
 import Liste from '../Liste';
 import Folder from '../Folder';
+import Header from '../Header';
 
 const Root = ({ logged }) => {
   if (logged) {
     return (
-      <Switch>
-        <Route path="/list" component={Liste} />
-        <Route path="/folder/:folderId" component={Folder} />
-        <Redirect to="/list" />
-      </Switch>
+      <div style={{ height: '100%' }}>
+        <Header />
+        <Switch>
+          <Route path="/list" component={Liste} />
+          <Route path="/folder/:folderId" component={Folder} />
+          <Redirect to="/list" />
+        </Switch>
+      </div>
     );
   }
 
