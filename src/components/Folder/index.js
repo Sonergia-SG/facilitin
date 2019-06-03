@@ -9,7 +9,7 @@ import { denormalize } from 'normalizr';
 import Collapsed from './Collapsed';
 import Left from './Left';
 import Modal from './Modal';
-import Loading from '../Loading';
+import Empty from './Empty';
 
 import { fetchFolder } from '../../store/actions/views/folder';
 
@@ -50,25 +50,12 @@ class Folder extends Component {
 
   render() {
     const { openMoa, openMoe, openSite } = this.state;
-    const { entities, match } = this.props;
+    const { entities, match, folderState } = this.props;
     const { folderId } = match.params;
     const folder = entities.folders[folderId];
     const data = denormalize(folder, folderSchema, entities);
 
-    if (!folder || !data) {
-      return (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: 'calc(100% - 120px)',
-          }}
-        >
-          <Loading show />
-        </div>
-      );
-    }
+    if (!folder || !data) return <Empty loading={folderState.loading} />;
 
     return (
       <>
@@ -93,9 +80,7 @@ Folder.propTypes = {
   entities: PropTypes.shape({
     folders: PropTypes.shape({}).isRequired,
   }).isRequired,
-  folder: PropTypes.shape({
-    pending: PropTypes.shape({}).isRequired,
-  }).isRequired,
+  folderState: PropTypes.shape({}),
   fetchFolder: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -104,7 +89,16 @@ Folder.propTypes = {
   }).isRequired,
 };
 
+Folder.defaultProps = {
+  folderState: {
+    loading: true,
+  },
+};
+
 export default connect(
-  s => ({ entities: s.entities, folder: s.views.folder }),
+  (s, p) => ({
+    entities: s.entities,
+    folderState: s.views.folder.pending[p.match.params.folderId],
+  }),
   { fetchFolder },
 )(Folder);
