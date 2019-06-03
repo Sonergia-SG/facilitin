@@ -63,7 +63,7 @@ const TRANSLATIONS = {
   rowsText: 'lignes',
 };
 
-class Liste extends Component {
+class List extends Component {
   componentDidMount() {
     this.props.loadList();
   }
@@ -114,7 +114,7 @@ class Liste extends Component {
     return (
       <>
         <div className="has-text-centered content-loading">
-          <div id="loading_liste">
+          <div id="loading_list">
             <Loading show={loading} type="ThreeDots" />
           </div>
         </div>
@@ -210,7 +210,7 @@ class Liste extends Component {
   }
 }
 
-Liste.propTypes = {
+List.propTypes = {
   loadList: PropTypes.func.isRequired,
   listUpdateSearch: PropTypes.func.isRequired,
   listUpdatePage: PropTypes.func.isRequired,
@@ -241,4 +241,4 @@ export default connect(
     listUpdatePageSize,
     listUpdateSorted,
   },
-)(withRouter(Liste));
+)(withRouter(List));

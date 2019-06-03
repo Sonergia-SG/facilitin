@@ -15,7 +15,7 @@ class HeaderNav extends Component {
     this.props.logout();
   };
 
-  retourListe = () => {
+  backtoList = () => {
     this.props.history.push('/list');
   };
 
@@ -23,7 +23,7 @@ class HeaderNav extends Component {
     const { pathname } = this.props.location;
     const displayBack = pathname.includes('folder');
     const buttonRetour = displayBack ? (
-      <button type="button" className="button is-primary is-outlined" onClick={this.retourListe}>Retour liste dossiers</button>
+      <button type="button" className="button is-primary is-outlined" onClick={this.backtoList}>Retour liste dossiers</button>
     ) : null;
 
     return (

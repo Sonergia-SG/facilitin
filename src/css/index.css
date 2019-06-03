@@ -46,7 +46,7 @@ code {
 .cur_pointer {
   cursor: pointer;
 }
-#loading_liste {
+#loading_list {
   position: absolute;
   top: 200px;
   left: calc(50% - 55px);
