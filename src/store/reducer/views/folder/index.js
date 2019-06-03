@@ -1,9 +1,6 @@
 import idx from 'idx';
 
 import {
-  FOLDER_UPDATE_CHECK_POINT_LOADING,
-  FOLDER_UPDATE_CHECK_POINT_LOADED,
-  FOLDER_UPDATE_CHECK_POINT_ERROR,
   FOLDER_LOADING,
   FOLDER_LOADED,
   FOLDER_ERROR,
@@ -36,55 +33,6 @@ const folder = (state = initialState, action) => {
           [action.folderId]: {
             ...idx(state, _ => _.pending[action.folderId]),
             loading: false,
-          },
-        },
-      };
-    case FOLDER_UPDATE_CHECK_POINT_LOADING:
-      return {
-        ...state,
-        pending: {
-          ...state.pending,
-          [action.folderId]: {
-            ...idx(state, _ => _.pending[action.folderId]),
-            checkPoint: {
-              ...idx(state, _ => _.pending[action.folderId].checkPoint),
-              [action.checkPointId]: {
-                ...idx(state, _ => _.pending[action.folderId].checkPoint[action.checkPointId]),
-                status: 'sending',
-                prevValue: action.prevValue,
-              },
-            },
-          },
-        },
-      };
-    case FOLDER_UPDATE_CHECK_POINT_LOADED:
-      return {
-        ...state,
-        pending: {
-          ...state.pending,
-          [action.folderId]: {
-            ...idx(state, _ => _.pending[action.folderId]),
-            checkPoint: {
-              ...idx(state, _ => _.pending[action.folderId].checkPoint),
-              [action.checkPointId]: undefined,
-            },
-          },
-        },
-      };
-    case FOLDER_UPDATE_CHECK_POINT_ERROR:
-      return {
-        ...state,
-        pending: {
-          ...state.pending,
-          [action.folderId]: {
-            ...idx(state, _ => _.pending[action.folderId]),
-            checkPoint: {
-              ...idx(state, _ => _.pending[action.folderId].checkPoint),
-              [action.checkPointId]: {
-                ...idx(state, _ => _.pending[action.folderId].checkPoint[action.checkPointId]),
-                status: 'error',
-              },
-            },
           },
         },
       };

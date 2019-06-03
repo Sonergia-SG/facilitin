@@ -10,6 +10,7 @@ import {
 } from '../../../types';
 
 import { datahand } from './mockApi';
+import capture from '../../../../tools/errorReporting/captureException';
 
 import { folder } from '../../../reducer/entities/schema';
 
@@ -57,20 +58,22 @@ export const fetchFolder = folderId => (dispatch) => {
       dispatch(folderUpdateLoaded(folderId, normalized));
     }, 500);
   } catch (error) {
+    capture(error);
     dispatch(folderUpdateError(folderId));
   }
 };
 
 export const updateFolderCheckPoint = ({ folderId, checkPointId }) => (dispatch, getState) => {
-  const prevValue = getState().entities.checkPoint[checkPointId].controle_valide;
-
-  dispatch(folderUpdateCheckPointLoading({ folderId, checkPointId, prevValue }));
+  const prevValue = getState().entities.checkPoints[checkPointId].controle_valide;
 
   try {
+    dispatch(folderUpdateCheckPointLoading({ folderId, checkPointId, prevValue }));
+
     setTimeout(() => {
       dispatch(folderUpdateCheckPointLoaded({ folderId, checkPointId }));
     }, 500);
   } catch (error) {
-    dispatch(folderUpdateCheckPointError({ folderId, checkPointId }));
+    capture(error);
+    dispatch(folderUpdateCheckPointError({ folderId, checkPointId, prevValue }));
   }
 };

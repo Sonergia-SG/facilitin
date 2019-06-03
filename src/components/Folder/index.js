@@ -63,7 +63,7 @@ class Folder extends Component {
         <HeaderNav from="dossier" />
         <div className="tile is-ancestor">
           <Left data={data} />
-          <Collapsed valeur={data.documents} />
+          {data.documents && <Collapsed valeur={data.documents} />}
         </div>
         <Modal
           openMoa={openMoa}

@@ -3,9 +3,12 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import StateToColor from './StateToColor';
-import DropZone from './DropZone';
+import { updateFolderCheckPoint } from '../../store/actions/views/folder';
+
+import StateToColor from '../StateToColor';
+import DropZone from '../DropZone';
 
 class Accordion extends Component {
   currentAccordion = (e) => {
@@ -90,7 +93,12 @@ class Accordion extends Component {
                               <input
                                 type="checkbox"
                                 name={value.id_controle}
-                                defaultChecked={checked}
+                                checked={checked}
+                                onChange={() => (
+                                  this.props.updateFolderCheckPoint({
+                                    checkPointId: value.id_controle,
+                                  })
+                                )}
                               />
                               {' '}
                               {value.nom_controle}
@@ -125,8 +133,9 @@ class Accordion extends Component {
 }
 
 Accordion.propTypes = {
+  updateFolderCheckPoint: PropTypes.func.isRequired,
   valeur: PropTypes.shape({}).isRequired,
   numero: PropTypes.number.isRequired,
 };
 
-export default Accordion;
+export default connect(null, { updateFolderCheckPoint })(Accordion);
