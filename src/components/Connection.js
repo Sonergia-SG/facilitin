@@ -32,7 +32,7 @@ class Connection extends Component {
             <div id="loading_connect">
               <Loading show={loginState.loading} type="Puff" />
             </div>
-            <img src={logo} alt="logo sonergia" width="250" />
+            <img src={logo} alt="logo sonergia" width="250" height="250" />
           </div>
           <div className="has-text-centered">
             <form

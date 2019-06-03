@@ -7,9 +7,9 @@ import reducer from './reducer';
 // eslint-disable-next-line
 const composeEnhancers =
 // eslint-disable-next-line
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
     trace: process.env.NODE_ENV === 'development',
-  }) || compose;
+  }) : compose;
 const middlewares = applyMiddleware(thunkMiddleware);
 
 const storeVersion = 1;
