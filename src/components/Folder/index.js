@@ -10,6 +10,8 @@ import HeaderNav from '../Header';
 import Collapsed from './Collapsed';
 import Left from './Left';
 import Modal from './Modal';
+import Loading from '../Loading';
+
 import { fetchFolder } from '../../store/actions/views/folder';
 
 import { folder as folderSchema } from '../../store/reducer/entities/schema';
@@ -55,7 +57,21 @@ class Folder extends Component {
     const data = denormalize(folder, folderSchema, entities);
 
     if (!folder || !data) {
-      return <div>loading</div>;
+      return (
+        <div style={{ height: '100%' }}>
+          <HeaderNav />
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: 'calc(100% - 120px)',
+            }}
+          >
+            <Loading show />
+          </div>
+        </div>
+      );
     }
 
     return (
