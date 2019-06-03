@@ -10,9 +10,9 @@ const AppRouter = () => (
   <div style={{ height: '100%' }}>
     <Header />
     <Switch>
-      <Route path="/list" component={List} />
-      <Route path="/folder/:folderId" component={Folder} />
-      <Redirect to="/list" />
+      <Route path="/folders/:folderId" component={Folder} />
+      <Route path="/folders" component={List} />
+      <Redirect to="/folders" />
     </Switch>
   </div>
 );

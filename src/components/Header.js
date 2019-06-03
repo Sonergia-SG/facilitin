@@ -16,12 +16,12 @@ class HeaderNav extends Component {
   };
 
   backtoList = () => {
-    this.props.history.push('/list');
+    this.props.history.push('/folders');
   };
 
   render() {
     const { pathname } = this.props.location;
-    const displayBack = pathname.includes('folder');
+    const displayBack = pathname.includes('folders/');
     const buttonRetour = displayBack ? (
       <button type="button" className="button is-primary is-outlined" onClick={this.backtoList}>Retour liste dossiers</button>
     ) : null;
