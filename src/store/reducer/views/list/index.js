@@ -49,6 +49,25 @@ const list = (state = initialState, action) => {
       return {
         ...state,
         search: '',
+        tab: {
+          ...state.tab,
+          0: {
+            ...state.tab[0],
+            loading: false,
+          },
+          1: {
+            ...state.tab[1],
+            loading: false,
+          },
+          2: {
+            ...state.tab[2],
+            loading: false,
+          },
+          3: {
+            ...state.tab[3],
+            loading: false,
+          },
+        },
       };
     case LIST_LOADING:
       return {

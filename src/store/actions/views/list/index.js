@@ -58,33 +58,38 @@ export const listUpdateSorted = sorted => ({
 });
 
 export const loadList = toTab => async (dispatch, getState) => {
-  const tab = toTab || getState().views.list.selectedTab;
-
-  dispatch(listLoading(tab));
-  const { apiKey } = getState().user;
-
-  if (toTab !== undefined && toTab !== getState().views.list.selectedTab) {
-    dispatch(listChangeTab(toTab));
-  }
-
   try {
-    const res = await fetch(`${API_PATH}liste/${tab}`, {
-      method: 'get',
-      headers: new Headers({
-        'user-agent': 'Mozilla/4.0 MDN Example',
-        'content-type': 'application/json',
-        Authorization: `bearer ${apiKey}`,
-      }),
-    });
+    const { list } = getState().views;
+    const tab = toTab !== undefined ? toTab : list.selectedTab;
 
-    const json = await res.json();
+    const { loading } = list.tab[tab];
 
-    if (json.status === 'success') {
-      // ! add flat values here
-      const normalized = normalize(json, { values: [folder] });
-      dispatch(listLoaded(normalized, tab));
-    } else {
-      dispatch(listError());
+    if (!loading) {
+      dispatch(listLoading(tab));
+      const { apiKey } = getState().user;
+
+      if (toTab !== undefined && toTab !== list.selectedTab) {
+        dispatch(listChangeTab(toTab));
+      }
+
+      const res = await fetch(`${API_PATH}liste/${tab}`, {
+        method: 'get',
+        headers: new Headers({
+          'user-agent': 'Mozilla/4.0 MDN Example',
+          'content-type': 'application/json',
+          Authorization: `bearer ${apiKey}`,
+        }),
+      });
+
+      const json = await res.json();
+
+      if (json.status === 'success') {
+        // ! add flat values here
+        const normalized = normalize(json, { values: [folder] });
+        dispatch(listLoaded(normalized, tab));
+      } else {
+        dispatch(listError());
+      }
     }
   } catch (e) {
     capture(e);

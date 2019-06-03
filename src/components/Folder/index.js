@@ -51,12 +51,12 @@ class Folder extends Component {
     const { entities, match } = this.props;
     const { folderId } = match.params;
     const folder = entities.folders[folderId];
+    const data = denormalize(folder, folderSchema, entities);
 
-    if (!folder) {
+    if (!folder || !data) {
       return <div>loading</div>;
     }
 
-    const data = denormalize(folder, folderSchema, entities);
     const title = `Dossier N° ${data.id_dossierprime}`;
 
     return (
