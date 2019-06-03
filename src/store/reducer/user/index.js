@@ -1,10 +1,22 @@
+// @flow
 import { USER_ADD_TOKEN, LOGOUT } from '../../types';
 
-const initialState = {
-  apiKey: null,
+export type UserState = {
+  +apiKey?: string,
 };
 
-const user = (state = initialState, action) => {
+type UserReducerAction = {
+  type: string,
+  apiKey?: string,
+};
+
+type UserReducer = (state: UserState, action: UserReducerAction) => UserState;
+
+const initialState: UserState = {
+  apiKey: undefined,
+};
+
+const user: UserReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_ADD_TOKEN:
       return { ...state, apiKey: action.apiKey };

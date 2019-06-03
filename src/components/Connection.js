@@ -1,6 +1,8 @@
 /**
  * Created by stephane.mallaroni on 11/04/2019.
  */
+// @flow
+
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';

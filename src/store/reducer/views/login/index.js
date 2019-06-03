@@ -1,3 +1,5 @@
+// @flow
+
 import {
   LOGIN_LOADING,
   LOGIN_LOADED,
@@ -9,7 +11,29 @@ import {
   INIT,
 } from '../../../types';
 
-const initialState = {
+type loginErrors = {
+  +email: string | null,
+  +password: string | null,
+  +form: string | null,
+};
+
+export type LoginState = {
+  +email: string,
+  +password: string,
+  +errors: loginErrors,
+  loading: boolean,
+};
+
+type LoginReducerAction = {
+  type: string,
+  errors?: loginErrors,
+  email?: string,
+  password?: string,
+};
+
+type LoginReducer = (state: LoginState, action: LoginReducerAction) => LoginState;
+
+const initialState: LoginState = {
   email: '',
   password: '',
   errors: {
@@ -20,7 +44,7 @@ const initialState = {
   loading: false,
 };
 
-const login = (state = initialState, action) => {
+const login: LoginReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGOUT:
     case INIT:

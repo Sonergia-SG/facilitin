@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
@@ -8,7 +10,7 @@ import Router from './components/Router';
 
 import storeCreator, { getStore } from './store';
 
-class Init extends Component {
+class Init extends Component<null, { displayApp: bool }> {
   state = {
     displayApp: false,
   };

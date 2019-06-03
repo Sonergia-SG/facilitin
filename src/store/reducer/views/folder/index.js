@@ -1,17 +1,44 @@
+// @flow
+
 import idx from 'idx';
 
 import {
-  FOLDER_LOADING,
-  FOLDER_LOADED,
-  FOLDER_ERROR,
-  LOGOUT,
+  FOLDER_LOADING, FOLDER_LOADED, FOLDER_ERROR, LOGOUT,
 } from '../../../types';
 
-const initialState = {
+export type FolderState = {
+  pending: {
+    [string]: {},
+  },
+};
+
+type FolderReducerActionFolderLoaded = {
+  type: typeof FOLDER_LOADED,
+  folderId: string,
+};
+
+type FolderReducerActionFolderError = {
+  type: typeof FOLDER_ERROR,
+  folderId: string,
+};
+
+type FolderReducerActionFolderLoading = {
+  type: typeof FOLDER_LOADING,
+  folderId: string,
+};
+
+type FolderReducerAction =
+  | FolderReducerActionFolderLoaded
+  | FolderReducerActionFolderError
+  | FolderReducerActionFolderLoading;
+
+type FolderReducer = (state: FolderState, action: FolderReducerAction) => FolderState;
+
+const initialState: FolderState = {
   pending: {},
 };
 
-const folder = (state = initialState, action) => {
+const folder: FolderReducer = (state = initialState, action) => {
   switch (action.type) {
     case FOLDER_LOADING:
       return {
