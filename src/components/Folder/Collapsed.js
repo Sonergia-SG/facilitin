@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import Accordion from '../Accordion';
 
 class Collapsed extends Component {
-  accordion = []
+  accordion = [];
 
   componentDidMount() {
     this.accordion = bulmaAccordion.attach();
@@ -19,12 +19,20 @@ class Collapsed extends Component {
     const { valeur } = this.props;
 
     return (
-      <div>
-        <section className="accordions">
-          {valeur.map((value, index) => (
-            <Accordion valeur={value} key={value.id_file} numero={index} />
-          ))}
-        </section>
+      <div className="tile is-parent">
+        <div className="tile is-child">
+          <div className="content">
+            <div className="content">
+              <div>
+                <section className="accordions">
+                  {valeur.map((value, index) => (
+                    <Accordion valeur={value} key={value.id_file} numero={index} />
+                  ))}
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

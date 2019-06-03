@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
 
-// import { API_PATH } from '../variables';
 import HeaderNav from '../Header';
 import Collapsed from './Collapsed';
+import Left from './Left';
 import Modal from './Modal';
 import { fetchFolder } from '../../store/actions/views/folder';
 
@@ -16,38 +16,39 @@ import { folder as folderSchema } from '../../store/reducer/entities/schema';
 
 class Folder extends Component {
   state = {
-    open_moa: false,
-    open_moe: false,
-    open_travaux: false,
+    openMoa: false,
+    openMoe: false,
+    openSite: false,
   };
 
   componentWillMount() {
     this.props.fetchFolder(this.props.match.params.folderId);
   }
 
-  onOpenModal = type => () => {
-    if (type === 'moa') {
-      this.setState({ open_moa: true });
-    } else if (type === 'moe') {
-      this.setState({ open_moe: true });
-    } else {
-      this.setState({ open_travaux: true });
+  toggleModal = (type) => {
+    switch (type) {
+      case 'moa': {
+        const open = this.state.openMoa;
+        this.setState({ openMoa: !open });
+        break;
+      }
+      case 'moe': {
+        const open = this.state.openMoe;
+        this.setState({ openMoe: !open });
+        break;
+      }
+      default: {
+        const open = this.state.openSite;
+        this.setState({ openSite: !open });
+        break;
+      }
     }
   };
 
-  onCloseModalType = (type) => {
-    if (type === 'moa') {
-      this.setState({ open_moa: false });
-    } else if (type === 'moe') {
-      this.setState({ open_moe: false });
-    } else {
-      this.setState({ open_travaux: false });
-    }
-  };
+  onOpenModal = type => () => this.toggleModal(type);
 
   render() {
-    /* eslint-disable camelcase */
-    const { open_moa, open_moe, open_travaux } = this.state;
+    const { openMoa, openMoe, openSite } = this.state;
     const { entities, match } = this.props;
     const { folderId } = match.params;
     const folder = entities.folders[folderId];
@@ -57,59 +58,19 @@ class Folder extends Component {
       return <div>loading</div>;
     }
 
-    const title = `Dossier N° ${data.id_dossierprime}`;
-
     return (
       <div>
         <HeaderNav from="dossier" />
         <div className="tile is-ancestor">
-          <div className="tile is-vertical is-3">
-            <div className="tile">
-              <div className="tile is-parent is-vertical">
-                <div className="tile is-child notification has-text-centered">
-                  <p className="title">{title}</p>
-                  <p className="subtitle">{data.code_operation}</p>
-                  <div className="content" />
-                </div>
-                <div className="tile is-child notification ">
-                  <div className="content">
-                    {data.documents.map((value, index) => (
-                      <h4
-                        className={`item_menu_gauche ${index === 0 ? 'left-active' : ''}`}
-                        key={value.id_file}
-                        id={`${index}pp`}
-                      >
-                        {value.type}
-                      </h4>
-                    ))}
-                  </div>
-                </div>
-                <div className="tile is-child">
-                  <div className="content has-text-centered">
-                    <button type="button" className="button is-primary is-outlined is-medium">
-                      {'Terminer'}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="tile is-parent">
-            <div className="tile is-child">
-              <div className="content">
-                <div className="content">
-                  <Collapsed valeur={data.documents} />
-                </div>
-              </div>
-            </div>
-          </div>
+          <Left data={data} />
+          <Collapsed valeur={data.documents} />
         </div>
         <Modal
-          openMoa={open_moa}
-          openMoe={open_moe}
-          openSite={open_travaux}
+          openMoa={openMoa}
+          openMoe={openMoe}
+          openSite={openSite}
           onOpenModal={this.onOpenModal}
-          onCloseModalType={this.onCloseModalType}
+          onCloseModalType={this.toggleModal}
           data={data}
         />
       </div>
