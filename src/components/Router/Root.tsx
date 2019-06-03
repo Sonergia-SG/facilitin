@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 // @ts-ignore
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Connection from '../Connection';
-import Liste from '../Liste';
-import Folder from '../Folder';
-import Header from '../Header';
 
 import { AppState } from '../../store/index';
+
+const AppRouter = React.lazy(() => import('./App'));
 
 interface Props {
   logged: boolean;
@@ -17,14 +16,9 @@ interface Props {
 const Root = ({ logged }: Props) => {
   if (logged) {
     return (
-      <div>
-        <Header />
-        <Switch>
-          <Route path="/list" component={Liste} />
-          <Route path="/folder/:folderId" component={Folder} />
-          <Redirect to="/list" />
-        </Switch>
-      </div>
+      <Suspense fallback={<div />}>
+        <AppRouter />
+      </Suspense>
     );
   }
 
