@@ -11,7 +11,7 @@ import {
   INIT,
 } from '../../../types';
 
-type loginErrors = {
+export type LoginErrors = {
   +email: string | null,
   +password: string | null,
   +form: string | null,
@@ -20,18 +20,47 @@ type loginErrors = {
 export type LoginState = {
   +email: string,
   +password: string,
-  +errors: loginErrors,
+  +errors: LoginErrors,
   +loading: boolean,
 };
 
-type LoginReducerAction = {
-  type: string,
-  errors?: loginErrors,
+export type LoginReducerLoading = {
+  type: typeof LOGIN_LOADING,
+};
+
+export type LoginReducerLoaded = {
+  type: typeof LOGIN_LOADED,
+};
+
+export type LoginReducerError = {
+  type: typeof LOGIN_ERROR,
+  errors?: LoginErrors,
+};
+
+export type LoginReducerUpdateMail = {
+  type: typeof LOGIN_UPDATE_EMAIL,
   email?: string,
+};
+
+export type LoginReducerUpdatePassword = {
+  type: typeof LOGIN_UPDATE_PASSWORD,
   password?: string,
 };
 
-type LoginReducer = (state: LoginState, action: LoginReducerAction) => LoginState;
+export type LoginReducerUpdateErrors = {
+  type: typeof LOGIN_UPDATE_ERRORS,
+  errors?: LoginErrors,
+};
+
+type LoginReducerAction =
+  | LoginReducerLoading
+  | LoginReducerLoaded
+  | LoginReducerError
+  | LoginReducerUpdateMail
+  | LoginReducerUpdatePassword
+  | LoginReducerUpdateErrors;
+
+type LoginReducer = (state?: LoginState, action: LoginReducerAction) => LoginState;
 
 const initialState: LoginState = {
   email: '',

@@ -1,5 +1,7 @@
 // @flow
-export type CheckPoint = {};
+export type CheckPoint = {
+  controle_valide: number,
+};
 
 export type CheckPoints = {
   [string]: CheckPoint,

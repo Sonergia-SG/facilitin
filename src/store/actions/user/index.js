@@ -10,3 +10,5 @@ export const addToken: AddToken = apiKey => ({
   type: USER_ADD_TOKEN,
   apiKey,
 });
+
+export type UserActions = AddToken;

@@ -12,17 +12,17 @@ export type FolderState = {
   },
 };
 
-type FolderReducerActionFolderLoaded = {
+export type FolderReducerActionFolderLoaded = {
   type: typeof FOLDER_LOADED,
   folderId: string,
 };
 
-type FolderReducerActionFolderError = {
+export type FolderReducerActionFolderError = {
   type: typeof FOLDER_ERROR,
   folderId: string,
 };
 
-type FolderReducerActionFolderLoading = {
+export type FolderReducerActionFolderLoading = {
   type: typeof FOLDER_LOADING,
   folderId: string,
 };

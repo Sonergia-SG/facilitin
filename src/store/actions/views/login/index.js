@@ -1,3 +1,4 @@
+// @flow
 import {
   LOGIN_LOADING,
   LOGIN_ERROR,
@@ -9,50 +10,79 @@ import {
 } from '../../../types';
 
 import { API_PATH, ERROR_APPEND, WRONG_ID } from '../../../../variables';
-
 import capture from '../../../../tools/errorReporting/captureException';
-
 import { addToken } from '../../user';
 
-export const loginLoading = () => ({
+import {
+  type LoginReducerLoading,
+  type LoginReducerError,
+  type LoginErrors,
+  type LoginReducerLoaded,
+  type LoginReducerUpdateErrors,
+  type LoginReducerUpdateMail,
+  type LoginReducerUpdatePassword,
+} from '../../../reducer/views/login';
+import { type State } from '../../../reducer';
+
+type LoginLoading = () => LoginReducerLoading;
+
+export const loginLoading: LoginLoading = () => ({
   type: LOGIN_LOADING,
 });
 
-export const loginLoaded = () => ({
+type LoginLoaded = () => LoginReducerLoaded;
+
+export const loginLoaded: LoginLoaded = () => ({
   type: LOGIN_LOADED,
 });
 
-export const loginError = errors => ({
+type LoginError = (errors: LoginErrors) => LoginReducerError;
+
+export const loginError: LoginError = errors => ({
   type: LOGIN_ERROR,
   errors,
 });
 
-export const logout = () => ({
+export type LogoutAction = () => { type: typeof LOGOUT };
+
+export const logout: LogoutAction = () => ({
   type: LOGOUT,
 });
 
-export const updateErrors = errors => ({
+type UpdateErrors = (errors: LoginErrors) => LoginReducerUpdateErrors;
+
+export const updateErrors: UpdateErrors = errors => ({
   type: LOGIN_UPDATE_ERRORS,
   errors,
 });
 
-export const loginUpdateEmail = email => ({
+type LoginUpdateEmail = (email: string) => LoginReducerUpdateMail;
+
+export const loginUpdateEmail: LoginUpdateEmail = email => ({
   type: LOGIN_UPDATE_EMAIL,
   email,
 });
 
-export const loginUpdatePassword = password => ({
+type LoginUpdatePassword = (password: string) => LoginReducerUpdatePassword;
+
+export const loginUpdatePassword: LoginUpdatePassword = password => ({
   type: LOGIN_UPDATE_PASSWORD,
   password,
 });
 
-export const loginRequest = () => async (dispatch, getState) => {
+type Dispatch = mixed => void;
+
+type GetState = () => State;
+
+type LoginRequest = () => (dispatch: Dispatch, getState: GetState) => Promise<void>;
+
+export const loginRequest: LoginRequest = () => async (dispatch, getState) => {
   const { email, password } = getState().views.login;
 
   const validEmail = email && /^.+@.+\..{2,}$/.test(email);
   const validMdp = !!password;
 
-  const { errors } = getState();
+  const { errors } = getState().views.login;
 
   dispatch(
     updateErrors({
@@ -103,3 +133,13 @@ export const loginRequest = () => async (dispatch, getState) => {
     }
   }
 };
+
+export type LoginActions =
+  | LoginLoading
+  | LoginLoaded
+  | LoginError
+  | LogoutAction
+  | UpdateErrors
+  | LoginUpdateEmail
+  | LoginUpdatePassword
+  | LoginRequest;

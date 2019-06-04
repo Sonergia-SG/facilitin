@@ -10,20 +10,18 @@ import {
 } from '../../types';
 import { type Normalized, type CheckPoints } from './flowTypes';
 
-type CheckPointsActionLoaded = {
+export type CheckPointsActionLoaded = {
   type: typeof FOLDER_LOADED,
   normalized: Normalized,
-  checkPointId: string,
-  prevValue: number,
 };
 
-type CheckPointsActionUpdateLoading = {
+export type CheckPointsActionUpdateLoading = {
   type: typeof FOLDER_UPDATE_CHECK_POINT_LOADING,
   checkPointId: string,
   prevValue: number,
 };
 
-type CheckPointsActionUpdateError = {
+export type CheckPointsActionUpdateError = {
   type: typeof FOLDER_UPDATE_CHECK_POINT_ERROR,
   checkPointId: string,
   prevValue: number,
@@ -34,7 +32,7 @@ type CheckPointsAction =
   | CheckPointsActionUpdateLoading
   | CheckPointsActionUpdateError;
 
-type CheckPointsReducer = (state: CheckPoints, action: CheckPointsAction) => CheckPoints;
+type CheckPointsReducer = (state?: CheckPoints, action: CheckPointsAction) => CheckPoints;
 
 const checkPoints: CheckPointsReducer = (state = {}, action) => {
   switch (action.type) {

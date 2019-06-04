@@ -133,3 +133,14 @@ export const loadList: LoadList = toTab => async (dispatch, getState) => {
     dispatch(listError(tab));
   }
 };
+
+export type ListActions =
+  | ListLoading
+  | ListLoaded
+  | ListChangeTab
+  | ListError
+  | ListUpdateSearch
+  | ListUpdatePage
+  | ListUpdatePageSize
+  | ListUpdateSorted
+  | LoadList;

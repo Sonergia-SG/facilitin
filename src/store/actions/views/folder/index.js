@@ -1,3 +1,4 @@
+// @flow
 import { normalize } from 'normalizr';
 
 import {
@@ -14,43 +15,95 @@ import capture from '../../../../tools/errorReporting/captureException';
 
 import { folder } from '../../../reducer/entities/schema';
 
-export const folderUpdateCheckPointLoading = ({ folderId, checkPointId, prevValue }) => ({
+import {
+  type CheckPointsActionUpdateLoading,
+  type CheckPointsActionLoaded,
+  type CheckPointsActionUpdateError,
+} from '../../../reducer/entities/checkPoints';
+
+import {
+  type FolderReducerActionFolderLoaded,
+  type FolderReducerActionFolderError,
+  type FolderReducerActionFolderLoading,
+} from '../../../reducer/views/folder';
+import { type Normalized } from '../../../reducer/entities/flowTypes';
+import { type State } from '../../../reducer';
+
+type FolderUpdateCheckPointLoading = (p: {
+  folderId: string,
+  checkPointId: string,
+  prevValue: number,
+}) => CheckPointsActionUpdateLoading;
+
+export const folderUpdateCheckPointLoading: FolderUpdateCheckPointLoading = ({
+  folderId,
+  checkPointId,
+  prevValue,
+}) => ({
   type: FOLDER_UPDATE_CHECK_POINT_LOADING,
   folderId,
   checkPointId,
   prevValue,
 });
 
-export const folderUpdateCheckPointLoaded = ({ folderId, checkPointId }) => ({
+type FolderUpdateCheckPointLoaded = (p: {
+  folderId: typeof FOLDER_UPDATE_CHECK_POINT_LOADED,
+  checkPointId: string,
+}) => {};
+
+export const folderUpdateCheckPointLoaded: FolderUpdateCheckPointLoaded = () => ({
   type: FOLDER_UPDATE_CHECK_POINT_LOADED,
-  folderId,
-  checkPointId,
 });
 
-export const folderUpdateCheckPointError = ({ folderId, checkPointId, prevValue }) => ({
+type FolderUpdateCheckPointError = (p: {
+  folderId: string,
+  checkPointId: string,
+  prevValue: number,
+}) => CheckPointsActionUpdateError;
+
+export const folderUpdateCheckPointError: FolderUpdateCheckPointError = ({
+  folderId,
+  checkPointId,
+  prevValue,
+}) => ({
   type: FOLDER_UPDATE_CHECK_POINT_ERROR,
   folderId,
   checkPointId,
   prevValue,
 });
 
-export const folderUpdateLoading = folderId => ({
+type FolderUpdateLoading = (folderId: string) => FolderReducerActionFolderLoading;
+
+export const folderUpdateLoading: FolderUpdateLoading = folderId => ({
   type: FOLDER_LOADING,
   folderId,
 });
 
-export const folderUpdateLoaded = (folderId, normalized) => ({
+type FolderUpdateLoaded = (
+  folderId: string,
+  normalized: Normalized
+) => FolderReducerActionFolderLoaded & CheckPointsActionLoaded;
+
+export const folderUpdateLoaded: FolderUpdateLoaded = (folderId, normalized) => ({
   type: FOLDER_LOADED,
   folderId,
   normalized,
 });
 
-export const folderUpdateError = folderId => ({
+type FolderUpdateErrors = (folderId: string) => FolderReducerActionFolderError;
+
+export const folderUpdateError: FolderUpdateErrors = folderId => ({
   type: FOLDER_ERROR,
   folderId,
 });
 
-export const fetchFolder = folderId => (dispatch) => {
+type Dispatch = mixed => void;
+
+type GetState = () => State;
+
+type FetchFolder = (folderId: string) => (dispatch: Dispatch) => void;
+
+export const fetchFolder: FetchFolder = folderId => (dispatch) => {
   dispatch(folderUpdateLoading(folderId));
 
   try {
@@ -64,7 +117,15 @@ export const fetchFolder = folderId => (dispatch) => {
   }
 };
 
-export const updateFolderCheckPoint = ({ folderId, checkPointId }) => (dispatch, getState) => {
+type UpdateFolderCheckPoint = ({ folderId: string, checkPointId: string }) => (
+  dispatch: Dispatch,
+  getState: GetState
+) => void;
+
+export const updateFolderCheckPoint: UpdateFolderCheckPoint = ({ folderId, checkPointId }) => (
+  dispatch,
+  getState,
+) => {
   const prevValue = getState().entities.checkPoints[checkPointId].controle_valide;
 
   try {
@@ -78,3 +139,13 @@ export const updateFolderCheckPoint = ({ folderId, checkPointId }) => (dispatch,
     dispatch(folderUpdateCheckPointError({ folderId, checkPointId, prevValue }));
   }
 };
+
+export type FolderACtions =
+  | UpdateFolderCheckPoint
+  | FetchFolder
+  | FolderUpdateErrors
+  | FolderUpdateLoaded
+  | FolderUpdateLoading
+  | FolderUpdateCheckPointError
+  | FolderUpdateCheckPointLoaded
+  | FolderUpdateCheckPointLoading;
