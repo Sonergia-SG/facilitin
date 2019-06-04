@@ -57,10 +57,6 @@ declare module 'redux' {
 
   declare export function createStore<S, A, D>(
     reducer: Reducer<S, A>,
-    enhancer?: StoreEnhancer<S, A, D>
-  ): Store<S, A, D>;
-  declare export function createStore<S, A, D>(
-    reducer: Reducer<S, A>,
     preloadedState?: S,
     enhancer?: StoreEnhancer<S, A, D>
   ): Store<S, A, D>;
