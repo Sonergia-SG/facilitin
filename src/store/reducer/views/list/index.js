@@ -13,12 +13,12 @@ import {
   LOGOUT,
 } from '../../../types';
 
-type ReactTableSorted = {
+export type ReactTableSorted = {
   id: string,
   desc: Boolean,
 };
 
-type Tab = 0 | 1 | 2 | 3;
+export type Tab = 0 | 1 | 2 | 3;
 
 export type ListState = {
   +selectedTab: Tab,
@@ -52,54 +52,58 @@ export type ListState = {
   },
 };
 
-type ListReducerActionListLoading = {
+export type ListReducerActionListLoading = {
   type: typeof LIST_LOADING,
   tab: Tab,
 };
 
-type ListReducerActionListError = {
+export type ListReducerActionListError = {
   type: typeof LIST_ERROR,
   tab: Tab,
 };
 
-type ListReducerActionListLoaded = {
-  type: typeof LIST_LOADED,
-  tab: number,
-  normalized: {
-    result: {
-      values: {
-        [string]: {},
-      },
-    },
-  },
+type Values = Array<number>;
+
+type Result = {
+  values: Values,
 };
 
-type ListReducerActionSearch = {
+export type Normalized = {
+  result: Result,
+};
+
+export type ListReducerActionListLoaded = {
+  type: typeof LIST_LOADED,
+  tab: number,
+  normalized: Normalized
+};
+
+export type ListReducerActionSearch = {
   type: typeof LIST_CHANGE_SEARCH,
   search: string,
 };
 
-type ListReducerActionChangeTab = {
+export type ListReducerActionChangeTab = {
   type: typeof LIST_CHANGE_TAB,
   tab: Tab,
 };
 
-type ListReducerActionPageUpdate = {
+export type ListReducerActionPageUpdate = {
   type: typeof LIST_PAGE_UPDATE,
   page: number,
 };
 
-type ListReducerActionPageSizeUpdate = {
+export type ListReducerActionPageSizeUpdate = {
   type: typeof LIST_PAGE_SIZE_UPDATE,
   pageSize: number,
 };
 
-type ListReducerActionSortedUpdate = {
+export type ListReducerActionSortedUpdate = {
   type: typeof LIST_SORTED_UPDATE,
   sorted: ReactTableSorted,
 };
 
-type ListReducerAction =
+export type ListReducerAction =
   | ListReducerActionListLoading
   | ListReducerActionListError
   | ListReducerActionListLoaded
@@ -109,7 +113,7 @@ type ListReducerAction =
   | ListReducerActionPageSizeUpdate
   | ListReducerActionSortedUpdate;
 
-type ListReducer = (state: ListState, action: ListReducerAction) => ListState;
+export type ListReducer = (state?: ListState, action: ListReducerAction) => ListState;
 
 const initialState: ListState = {
   selectedTab: 0,

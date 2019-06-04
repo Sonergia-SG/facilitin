@@ -21,7 +21,7 @@ export type LoginState = {
   +email: string,
   +password: string,
   +errors: loginErrors,
-  loading: boolean,
+  +loading: boolean,
 };
 
 type LoginReducerAction = {

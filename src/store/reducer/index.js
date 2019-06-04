@@ -5,8 +5,14 @@ import user from './user';
 import views from './views';
 import entities from './entities';
 
-const reducer = { user, views, entities };
+const reducers = { user, views, entities };
 
-export type Reducer = typeof reducer;
+export type Reducers = typeof reducers;
 
-export default combineReducers<Reducer, Reducer>(reducer);
+/* eslint-disable no-undef */
+type $ExtractFunctionReturn = <V>((...args: any) => V) => V;
+
+export type State = $ObjMap<Reducers, $ExtractFunctionReturn>;
+/* eslint-enable */
+
+export default combineReducers<Reducers, Reducers>(reducers);

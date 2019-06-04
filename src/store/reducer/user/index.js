@@ -5,10 +5,12 @@ export type UserState = {
   +apiKey?: string,
 };
 
-type UserReducerAction = {
+export type UserReducerActionAddToken = {
   type: string,
-  apiKey?: string,
+  apiKey: string,
 };
+
+type UserReducerAction = UserReducerActionAddToken;
 
 type UserReducer = (state: UserState, action: UserReducerAction) => UserState;
 

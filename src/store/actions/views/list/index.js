@@ -1,3 +1,4 @@
+// @flow
 import { normalize } from 'normalizr';
 
 import {
@@ -16,57 +17,93 @@ import { folder } from '../../../reducer/entities/schema';
 
 import capture from '../../../../tools/errorReporting/captureException';
 
-export const listLoading = tab => ({
+import {
+  type ListReducerActionListLoading,
+  type Tab,
+  type Normalized,
+  type ListReducerActionListLoaded,
+  type ListReducerActionChangeTab,
+  type ListReducerActionListError,
+  type ListReducerActionSearch,
+  type ListReducerActionPageUpdate,
+  type ListReducerActionPageSizeUpdate,
+  type ReactTableSorted,
+  type ListReducerActionSortedUpdate,
+} from '../../../reducer/views/list';
+import { type State } from '../../../reducer/index';
+
+type ListLoading = (tab: Tab) => ListReducerActionListLoading;
+
+export const listLoading: ListLoading = tab => ({
   type: LIST_LOADING,
   tab,
 });
 
-export const listLoaded = (normalized, tab) => ({
+type ListLoaded = (normalized: Normalized, tab: Tab) => ListReducerActionListLoaded;
+
+export const listLoaded: ListLoaded = (normalized, tab) => ({
   type: LIST_LOADED,
   normalized,
   tab,
 });
 
-export const listChangeTab = tab => ({
+type ListChangeTab = (tab: Tab) => ListReducerActionChangeTab;
+
+export const listChangeTab: ListChangeTab = tab => ({
   type: LIST_CHANGE_TAB,
   tab,
 });
 
-export const listError = tab => ({
+type ListError = (tab: Tab) => ListReducerActionListError;
+
+export const listError: ListError = tab => ({
   type: LIST_ERROR,
   tab,
 });
 
-export const listUpdateSearch = search => ({
+type ListUpdateSearch = (search: string) => ListReducerActionSearch;
+
+export const listUpdateSearch: ListUpdateSearch = search => ({
   type: LIST_CHANGE_SEARCH,
   search,
 });
 
-export const listUpdatePage = page => ({
+type ListUpdatePage = (page: number) => ListReducerActionPageUpdate;
+
+export const listUpdatePage: ListUpdatePage = page => ({
   type: LIST_PAGE_UPDATE,
   page,
 });
 
-export const listUpdatePageSize = pageSize => ({
+type ListUpdatePageSize = (pageSize: number) => ListReducerActionPageSizeUpdate;
+
+export const listUpdatePageSize: ListUpdatePageSize = pageSize => ({
   type: LIST_PAGE_SIZE_UPDATE,
   pageSize,
 });
 
-export const listUpdateSorted = sorted => ({
+type ListUpdateSorted = (sorted: ReactTableSorted) => ListReducerActionSortedUpdate;
+
+export const listUpdateSorted: ListUpdateSorted = sorted => ({
   type: LIST_SORTED_UPDATE,
   sorted,
 });
 
-export const loadList = toTab => async (dispatch, getState) => {
+type Dispatch = mixed => void;
+
+type GetState = () => State;
+
+type LoadList = (toTab: Tab) => (dispatch: Dispatch, getState: GetState) => Promise<void>;
+
+export const loadList: LoadList = toTab => async (dispatch, getState) => {
+  const { list } = getState().views;
+  const tab = toTab !== undefined ? toTab : list.selectedTab;
   try {
-    const { list } = getState().views;
-    const tab = toTab !== undefined ? toTab : list.selectedTab;
-
     const { loading } = list.tab[tab];
+    const { apiKey } = getState().user;
 
-    if (!loading) {
+    if (!loading && apiKey) {
       dispatch(listLoading(tab));
-      const { apiKey } = getState().user;
 
       if (toTab !== undefined && toTab !== list.selectedTab) {
         dispatch(listChangeTab(toTab));
@@ -88,11 +125,11 @@ export const loadList = toTab => async (dispatch, getState) => {
         const normalized = normalize(json, { values: [folder] });
         dispatch(listLoaded(normalized, tab));
       } else {
-        dispatch(listError());
+        dispatch(listError(tab));
       }
     }
   } catch (e) {
     capture(e);
-    dispatch(listError());
+    dispatch(listError(tab));
   }
 };
