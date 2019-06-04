@@ -1,3 +1,4 @@
+// @flow
 import { schema } from 'normalizr';
 
 export const checkPoint = new schema.Entity(

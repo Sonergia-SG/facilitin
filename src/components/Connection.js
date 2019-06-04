@@ -12,6 +12,8 @@ import logo from '../images/sonergia.png';
 
 import Loading from './Loading';
 
+import { type Reducer as State } from '../store/reducer';
+
 import { loginRequest, loginUpdateEmail, loginUpdatePassword } from '../store/actions/views/login';
 
 class Connection extends Component {
@@ -114,7 +116,7 @@ Connection.propTypes = {
 };
 
 export default connect(
-  s => ({ loginState: s.views.login }),
+  (s: State) => ({ loginState: s.views.login }),
   {
     login: loginRequest,
     updateEmail: loginUpdateEmail,

@@ -27,10 +27,11 @@ export const folderUpdateCheckPointLoaded = ({ folderId, checkPointId }) => ({
   checkPointId,
 });
 
-export const folderUpdateCheckPointError = ({ folderId, checkPointId }) => ({
+export const folderUpdateCheckPointError = ({ folderId, checkPointId, prevValue }) => ({
   type: FOLDER_UPDATE_CHECK_POINT_ERROR,
   folderId,
   checkPointId,
+  prevValue,
 });
 
 export const folderUpdateLoading = folderId => ({

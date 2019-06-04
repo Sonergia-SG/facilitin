@@ -1,6 +1,15 @@
+// @flow
 import { LOGOUT } from '../../types';
 
-const moa = (state = {}, action) => {
+type State = {};
+
+type Action = {
+  type: String,
+}
+
+type MoaReducer = (state: State, acton: Action) => State;
+
+const moa : MoaReducer = (state = {}, action) => {
   switch (action.type) {
     case LOGOUT:
       return {};
