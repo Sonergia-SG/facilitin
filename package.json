@@ -43,6 +43,7 @@
   "devDependencies": {
     "babel-eslint": "^9.0.0",
     "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-flowtype": "^3.9.1",
     "flow": "^0.2.3",
     "flow-bin": "^0.100.0",
     "husky": "^2.3.0",

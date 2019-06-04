@@ -1,3 +1,5 @@
+// @flow
+
 /**
  * Created by stephane.mallaroni on 15/04/2019.
  */
@@ -5,9 +7,20 @@
 /* eslint-disable jsx-a11y/label-has-for, jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
-import PropTypes from 'prop-types';
 
-class ModalMoa extends Component {
+import { type MOA } from '../../../store/reducer/entities/flowTypes';
+
+type Props = {
+  open: boolean,
+  moaValues: Array<MOA>,
+  onCloseModalType: (type: 'moa') => void,
+};
+
+type State = {
+  moa: Array<MOA>,
+};
+
+class ModalMoa extends Component<Props, State> {
   state = {
     moa: this.props.moaValues,
   };
@@ -17,6 +30,7 @@ class ModalMoa extends Component {
   };
 
   render() {
+    if (!this.state.moa[0]) return null;
     return (
       <div>
         <Modal
@@ -109,11 +123,5 @@ class ModalMoa extends Component {
     );
   }
 }
-
-ModalMoa.propTypes = {
-  open: PropTypes.bool.isRequired,
-  moaValues: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  onCloseModalType: PropTypes.func.isRequired,
-};
 
 export default ModalMoa;

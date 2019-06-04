@@ -6,9 +6,13 @@ import {
   FOLDER_LOADING, FOLDER_LOADED, FOLDER_ERROR, LOGOUT,
 } from '../../../types';
 
+export type OneFolderState = {
+  loading: boolean,
+}
+
 export type FolderState = {
   pending: {
-    [string]: {},
+    [string]: OneFolderState,
   },
 };
 
@@ -32,7 +36,7 @@ type FolderReducerAction =
   | FolderReducerActionFolderError
   | FolderReducerActionFolderLoading;
 
-type FolderReducer = (state: FolderState, action: FolderReducerAction) => FolderState;
+type FolderReducer = (state?: FolderState, action: FolderReducerAction) => FolderState;
 
 const initialState: FolderState = {
   pending: {},

@@ -1,8 +1,10 @@
+// @flow
+
 /**
  * Created by stephane.mallaroni on 15/04/2019.
  */
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, type RouterHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
@@ -10,7 +12,6 @@ import {
   Tab, Tabs, TabList, TabPanel,
 } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import PropTypes from 'prop-types';
 
 import Loading from './Loading';
 
@@ -21,6 +22,10 @@ import {
   listUpdatePageSize,
   listUpdateSorted,
 } from '../store/actions/views/list';
+
+import { type Folders } from '../store/reducer/entities/flowTypes';
+import { type ListState } from '../store/reducer/views/list';
+import { type State } from '../store/reducer';
 
 const COLUMNS = [
   {
@@ -63,7 +68,19 @@ const TRANSLATIONS = {
   rowsText: 'lignes',
 };
 
-class List extends Component {
+type Props = {
+  loadList: typeof loadList,
+  listUpdateSearch: typeof listUpdateSearch,
+  listUpdatePage: typeof listUpdatePage,
+  listUpdatePageSize: typeof listUpdatePageSize,
+  listUpdateSorted: typeof listUpdateSorted,
+  apiKey: string,
+  allFolders: Folders,
+  listState: ListState,
+  history: RouterHistory,
+};
+
+class List extends Component<Props> {
   componentDidMount() {
     this.props.loadList();
   }
@@ -210,26 +227,8 @@ class List extends Component {
   }
 }
 
-List.propTypes = {
-  loadList: PropTypes.func.isRequired,
-  listUpdateSearch: PropTypes.func.isRequired,
-  listUpdatePage: PropTypes.func.isRequired,
-  listUpdatePageSize: PropTypes.func.isRequired,
-  listUpdateSorted: PropTypes.func.isRequired,
-  apiKey: PropTypes.string.isRequired,
-  allFolders: PropTypes.shape({}).isRequired,
-  listState: PropTypes.shape({
-    selectedTab: PropTypes.number.isRequired,
-    tab: PropTypes.shape({}).isRequired,
-    search: PropTypes.string.isRequired,
-  }).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
 export default connect(
-  s => ({
+  (s: State) => ({
     apiKey: s.user.apiKey,
     listState: s.views.list,
     allFolders: s.entities.folders,

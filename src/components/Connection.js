@@ -5,30 +5,48 @@
 
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import logo from '../images/sonergia.png';
 
 import Loading from './Loading';
 
-import { type Reducer as State } from '../store/reducer';
+import { type State } from '../store/reducer';
+import { type LoginState } from '../store/reducer/views/login';
 
 import { loginRequest, loginUpdateEmail, loginUpdatePassword } from '../store/actions/views/login';
 
-class Connection extends Component {
+type Props = {
+  login: typeof loginRequest,
+  updateEmail: typeof loginUpdateEmail,
+  updatePassword: typeof loginUpdatePassword,
+  loginState: LoginState,
+  history: {
+    push: (path: string) => void,
+  },
+};
+
+class Connection extends Component<Props, null> {
   componentDidMount = () => {
-    if (this.emailRef) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (this.emailRef) {
         this.emailRef.focus();
-      }, 100);
-    }
-  }
+      }
+    }, 100);
+  };
+
+  handleMailChange = (e: SyntheticInputEvent<HTMLInputElement>) => {
+    this.props.updateEmail(e.target.value);
+  };
+
+  handlePasswordChange = (e: SyntheticInputEvent<HTMLInputElement>) => {
+    this.props.updatePassword(e.target.value);
+  };
+
+  emailRef: ?HTMLInputElement;
 
   render() {
-    const {
-      loginState, updateEmail, updatePassword, login,
-    } = this.props;
+    const { loginState, login } = this.props;
     return (
       <div className="Connection columns is-mobile is-centered is-vcentered">
         <div className="box is-half has-text-centered">
@@ -40,7 +58,7 @@ class Connection extends Component {
           </div>
           <div className="has-text-centered">
             <form
-              onSubmit={async (e) => {
+              onSubmit={async (e: Event) => {
                 e.preventDefault();
                 login();
               }}
@@ -53,7 +71,7 @@ class Connection extends Component {
                   placeholder="Votre Email"
                   className="input"
                   value={loginState.email}
-                  onChange={e => updateEmail(e.target.value)}
+                  onChange={this.handleMailChange}
                   ref={(ref) => {
                     this.emailRef = ref;
                   }}
@@ -71,7 +89,7 @@ class Connection extends Component {
                   placeholder="Votre Mot de passe"
                   className="input"
                   value={loginState.password}
-                  onChange={e => updatePassword(e.target.value)}
+                  onChange={this.handlePasswordChange}
                   required
                 />
                 {loginState.errors.password && (
@@ -95,25 +113,6 @@ class Connection extends Component {
     );
   }
 }
-
-Connection.propTypes = {
-  login: PropTypes.func.isRequired,
-  updateEmail: PropTypes.func.isRequired,
-  updatePassword: PropTypes.func.isRequired,
-  loginState: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    errors: PropTypes.shape({
-      email: PropTypes.string,
-      password: PropTypes.string,
-      form: PropTypes.string,
-    }).isRequired,
-    loading: PropTypes.bool.isRequired,
-  }).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
 
 export default connect(
   (s: State) => ({ loginState: s.views.login }),

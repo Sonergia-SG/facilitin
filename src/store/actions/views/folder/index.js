@@ -30,25 +30,21 @@ import { type Normalized } from '../../../reducer/entities/flowTypes';
 import { type State } from '../../../reducer';
 
 type FolderUpdateCheckPointLoading = (p: {
-  folderId: string,
-  checkPointId: string,
+  checkPointId: number,
   prevValue: number,
 }) => CheckPointsActionUpdateLoading;
 
 export const folderUpdateCheckPointLoading: FolderUpdateCheckPointLoading = ({
-  folderId,
   checkPointId,
   prevValue,
 }) => ({
   type: FOLDER_UPDATE_CHECK_POINT_LOADING,
-  folderId,
   checkPointId,
   prevValue,
 });
 
 type FolderUpdateCheckPointLoaded = (p: {
-  folderId: typeof FOLDER_UPDATE_CHECK_POINT_LOADED,
-  checkPointId: string,
+  checkPointId: number,
 }) => {};
 
 export const folderUpdateCheckPointLoaded: FolderUpdateCheckPointLoaded = () => ({
@@ -56,18 +52,15 @@ export const folderUpdateCheckPointLoaded: FolderUpdateCheckPointLoaded = () => 
 });
 
 type FolderUpdateCheckPointError = (p: {
-  folderId: string,
-  checkPointId: string,
+  checkPointId: number,
   prevValue: number,
 }) => CheckPointsActionUpdateError;
 
 export const folderUpdateCheckPointError: FolderUpdateCheckPointError = ({
-  folderId,
   checkPointId,
   prevValue,
 }) => ({
   type: FOLDER_UPDATE_CHECK_POINT_ERROR,
-  folderId,
   checkPointId,
   prevValue,
 });
@@ -117,26 +110,26 @@ export const fetchFolder: FetchFolder = folderId => (dispatch) => {
   }
 };
 
-type UpdateFolderCheckPoint = ({ folderId: string, checkPointId: string }) => (
+type UpdateFolderCheckPoint = ({ checkPointId: number }) => (
   dispatch: Dispatch,
   getState: GetState
 ) => void;
 
-export const updateFolderCheckPoint: UpdateFolderCheckPoint = ({ folderId, checkPointId }) => (
+export const updateFolderCheckPoint: UpdateFolderCheckPoint = ({ checkPointId }) => (
   dispatch,
   getState,
 ) => {
   const prevValue = getState().entities.checkPoints[checkPointId].controle_valide;
 
   try {
-    dispatch(folderUpdateCheckPointLoading({ folderId, checkPointId, prevValue }));
+    dispatch(folderUpdateCheckPointLoading({ checkPointId, prevValue }));
 
     setTimeout(() => {
-      dispatch(folderUpdateCheckPointLoaded({ folderId, checkPointId }));
+      dispatch(folderUpdateCheckPointLoaded({ checkPointId }));
     }, 500);
   } catch (error) {
     capture(error);
-    dispatch(folderUpdateCheckPointError({ folderId, checkPointId, prevValue }));
+    dispatch(folderUpdateCheckPointError({ checkPointId, prevValue }));
   }
 };
 

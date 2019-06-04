@@ -1,8 +1,9 @@
+// @flow
+
 /**
  * Created by stephane.mallaroni on 15/04/2019.
  */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
 
@@ -14,8 +15,34 @@ import Empty from './Empty';
 import { fetchFolder } from '../../store/actions/views/folder';
 
 import { folder as folderSchema } from '../../store/reducer/entities/schema';
+import { type State as ReduxState } from '../../store/reducer';
+import { type Entities, type FolderFullDenormalized } from '../../store/reducer/entities/flowTypes';
+import { type OneFolderState } from '../../store/reducer/views/folder';
 
-class Folder extends Component {
+type Props = {
+  entities: Entities,
+  folderState?: OneFolderState,
+  fetchFolder: typeof fetchFolder,
+  match: {
+    params: {
+      folderId: string,
+    },
+  },
+};
+
+type State = {
+  openMoa: boolean,
+  openMoe: boolean,
+  openSite: boolean,
+};
+
+class Folder extends Component<Props, State> {
+  static defaultProps = {
+    folderState: {
+      loading: true,
+    },
+  };
+
   state = {
     openMoa: false,
     openMoe: false,
@@ -53,9 +80,12 @@ class Folder extends Component {
     const { entities, match, folderState } = this.props;
     const { folderId } = match.params;
     const folder = entities.folders[folderId];
-    const data = denormalize(folder, folderSchema, entities);
+    const data: FolderFullDenormalized = denormalize(folder, folderSchema, entities);
 
-    if (!folder || !data) return <Empty loading={folderState.loading} />;
+    if (!folder || !data) {
+      const loading = folderState ? folderState.loading : true;
+      return <Empty loading={loading} />;
+    }
 
     return (
       <>
@@ -76,27 +106,8 @@ class Folder extends Component {
   }
 }
 
-Folder.propTypes = {
-  entities: PropTypes.shape({
-    folders: PropTypes.shape({}).isRequired,
-  }).isRequired,
-  folderState: PropTypes.shape({}),
-  fetchFolder: PropTypes.func.isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      folderId: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-};
-
-Folder.defaultProps = {
-  folderState: {
-    loading: true,
-  },
-};
-
 export default connect(
-  (s, p) => ({
+  (s: ReduxState, p: Props) => ({
     entities: s.entities,
     folderState: s.views.folder.pending[p.match.params.folderId],
   }),

@@ -93,7 +93,7 @@ type Dispatch = mixed => void;
 
 type GetState = () => State;
 
-type LoadList = (toTab: Tab) => (dispatch: Dispatch, getState: GetState) => Promise<void>;
+type LoadList = (toTab?: Tab) => (dispatch: Dispatch, getState: GetState) => Promise<void>;
 
 export const loadList: LoadList = toTab => async (dispatch, getState) => {
   const { list } = getState().views;

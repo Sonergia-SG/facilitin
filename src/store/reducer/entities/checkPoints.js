@@ -17,13 +17,13 @@ export type CheckPointsActionLoaded = {
 
 export type CheckPointsActionUpdateLoading = {
   type: typeof FOLDER_UPDATE_CHECK_POINT_LOADING,
-  checkPointId: string,
+  checkPointId: number,
   prevValue: number,
 };
 
 export type CheckPointsActionUpdateError = {
   type: typeof FOLDER_UPDATE_CHECK_POINT_ERROR,
-  checkPointId: string,
+  checkPointId: number,
   prevValue: number,
 };
 

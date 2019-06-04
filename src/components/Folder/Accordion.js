@@ -1,17 +1,25 @@
+// @flow
+
 /**
  * Created by stephane.mallaroni on 15/04/2019.
  */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { updateFolderCheckPoint } from '../../store/actions/views/folder';
+import { type FileFullDenormalized } from '../../store/reducer/entities/flowTypes';
 
 import StateToColor from '../StateToColor';
 import DropZone from '../DropZone';
 
-class Accordion extends Component {
-  currentAccordion = (e) => {
+type Props = {
+  updateFolderCheckPoint: typeof updateFolderCheckPoint,
+  valeur: FileFullDenormalized,
+  numero: number,
+}
+
+class Accordion extends Component<Props, null> {
+  currentAccordion = (e: SyntheticEvent<HTMLButtonElement>) => {
     e.preventDefault();
     // ! quand store migrer les conditions de class en fonction du state
 
@@ -25,11 +33,11 @@ class Accordion extends Component {
     const target = e.currentTarget.closest('.accordion') || e.currentTarget;
     if (target.classList.contains('is-active')) {
       const titleLeft = document.getElementById(`${this.props.numero}pp`);
-      titleLeft.className += ' left-active';
+      if (titleLeft) titleLeft.className += ' left-active';
     }
   };
 
-  litigeDocument = (e) => {
+  litigeDocument = (e: SyntheticEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     // routine pour voir si le litige est un incomplet ou un rejet
@@ -97,6 +105,7 @@ class Accordion extends Component {
                                 onChange={() => (
                                   this.props.updateFolderCheckPoint({
                                     checkPointId: value.id_controle,
+                                    folderId: 0,
                                   })
                                 )}
                               />
@@ -131,11 +140,5 @@ class Accordion extends Component {
     );
   }
 }
-
-Accordion.propTypes = {
-  updateFolderCheckPoint: PropTypes.func.isRequired,
-  valeur: PropTypes.shape({}).isRequired,
-  numero: PropTypes.number.isRequired,
-};
 
 export default connect(null, { updateFolderCheckPoint })(Accordion);

@@ -1,8 +1,16 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const Left = ({ data }) => {
+import { type FolderFullDenormalized } from '../../store/reducer/entities/flowTypes';
+
+type Props = {
+  data: FolderFullDenormalized,
+};
+
+const Left = ({ data }: Props) => {
   const title = `Dossier N° ${data.id_dossierprime}`;
+
+  if (!data.documents) return null;
 
   return (
     <div className="tile is-vertical is-3">
@@ -37,14 +45,6 @@ const Left = ({ data }) => {
       </div>
     </div>
   );
-};
-
-Left.propTypes = {
-  data: PropTypes.shape({
-    code_operation: PropTypes.string.isRequired,
-    id_dossierprime: PropTypes.number.isRequired,
-    documents: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  }).isRequired,
 };
 
 export default Left;

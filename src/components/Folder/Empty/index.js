@@ -1,10 +1,15 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Loading from '../../Loading';
 import Error from '../../Error';
 
-const Empty = ({ loading }) => (
+type Props = {
+  loading: boolean,
+}
+
+const Empty = ({ loading }: Props) => (
   <div
     style={{
       display: 'flex',
@@ -19,9 +24,5 @@ const Empty = ({ loading }) => (
     }
   </div>
 );
-
-Empty.propTypes = {
-  loading: PropTypes.bool.isRequired,
-};
 
 export default Empty;

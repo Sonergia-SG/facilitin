@@ -1,14 +1,21 @@
+// @flow
+
 /**
  * Created by stephane.mallaroni on 15/04/2019.
  */
 import React, { Component } from 'react';
 import bulmaAccordion from 'bulma-accordion/dist/js/bulma-accordion';
 import 'bulma-accordion/dist/css/bulma-accordion.min.css';
-import PropTypes from 'prop-types';
 
 import Accordion from './Accordion';
 
-class Collapsed extends Component {
+import { type File } from '../../store/reducer/entities/flowTypes';
+
+type Props = {
+  valeur: Array<File>,
+};
+
+class Collapsed extends Component<Props, {}> {
   accordion = [];
 
   componentDidMount() {
@@ -26,11 +33,7 @@ class Collapsed extends Component {
               <div>
                 <section className="accordions">
                   {valeur.map((value, index) => (
-                    <Accordion
-                      valeur={value}
-                      key={value.id_file}
-                      numero={index}
-                    />
+                    <Accordion valeur={value} key={value.id_file} numero={index} />
                   ))}
                 </section>
               </div>
@@ -41,9 +44,5 @@ class Collapsed extends Component {
     );
   }
 }
-
-Collapsed.propTypes = {
-  valeur: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-};
 
 export default Collapsed;

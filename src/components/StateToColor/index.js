@@ -1,13 +1,23 @@
+// @flow
+
 /**
  * Created by stephane.mallaroni on 15/04/2019.
  */
 
-const pointManuelNonCoche = (pointControle) => {
-  const nonCoche = !pointControle.some(v => v.controle_valide === 1);
+import { type CheckPoint, type FileFullDenormalized } from '../../store/reducer/entities/flowTypes';
+
+type PointManuelNonCoche = (checkPoint: Array<CheckPoint>) => boolean;
+
+const pointManuelNonCoche: PointManuelNonCoche = (checkPoint) => {
+  const nonCoche = !checkPoint.some(v => v.controle_valide === 1);
   return nonCoche;
 };
 
-const StateToColor = (str) => {
+type StateToColorType = (
+  str: FileFullDenormalized
+) => 'accordion_bad_controle' | 'accordion_litige' | 'accordion_empty' | 'accordion_ok';
+
+const StateToColor: StateToColorType = (str) => {
   if (str.nb_bad_controle_auto > 0) return 'accordion_bad_controle';
   if (str.litige === 1) return 'accordion_litige';
 

@@ -1,13 +1,25 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import ModalMoa from './ModalMoa';
 import ModalMoe from './ModalMoe';
 import ModalTravaux from './ModalTravaux';
 
+import { type FolderFullDenormalized } from '../../../store/reducer/entities/flowTypes';
+
+type Props = {
+  openMoa: boolean,
+  openMoe: boolean,
+  openSite: boolean,
+  onOpenModal: (type: 'moa' | 'moe' | 'travaux') => () => void,
+  onCloseModalType: (type: 'moa' | 'moe' | 'travaux') => void,
+  data: FolderFullDenormalized,
+};
+
 const Modal = ({
   openMoa, openMoe, openSite, onOpenModal, onCloseModalType, data,
-}) => (
+}: Props) => (
   <>
     <div className="container footersonergia">
       <div className="buttons has-addons is-centered">
@@ -40,27 +52,20 @@ const Modal = ({
         </span>
       </div>
     </div>
-    <ModalMoa open={openMoa} moaValues={data.moa} onCloseModalType={onCloseModalType} />
-    <ModalMoe open={openMoe} moeValues={data.moe} onCloseModalType={onCloseModalType} />
-    <ModalTravaux
-      open={openSite}
-      travauxValues={data.travaux}
-      onCloseModalType={onCloseModalType}
-    />
+    {data.moa && (
+      <ModalMoa open={openMoa} moaValues={data.moa} onCloseModalType={onCloseModalType} />
+    )}
+    {data.moe && (
+      <ModalMoe open={openMoe} moeValues={data.moe} onCloseModalType={onCloseModalType} />
+    )}
+    {data.travaux && (
+      <ModalTravaux
+        open={openSite}
+        travauxValues={data.travaux}
+        onCloseModalType={onCloseModalType}
+      />
+    )}
   </>
 );
-
-Modal.propTypes = {
-  openMoa: PropTypes.bool.isRequired,
-  openMoe: PropTypes.bool.isRequired,
-  openSite: PropTypes.bool.isRequired,
-  onOpenModal: PropTypes.func.isRequired,
-  onCloseModalType: PropTypes.func.isRequired,
-  data: PropTypes.shape({
-    moa: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-    moe: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-    travaux: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  }).isRequired,
-};
 
 export default Modal;

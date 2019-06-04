@@ -1,14 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+// @flow
 
-const Error = ({ msg }) => (
+import React from 'react';
+
+type Props = {
+  msg: string,
+};
+
+const Error = ({ msg }: Props) => (
   <div>
     <p style={{ color: 'red' }}>{msg}</p>
   </div>
 );
-
-Error.propTypes = {
-  msg: PropTypes.string.isRequired,
-};
 
 export default Error;

@@ -1,25 +1,32 @@
+// @flow
+
 /**
  * Created by stephane.mallaroni on 15/04/2019.
  */
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
-import PropTypes from 'prop-types';
 
-class DropZone extends Component {
+type Props = {
+  id_file: number,
+}
+
+type State = {
+  id_file: number,
+  files: Array<File>,
+}
+
+class DropZone extends Component<Props, State> {
   state = {
     id_file: this.props.id_file,
     files: [],
   };
 
-  onDrop = (acceptedFiles) => {
+  onDrop = (acceptedFiles: Array<File>) => {
     // eslint-disable-next-line no-unused-vars, camelcase
     const { id_file } = this.state;
 
     this.setState({
-      files: {
-        ...acceptedFiles,
-        id_file,
-      },
+      files: acceptedFiles,
     });
   };
 
@@ -57,7 +64,7 @@ class DropZone extends Component {
           }}
         </Dropzone>
         {files.map(f => (
-          <div className="notification is-primary notif-file" key={f}>
+          <div className="notification is-primary notif-file" key={f.lastModified}>
             {f.name}
           </div>
         ))}
@@ -65,9 +72,5 @@ class DropZone extends Component {
     );
   }
 }
-
-DropZone.propTypes = {
-  id_file: PropTypes.number.isRequired,
-};
 
 export default DropZone;

@@ -1,3 +1,5 @@
+// @flow
+
 /**
  * Created by stephane.mallaroni on 12/04/2019.
  *
