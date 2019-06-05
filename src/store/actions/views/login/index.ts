@@ -1,3 +1,6 @@
+import { Action } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+
 import {
   LOGIN_LOADING,
   LOGIN_ERROR,
@@ -14,45 +17,57 @@ import capture from '../../../../tools/errorReporting/captureException';
 
 import { addToken } from '../../user';
 
-export const loginLoading = () => ({
+import { AppState } from '../../../../store';
+import {
+  LoginLoginLoadingAction,
+  LoginLoginLoadedAction,
+  LoginLoginErrorAction,
+  Errors,
+  LoginLogoutAction,
+  LoginLoginUpdateErrosAction,
+  LoginLoginUpdateEmailAction,
+  LoginLoginUpdatePasswordAction,
+} from '../../../reducer/views/login/types';
+
+export const loginLoading = (): LoginLoginLoadingAction => ({
   type: LOGIN_LOADING,
 });
 
-export const loginLoaded = () => ({
+export const loginLoaded = (): LoginLoginLoadedAction => ({
   type: LOGIN_LOADED,
 });
 
-export const loginError = errors => ({
+export const loginError = (errors: Errors): LoginLoginErrorAction => ({
   type: LOGIN_ERROR,
   errors,
 });
 
-export const logout = () => ({
+export const logout = (): LoginLogoutAction => ({
   type: LOGOUT,
 });
 
-export const updateErrors = errors => ({
+export const updateErrors = (errors: Errors): LoginLoginUpdateErrosAction => ({
   type: LOGIN_UPDATE_ERRORS,
   errors,
 });
 
-export const loginUpdateEmail = email => ({
+export const loginUpdateEmail = (email: string): LoginLoginUpdateEmailAction => ({
   type: LOGIN_UPDATE_EMAIL,
   email,
 });
 
-export const loginUpdatePassword = password => ({
+export const loginUpdatePassword = (password: string): LoginLoginUpdatePasswordAction => ({
   type: LOGIN_UPDATE_PASSWORD,
   password,
 });
 
-export const loginRequest = () => async (dispatch, getState) => {
+export const loginRequest = (): ThunkAction<void, AppState, null, Action<string>> => async (dispatch, getState) => {
   const { email, password } = getState().views.login;
 
   const validEmail = email && /^.+@.+\..{2,}$/.test(email);
   const validMdp = !!password;
 
-  const { errors } = getState();
+  const { errors } = getState().views.login;
 
   dispatch(
     updateErrors({
@@ -84,7 +99,8 @@ export const loginRequest = () => async (dispatch, getState) => {
         dispatch(addToken(json.api_key));
       }
     } catch (error) {
-      const knowErrors = {
+      type KnowErrors = { [index: string]: string };
+      const knowErrors: KnowErrors = {
         [ERROR_APPEND]: "Une erreur s'est produite",
         [WRONG_ID]: 'Identifiants inconnus',
         default: "Une erreur s'est produite connexion impossible",
@@ -93,7 +109,7 @@ export const loginRequest = () => async (dispatch, getState) => {
       dispatch(
         loginError({
           ...errors,
-          form: knowErrors[error.message] || knowErrors.default,
+          formulaire: knowErrors[error.message] || knowErrors.default,
         }),
       );
 

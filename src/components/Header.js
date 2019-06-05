@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import logoSmall from '../images/sonergia_small.png';
 
-import { logout } from '../store/actions/views/login';
+import { logout } from '../store/actions/views/login/index.ts';
 
 class HeaderNav extends Component {
   deconnexionSubmit = () => {

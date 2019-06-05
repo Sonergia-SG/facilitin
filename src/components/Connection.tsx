@@ -1,9 +1,9 @@
 /**
  * Created by stephane.mallaroni on 11/04/2019.
  */
-import React, { Component } from 'react';
+import React, { Component, RefObject } from 'react';
 import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { RouteChildrenProps  } from 'react-router';
 import { connect } from 'react-redux';
 
 import logo from '../images/sonergia.png';
@@ -11,15 +11,26 @@ import logo from '../images/sonergia.png';
 import Loading from './Loading';
 
 import { loginRequest, loginUpdateEmail, loginUpdatePassword } from '../store/actions/views/login';
+import { LoginState } from '../store/reducer/views/login/types';
+import { AppState } from '../store/index';
 
-class Connection extends Component {
+interface Props {
+  login: any;
+  updateEmail: typeof loginUpdateEmail;
+  updatePassword: typeof loginUpdatePassword;
+  loginState: LoginState;
+}
+
+class Connection extends Component<Props & RouteChildrenProps> {
   componentDidMount = () => {
-    if (this.emailRef) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (this.emailRef) {
         this.emailRef.focus();
-      }, 100);
-    }
-  }
+      }
+    }, 100);
+  };
+
+  emailRef: HTMLInputElement | undefined;
 
   render() {
     const {
@@ -50,7 +61,7 @@ class Connection extends Component {
                   className="input"
                   value={loginState.email}
                   onChange={e => updateEmail(e.target.value)}
-                  ref={(ref) => {
+                  ref={(ref: HTMLInputElement) => {
                     this.emailRef = ref;
                   }}
                   required
@@ -84,7 +95,9 @@ class Connection extends Component {
                 </div>
               </div>
             </form>
-            {loginState.errors.form && <p style={{ color: 'red' }}>{loginState.errors.form}</p>}
+            {loginState.errors.formulaire && (
+              <p style={{ color: 'red' }}>{loginState.errors.formulaire}</p>
+            )}
           </div>
         </div>
       </div>
@@ -92,30 +105,11 @@ class Connection extends Component {
   }
 }
 
-Connection.propTypes = {
-  login: PropTypes.func.isRequired,
-  updateEmail: PropTypes.func.isRequired,
-  updatePassword: PropTypes.func.isRequired,
-  loginState: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    errors: PropTypes.shape({
-      email: PropTypes.string,
-      password: PropTypes.string,
-      form: PropTypes.string,
-    }).isRequired,
-    loading: PropTypes.bool.isRequired,
-  }).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
 export default connect(
-  s => ({ loginState: s.views.login }),
+  (s: AppState) => ({ loginState: s.views.login }),
   {
     login: loginRequest,
     updateEmail: loginUpdateEmail,
     updatePassword: loginUpdatePassword,
   },
-)(withRouter(Connection));
+)(Connection);

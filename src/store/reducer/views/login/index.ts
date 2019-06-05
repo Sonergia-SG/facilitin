@@ -1,3 +1,4 @@
+import { LoginState, LoginAction } from './types'
 import {
   LOGIN_LOADING,
   LOGIN_LOADED,
@@ -15,12 +16,12 @@ const initialState = {
   errors: {
     email: null,
     password: null,
-    form: null,
+    formulaire: null,
   },
   loading: false,
 };
 
-const login = (state = initialState, action) => {
+const login = (state: LoginState = initialState, action: LoginAction): LoginState => {
   switch (action.type) {
     case LOGOUT:
     case INIT:

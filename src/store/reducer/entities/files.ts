@@ -1,11 +1,13 @@
+import { Files, FilesActions } from './types'
+
 import { LOGOUT, FOLDER_LOADED } from '../../types';
 
-const checkPoints = (state = {}, action) => {
+const files = (state: Files = {}, action: FilesActions): Files => {
   switch (action.type) {
     case FOLDER_LOADED:
       return {
         ...state,
-        ...action.normalized.entities.checkPoints,
+        ...action.normalized.entities.files,
       };
     case LOGOUT:
       return {};
@@ -14,4 +16,4 @@ const checkPoints = (state = {}, action) => {
   }
 };
 
-export default checkPoints;
+export default files;

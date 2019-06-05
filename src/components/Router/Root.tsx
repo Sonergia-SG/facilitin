@@ -1,13 +1,19 @@
 import React from 'react';
+// @ts-ignore
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import Connection from '../Connection';
 import Liste from '../Liste';
 import Folder from '../Folder';
 
-const Root = ({ logged }) => {
+import { AppState } from '../../store/index';
+
+interface Props {
+  logged: boolean;
+}
+
+const Root = ({ logged }: Props) => {
   if (logged) {
     return (
       <Switch>
@@ -26,8 +32,4 @@ const Root = ({ logged }) => {
   );
 };
 
-Root.propTypes = {
-  logged: PropTypes.bool.isRequired,
-};
-
-export default connect(s => ({ logged: !!s.user.apiKey }))(Root);
+export default connect((s: AppState) => ({ logged: !!s.user.apiKey }))(Root);
