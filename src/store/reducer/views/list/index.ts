@@ -1,3 +1,5 @@
+import { ListState, ListAction, Tab } from './type'
+
 import {
   LIST_LOADING,
   LIST_LOADED,
@@ -16,25 +18,25 @@ const initialState = {
   pageSize: 10,
   search: '',
   tab: {
-    0: {
+    [Tab.TODO]: {
       page: 0,
       data: [],
       sorted: [],
       loading: false,
     },
-    1: {
+    [Tab.INCOMPLETE]: {
       page: 0,
       data: [],
       sorted: [],
       loading: false,
     },
-    2: {
+    [Tab.REJECTED]: {
       page: 0,
       data: [],
       sorted: [],
       loading: false,
     },
-    3: {
+    [Tab.VALID]: {
       page: 0,
       data: [],
       sorted: [],
@@ -43,7 +45,7 @@ const initialState = {
   },
 };
 
-const list = (state = initialState, action) => {
+const list = (state: ListState = initialState, action: ListAction): ListState => {
   switch (action.type) {
     case INIT:
       return {
