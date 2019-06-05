@@ -1,4 +1,6 @@
 import { normalize } from 'normalizr';
+import { ThunkAction } from 'redux-thunk';
+import { Action } from 'redux';
 
 import {
   LIST_LOADING,
@@ -16,48 +18,70 @@ import { folder } from '../../../reducer/entities/schema';
 
 import capture from '../../../../tools/errorReporting/captureException';
 
-export const listLoading = tab => ({
+import { AppState } from '../../../../store';
+import {
+  Tab,
+  ListListLoadingAction,
+  ListListLoadedNormalized,
+  ListListLoadedAction,
+  ListListChangeTabAction,
+  ListListErrorAction,
+  ListListChangeSearchAction,
+  ListListChangePageAction,
+  ListListPageSizeAction,
+  ListListSortedAction,
+  Sorted,
+} from '../../../reducer/views/list/type';
+import { Normalized, Entities } from '../../../reducer/entities/types';
+
+export const listLoading = (tab: Tab): ListListLoadingAction => ({
   type: LIST_LOADING,
   tab,
 });
 
-export const listLoaded = (normalized, tab) => ({
+export const listLoaded = (
+  normalized: ListListLoadedNormalized & Normalized,
+  tab: Tab,
+): ListListLoadedAction => ({
   type: LIST_LOADED,
   normalized,
   tab,
 });
 
-export const listChangeTab = tab => ({
+export const listChangeTab = (tab: Tab): ListListChangeTabAction => ({
   type: LIST_CHANGE_TAB,
   tab,
 });
 
-export const listError = tab => ({
+export const listError = (tab: Tab): ListListErrorAction => ({
   type: LIST_ERROR,
   tab,
 });
 
-export const listUpdateSearch = search => ({
+export const listUpdateSearch = (search: string): ListListChangeSearchAction => ({
   type: LIST_CHANGE_SEARCH,
   search,
 });
 
-export const listUpdatePage = page => ({
+export const listUpdatePage = (page: number): ListListChangePageAction => ({
   type: LIST_PAGE_UPDATE,
   page,
 });
 
-export const listUpdatePageSize = pageSize => ({
+export const listUpdatePageSize = (pageSize: number): ListListPageSizeAction => ({
   type: LIST_PAGE_SIZE_UPDATE,
   pageSize,
 });
 
-export const listUpdateSorted = sorted => ({
+export const listUpdateSorted = (sorted: Sorted): ListListSortedAction => ({
   type: LIST_SORTED_UPDATE,
   sorted,
 });
 
-export const loadList = toTab => async (dispatch, getState) => {
+export const loadList = (toTab: Tab): ThunkAction<void, AppState, null, Action<string>> => async (
+  dispatch,
+  getState,
+) => {
   const tab = toTab || getState().views.list.selectedTab;
 
   dispatch(listLoading(tab));
@@ -81,13 +105,13 @@ export const loadList = toTab => async (dispatch, getState) => {
 
     if (json.status === 'success') {
       // ! add flat values here
-      const normalized = normalize(json, { values: [folder] });
+      const normalized = normalize<Entities, { values: Array<number> }>(json, { values: [folder] });
       dispatch(listLoaded(normalized, tab));
     } else {
-      dispatch(listError());
+      dispatch(listError(tab));
     }
   } catch (e) {
     capture(e);
-    dispatch(listError());
+    dispatch(listError(tab));
   }
 };

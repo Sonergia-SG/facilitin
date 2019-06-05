@@ -61,7 +61,10 @@ export const loginUpdatePassword = (password: string): LoginLoginUpdatePasswordA
   password,
 });
 
-export const loginRequest = (): ThunkAction<void, AppState, null, Action<string>> => async (dispatch, getState) => {
+export const loginRequest = (): ThunkAction<void, AppState, null, Action<string>> => async (
+  dispatch,
+  getState,
+) => {
   const { email, password } = getState().views.login;
 
   const validEmail = email && /^.+@.+\..{2,}$/.test(email);

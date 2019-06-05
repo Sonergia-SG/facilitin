@@ -1,5 +1,7 @@
 import idx from 'idx';
 
+import { FolderState, FolderAction, FolderCheckPointStatus } from './types'
+
 import {
   FOLDER_UPDATE_CHECK_POINT_LOADING,
   FOLDER_UPDATE_CHECK_POINT_LOADED,
@@ -14,7 +16,7 @@ const initialState = {
   pending: {},
 };
 
-const folder = (state = initialState, action) => {
+const folder = (state: FolderState = initialState, action: FolderAction): FolderState => {
   switch (action.type) {
     case FOLDER_LOADING:
       return {
@@ -50,7 +52,7 @@ const folder = (state = initialState, action) => {
               ...idx(state, _ => _.pending[action.folderId].checkPoint),
               [action.checkPointId]: {
                 ...idx(state, _ => _.pending[action.folderId].checkPoint[action.checkPointId]),
-                status: 'sending',
+                status: FolderCheckPointStatus.SENDING,
                 prevValue: action.prevValue,
               },
             },
@@ -82,7 +84,7 @@ const folder = (state = initialState, action) => {
               ...idx(state, _ => _.pending[action.folderId].checkPoint),
               [action.checkPointId]: {
                 ...idx(state, _ => _.pending[action.folderId].checkPoint[action.checkPointId]),
-                status: 'error',
+                status: FolderCheckPointStatus.ERROR,
               },
             },
           },
