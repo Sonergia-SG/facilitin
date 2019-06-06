@@ -19,5 +19,5 @@ export const folder = new schema.Entity(
   {
     documents: [file],
   },
-  { idAttribute: 'id_dossierprime' },
+  { idAttribute: 'id_dp_operation' },
 );

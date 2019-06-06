@@ -44,6 +44,7 @@ export interface MOA {
 }
 
 export interface SimpleFolder {
+  id_dp_operation: number;
   id_dossierprime: number;
   code_operation: string;
   moa: Array<MOA>;

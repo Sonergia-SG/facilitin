@@ -107,8 +107,8 @@ class Liste extends Component<Props> {
   onRowClick = (state: any, rowInfo: any) => ({
     onClick: () => {
       if (rowInfo) {
-        // this.props.history.push(`/folder/${rowInfo.original.id_dossierprime}`);
-        this.props.history.push('/folder/13555');
+        // this.props.history.push(`/folder/${rowInfo.original.id_dp_operation}`);
+        this.props.history.push('/folder/60839');
       }
     },
   });
