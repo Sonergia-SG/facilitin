@@ -11,6 +11,7 @@ import { denormalize } from 'normalizr';
 import HeaderNav from '../Header';
 import Collapsed from './Collapsed';
 import Modal from './Modal';
+import Loading from '../Loading'
 import { fetchFolder } from '../../store/actions/views/folder';
 
 import { folder as folderSchema } from '../../store/reducer/entities/schema';
@@ -73,6 +74,8 @@ class Folder extends Component<Props> {
     const folder = entities.folders[parseInt(folderId, 10)];
     const data: FolderFull = denormalize(folder, folderSchema, entities);
     const title = `Dossier N° ${data.id_dossierprime}`;
+
+    if (!data.documents) return <Loading show />
 
     return data ? (
       <div>

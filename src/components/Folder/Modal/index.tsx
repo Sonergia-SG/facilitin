@@ -52,7 +52,7 @@ const Modal = ({
        </span>
      </div>
    </div>
-   <ModalMoa open={openMoa} moaValues={data.moa} onCloseModalType={onCloseModalType} />
+   {data.moa && <ModalMoa open={openMoa} moaValues={data.moa} onCloseModalType={onCloseModalType} />}
    <ModalMoe open={openMoe} onCloseModalType={onCloseModalType} />
    <ModalTravaux open={openSite} onCloseModalType={onCloseModalType} />
  </>

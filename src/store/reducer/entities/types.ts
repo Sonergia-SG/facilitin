@@ -47,17 +47,17 @@ export interface SimpleFolder {
   id_dp_operation: number;
   id_dossierprime: number;
   code_operation: string;
-  moa: Array<MOA>;
-  moe: Array<{}>;
-  travaux: Array<{}>;
+  moa?: Array<MOA>;
+  moe?: Array<{}>;
+  travaux?: Array<{}>;
 }
 
 export interface Folder extends SimpleFolder {
-  documents: Array<number>;
+  documents?: Array<number>;
 }
 
 export interface FolderFull extends SimpleFolder {
-  documents: Array<FileFull>;
+  documents?: Array<FileFull>;
 }
 
 export interface Folders {

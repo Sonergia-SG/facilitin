@@ -10,7 +10,7 @@ import { FileFull as SonergiaFile } from '../../store/reducer/entities/types';
 import Accordion from '../Accordion';
 
 interface Props {
-  valeur: Array<SonergiaFile>;
+  valeur?: Array<SonergiaFile>;
 }
 
 class Collapsed extends Component<Props> {
@@ -22,6 +22,8 @@ class Collapsed extends Component<Props> {
 
   render() {
     const { valeur } = this.props;
+
+    if (!valeur) return null
 
     return (
       <div>
