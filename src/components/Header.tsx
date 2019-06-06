@@ -2,15 +2,18 @@
  * Created by stephane.mallaroni on 17/04/2019.
  */
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import logoSmall from '../images/sonergia_small.png';
 
-import { logout } from '../store/actions/views/login/index.ts';
+import { logout } from '../store/actions/views/login/index';
 
-class HeaderNav extends Component {
+interface Props extends RouteComponentProps {
+  logout: typeof logout,
+}
+
+class HeaderNav extends Component<Props> {
   deconnexionSubmit = () => {
     this.props.logout();
   };
@@ -59,15 +62,5 @@ class HeaderNav extends Component {
     );
   }
 }
-
-HeaderNav.propTypes = {
-  logout: PropTypes.func.isRequired,
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
 
 export default connect(null, { logout })(withRouter(HeaderNav));

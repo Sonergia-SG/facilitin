@@ -1,14 +1,20 @@
 /**
  * Created by stephane.mallaroni on 15/04/2019.
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, SyntheticEvent } from 'react';
 
 import StateToColor from './StateToColor';
 import DropZone from './DropZone';
 
-class Accordion extends Component {
-  currentAccordion = (e) => {
+import { FileFull as SonergiaFile } from '../store/reducer/entities/types';
+
+interface Props {
+  valeur: SonergiaFile,
+  numero: number,
+}
+
+class Accordion extends Component<Props> {
+  currentAccordion = (e: SyntheticEvent<HTMLElement>) => {
     e.preventDefault();
     // ! quand store migrer les conditions de class en fonction du state
 
@@ -22,11 +28,11 @@ class Accordion extends Component {
     const target = e.currentTarget.closest('.accordion') || e.currentTarget;
     if (target.classList.contains('is-active')) {
       const titleLeft = document.getElementById(`${this.props.numero}pp`);
-      titleLeft.className += ' left-active';
+      if (titleLeft) titleLeft.className += ' left-active';
     }
   };
 
-  litigeDocument = (e) => {
+  litigeDocument = (e: SyntheticEvent<HTMLElement>) => {
     e.preventDefault();
 
     // routine pour voir si le litige est un incomplet ou un rejet
@@ -66,7 +72,7 @@ class Accordion extends Component {
                   <div className="tile is-parent is-vertical">
                     <div className="tile is-child notification has-text-centered tilebordered">
                       <div className="content">
-                        <DropZone id_file={val.id_file} />
+                        <DropZone />
                       </div>
                     </div>
                     <div className="tile is-child notification tilebordered">
@@ -86,11 +92,11 @@ class Accordion extends Component {
                         }
                         return (
                           <div key={value.id_controle}>
-                            <label htmlFor={value.id_controle}>
+                            <label htmlFor={`{value.id_controle}`}>
                               <input
                                 type="checkbox"
-                                name={value.id_controle}
-                                defaultChecked={checked}
+                                name={`{value.id_controle}`}
+                                defaultChecked={!!checked}
                               />
                               {' '}
                               {value.nom_controle}
@@ -123,10 +129,5 @@ class Accordion extends Component {
     );
   }
 }
-
-Accordion.propTypes = {
-  valeur: PropTypes.shape({}).isRequired,
-  numero: PropTypes.number.isRequired,
-};
 
 export default Accordion;

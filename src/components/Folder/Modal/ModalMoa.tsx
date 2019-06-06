@@ -5,15 +5,30 @@
 /* eslint-disable jsx-a11y/label-has-for, jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
-import PropTypes from 'prop-types';
 
-class ModalMoa extends Component {
+import { TypeModal } from '../../Folder';
+
+interface Props {
+  open: boolean;
+  moaValues: Array<{
+    moa_prenom: string;
+    moa_nom: string;
+    moa_fonction: string;
+    moa_rue: string;
+    moa_rue2: string;
+    moa_cp: string;
+    moa_ville: string;
+  }>;
+  onCloseModalType: (type: TypeModal) => void;
+}
+
+class ModalMoa extends Component<Props> {
   state = {
     moa: this.props.moaValues,
   };
 
   onCloseModal = () => {
-    this.props.onCloseModalType('moa');
+    this.props.onCloseModalType(TypeModal.MOA);
   };
 
   render() {
@@ -109,11 +124,5 @@ class ModalMoa extends Component {
     );
   }
 }
-
-ModalMoa.propTypes = {
-  open: PropTypes.bool.isRequired,
-  moaValues: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  onCloseModalType: PropTypes.func.isRequired,
-};
 
 export default ModalMoa;

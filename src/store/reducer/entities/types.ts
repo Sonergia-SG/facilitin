@@ -5,21 +5,67 @@ export enum FolderCheckPointValue {
   OFF = 0,
 }
 
-export interface File {
+export enum FileLitige {
+  ON = 1,
+  OFF = 0,
+}
+
+export interface SimpleFile {
   id_file: number;
+  type: string;
+  name_file: string;
+  nb_bad_controle_auto: number;
+  id_dp_operation: number;
+}
+
+export interface File extends SimpleFile {
+  litige: FileLitige;
+  point_controle: Array<number>
+}
+
+export interface FileFull extends SimpleFile {
+  litige: FileLitige;
+  point_controle: Array<CheckPoint>
 }
 
 export interface Files {
   [index: number]: File;
 }
 
-export interface Folder {}
+export interface MOA {
+  moa_prenom: string;
+  moa_nom: string;
+  moa_fonction: string;
+  moa_rue: string;
+  moa_rue2: string;
+  moa_cp: string;
+  moa_ville: string;
+  moa_denomination: string,
+}
+
+export interface SimpleFolder {
+  id_dossierprime: number;
+  code_operation: string;
+  moa: Array<MOA>;
+  moe: Array<{}>;
+  travaux: Array<{}>;
+}
+
+export interface Folder extends SimpleFolder {
+  documents: Array<number>;
+}
+
+export interface FolderFull extends SimpleFolder {
+  documents: Array<FileFull>;
+}
 
 export interface Folders {
   [index: number]: File;
 }
 
 export interface CheckPoint {
+  id_controle: number;
+  nom_controle: string;
   controle_valide: FolderCheckPointValue;
 }
 

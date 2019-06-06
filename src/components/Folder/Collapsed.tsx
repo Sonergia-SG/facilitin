@@ -2,13 +2,18 @@
  * Created by stephane.mallaroni on 15/04/2019.
  */
 import React, { Component } from 'react';
+// @ts-ignore
 import bulmaAccordion from 'bulma-accordion/dist/js/bulma-accordion';
 import 'bulma-accordion/dist/css/bulma-accordion.min.css';
-import PropTypes from 'prop-types';
+import { FileFull as SonergiaFile } from '../../store/reducer/entities/types';
 
 import Accordion from '../Accordion';
 
-class Collapsed extends Component {
+interface Props {
+  valeur: Array<SonergiaFile>;
+}
+
+class Collapsed extends Component<Props> {
   accordion = []
 
   componentDidMount() {
@@ -29,9 +34,5 @@ class Collapsed extends Component {
     );
   }
 }
-
-Collapsed.propTypes = {
-  valeur: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-};
 
 export default Collapsed;

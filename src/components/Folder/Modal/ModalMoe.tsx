@@ -3,12 +3,17 @@
  */
 import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
-import PropTypes from 'prop-types';
 
+import { TypeModal } from '../../Folder'
 
-class ModalMoe extends Component {
+interface Props {
+  open: boolean,
+  onCloseModalType: (type: TypeModal.MOE) => void,
+}
+
+class ModalMoe extends Component<Props> {
     onCloseModal = () => {
-      this.props.onCloseModalType('moe');
+      this.props.onCloseModalType(TypeModal.MOE);
     };
 
     render() {
@@ -27,10 +32,5 @@ class ModalMoe extends Component {
       );
     }
 }
-
-ModalMoe.propTypes = {
-  open: PropTypes.bool.isRequired,
-  onCloseModalType: PropTypes.func.isRequired,
-};
 
 export default ModalMoe;

@@ -2,15 +2,19 @@
  * Created by stephane.mallaroni on 15/04/2019.
  */
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
+// @ts-ignore
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import {
-  Tab, Tabs, TabList, TabPanel,
+  Tab,
+  Tabs,
+  TabList,
+  TabPanel,
+  // @ts-ignore
 } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import PropTypes from 'prop-types';
 
 import Loading from './Loading';
 import HeaderNav from './Header';
@@ -22,6 +26,10 @@ import {
   listUpdatePageSize,
   listUpdateSorted,
 } from '../store/actions/views/list';
+
+import { AppState } from '../store';
+import { Folders, MOA } from '../store/reducer/entities/types';
+import { ListState, Tab as TabType } from '../store/reducer/views/list/type';
 
 const COLUMNS = [
   {
@@ -44,7 +52,7 @@ const COLUMNS = [
   {
     Header: 'MOA',
     id: 'moa_nom',
-    accessor: d => `${d.moa_nom} ${d.moa_prenom} ${d.moa_denomination}`,
+    accessor: (d: MOA) => `${d.moa_nom} ${d.moa_prenom} ${d.moa_denomination}`,
   },
   {
     Header: 'FOST',
@@ -64,13 +72,24 @@ const TRANSLATIONS = {
   rowsText: 'lignes',
 };
 
-class Liste extends Component {
+interface Props extends RouteComponentProps {
+  loadList: any;
+  listUpdateSearch: typeof listUpdateSearch;
+  listUpdatePage: typeof listUpdatePage;
+  listUpdatePageSize: typeof listUpdatePageSize;
+  listUpdateSorted: typeof listUpdateSorted;
+  apiKey: string | null;
+  allFolders: Folders;
+  listState: ListState;
+}
+
+class Liste extends Component<Props> {
   componentDidMount() {
     this.props.loadList();
   }
 
   /* eslint-disable no-underscore-dangle */
-  getTrProps = (state, rowInfo) => {
+  getTrProps = (state: any, rowInfo: any) => {
     if (rowInfo) {
       if (rowInfo.row._original.statut_operation === 13) {
         return { style: { background: '#FF7878', color: 'white' } };
@@ -85,7 +104,7 @@ class Liste extends Component {
   };
   /* eslint-enable */
 
-  onRowClick = (state, rowInfo) => ({
+  onRowClick = (state: any, rowInfo: any) => ({
     onClick: () => {
       if (rowInfo) {
         // this.props.history.push(`/folder/${rowInfo.original.id_dossierprime}`);
@@ -94,7 +113,7 @@ class Liste extends Component {
     },
   });
 
-  handleData = async (tab) => {
+  handleData = async (tab: TabType) => {
     this.props.loadList(tab);
   };
 
@@ -114,7 +133,7 @@ class Liste extends Component {
 
     return (
       <div>
-        <HeaderNav from="liste" />
+        <HeaderNav />
         <div className="has-text-centered content-loading">
           <div id="loading_liste">
             <Loading show={loading} type="ThreeDots" />
@@ -126,7 +145,7 @@ class Liste extends Component {
           defaultValue={search}
           onChange={e => this.props.listUpdateSearch(e.target.value)}
         />
-        <Tabs defaultIndex={selectedTab} onSelect={index => this.handleData(index)}>
+        <Tabs defaultIndex={selectedTab} onSelect={(index: TabType) => this.handleData(index)}>
           <TabList>
             <Tab>A traiter</Tab>
             <Tab>Incomplet</Tab>
@@ -213,26 +232,8 @@ class Liste extends Component {
   }
 }
 
-Liste.propTypes = {
-  loadList: PropTypes.func.isRequired,
-  listUpdateSearch: PropTypes.func.isRequired,
-  listUpdatePage: PropTypes.func.isRequired,
-  listUpdatePageSize: PropTypes.func.isRequired,
-  listUpdateSorted: PropTypes.func.isRequired,
-  apiKey: PropTypes.string.isRequired,
-  allFolders: PropTypes.shape({}).isRequired,
-  listState: PropTypes.shape({
-    selectedTab: PropTypes.number.isRequired,
-    tab: PropTypes.shape({}).isRequired,
-    search: PropTypes.string.isRequired,
-  }).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
 export default connect(
-  s => ({
+  (s: AppState) => ({
     apiKey: s.user.apiKey,
     listState: s.views.list,
     allFolders: s.entities.folders,

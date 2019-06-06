@@ -78,7 +78,7 @@ export const listUpdateSorted = (sorted: Sorted): ListListSortedAction => ({
   sorted,
 });
 
-export const loadList = (toTab: Tab): ThunkAction<void, AppState, null, Action<string>> => async (
+export const loadList = (toTab?: Tab): ThunkAction<void, AppState, null, Action<string>> => async (
   dispatch,
   getState,
 ) => {

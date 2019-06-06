@@ -3,12 +3,17 @@
  */
 import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
-import PropTypes from 'prop-types';
 
+import { TypeModal } from '../../Folder'
 
-class ModalTravaux extends Component {
+interface Props {
+  open: boolean,
+  onCloseModalType: (type: TypeModal.SITE) => void,
+}
+
+class ModalTravaux extends Component<Props> {
     onCloseModal = () => {
-      this.props.onCloseModalType('travaux');
+      this.props.onCloseModalType(TypeModal.SITE);
     };
 
     render() {
@@ -27,10 +32,5 @@ class ModalTravaux extends Component {
       );
     }
 }
-
-ModalTravaux.propTypes = {
-  open: PropTypes.bool.isRequired,
-  onCloseModalType: PropTypes.func.isRequired,
-};
 
 export default ModalTravaux;

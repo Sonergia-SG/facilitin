@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { RouteComponentProps } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
 
@@ -13,8 +14,27 @@ import Modal from './Modal';
 import { fetchFolder } from '../../store/actions/views/folder';
 
 import { folder as folderSchema } from '../../store/reducer/entities/schema';
+import { Entities, FolderFull } from '../../store/reducer/entities/types'
+import { FolderState } from '../../store/reducer/views/folder/types'
+import { AppState } from '../../store'
 
-class Folder extends Component {
+interface Params {
+  folderId: string,
+}
+
+interface Props extends RouteComponentProps<Params> {
+  entities: Entities,
+  folder: FolderState,
+  fetchFolder: any,
+}
+
+export enum TypeModal {
+  MOA = 'moa',
+  MOE = 'moe',
+  SITE = 'travaux',
+}
+
+class Folder extends Component<Props> {
   state = {
     open_moa: false,
     open_moe: false,
@@ -22,10 +42,10 @@ class Folder extends Component {
   };
 
   componentWillMount() {
-    this.props.fetchFolder(this.props.match.params.folderId);
+    this.props.fetchFolder(parseInt(this.props.match.params.folderId, 0));
   }
 
-  onOpenModal = type => () => {
+  onOpenModal = (type: TypeModal) => () => {
     if (type === 'moa') {
       this.setState({ open_moa: true });
     } else if (type === 'moe') {
@@ -35,7 +55,7 @@ class Folder extends Component {
     }
   };
 
-  onCloseModalType = (type) => {
+  onCloseModalType = (type: TypeModal) => {
     if (type === 'moa') {
       this.setState({ open_moa: false });
     } else if (type === 'moe') {
@@ -50,13 +70,13 @@ class Folder extends Component {
     const { open_moa, open_moe, open_travaux } = this.state;
     const { entities, match } = this.props;
     const { folderId } = match.params;
-    const folder = entities.folders[folderId];
-    const data = denormalize(folder, folderSchema, entities);
+    const folder = entities.folders[parseInt(folderId, 10)];
+    const data: FolderFull = denormalize(folder, folderSchema, entities);
     const title = `Dossier N° ${data.id_dossierprime}`;
 
     return data ? (
       <div>
-        <HeaderNav from="dossier" />
+        <HeaderNav />
         <div className="tile is-ancestor">
           <div className="tile is-vertical is-3">
             <div className="tile">
@@ -114,22 +134,7 @@ class Folder extends Component {
   }
 }
 
-Folder.propTypes = {
-  entities: PropTypes.shape({
-    folders: PropTypes.shape({}).isRequired,
-  }).isRequired,
-  folder: PropTypes.shape({
-    pending: PropTypes.shape({}).isRequired,
-  }).isRequired,
-  fetchFolder: PropTypes.func.isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      folderId: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-};
-
 export default connect(
-  s => ({ entities: s.entities, folder: s.views.folder }),
+  (s: AppState) => ({ entities: s.entities, folder: s.views.folder }),
   { fetchFolder },
 )(Folder);
