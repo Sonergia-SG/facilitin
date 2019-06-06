@@ -8,9 +8,11 @@ import reducer from './reducer';
 // eslint-disable-next-line
 const composeEnhancers =
   // eslint-disable-next-line
-  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-    trace: process.env.NODE_ENV === 'development',
-  }) || compose;
+  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      trace: process.env.NODE_ENV === 'development',
+    })
+    : compose;
 const middlewares = applyMiddleware(thunkMiddleware);
 
 const storeVersion = 1;
@@ -30,7 +32,7 @@ const storeCreator = () => {
   return store;
 };
 
-export type AppState = ReturnType<typeof reducer>
+export type AppState = ReturnType<typeof reducer>;
 
 export const getStore = () => store;
 
