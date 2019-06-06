@@ -2,29 +2,29 @@
  * Created by stephane.mallaroni on 15/04/2019.
  */
 import React, { Component } from 'react';
-import { RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
 
 // import { API_PATH } from '../variables';
 import Collapsed from './Collapsed';
 import Modal from './Modal';
-import Loading from '../Loading'
+import Empty from './Empty';
 import { fetchFolder } from '../../store/actions/views/folder';
 
 import { folder as folderSchema } from '../../store/reducer/entities/schema';
-import { Entities, FolderFull } from '../../store/reducer/entities/types'
-import { FolderState } from '../../store/reducer/views/folder/types'
-import { AppState } from '../../store'
+import { Entities, FolderFull } from '../../store/reducer/entities/types';
+import { FolderState } from '../../store/reducer/views/folder/types';
+import { AppState } from '../../store';
 
 interface Params {
-  folderId: string,
+  folderId: string;
 }
 
 interface Props extends RouteComponentProps<Params> {
-  entities: Entities,
-  folder: FolderState,
-  fetchFolder: any,
+  entities: Entities;
+  folderState: FolderState;
+  fetchFolder: any;
 }
 
 export enum TypeModal {
@@ -67,13 +67,17 @@ class Folder extends Component<Props> {
   render() {
     /* eslint-disable camelcase */
     const { open_moa, open_moe, open_travaux } = this.state;
-    const { entities, match } = this.props;
+    const { entities, match, folderState } = this.props;
     const { folderId } = match.params;
     const folder = entities.folders[parseInt(folderId, 10)];
     const data: FolderFull = denormalize(folder, folderSchema, entities);
     const title = `Dossier N° ${data.id_dossierprime}`;
 
-    if (!data.documents) return <Loading show />
+    if (!folder || !data || !data.documents) {
+      const folderPending = folderState.pending[parseInt(folderId, 10)];
+      const loading = folderPending ? !!folderPending.loading : true;
+      return <Empty loading={loading} />;
+    }
 
     return data ? (
       <div>
@@ -135,6 +139,6 @@ class Folder extends Component<Props> {
 }
 
 export default connect(
-  (s: AppState) => ({ entities: s.entities, folder: s.views.folder }),
+  (s: AppState) => ({ entities: s.entities, folderState: s.views.folder }),
   { fetchFolder },
 )(Folder);
