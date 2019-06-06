@@ -17,7 +17,6 @@ import {
 import 'react-tabs/style/react-tabs.css';
 
 import Loading from './Loading';
-import HeaderNav from './Header';
 
 import {
   loadList,
@@ -133,7 +132,6 @@ class Liste extends Component<Props> {
 
     return (
       <div>
-        <HeaderNav />
         <div className="has-text-centered content-loading">
           <div id="loading_liste">
             <Loading show={loading} type="ThreeDots" />

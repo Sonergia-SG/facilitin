@@ -2,13 +2,11 @@
  * Created by stephane.mallaroni on 15/04/2019.
  */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { RouteComponentProps } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
 
 // import { API_PATH } from '../variables';
-import HeaderNav from '../Header';
 import Collapsed from './Collapsed';
 import Modal from './Modal';
 import Loading from '../Loading'
@@ -79,7 +77,6 @@ class Folder extends Component<Props> {
 
     return data ? (
       <div>
-        <HeaderNav />
         <div className="tile is-ancestor">
           <div className="tile is-vertical is-3">
             <div className="tile">

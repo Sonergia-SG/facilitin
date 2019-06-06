@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Connection from '../Connection';
 import Liste from '../Liste';
 import Folder from '../Folder';
+import Header from '../Header';
 
 import { AppState } from '../../store/index';
 
@@ -16,11 +17,14 @@ interface Props {
 const Root = ({ logged }: Props) => {
   if (logged) {
     return (
-      <Switch>
-        <Route path="/list" component={Liste} />
-        <Route path="/folder/:folderId" component={Folder} />
-        <Redirect to="/list" />
-      </Switch>
+      <div>
+        <Header />
+        <Switch>
+          <Route path="/list" component={Liste} />
+          <Route path="/folder/:folderId" component={Folder} />
+          <Redirect to="/list" />
+        </Switch>
+      </div>
     );
   }
 
