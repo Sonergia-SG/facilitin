@@ -104,7 +104,7 @@ button.togglesonergia {
   transition: background-color 0.2s ease;
 }
 .divAccordion {
-  margin-top: 35px;
+  margin-top: 0;
 }
 .left-active {
   background-color: #16a0e0;

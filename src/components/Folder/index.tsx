@@ -6,9 +6,7 @@ import { RouteComponentProps, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
 
-// import { API_PATH } from '../variables';
 import Collapsed from './Collapsed';
-import Modal from './Modal';
 import Empty from './Empty';
 import Left from './Left';
 import { fetchFolder } from '../../store/actions/views/folder';
@@ -92,7 +90,7 @@ class Folder extends Component<Props> {
         <div className="tile is-ancestor">
           <Left title={title} data={data} />
           <div className="tile is-parent">
-            <div className="tile is-child">
+            <div className="tile is-child" style={{ marginTop: 0 }}>
               <div className="content">
                 <div className="content">
                   <Collapsed valeur={data.dossierprimefile} />
@@ -101,14 +99,6 @@ class Folder extends Component<Props> {
             </div>
           </div>
         </div>
-        <Modal
-          openMoa={open_moa}
-          openMoe={open_moe}
-          openSite={open_travaux}
-          onOpenModal={this.onOpenModal}
-          onCloseModalType={this.onCloseModalType}
-          data={data}
-        />
       </div>
     );
   }
