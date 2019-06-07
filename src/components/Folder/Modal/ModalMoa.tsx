@@ -7,24 +7,17 @@ import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
 
 import { TypeModal } from '../../Folder';
+import { FolderFull } from '../../../store/reducer/entities/types';
 
 interface Props {
   open: boolean;
-  moaValues: Array<{
-    moa_prenom: string;
-    moa_nom: string;
-    moa_fonction: string;
-    moa_rue: string;
-    moa_rue2: string;
-    moa_cp: string;
-    moa_ville: string;
-  }>;
+  folder: FolderFull;
   onCloseModalType: (type: TypeModal) => void;
 }
 
 class ModalMoa extends Component<Props> {
   state = {
-    moa: this.props.moaValues,
+    data: this.props.folder,
   };
 
   onCloseModal = () => {
@@ -48,7 +41,11 @@ class ModalMoa extends Component<Props> {
                   <label htmlFor="moa_nom">Nom MOA : </label>
                 </td>
                 <td>
-                  <input type="text" name="moa_nom" defaultValue={this.state.moa[0].moa_nom} />
+                  <input
+                    type="text"
+                    name="moa_nom"
+                    defaultValue={this.state.data.moa_nom}
+                  />
                 </td>
                 <td>
                   <label htmlFor="moa_prenom"> Prénom MOA : </label>
@@ -58,7 +55,7 @@ class ModalMoa extends Component<Props> {
                   <input
                     type="text"
                     name="moa_prenom"
-                    defaultValue={this.state.moa[0].moa_prenom}
+                    defaultValue={this.state.data.moa_prenom}
                   />
                 </td>
               </tr>
@@ -71,7 +68,7 @@ class ModalMoa extends Component<Props> {
                   <input
                     type="text"
                     name="moa_fonction"
-                    defaultValue={this.state.moa[0].moa_fonction}
+                    defaultValue={this.state.data.moa_fonction || ''}
                   />
                 </td>
                 <td>
@@ -79,7 +76,11 @@ class ModalMoa extends Component<Props> {
                 </td>
                 <td>
                   {' '}
-                  <input type="text" name="moa_rue" defaultValue={this.state.moa[0].moa_rue} />
+                  <input
+                    type="text"
+                    name="moa_rue"
+                    defaultValue={this.state.data.moa_rue}
+                  />
                 </td>
               </tr>
               <tr>
@@ -88,14 +89,22 @@ class ModalMoa extends Component<Props> {
                 </td>
                 <td>
                   {' '}
-                  <input type="text" name="moa_rue2" defaultValue={this.state.moa[0].moa_rue2} />
+                  <input
+                    type="text"
+                    name="moa_rue2"
+                    defaultValue={this.state.data.moa_rue2}
+                  />
                 </td>
                 <td>
                   <label htmlFor="moa_cp"> Code Postal : </label>
                 </td>
                 <td>
                   {' '}
-                  <input type="text" name="moa_cp" defaultValue={this.state.moa[0].moa_cp} />
+                  <input
+                    type="text"
+                    name="moa_cp"
+                    defaultValue={this.state.data.moa_cp}
+                  />
                 </td>
               </tr>
               <tr>
@@ -104,7 +113,11 @@ class ModalMoa extends Component<Props> {
                 </td>
                 <td>
                   {' '}
-                  <input type="text" name="moa_ville" defaultValue={this.state.moa[0].moa_ville} />
+                  <input
+                    type="text"
+                    name="moa_ville"
+                    defaultValue={this.state.data.moa_ville}
+                  />
                 </td>
                 <td>
                   <label htmlFor="moa_prenom"> Prénom MOA : </label>
@@ -116,7 +129,10 @@ class ModalMoa extends Component<Props> {
               </tr>
             </tbody>
           </table>
-          <button type="button" className="button is-primary is-outlined is-medium">
+          <button
+            type="button"
+            className="button is-primary is-outlined is-medium"
+          >
             {'Enregistrer'}
           </button>
         </Modal>

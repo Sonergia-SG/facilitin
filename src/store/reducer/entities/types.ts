@@ -50,7 +50,7 @@ export interface MOA {
   moa_denomination: string;
 }
 
-export interface Operation {
+export interface OperationSimple {
   id_dp_operation: number;
   id_dossierprime: number;
   id_operation: number;
@@ -59,9 +59,22 @@ export interface Operation {
     id_statut: number;
     label_prive: string;
   };
-  dossierprime: Folder;
-  dossierprimefile: [File];
+}
+
+export interface Operation extends OperationSimple {
+  dossierprime: number;
+  dossierprimefile: [number];
+  point_controles: [number];
+}
+
+export interface OperationFull extends OperationSimple {
+  dossierprime: FolderFull;
+  dossierprimefile: [FileFull];
   point_controles: [CheckPoint];
+}
+
+export interface Operations {
+  [index: number]: Operation;
 }
 
 export interface SimpleFolder {
@@ -161,6 +174,10 @@ export interface CheckPointCategory {
   nom_categorie: string | null;
 }
 
+export interface CheckPointCategories {
+  [index: number]: CheckPointCategory;
+}
+
 export interface CheckPoint {
   id_point_controle: number;
   id_categorie: number;
@@ -183,6 +200,8 @@ export interface Entities {
   files: Files;
   folders: Folders;
   checkPoints: CheckPoints;
+  checkPointCategories: CheckPointCategories;
+  operations: Operations;
 }
 
 export interface Normalized {
@@ -214,7 +233,8 @@ export interface FoldersLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type FoldersActions = | FoldersFolderLoadedAction
+export type FoldersActions =
+  | FoldersFolderLoadedAction
   | FoldersLogoutAction
   | FoldersListLoadedAction;
 
@@ -227,4 +247,32 @@ export interface CheckPointsLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type CheckPointsActions = CheckPointsFolderLoadedAction | CheckPointsLogoutAction;
+export type CheckPointsActions =
+  | CheckPointsFolderLoadedAction
+  | CheckPointsLogoutAction;
+
+export interface CheckPointCategoriesFolderLoadedAction {
+  type: typeof FOLDER_LOADED;
+  normalized: Normalized;
+}
+
+export interface CheckPointCategoriesLogoutAction {
+  type: typeof LOGOUT;
+}
+
+export type CheckPointCategoriesActions =
+  | CheckPointCategoriesFolderLoadedAction
+  | CheckPointCategoriesLogoutAction;
+
+export interface OperationsFolderLoadedAction {
+  type: typeof FOLDER_LOADED;
+  normalized: Normalized;
+}
+
+export interface OperationsLogoutAction {
+  type: typeof LOGOUT;
+}
+
+export type OperationsActions =
+  | OperationsFolderLoadedAction
+  | OperationsLogoutAction;

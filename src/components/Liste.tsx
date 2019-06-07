@@ -106,8 +106,7 @@ class Liste extends Component<Props> {
   onRowClick = (state: any, rowInfo: any) => ({
     onClick: () => {
       if (rowInfo) {
-        // this.props.history.push(`/folder/${rowInfo.original.id_dp_operation}`);
-        this.props.history.push('/folder/60839');
+        this.props.history.push(`/folder/${rowInfo.original.id_dp_operation}`);
       }
     },
   });
@@ -118,12 +117,8 @@ class Liste extends Component<Props> {
 
   render() {
     const { listState, allFolders } = this.props;
-    const {
-      selectedTab, tab, search, pageSize,
-    } = listState;
-    const {
-      loading, data, page, sorted,
-    } = tab[selectedTab];
+    const { selectedTab, tab, search, pageSize } = listState;
+    const { loading, data, page, sorted } = tab[selectedTab];
 
     const mappedData = data.map(id => allFolders[id]);
     const filteredData = search
@@ -143,7 +138,10 @@ class Liste extends Component<Props> {
           defaultValue={search}
           onChange={e => this.props.listUpdateSearch(e.target.value)}
         />
-        <Tabs defaultIndex={selectedTab} onSelect={(index: TabType) => this.handleData(index)}>
+        <Tabs
+          defaultIndex={selectedTab}
+          onSelect={(index: TabType) => this.handleData(index)}
+        >
           <TabList>
             <Tab>A traiter</Tab>
             <Tab>Incomplet</Tab>
@@ -242,5 +240,5 @@ export default connect(
     listUpdatePage,
     listUpdatePageSize,
     listUpdateSorted,
-  },
+  }
 )(withRouter(Liste));

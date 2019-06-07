@@ -2,6 +2,8 @@ import { normalize } from 'normalizr';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
+import { API_PATH } from '../../../../variables';
+
 import {
   FOLDER_UPDATE_CHECK_POINT_LOADING,
   FOLDER_UPDATE_CHECK_POINT_LOADED,
@@ -13,7 +15,7 @@ import {
 
 import { datahand } from './mockApi';
 
-import { folder } from '../../../reducer/entities/schema';
+import { operation } from '../../../reducer/entities/schema';
 import { AppState } from '../../../../store';
 import {
   FolderFolderUpdateCheckpointLoadingAction,
@@ -22,14 +24,14 @@ import {
   FolderFolderLoadingAction,
   FolderFolderLoadedAction,
   FolderFolderErrorAction,
-  FolderCheckPointValue,
 } from '../../../reducer/views/folder/types';
 import { ListListLoadedNormalized } from '../../../reducer/views/list/type';
+import { BooleanNumber } from '../../../reducer/entities/types';
 
 type FolderUpdateCheckPointLoadingParams = {
   folderId: number;
   checkPointId: number;
-  prevValue: FolderCheckPointValue;
+  prevValue: BooleanNumber;
 };
 
 export const folderUpdateCheckPointLoading = ({
@@ -70,37 +72,58 @@ export const folderUpdateCheckPointError = ({
   checkPointId,
 });
 
-export const folderUpdateLoading = (folderId: number): FolderFolderLoadingAction => ({
+export const folderUpdateLoading = (
+  idDpOperation: number
+): FolderFolderLoadingAction => ({
   type: FOLDER_LOADING,
-  folderId,
+  idDpOperation,
 });
 
 export const folderUpdateLoaded = (
-  folderId: number,
-  normalized: ListListLoadedNormalized,
+  idDpOperation: number,
+  normalized: ListListLoadedNormalized
 ): FolderFolderLoadedAction => ({
   type: FOLDER_LOADED,
-  folderId,
+  idDpOperation,
   normalized,
 });
 
-export const folderUpdateError = (folderId: number): FolderFolderErrorAction => ({
+export const folderUpdateError = (
+  idDpOperation: number
+): FolderFolderErrorAction => ({
   type: FOLDER_ERROR,
-  folderId,
+  idDpOperation,
 });
 
 export const fetchFolder = (
-  folderId: number,
-): ThunkAction<void, AppState, null, Action<string>> => (dispatch) => {
-  dispatch(folderUpdateLoading(folderId));
+  idDpOperation: number
+): ThunkAction<void, AppState, null, Action<string>> => async (
+  dispatch,
+  getState
+) => {
+  dispatch(folderUpdateLoading(idDpOperation));
+  const { apiKey } = getState().user;
 
   try {
-    setTimeout(() => {
-      const normalized = normalize(datahand, folder);
-      dispatch(folderUpdateLoaded(folderId, normalized));
-    }, 500);
+    const res = await fetch(`${API_PATH}detailaction/${idDpOperation}`, {
+      method: 'get',
+      headers: new Headers({
+        'user-agent': 'Mozilla/4.0 MDN Example',
+        'content-type': 'application/json',
+        Authorization: `bearer ${apiKey}`,
+      }),
+    });
+
+    const json = await res.json();
+
+    if (json.status === 'success' && json.values[0]) {
+      const normalized = normalize(json.values[0], operation);
+      dispatch(folderUpdateLoaded(idDpOperation, normalized));
+    } else {
+      dispatch(folderUpdateError(idDpOperation));
+    }
   } catch (error) {
-    dispatch(folderUpdateError(folderId));
+    dispatch(folderUpdateError(idDpOperation));
   }
 };
 
@@ -108,13 +131,18 @@ export const updateFolderCheckPoint = ({
   folderId,
   checkPointId,
 }: {
-folderId: number;
-checkPointId: number;
-}): ThunkAction<void, AppState, null, Action<string>> => (dispatch, getState) => {
+  folderId: number;
+  checkPointId: number;
+}): ThunkAction<void, AppState, null, Action<string>> => (
+  dispatch,
+  getState
+) => {
   const checkPoint = getState().entities.checkPoints[checkPointId];
-  const prevValue = checkPoint ? checkPoint.controle_valide : 0;
+  const prevValue = checkPoint ? checkPoint.pivot.valide : 0;
 
-  dispatch(folderUpdateCheckPointLoading({ folderId, checkPointId, prevValue }));
+  dispatch(
+    folderUpdateCheckPointLoading({ folderId, checkPointId, prevValue })
+  );
 
   try {
     setTimeout(() => {

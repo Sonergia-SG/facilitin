@@ -12,8 +12,10 @@ import Modal from './Modal';
 import Empty from './Empty';
 import { fetchFolder } from '../../store/actions/views/folder';
 
-import { folder as folderSchema } from '../../store/reducer/entities/schema';
-import { Entities, FolderFull } from '../../store/reducer/entities/types';
+import fileFolderDisplayType from './helper/fileFolderDisplayType';
+
+import { operation as operationSchema } from '../../store/reducer/entities/schema';
+import { Entities, OperationFull } from '../../store/reducer/entities/types';
 import { FolderState } from '../../store/reducer/views/folder/types';
 import { AppState } from '../../store';
 
@@ -69,17 +71,21 @@ class Folder extends Component<Props> {
     const { open_moa, open_moe, open_travaux } = this.state;
     const { entities, match, folderState } = this.props;
     const { folderId } = match.params;
-    const folder = entities.folders[parseInt(folderId, 10)];
-    const data: FolderFull = denormalize(folder, folderSchema, entities);
-    const title = `Dossier N° ${data.id_dossierprime}`;
-
-    if (!folder || !data || !data.documents) {
+    const operation = entities.operations[parseInt(folderId, 10)];
+    const data: OperationFull = denormalize(
+      operation,
+      operationSchema,
+      entities
+    );
+    if (!operation || !data || !data.dossierprimefile) {
       const folderPending = folderState.pending[parseInt(folderId, 10)];
       const loading = folderPending ? !!folderPending.loading : true;
       return <Empty loading={loading} />;
     }
 
-    return data ? (
+    const title = `Dossier N° ${data.id_dossierprime}`;
+
+    return (
       <div>
         <div className="tile is-ancestor">
           <div className="tile is-vertical is-3">
@@ -92,20 +98,25 @@ class Folder extends Component<Props> {
                 </div>
                 <div className="tile is-child notification ">
                   <div className="content">
-                    {data.documents.map((value, index) => (
+                    {data.dossierprimefile.map((value, index) => (
                       <h4
-                        className={`item_menu_gauche ${index === 0 ? 'left-active' : ''}`}
+                        className={`item_menu_gauche ${
+                          index === 0 ? 'left-active' : ''
+                        }`}
                         key={value.id_file}
                         id={`${index}pp`}
                       >
-                        {value.type}
+                        {fileFolderDisplayType(value)}
                       </h4>
                     ))}
                   </div>
                 </div>
                 <div className="tile is-child">
                   <div className="content has-text-centered">
-                    <button type="button" className="button is-primary is-outlined is-medium">
+                    <button
+                      type="button"
+                      className="button is-primary is-outlined is-medium"
+                    >
                       {'Terminer'}
                     </button>
                   </div>
@@ -117,7 +128,7 @@ class Folder extends Component<Props> {
             <div className="tile is-child">
               <div className="content">
                 <div className="content">
-                  <Collapsed valeur={data.documents} />
+                  <Collapsed valeur={data.dossierprimefile} />
                 </div>
               </div>
             </div>
@@ -132,13 +143,11 @@ class Folder extends Component<Props> {
           data={data}
         />
       </div>
-    ) : (
-      <div>Loading</div>
     );
   }
 }
 
 export default connect(
   (s: AppState) => ({ entities: s.entities, folderState: s.views.folder }),
-  { fetchFolder },
+  { fetchFolder }
 )(Folder);

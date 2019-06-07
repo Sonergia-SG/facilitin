@@ -7,24 +7,22 @@ import {
   FOLDER_ERROR,
   LOGOUT,
 } from '../../../types';
+import { BooleanNumber } from '../../entities/types';
 
 export enum FolderCheckPointStatus {
   SENDING = 'sending',
   ERROR = 'error',
 }
 
-export enum FolderCheckPointValue {
-  ON = 1,
-  OFF = 0,
-}
-
 export interface FolderPendingItem {
   loading?: boolean;
   checkPoint?: {
-    [index: number]: {
-      status?: FolderCheckPointStatus;
-      prevValue?: FolderCheckPointValue;
-    } | undefined;
+    [index: number]:
+      | {
+          status?: FolderCheckPointStatus;
+          prevValue?: BooleanNumber;
+        }
+      | undefined;
   };
 }
 
@@ -36,17 +34,17 @@ export interface FolderState {
 
 export interface FolderFolderLoadingAction {
   type: typeof FOLDER_LOADING;
-  folderId: number;
+  idDpOperation: number;
 }
 
 export interface FolderFolderErrorAction {
   type: typeof FOLDER_ERROR;
-  folderId: number;
+  idDpOperation: number;
 }
 
 export interface FolderFolderLoadedAction {
   type: typeof FOLDER_LOADED;
-  folderId: number;
+  idDpOperation: number;
   normalized: {};
 }
 
@@ -54,7 +52,7 @@ export interface FolderFolderUpdateCheckpointLoadingAction {
   type: typeof FOLDER_UPDATE_CHECK_POINT_LOADING;
   folderId: number;
   checkPointId: number;
-  prevValue: FolderCheckPointValue;
+  prevValue: BooleanNumber;
 }
 
 export interface FolderFolderUpdateChekpointLoadedAction {
@@ -73,7 +71,8 @@ export interface FolderLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type FolderAction = | FolderFolderLoadingAction
+export type FolderAction =
+  | FolderFolderLoadingAction
   | FolderFolderErrorAction
   | FolderFolderLoadedAction
   | FolderFolderUpdateCheckpointLoadingAction

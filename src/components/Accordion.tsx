@@ -8,9 +8,11 @@ import DropZone from './DropZone';
 
 import { FileFull as SonergiaFile } from '../store/reducer/entities/types';
 
+import fileFolderDisplayType from './Folder/helper/fileFolderDisplayType';
+
 interface Props {
-  valeur: SonergiaFile,
-  numero: number,
+  valeur: SonergiaFile;
+  numero: number;
 }
 
 class Accordion extends Component<Props> {
@@ -20,7 +22,7 @@ class Accordion extends Component<Props> {
 
     // suppression left_active menu de gauche
     const els = document.querySelectorAll('.left-active');
-    els.forEach((el) => {
+    els.forEach(el => {
       el.classList.remove('left-active');
     });
 
@@ -55,15 +57,14 @@ class Accordion extends Component<Props> {
                 className="toggle togglesonergia"
                 aria-label="toggle"
                 onClick={e => this.currentAccordion(e)}
-              />
-              {' '}
-              {val.type}
+              />{' '}
+              {fileFolderDisplayType(val)}
             </div>
-            <div className="floatlink">
+            {/* <div className="floatlink">
               <a href="https://www.google.fr" target="_blank" rel="noopener noreferrer">
                 {val.name_file}
               </a>
-            </div>
+            </div> */}
           </div>
           <div className="accordion-body">
             <div className="accordion-content">
@@ -85,7 +86,7 @@ class Accordion extends Component<Props> {
                 <div className="tile is-parent is-vertical">
                   <div className="tile is-child">
                     <div className="content">
-                      {val.point_controle.map((value) => {
+                      {/* {val.point_controle.map((value) => {
                         let checked = '';
                         if (value.controle_valide) {
                           checked = ' checked ';
@@ -103,7 +104,7 @@ class Accordion extends Component<Props> {
                             </label>
                           </div>
                         );
-                      })}
+                      })} */}
                     </div>
                   </div>
                 </div>

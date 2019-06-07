@@ -1,6 +1,6 @@
 import idx from 'idx';
 
-import { FolderState, FolderAction, FolderCheckPointStatus } from './types'
+import { FolderState, FolderAction, FolderCheckPointStatus } from './types';
 
 import {
   FOLDER_UPDATE_CHECK_POINT_LOADING,
@@ -16,15 +16,18 @@ const initialState = {
   pending: {},
 };
 
-const folder = (state: FolderState = initialState, action: FolderAction): FolderState => {
+const folder = (
+  state: FolderState = initialState,
+  action: FolderAction
+): FolderState => {
   switch (action.type) {
     case FOLDER_LOADING:
       return {
         ...state,
         pending: {
           ...state.pending,
-          [action.folderId]: {
-            ...idx(state, _ => _.pending[action.folderId]),
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
             loading: true,
           },
         },
@@ -35,8 +38,8 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
         ...state,
         pending: {
           ...state.pending,
-          [action.folderId]: {
-            ...idx(state, _ => _.pending[action.folderId]),
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
             loading: false,
           },
         },
@@ -51,7 +54,11 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
             checkPoint: {
               ...idx(state, _ => _.pending[action.folderId].checkPoint),
               [action.checkPointId]: {
-                ...idx(state, _ => _.pending[action.folderId].checkPoint[action.checkPointId]),
+                ...idx(
+                  state,
+                  _ =>
+                    _.pending[action.folderId].checkPoint[action.checkPointId]
+                ),
                 status: FolderCheckPointStatus.SENDING,
                 prevValue: action.prevValue,
               },
@@ -83,7 +90,11 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
             checkPoint: {
               ...idx(state, _ => _.pending[action.folderId].checkPoint),
               [action.checkPointId]: {
-                ...idx(state, _ => _.pending[action.folderId].checkPoint[action.checkPointId]),
+                ...idx(
+                  state,
+                  _ =>
+                    _.pending[action.folderId].checkPoint[action.checkPointId]
+                ),
                 status: FolderCheckPointStatus.ERROR,
               },
             },
