@@ -71,12 +71,18 @@ class Accordion extends Component<Props> {
               <div className="tile is-ancestor">
                 <div className="tile is-vertical is-3">
                   <div className="tile is-parent is-vertical">
-                    <div className="tile is-child notification has-text-centered tilebordered">
+                    <div
+                      style={{ width: 190 }}
+                      className="tile is-child notification has-text-centered tilebordered"
+                    >
                       <div className="content">
                         <DropZone />
                       </div>
                     </div>
-                    <div className="tile is-child notification tilebordered">
+                    <div
+                      style={{ width: 190 }}
+                      className="tile is-child notification tilebordered"
+                    >
                       <div className="content has-text-centered bigplus">
                         <i className="fas fa-file-download fa-2x" />
                       </div>

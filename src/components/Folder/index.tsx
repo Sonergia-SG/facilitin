@@ -91,11 +91,7 @@ class Folder extends Component<Props> {
           <Left title={title} data={data} />
           <div className="tile is-parent">
             <div className="tile is-child" style={{ marginTop: 0 }}>
-              <div className="content">
-                <div className="content">
-                  <Collapsed valeur={data.dossierprimefile} />
-                </div>
-              </div>
+              <Collapsed valeur={data.dossierprimefile} />
             </div>
           </div>
         </div>

@@ -14,13 +14,11 @@ interface Props {
 
 const Left = ({ title, data }: Props) => (
   <div className="tile is-vertical is-3">
-    <div className="tile">
-      <div className="tile is-parent is-vertical">
-        <GeneralInfos title={title} data={data} />
-        <SecondaryData data={data} />
-        <CheckPointsSummary data={data} />
-        <EndButton />
-      </div>
+    <div className="tile is-parent is-vertical">
+      <GeneralInfos title={title} data={data} />
+      <SecondaryData data={data} />
+      <CheckPointsSummary data={data} />
+      <EndButton />
     </div>
   </div>
 );

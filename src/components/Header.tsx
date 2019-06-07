@@ -27,31 +27,17 @@ class HeaderNav extends Component<Props> {
       >
         <div className="navbar-brand">
           <img src={logoSmall} alt="Logo Sonergia" height="55" />
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a
-            role="button"
-            className="navbar-burger burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarBasicExample"
-          >
-            <span aria-hidden="true" />
-            <span aria-hidden="true" />
-            <span aria-hidden="true" />
-          </a>
         </div>
-        <div id="navbarBasicExample" className="navbar-menu">
-          <div className="navbar-end">
-            <div className="navbar-item">
-              <div className="buttons">
-                <button
-                  type="button"
-                  className="button is-primary"
-                  onClick={this.deconnexionSubmit}
-                >
-                  <strong>Déconnexion</strong>
-                </button>
-              </div>
+        <div className="navbar-end">
+          <div className="navbar-item">
+            <div className="buttons">
+              <button
+                type="button"
+                className="button is-primary"
+                onClick={this.deconnexionSubmit}
+              >
+                <strong>Déconnexion</strong>
+              </button>
             </div>
           </div>
         </div>
