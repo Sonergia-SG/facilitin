@@ -10,9 +10,8 @@ import { denormalize } from 'normalizr';
 import Collapsed from './Collapsed';
 import Modal from './Modal';
 import Empty from './Empty';
+import Left from './Left';
 import { fetchFolder } from '../../store/actions/views/folder';
-
-import fileFolderDisplayType from './helper/fileFolderDisplayType';
 
 import { operation as operationSchema } from '../../store/reducer/entities/schema';
 import { Entities, OperationFull } from '../../store/reducer/entities/types';
@@ -91,42 +90,7 @@ class Folder extends Component<Props> {
           <Link to="/liste">{"< Retour à la liste d'opérations"}</Link>
         </div>
         <div className="tile is-ancestor">
-          <div className="tile is-vertical is-3">
-            <div className="tile">
-              <div className="tile is-parent is-vertical">
-                <div className="tile is-child notification has-text-centered">
-                  <p className="title">{title}</p>
-                  <p className="subtitle">{data.code_operation}</p>
-                  <div className="content" />
-                </div>
-                <div className="tile is-child notification ">
-                  <div className="content">
-                    {data.dossierprimefile.map((value, index) => (
-                      <h4
-                        className={`item_menu_gauche ${
-                          index === 0 ? 'left-active' : ''
-                        }`}
-                        key={value.id_file}
-                        id={`${index}pp`}
-                      >
-                        {fileFolderDisplayType(value)}
-                      </h4>
-                    ))}
-                  </div>
-                </div>
-                <div className="tile is-child">
-                  <div className="content has-text-centered">
-                    <button
-                      type="button"
-                      className="button is-primary is-outlined is-medium"
-                    >
-                      {'Terminer'}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Left title={title} data={data} />
           <div className="tile is-parent">
             <div className="tile is-child">
               <div className="content">
