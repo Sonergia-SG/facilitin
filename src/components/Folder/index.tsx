@@ -2,7 +2,7 @@
  * Created by stephane.mallaroni on 15/04/2019.
  */
 import React, { Component } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
 
@@ -87,6 +87,9 @@ class Folder extends Component<Props> {
 
     return (
       <div>
+        <div style={{ margin: '0 0 25px' }}>
+          <Link to="/liste">{"< Retour à la liste d'opérations"}</Link>
+        </div>
         <div className="tile is-ancestor">
           <div className="tile is-vertical is-3">
             <div className="tile">
