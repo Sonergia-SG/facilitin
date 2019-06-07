@@ -1,11 +1,9 @@
-import StateToColor from '../index';
+import StateToColor from '../index.ts';
 
 describe('Test StateToColor', () => {
   it('have good result with nb_bad_controle_auto > 0', () => {
     const str = {
-      point_controle: [
-        {},
-      ],
+      point_controle: [{}],
       nb_bad_controle_auto: 1,
       litige: 0,
     };
@@ -16,9 +14,7 @@ describe('Test StateToColor', () => {
 
   it('have good result with litige === 1', () => {
     const str = {
-      point_controle: [
-        {},
-      ],
+      point_controle: [{}],
       nb_bad_controle_auto: 0,
       litige: 1,
     };
@@ -29,9 +25,7 @@ describe('Test StateToColor', () => {
 
   it('have good result with empty accordion', () => {
     const str = {
-      point_controle: [
-        {},
-      ],
+      point_controle: [{}],
       nb_bad_controle_auto: 0,
       litige: 0,
     };

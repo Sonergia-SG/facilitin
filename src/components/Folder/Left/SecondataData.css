@@ -1,0 +1,32 @@
+.SecondaryData-Container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  padding: 0;
+}
+
+.SecondaryData-Items {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.SecondaryData-Item {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  padding: 1.25em 0.7em;
+  font-size: 15px;
+  transition: background-color 0.2s ease;
+  transition: border-bottom-color 0.2s ease;
+  border-bottom: 2px transparent solid;
+}
+
+.SecondaryData-Item:hover {
+  background-color: #16a0e033;
+}
+
+.SecondaryData-Item-Selected {
+  background-color: #16a0e033;
+  border-bottom-color: #16a0e0;
+}
