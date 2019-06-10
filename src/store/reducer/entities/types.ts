@@ -55,20 +55,26 @@ export interface OperationSimple {
   id_dossierprime: number;
   id_operation: number;
   code_operation: string;
-  statut: {
-    id_statut: number;
-    label_prive: string;
+  statut?: {
+    code_statut?: number;
+    label_public?: string;
+    id_statut?: number;
+    label_prive?: string;
   };
+  moderemuneration: {
+    id_remuneration: number,
+    delai_instruction: string,
+  },
 }
 
 export interface Operation extends OperationSimple {
-  dossierprime: number;
+  dossierprime?: number;
   dossierprimefile: [number];
   point_controles: [number];
 }
 
 export interface OperationFull extends OperationSimple {
-  dossierprime: FolderFull;
+  dossierprime?: FolderFull;
   dossierprimefile: [FileFull];
   point_controles: [CheckPoint];
 }
@@ -233,8 +239,7 @@ export interface FoldersLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type FoldersActions =
-  | FoldersFolderLoadedAction
+export type FoldersActions = | FoldersFolderLoadedAction
   | FoldersLogoutAction
   | FoldersListLoadedAction;
 
@@ -243,12 +248,17 @@ export interface CheckPointsFolderLoadedAction {
   normalized: Normalized;
 }
 
+export interface CheckPointsListLoadedAction {
+  type: typeof LIST_LOADED;
+  normalized: Normalized;
+}
+
 export interface CheckPointsLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type CheckPointsActions =
-  | CheckPointsFolderLoadedAction
+export type CheckPointsActions = | CheckPointsFolderLoadedAction
+  | CheckPointsListLoadedAction
   | CheckPointsLogoutAction;
 
 export interface CheckPointCategoriesFolderLoadedAction {
@@ -260,12 +270,15 @@ export interface CheckPointCategoriesLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type CheckPointCategoriesActions =
-  | CheckPointCategoriesFolderLoadedAction
+export type CheckPointCategoriesActions = | CheckPointCategoriesFolderLoadedAction
   | CheckPointCategoriesLogoutAction;
 
 export interface OperationsFolderLoadedAction {
   type: typeof FOLDER_LOADED;
+  normalized: Normalized;
+}
+export interface OperationsListLoadedAction {
+  type: typeof LIST_LOADED;
   normalized: Normalized;
 }
 
@@ -273,6 +286,6 @@ export interface OperationsLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type OperationsActions =
-  | OperationsFolderLoadedAction
+export type OperationsActions = | OperationsFolderLoadedAction
+  | OperationsListLoadedAction
   | OperationsLogoutAction;

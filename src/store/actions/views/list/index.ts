@@ -14,7 +14,7 @@ import {
 } from '../../../types';
 
 import { API_PATH } from '../../../../variables';
-import { folder } from '../../../reducer/entities/schema';
+import { operation } from '../../../reducer/entities/schema';
 
 import capture from '../../../../tools/errorReporting/captureException';
 
@@ -105,7 +105,7 @@ export const loadList = (toTab?: Tab): ThunkAction<void, AppState, null, Action<
 
     if (json.status === 'success') {
       // ! add flat values here
-      const normalized = normalize<Entities, { values: Array<number> }>(json, { values: [folder] });
+      const normalized = normalize<Entities, { values: Array<number> }>(json, { values: [operation] });
       dispatch(listLoaded(normalized, tab));
     } else {
       dispatch(listError(tab));
