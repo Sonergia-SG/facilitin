@@ -69,13 +69,13 @@ export interface OperationSimple {
 
 export interface Operation extends OperationSimple {
   dossierprime?: number;
-  dossierprimefile: [number];
+  dossierprimefile?: [number];
   point_controles: [number];
 }
 
 export interface OperationFull extends OperationSimple {
   dossierprime?: FolderFull;
-  dossierprimefile: [FileFull];
+  dossierprimefile?: [FileFull];
   point_controles: [CheckPoint];
 }
 

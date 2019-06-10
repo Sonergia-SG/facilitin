@@ -162,7 +162,6 @@ class Liste extends Component<Props> {
           <TabPanel>
             <ReactTable
               {...TRANSLATIONS}
-              filterable
               data={filteredData}
               defaultPageSize={10}
               className="-striped -highlight cur_pointer"

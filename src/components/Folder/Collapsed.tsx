@@ -8,22 +8,30 @@ import 'bulma-accordion/dist/css/bulma-accordion.min.css';
 import { FileFull as SonergiaFile } from '../../store/reducer/entities/types';
 
 import Accordion from '../Accordion';
+import Loading from '../Loading';
 
 interface Props {
   valeur?: Array<SonergiaFile>;
+  loading: boolean;
 }
 
 class Collapsed extends Component<Props> {
-  accordion = []
+  accordion = [];
 
   componentDidMount() {
     this.accordion = bulmaAccordion.attach();
   }
 
   render() {
-    const { valeur } = this.props;
+    const { valeur, loading } = this.props;
 
-    if (!valeur) return null
+    if (!valeur || valeur.length === 0) {
+      return (
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          {loading ? <Loading show /> : <h2>Pas de fichier disponible pour ce dossier</h2>}
+        </div>
+      );
+    }
 
     return (
       <div>

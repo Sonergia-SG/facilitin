@@ -74,9 +74,10 @@ class Folder extends Component<Props> {
       operationSchema,
       entities
     );
+
+    const folderPending = folderState.pending[parseInt(folderId, 10)];
+    const loading = folderPending ? !!folderPending.loading : true;
     if (!operation || !data || !data.dossierprimefile) {
-      const folderPending = folderState.pending[parseInt(folderId, 10)];
-      const loading = folderPending ? !!folderPending.loading : true;
       return <Empty loading={loading} />;
     }
 
@@ -91,7 +92,7 @@ class Folder extends Component<Props> {
           <Left title={title} data={data} />
           <div className="tile is-parent">
             <div className="tile is-child" style={{ marginTop: 0 }}>
-              <Collapsed valeur={data.dossierprimefile} />
+              <Collapsed valeur={data.dossierprimefile} loading={loading} />
             </div>
           </div>
         </div>
