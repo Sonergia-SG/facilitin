@@ -1,4 +1,4 @@
-import { LOGOUT, FOLDER_LOADED, LIST_LOADED } from '../../types';
+import { LOGOUT, FOLDER_LOADED, LIST_LOADED, FOLDER_UPDATE_MOA_LOADED } from '../../types';
 
 export enum BooleanNumber {
   ON = 1,
@@ -242,8 +242,15 @@ export interface FoldersLogoutAction {
   type: typeof LOGOUT;
 }
 
+export interface FoldersUpdateMoaLoaded {
+  type: typeof FOLDER_UPDATE_MOA_LOADED;
+  id_dossierprime: number;
+  values: { [index: string]: string };
+}
+
 export type FoldersActions = | FoldersFolderLoadedAction
   | FoldersLogoutAction
+  | FoldersUpdateMoaLoaded
   | FoldersListLoadedAction;
 
 export interface CheckPointsFolderLoadedAction {

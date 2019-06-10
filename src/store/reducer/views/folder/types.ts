@@ -8,8 +8,11 @@ import {
   FOLDER_ERROR,
   LOGOUT,
   FOLDER_CLEAN_MOA_VALUE,
+  FOLDER_UPDATE_MOA_ERROR,
+  FOLDER_UPDATE_MOA_LOADED,
+  FOLDER_UPDATE_MOA_LOADING,
 } from '../../../types';
-import { BooleanNumber } from '../../entities/types';
+import { BooleanNumber, FolderMOAString } from '../../entities/types';
 
 export enum FolderCheckPointStatus {
   SENDING = 'sending',
@@ -18,6 +21,7 @@ export enum FolderCheckPointStatus {
 
 export interface FolderPendingItem {
   loading?: boolean;
+  moaLoading?: boolean;
   checkPoint?: {
     [index: number]:
       | {
@@ -27,8 +31,8 @@ export interface FolderPendingItem {
       | undefined;
   };
   moa?: {
-    [key: string]: string;
-  }
+    [index: string]: string;
+  };
 }
 
 export interface FolderState {
@@ -72,14 +76,14 @@ export interface FolderFolderUpdateCheckpointErrorAction {
   checkPointId: number;
 }
 
-export interface FolderUpdateMoaValue {
+export interface FolderFolderUpdateMoaValue {
   type: typeof FOLDER_UPDATE_MOA_VALUE;
   key: string;
   value: string;
   idDpOperation: number;
 }
 
-export interface FoldercleanMoaValue {
+export interface FolderFoldercleanMoaValue {
   type: typeof FOLDER_CLEAN_MOA_VALUE;
   idDpOperation: number;
 }
@@ -88,13 +92,30 @@ export interface FolderLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type FolderAction =
-  | FolderFolderLoadingAction
+export interface FolderFolderUpdateMoaLoading {
+  type: typeof FOLDER_UPDATE_MOA_LOADING;
+  idDpOperation: number;
+}
+
+export interface FolderFolderUpdateMoaError {
+  type: typeof FOLDER_UPDATE_MOA_ERROR;
+  idDpOperation: number;
+}
+
+export interface FolderFolderUpdateMoaLoaded {
+  type: typeof FOLDER_UPDATE_MOA_LOADED;
+  idDpOperation: number;
+}
+
+export type FolderAction = | FolderFolderLoadingAction
   | FolderFolderErrorAction
   | FolderFolderLoadedAction
   | FolderFolderUpdateCheckpointLoadingAction
   | FolderFolderUpdateChekpointLoadedAction
   | FolderFolderUpdateCheckpointErrorAction
-  | FolderUpdateMoaValue
-  | FoldercleanMoaValue
+  | FolderFolderUpdateMoaValue
+  | FolderFoldercleanMoaValue
+  | FolderFolderUpdateMoaLoading
+  | FolderFolderUpdateMoaLoaded
+  | FolderFolderUpdateMoaError
   | FolderLogoutAction;

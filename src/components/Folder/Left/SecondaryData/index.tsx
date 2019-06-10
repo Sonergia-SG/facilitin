@@ -94,6 +94,7 @@ class SecondaryData extends Component<Props, State> {
               edit={edit}
               dossierprime={data.dossierprime}
               idDpOperation={data.id_dp_operation}
+              idDossierPrime={data.id_dossierprime}
               cancel={this.cancel}
               save={this.save}
             />

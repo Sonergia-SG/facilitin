@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 
-import { folderUpdateMoaValue, folderCleanMoaValue } from '../../../../store/actions/views/folder';
+import { folderUpdateMoaValue, folderCleanMoaValue, updateMoaValues } from '../../../../store/actions/views/folder';
 
 import { FolderFull } from '../../../../store/reducer/entities/types';
 import { FolderPendingItem } from '../../../../store/reducer/views/folder/types';
@@ -11,6 +11,7 @@ import Input from './Input';
 
 interface ConnectProps {
   idDpOperation: number;
+  idDossierPrime: number;
   edit: boolean;
   dossierprime?: FolderFull;
   cancel: () => void;
@@ -20,15 +21,17 @@ interface ConnectProps {
 interface Props extends ConnectProps {
   pending?: FolderPendingItem;
   updateMoa: typeof folderUpdateMoaValue;
+  post: any,
   clean: typeof folderCleanMoaValue;
 }
 
 const MOA = ({
   idDpOperation,
+  idDossierPrime,
   edit,
   dossierprime,
   cancel,
-  save,
+  post,
   pending,
   updateMoa,
   clean,
@@ -121,7 +124,7 @@ const MOA = ({
         </button>
         <button
           type="button"
-          onClick={save}
+          onClick={() => post(idDossierPrime, idDpOperation)}
           style={{ margin: '0 3px' }}
           disabled={!edit}
           className="button is-success is-rounded is-small"
@@ -137,5 +140,5 @@ export default connect(
   (s: AppState, p: ConnectProps) => ({
     pending: s.views.folder.pending[p.idDpOperation],
   }),
-  { updateMoa: folderUpdateMoaValue, clean: folderCleanMoaValue },
+  { updateMoa: folderUpdateMoaValue, clean: folderCleanMoaValue, post: updateMoaValues },
 )(MOA);

@@ -12,6 +12,9 @@ import {
   LOGOUT,
   FOLDER_UPDATE_MOA_VALUE,
   FOLDER_CLEAN_MOA_VALUE,
+  FOLDER_UPDATE_MOA_LOADING,
+  FOLDER_UPDATE_MOA_LOADED,
+  FOLDER_UPDATE_MOA_ERROR,
 } from '../../../types';
 
 const initialState = {
@@ -103,6 +106,40 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
               ...idx(state, _ => _.pending[action.idDpOperation].moa),
               [action.key]: action.value,
             },
+          },
+        },
+      };
+    case FOLDER_UPDATE_MOA_LOADING:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            moaLoading: true,
+          },
+        },
+      };
+    case FOLDER_UPDATE_MOA_LOADED:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            moaLoading: false,
+            moa: undefined,
+          },
+        },
+      };
+    case FOLDER_UPDATE_MOA_ERROR:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            moaLoading: false,
           },
         },
       };
