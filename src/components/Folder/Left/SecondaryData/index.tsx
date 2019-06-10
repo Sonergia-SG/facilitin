@@ -37,13 +37,7 @@ class SecondaryData extends Component<Props, State> {
   };
 
   cancel = () => {
-    this.setState({ edit: false });
-    setTimeout(() => this.setState({ selected: undefined }), 300);
-  };
-
-  save = () => {
-    this.setState({ edit: false });
-    setTimeout(() => this.setState({ selected: undefined }), 300);
+    this.setState({ edit: false, selected: undefined });
   };
 
   clearSelected = () => {
@@ -60,6 +54,8 @@ class SecondaryData extends Component<Props, State> {
     const moeSelected = selected === Selected.MOE;
     const siteSelected = selected === Selected.SITE;
 
+    const someoneSelected = !!edit;
+
     return (
       <div
         onMouseLeave={this.clearSelected}
@@ -69,21 +65,21 @@ class SecondaryData extends Component<Props, State> {
           <div
             onMouseEnter={this.select(Selected.MOA)}
             onClick={this.editMode}
-            className={`SecondaryData-Item${moaSelected ? ' SecondaryData-Item-Selected' : ''}`}
+            className={`SecondaryData-Item${someoneSelected  ? '' : ' SecondaryDataSelectable'}${moaSelected ? ' SecondaryData-Item-Selected' : ''}`}
           >
             {'MOA'}
           </div>
           <div
             onMouseEnter={this.select(Selected.MOE)}
             onClick={this.editMode}
-            className={`SecondaryData-Item${moeSelected ? ' SecondaryData-Item-Selected' : ''}`}
+            className={`SecondaryData-Item${someoneSelected  ? '' : ' SecondaryDataSelectable'}${moeSelected ? ' SecondaryData-Item-Selected' : ''}`}
           >
             {'MOE'}
           </div>
           <div
             onMouseEnter={this.select(Selected.SITE)}
             onClick={this.editMode}
-            className={`SecondaryData-Item${siteSelected ? ' SecondaryData-Item-Selected' : ''}`}
+            className={`SecondaryData-Item${someoneSelected  ? '' : ' SecondaryDataSelectable'}${siteSelected ? ' SecondaryData-Item-Selected' : ''}`}
           >
             {'Travaux'}
           </div>
@@ -96,7 +92,6 @@ class SecondaryData extends Component<Props, State> {
               idDpOperation={data.id_dp_operation}
               idDossierPrime={data.id_dossierprime}
               cancel={this.cancel}
-              save={this.save}
             />
           )}
           {moeSelected && <div>MOE</div>}

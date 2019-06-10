@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, Fragment } from 'react';
 import idx from 'idx';
 
 import { folderUpdateMoaValue } from '../../../../store/actions/views/folder';
@@ -16,25 +16,35 @@ interface Props {
 }
 
 const Input = ({
-  pending, valueKey, dossierprime, label, disabled, update, idDpOperation,
+  pending,
+  valueKey,
+  dossierprime,
+  label,
+  disabled,
+  update,
+  idDpOperation,
 }: Props) => {
   const value = idx(pending, _ => _.moa[valueKey]);
-  const originalValue = dossierprime[valueKey]
-  const cleanOriginalValue = originalValue === null ? undefined : originalValue
+  const originalValue = dossierprime[valueKey];
+  const cleanOriginalValue = originalValue === null ? undefined : originalValue;
+
+  const isEdited = value !== undefined;
 
   return (
-    <>
-     <label htmlFor={valueKey}>{label}</label>
-     <input
-       type="text"
-       name={valueKey}
-       disabled={disabled}
-       value={typeof value === 'string' ? value : cleanOriginalValue}
-       onChange={(e: ChangeEvent<HTMLInputElement>) => update(idDpOperation, valueKey, e.target.value)
+    <Fragment>
+      <label htmlFor={valueKey}>{label}</label>
+      <input
+        type="text"
+        name={valueKey}
+        placeholder={label}
+        className={`input${isEdited ? ' is-info' : ''}`}
+        disabled={disabled}
+        value={typeof value === 'string' ? value : cleanOriginalValue}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => update(idDpOperation, valueKey, e.target.value)
         }
-     />
-   </>
+      />
+    </Fragment>
   );
 };
 
-export default Input
+export default Input;

@@ -1,7 +1,11 @@
 import React, { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 
-import { folderUpdateMoaValue, folderCleanMoaValue, updateMoaValues } from '../../../../store/actions/views/folder';
+import {
+  folderUpdateMoaValue,
+  folderCleanMoaValue,
+  updateMoaValues,
+} from '../../../../store/actions/views/folder';
 
 import { FolderFull } from '../../../../store/reducer/entities/types';
 import { FolderPendingItem } from '../../../../store/reducer/views/folder/types';
@@ -15,13 +19,12 @@ interface ConnectProps {
   edit: boolean;
   dossierprime?: FolderFull;
   cancel: () => void;
-  save: () => void;
 }
 
 interface Props extends ConnectProps {
   pending?: FolderPendingItem;
   updateMoa: typeof folderUpdateMoaValue;
-  post: any,
+  post: any;
   clean: typeof folderCleanMoaValue;
 }
 
@@ -37,6 +40,9 @@ const MOA = ({
   clean,
 }: Props) => {
   if (!dossierprime) return <p>Unavailable</p>;
+
+  const loading = !!pending && !!pending.moaLoading;
+  const edited = !!pending && !!pending.moa
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -110,26 +116,37 @@ const MOA = ({
           margin: '4px 10px',
         }}
       >
-        <button
-          type="button"
-          onClick={() => {
-            clean(idDpOperation);
-            cancel();
-          }}
-          style={{ margin: '0 3px' }}
-          disabled={!edit}
-          className="button is-rounded is-small"
-        >
-          {'Annuler'}
-        </button>
+        {edited ? (
+          <button
+            type="button"
+            onClick={() => {
+              clean(idDpOperation);
+            }}
+            style={{ margin: '0 3px' }}
+            disabled={!edit || loading}
+            className="button is-rounded is-small"
+          >
+            {'Annuler'}
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={cancel}
+            style={{ margin: '0 3px' }}
+            disabled={!edit || loading}
+            className="button is-rounded is-small"
+          >
+            {'Fermer'}
+          </button>
+        )}
         <button
           type="button"
           onClick={() => post(idDossierPrime, idDpOperation)}
           style={{ margin: '0 3px' }}
-          disabled={!edit}
-          className="button is-success is-rounded is-small"
+          disabled={!edit || !edited}
+          className={`button is-success is-rounded is-small ${loading ? 'is-loading' : ''}`}
         >
-          {'Save WIP'}
+          {'Save'}
         </button>
       </div>
     </div>
