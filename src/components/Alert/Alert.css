@@ -1,0 +1,25 @@
+.Alert-Container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.Alert-Toast {
+  margin: 0 30px 20px 30px;
+  background-color: #263238;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+.Alert-Message {
+  color: #ffffff;
+  width: 350px;
+}
+
+.Alert-Toast-Error {
+  box-shadow: 0px 0px 8px 1px #ff3d00;
+}
+
+.Alert-Toast-Warning {
+  box-shadow: 0px 0px 8px 1px #ffc107;
+}

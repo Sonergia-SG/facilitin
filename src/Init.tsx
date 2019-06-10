@@ -7,6 +7,7 @@ import './css/index.css';
 import Router from './components/Router';
 
 import storeCreator, { getStore } from './store';
+import Alert from './components/Alert'
 
 class Init extends Component {
   state = {
@@ -28,6 +29,7 @@ class Init extends Component {
     if (displayApp) {
       return (
         <Provider store={getStore()}>
+          <Alert />
           <Router />
         </Provider>
       );
