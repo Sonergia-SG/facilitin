@@ -11,9 +11,9 @@ import {
   FOLDER_LOADING,
   FOLDER_LOADED,
   FOLDER_ERROR,
+  FOLDER_UPDATE_MOA_VALUE,
+  FOLDER_CLEAN_MOA_VALUE,
 } from '../../../types';
-
-import { datahand } from './mockApi';
 
 import { operation } from '../../../reducer/entities/schema';
 import { AppState } from '../../../../store';
@@ -94,6 +94,23 @@ export const folderUpdateError = (
   type: FOLDER_ERROR,
   idDpOperation,
 });
+
+export const folderUpdateMoaValue = (
+  idDpOperation: number,
+  key: string,
+  value: string,
+) => ({
+  type: FOLDER_UPDATE_MOA_VALUE,
+  idDpOperation,
+  key,
+  value,
+})
+export const folderCleanMoaValue = (
+  idDpOperation: number,
+) => ({
+  type: FOLDER_CLEAN_MOA_VALUE,
+  idDpOperation,
+})
 
 export const fetchFolder = (
   idDpOperation: number

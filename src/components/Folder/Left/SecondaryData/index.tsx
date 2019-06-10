@@ -93,6 +93,7 @@ class SecondaryData extends Component<Props, State> {
             <MOA
               edit={edit}
               dossierprime={data.dossierprime}
+              idDpOperation={data.id_dp_operation}
               cancel={this.cancel}
               save={this.save}
             />

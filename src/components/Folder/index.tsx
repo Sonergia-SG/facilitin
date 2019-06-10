@@ -33,39 +33,11 @@ export enum TypeModal {
 }
 
 class Folder extends Component<Props> {
-  state = {
-    open_moa: false,
-    open_moe: false,
-    open_travaux: false,
-  };
-
   componentWillMount() {
     this.props.fetchFolder(parseInt(this.props.match.params.folderId, 0));
   }
 
-  onOpenModal = (type: TypeModal) => () => {
-    if (type === 'moa') {
-      this.setState({ open_moa: true });
-    } else if (type === 'moe') {
-      this.setState({ open_moe: true });
-    } else {
-      this.setState({ open_travaux: true });
-    }
-  };
-
-  onCloseModalType = (type: TypeModal) => {
-    if (type === 'moa') {
-      this.setState({ open_moa: false });
-    } else if (type === 'moe') {
-      this.setState({ open_moe: false });
-    } else {
-      this.setState({ open_travaux: false });
-    }
-  };
-
   render() {
-    /* eslint-disable camelcase */
-    const { open_moa, open_moe, open_travaux } = this.state;
     const { entities, match, folderState } = this.props;
     const { folderId } = match.params;
     const operation = entities.operations[parseInt(folderId, 10)];

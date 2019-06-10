@@ -1,82 +1,141 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
+import { connect } from 'react-redux';
 
-import { FolderFull } from '../../../../store/reducer/entities/types'
+import { folderUpdateMoaValue, folderCleanMoaValue } from '../../../../store/actions/views/folder';
 
-interface Props {
-  edit: boolean,
-  dossierprime?: FolderFull,
-  cancel: () => void,
-  save: () => void,
+import { FolderFull } from '../../../../store/reducer/entities/types';
+import { FolderPendingItem } from '../../../../store/reducer/views/folder/types';
+import { AppState } from '../../../../store';
+
+import Input from './Input';
+
+interface ConnectProps {
+  idDpOperation: number;
+  edit: boolean;
+  dossierprime?: FolderFull;
+  cancel: () => void;
+  save: () => void;
 }
 
-const MOA = ({ edit, dossierprime, cancel, save }: Props) => {
+interface Props extends ConnectProps {
+  pending?: FolderPendingItem;
+  updateMoa: typeof folderUpdateMoaValue;
+  clean: typeof folderCleanMoaValue;
+}
 
-  if (!dossierprime) return <p>Unavailable</p>
+const MOA = ({
+  idDpOperation,
+  edit,
+  dossierprime,
+  cancel,
+  save,
+  pending,
+  updateMoa,
+  clean,
+}: Props) => {
+  if (!dossierprime) return <p>Unavailable</p>;
 
-  return <div style={{ display: 'flex', flexDirection: 'column' }}>
-  <label htmlFor="moa_nom">Nom MOA : </label>
-  <input type="text" name="moa_nom" disabled={!edit} defaultValue={dossierprime.moa_nom} />
-  <label htmlFor="moa_prenom"> Prénom MOA : </label>
-  <input
-    type="text"
-    name="moa_prenom"
-    disabled={!edit}
-    defaultValue={dossierprime.moa_prenom}
-  />
-  <label htmlFor="moa_fonction">Fonction MOA : </label>
-  <input
-    type="text"
-    name="moa_fonction"
-    disabled={!edit}
-    defaultValue={dossierprime.moa_fonction || ''}
-  />
-  <label htmlFor="moa_rue"> Adresse rue : </label>
-  <input type="text" name="moa_rue" disabled={!edit} defaultValue={dossierprime.moa_rue} />
-  <label htmlFor="moa_rue2">Adresse Rue 2 : </label>
-  <input type="text" name="moa_rue2" disabled={!edit} defaultValue={dossierprime.moa_rue2} />
-  <label htmlFor="moa_cp"> Code Postal : </label>
-  <input type="text" name="moa_cp" disabled={!edit} defaultValue={dossierprime.moa_cp} />
-  <label htmlFor="moa_ville"> Ville : </label>
-  <input
-    type="text"
-    name="moa_ville"
-    disabled={!edit}
-    defaultValue={dossierprime.moa_ville}
-  />
-  <label htmlFor="moa_prenom"> Prénom MOA : </label>
-  <input
-    type="text"
-    name="moa_prenom"
-    disabled={!edit}
-    defaultValue={dossierprime.moa_prenom}
-  />
-  <div
-    style={{
-      display: 'flex',
-      justifyContent: 'flex-end',
-      margin: '4px 10px',
-    }}
-  >
-    <button
-      type="button"
-      onClick={cancel}
-      style={{ margin: '0 3px' }}
-      disabled={!edit}
-      className="button is-rounded is-small"
-    >
-      {'Annuler WIP'}
-    </button>
-    <button
-      type="button"
-      onClick={save}
-      style={{ margin: '0 3px' }}
-      disabled={!edit}
-      className="button is-success is-rounded is-small"
-    >
-      {'Save WIP'}
-    </button>
-  </div>
-</div>
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <Input
+        label="Nom MOA : "
+        valueKey="moa_nom"
+        idDpOperation={idDpOperation}
+        disabled={!edit}
+        dossierprime={dossierprime}
+        pending={pending}
+        update={updateMoa}
+      />
+      <Input
+        label="Prénom MOA : "
+        valueKey="moa_prenom"
+        idDpOperation={idDpOperation}
+        disabled={!edit}
+        dossierprime={dossierprime}
+        pending={pending}
+        update={updateMoa}
+      />
+      <Input
+        label="Fonction MOA : "
+        valueKey="moa_fonction"
+        idDpOperation={idDpOperation}
+        disabled={!edit}
+        dossierprime={dossierprime}
+        pending={pending}
+        update={updateMoa}
+      />
+      <Input
+        label="Adresse rue : "
+        valueKey="moa_rue"
+        idDpOperation={idDpOperation}
+        disabled={!edit}
+        dossierprime={dossierprime}
+        pending={pending}
+        update={updateMoa}
+      />
+      <Input
+        label="Adresse rue 2 : "
+        valueKey="moa_rue2"
+        idDpOperation={idDpOperation}
+        disabled={!edit}
+        dossierprime={dossierprime}
+        pending={pending}
+        update={updateMoa}
+      />
+      <Input
+        label="Code Postal : "
+        valueKey="moa_cp"
+        idDpOperation={idDpOperation}
+        disabled={!edit}
+        dossierprime={dossierprime}
+        pending={pending}
+        update={updateMoa}
+      />
+      <Input
+        label="Ville : "
+        valueKey="moa_ville"
+        idDpOperation={idDpOperation}
+        disabled={!edit}
+        dossierprime={dossierprime}
+        pending={pending}
+        update={updateMoa}
+      />
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          margin: '4px 10px',
+        }}
+      >
+        <button
+          type="button"
+          onClick={() => {
+            clean(idDpOperation);
+            cancel();
+          }}
+          style={{ margin: '0 3px' }}
+          disabled={!edit}
+          className="button is-rounded is-small"
+        >
+          {'Annuler'}
+        </button>
+        <button
+          type="button"
+          onClick={save}
+          style={{ margin: '0 3px' }}
+          disabled={!edit}
+          className="button is-success is-rounded is-small"
+        >
+          {'Save WIP'}
+        </button>
+      </div>
+    </div>
+  );
 };
 
-export default MOA;
+export default connect(
+  (s: AppState, p: ConnectProps) => ({
+    pending: s.views.folder.pending[p.idDpOperation],
+  }),
+  { updateMoa: folderUpdateMoaValue, clean: folderCleanMoaValue },
+)(MOA);

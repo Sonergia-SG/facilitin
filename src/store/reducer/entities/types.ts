@@ -83,18 +83,10 @@ export interface Operations {
   [index: number]: Operation;
 }
 
-export interface SimpleFolder {
-  id_dp_operation: number;
-  id_dossierprime: number;
-  code_operation: string;
-  moa?: Array<MOA>;
-  moe?: Array<{}>;
-  travaux?: Array<{}>;
-  moa_est_societe: 0;
+export interface FolderMOAString {
   moa_civilite: string;
   moa_nom: string;
   moa_prenom: string;
-  moa_fonction: string | null;
   moa_rue: string;
   moa_rue2: string;
   moa_cp: string;
@@ -107,25 +99,36 @@ export interface SimpleFolder {
   moa_bic: string;
   moa_iban: string;
   moa_siret: string;
-  moa_no_siret: BooleanNumber;
   moa_denomination: string;
   moa_fax: string;
   moa_commentaire: string;
   moa_individu_email: string;
   moa_contact: string;
   moa_contact_mobile: string;
-  moa_individu_fonction: string | null;
-  moa_beneficiaire_role: string | null;
-  moa_categorie_menage: number;
-  moa_nombre_menage: number;
-  moa_nombre_personne: number;
-  moa_remp_preca: number;
-  moa_is_syndic: BooleanNumber;
   moa_raison_sociale_siege: string;
   moa_siren_siege: string;
   moa_adresse_siege: string;
   moa_cp_siege: string;
   moa_ville_siege: string;
+  moa_fonction: string | null;
+  moa_individu_fonction: string | null;
+  moa_beneficiaire_role: string | null;
+}
+
+export interface SimpleFolder extends FolderMOAString {
+  id_dp_operation: number;
+  id_dossierprime: number;
+  code_operation: string;
+  moa?: Array<MOA>;
+  moe?: Array<{}>;
+  travaux?: Array<{}>;
+  moa_est_societe: 0;
+  moa_is_syndic: BooleanNumber;
+  moa_no_siret: BooleanNumber;
+  moa_categorie_menage: number;
+  moa_nombre_menage: number;
+  moa_nombre_personne: number;
+  moa_remp_preca: number;
   moe_denomination: string;
   moe_siret: string;
   moe_tel: string;

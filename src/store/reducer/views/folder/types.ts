@@ -2,10 +2,12 @@ import {
   FOLDER_UPDATE_CHECK_POINT_LOADING,
   FOLDER_UPDATE_CHECK_POINT_LOADED,
   FOLDER_UPDATE_CHECK_POINT_ERROR,
+  FOLDER_UPDATE_MOA_VALUE,
   FOLDER_LOADING,
   FOLDER_LOADED,
   FOLDER_ERROR,
   LOGOUT,
+  FOLDER_CLEAN_MOA_VALUE,
 } from '../../../types';
 import { BooleanNumber } from '../../entities/types';
 
@@ -24,11 +26,14 @@ export interface FolderPendingItem {
         }
       | undefined;
   };
+  moa?: {
+    [key: string]: string;
+  }
 }
 
 export interface FolderState {
   pending: {
-    [index: number]: FolderPendingItem;
+    [index: number]: FolderPendingItem | undefined;
   };
 }
 
@@ -67,6 +72,18 @@ export interface FolderFolderUpdateCheckpointErrorAction {
   checkPointId: number;
 }
 
+export interface FolderUpdateMoaValue {
+  type: typeof FOLDER_UPDATE_MOA_VALUE;
+  key: string;
+  value: string;
+  idDpOperation: number;
+}
+
+export interface FoldercleanMoaValue {
+  type: typeof FOLDER_CLEAN_MOA_VALUE;
+  idDpOperation: number;
+}
+
 export interface FolderLogoutAction {
   type: typeof LOGOUT;
 }
@@ -78,4 +95,6 @@ export type FolderAction =
   | FolderFolderUpdateCheckpointLoadingAction
   | FolderFolderUpdateChekpointLoadedAction
   | FolderFolderUpdateCheckpointErrorAction
+  | FolderUpdateMoaValue
+  | FoldercleanMoaValue
   | FolderLogoutAction;

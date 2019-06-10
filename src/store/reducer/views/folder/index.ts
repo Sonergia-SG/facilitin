@@ -10,16 +10,15 @@ import {
   FOLDER_LOADED,
   FOLDER_ERROR,
   LOGOUT,
+  FOLDER_UPDATE_MOA_VALUE,
+  FOLDER_CLEAN_MOA_VALUE,
 } from '../../../types';
 
 const initialState = {
   pending: {},
 };
 
-const folder = (
-  state: FolderState = initialState,
-  action: FolderAction
-): FolderState => {
+const folder = (state: FolderState = initialState, action: FolderAction): FolderState => {
   switch (action.type) {
     case FOLDER_LOADING:
       return {
@@ -54,11 +53,7 @@ const folder = (
             checkPoint: {
               ...idx(state, _ => _.pending[action.folderId].checkPoint),
               [action.checkPointId]: {
-                ...idx(
-                  state,
-                  _ =>
-                    _.pending[action.folderId].checkPoint[action.checkPointId]
-                ),
+                ...idx(state, _ => _.pending[action.folderId].checkPoint[action.checkPointId]),
                 status: FolderCheckPointStatus.SENDING,
                 prevValue: action.prevValue,
               },
@@ -90,15 +85,33 @@ const folder = (
             checkPoint: {
               ...idx(state, _ => _.pending[action.folderId].checkPoint),
               [action.checkPointId]: {
-                ...idx(
-                  state,
-                  _ =>
-                    _.pending[action.folderId].checkPoint[action.checkPointId]
-                ),
+                ...idx(state, _ => _.pending[action.folderId].checkPoint[action.checkPointId]),
                 status: FolderCheckPointStatus.ERROR,
               },
             },
           },
+        },
+      };
+    case FOLDER_UPDATE_MOA_VALUE:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            moa: {
+              ...idx(state, _ => _.pending[action.idDpOperation].moa),
+              [action.key]: action.value,
+            },
+          },
+        },
+      };
+    case FOLDER_CLEAN_MOA_VALUE:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: undefined,
         },
       };
     case LOGOUT:
