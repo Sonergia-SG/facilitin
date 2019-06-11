@@ -1,5 +1,3 @@
-import { Action } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 
 import {
   LOGIN_LOADING,
@@ -17,7 +15,6 @@ import capture from '../../../../tools/errorReporting/captureException';
 
 import { addToken } from '../../user';
 
-import { AppState } from '../../../../store';
 import {
   LoginLoginLoadingAction,
   LoginLoginLoadedAction,
@@ -28,6 +25,7 @@ import {
   LoginLoginUpdateEmailAction,
   LoginLoginUpdatePasswordAction,
 } from '../../../reducer/views/login/types';
+import { ThunkAction } from '../../../actions';
 
 export const loginLoading = (): LoginLoginLoadingAction => ({
   type: LOGIN_LOADING,
@@ -61,7 +59,7 @@ export const loginUpdatePassword = (password: string): LoginLoginUpdatePasswordA
   password,
 });
 
-export const loginRequest = (): ThunkAction<void, AppState, null, Action<string>> => async (
+export const loginRequest = (): ThunkAction => async (
   dispatch,
   getState,
 ) => {

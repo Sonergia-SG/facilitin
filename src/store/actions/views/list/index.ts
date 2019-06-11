@@ -1,6 +1,4 @@
 import { normalize } from 'normalizr';
-import { ThunkAction } from 'redux-thunk';
-import { Action } from 'redux';
 
 import {
   LIST_LOADING,
@@ -20,7 +18,7 @@ import { operation } from '../../../reducer/entities/schema';
 
 import capture from '../../../../tools/errorReporting/captureException';
 
-import { AppState } from '../../../../store';
+import { ThunkAction } from '../../../actions';
 import {
   Tab,
   ListListLoadingAction,
@@ -80,7 +78,7 @@ export const listUpdateSorted = (sorted: Sorted): ListListSortedAction => ({
   sorted,
 });
 
-export const loadList = (toTab?: Tab): ThunkAction<void, AppState, null, Action<string>> => async (
+export const loadList = (toTab?: Tab): ThunkAction => async (
   dispatch,
   getState,
 ) => {

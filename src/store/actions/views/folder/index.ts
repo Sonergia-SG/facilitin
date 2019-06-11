@@ -1,9 +1,7 @@
 import { normalize } from 'normalizr';
-import { Action } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 
-import { addMessageToQueue } from '../../../../components/Alert'
-import captureException from '../../../../tools/errorReporting/captureException.js'
+import { addMessageToQueue } from '../../../../components/Alert';
+import captureException from '../../../../tools/errorReporting/captureException.js';
 
 import { API_PATH } from '../../../../variables';
 
@@ -23,6 +21,7 @@ import {
 
 import { operation } from '../../../reducer/entities/schema';
 import { AppState } from '../../../../store';
+import { ThunkAction } from '../../../actions';
 import {
   FolderFolderUpdateCheckpointLoadingAction,
   FolderFolderUpdateChekpointLoadedAction,
@@ -37,7 +36,11 @@ import {
   FolderFolderUpdateMoaLoaded,
 } from '../../../reducer/views/folder/types';
 import { ListListLoadedNormalized } from '../../../reducer/views/list/type';
-import { BooleanNumber, FoldersUpdateMoaLoaded, FolderMOAString } from '../../../reducer/entities/types';
+import {
+  BooleanNumber,
+  FoldersUpdateMoaLoaded,
+  FolderMOAString,
+} from '../../../reducer/entities/types';
 
 type FolderUpdateCheckPointLoadingParams = {
   folderId: number;
@@ -117,9 +120,7 @@ export const folderCleanMoaValue = (idDpOperation: number): FolderFoldercleanMoa
   idDpOperation,
 });
 
-export const fetchFolder = (
-  idDpOperation: number,
-): ThunkAction<void, AppState, null, Action<string>> => async (dispatch, getState) => {
+export const fetchFolder = (idDpOperation: number): ThunkAction => async (dispatch, getState) => {
   dispatch(folderUpdateLoading(idDpOperation));
   const { apiKey } = getState().user;
 
@@ -142,8 +143,8 @@ export const fetchFolder = (
       addMessageToQueue({
         duration: 2500,
         type: 'error',
-        message: 'Erreur pendant la récupération des informations de l\'opération'
-      })
+        message: "Erreur pendant la récupération des informations de l'opération",
+      });
       dispatch(folderUpdateError(idDpOperation));
     }
   } catch (error) {
@@ -151,8 +152,8 @@ export const fetchFolder = (
     addMessageToQueue({
       duration: 2500,
       type: 'error',
-      message: 'Erreur pendant la récupération des informations de l\'opération'
-    })
+      message: "Erreur pendant la récupération des informations de l'opération",
+    });
     dispatch(folderUpdateError(idDpOperation));
   }
 };
@@ -163,7 +164,7 @@ export const updateFolderCheckPoint = ({
 }: {
 folderId: number;
 checkPointId: number;
-}): ThunkAction<void, AppState, null, Action<string>> => (dispatch, getState) => {
+}): ThunkAction => (dispatch, getState) => {
   const checkPoint = getState().entities.checkPoints[checkPointId];
   const prevValue = checkPoint ? checkPoint.pivot.valide : 0;
 
@@ -173,18 +174,18 @@ checkPointId: number;
     addMessageToQueue({
       duration: 2500,
       type: 'info',
-      message: 'fake action'
-    })
+      message: 'fake action',
+    });
     setTimeout(() => {
       dispatch(folderUpdateCheckPointLoaded({ folderId, checkPointId }));
     }, 500);
   } catch (error) {
-    captureException(error)
+    captureException(error);
     addMessageToQueue({
       duration: 2500,
       type: 'error',
-      message: 'Erreur pendant la mise à jout du point de controle'
-    })
+      message: 'Erreur pendant la mise à jout du point de controle',
+    });
     dispatch(folderUpdateCheckPointError({ folderId, checkPointId }));
   }
 };
@@ -213,15 +214,15 @@ export const folderUpdateMoaError = (idDpOperation: number): FolderFolderUpdateM
 export const updateMoaValues = (
   idDossierPrime: number,
   idDpOperation: number,
-): ThunkAction<void, AppState, null, Action<string>> => async (dispatch, getState) => {
+): ThunkAction => async (dispatch, getState) => {
   try {
-    const { apiKey } = getState().user
-    const pending = getState().views.folder.pending[idDpOperation]
+    const { apiKey } = getState().user;
+    const pending = getState().views.folder.pending[idDpOperation];
 
-    if (!pending) throw new Error('Pending is missing for MOa update')
-    const values = pending.moa || {}
+    if (!pending) throw new Error('Pending is missing for MOa update');
+    const values = pending.moa || {};
 
-    dispatch(folderUpdateMoaLoading(idDpOperation))
+    dispatch(folderUpdateMoaLoading(idDpOperation));
 
     const res = await fetch(`${API_PATH}updatedossierprime/${idDossierPrime}`, {
       method: 'post',
@@ -236,23 +237,23 @@ export const updateMoaValues = (
       addMessageToQueue({
         duration: 2500,
         type: 'info',
-        message: 'Les infos du MOA ont étaient mise à jour'
-      })
-      dispatch(folderUpdateMoaLoaded(idDpOperation, idDossierPrime, values))
+        message: 'Les infos du MOA ont étaient mise à jour',
+      });
+      dispatch(folderUpdateMoaLoaded(idDpOperation, idDossierPrime, values));
     } else {
       addMessageToQueue({
         duration: 4500,
         type: 'error',
-        message: 'Erreur pendant la mise à jour des infos du MOA'
-      })
-      dispatch(folderUpdateMoaError(idDpOperation))  
+        message: 'Erreur pendant la mise à jour des infos du MOA',
+      });
+      dispatch(folderUpdateMoaError(idDpOperation));
     }
   } catch (error) {
     addMessageToQueue({
       duration: 4500,
       type: 'error',
-      message: 'Erreur pendant la mise à jour des infos du MOA'
-    })
-    dispatch(folderUpdateMoaError(idDpOperation))
+      message: 'Erreur pendant la mise à jour des infos du MOA',
+    });
+    dispatch(folderUpdateMoaError(idDpOperation));
   }
 };
