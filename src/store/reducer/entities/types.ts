@@ -1,4 +1,4 @@
-import { LOGOUT, FOLDER_LOADED, LIST_LOADED } from '../../types';
+import { LOGOUT, FOLDER_LOADED, LIST_LOADED, FOLDER_UPDATE_MOA_LOADED } from '../../types';
 
 export enum BooleanNumber {
   ON = 1,
@@ -55,21 +55,27 @@ export interface OperationSimple {
   id_dossierprime: number;
   id_operation: number;
   code_operation: string;
-  statut: {
-    id_statut: number;
-    label_prive: string;
+  statut?: {
+    code_statut?: number;
+    label_public?: string;
+    id_statut?: number;
+    label_prive?: string;
   };
+  moderemuneration: {
+    id_remuneration: number,
+    delai_instruction: string,
+  },
 }
 
 export interface Operation extends OperationSimple {
-  dossierprime: number;
-  dossierprimefile: [number];
+  dossierprime?: number;
+  dossierprimefile?: [number];
   point_controles: [number];
 }
 
 export interface OperationFull extends OperationSimple {
-  dossierprime: FolderFull;
-  dossierprimefile: [FileFull];
+  dossierprime?: FolderFull;
+  dossierprimefile?: [FileFull];
   point_controles: [CheckPoint];
 }
 
@@ -77,18 +83,10 @@ export interface Operations {
   [index: number]: Operation;
 }
 
-export interface SimpleFolder {
-  id_dp_operation: number;
-  id_dossierprime: number;
-  code_operation: string;
-  moa?: Array<MOA>;
-  moe?: Array<{}>;
-  travaux?: Array<{}>;
-  moa_est_societe: 0;
+export interface FolderMOAString {
   moa_civilite: string;
   moa_nom: string;
   moa_prenom: string;
-  moa_fonction: string | null;
   moa_rue: string;
   moa_rue2: string;
   moa_cp: string;
@@ -101,25 +99,36 @@ export interface SimpleFolder {
   moa_bic: string;
   moa_iban: string;
   moa_siret: string;
-  moa_no_siret: BooleanNumber;
   moa_denomination: string;
   moa_fax: string;
   moa_commentaire: string;
   moa_individu_email: string;
   moa_contact: string;
   moa_contact_mobile: string;
-  moa_individu_fonction: string | null;
-  moa_beneficiaire_role: string | null;
-  moa_categorie_menage: number;
-  moa_nombre_menage: number;
-  moa_nombre_personne: number;
-  moa_remp_preca: number;
-  moa_is_syndic: BooleanNumber;
   moa_raison_sociale_siege: string;
   moa_siren_siege: string;
   moa_adresse_siege: string;
   moa_cp_siege: string;
   moa_ville_siege: string;
+  moa_fonction: string | null;
+  moa_individu_fonction: string | null;
+  moa_beneficiaire_role: string | null;
+}
+
+export interface SimpleFolder extends FolderMOAString {
+  id_dp_operation: number;
+  id_dossierprime: number;
+  code_operation: string;
+  moa?: Array<MOA>;
+  moe?: Array<{}>;
+  travaux?: Array<{}>;
+  moa_est_societe: 0;
+  moa_is_syndic: BooleanNumber;
+  moa_no_siret: BooleanNumber;
+  moa_categorie_menage: number;
+  moa_nombre_menage: number;
+  moa_nombre_personne: number;
+  moa_remp_preca: number;
   moe_denomination: string;
   moe_siret: string;
   moe_tel: string;
@@ -233,9 +242,15 @@ export interface FoldersLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type FoldersActions =
-  | FoldersFolderLoadedAction
+export interface FoldersUpdateMoaLoaded {
+  type: typeof FOLDER_UPDATE_MOA_LOADED;
+  id_dossierprime: number;
+  values: { [index: string]: string };
+}
+
+export type FoldersActions = | FoldersFolderLoadedAction
   | FoldersLogoutAction
+  | FoldersUpdateMoaLoaded
   | FoldersListLoadedAction;
 
 export interface CheckPointsFolderLoadedAction {
@@ -243,12 +258,17 @@ export interface CheckPointsFolderLoadedAction {
   normalized: Normalized;
 }
 
+export interface CheckPointsListLoadedAction {
+  type: typeof LIST_LOADED;
+  normalized: Normalized;
+}
+
 export interface CheckPointsLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type CheckPointsActions =
-  | CheckPointsFolderLoadedAction
+export type CheckPointsActions = | CheckPointsFolderLoadedAction
+  | CheckPointsListLoadedAction
   | CheckPointsLogoutAction;
 
 export interface CheckPointCategoriesFolderLoadedAction {
@@ -260,12 +280,15 @@ export interface CheckPointCategoriesLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type CheckPointCategoriesActions =
-  | CheckPointCategoriesFolderLoadedAction
+export type CheckPointCategoriesActions = | CheckPointCategoriesFolderLoadedAction
   | CheckPointCategoriesLogoutAction;
 
 export interface OperationsFolderLoadedAction {
   type: typeof FOLDER_LOADED;
+  normalized: Normalized;
+}
+export interface OperationsListLoadedAction {
+  type: typeof LIST_LOADED;
   normalized: Normalized;
 }
 
@@ -273,6 +296,6 @@ export interface OperationsLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type OperationsActions =
-  | OperationsFolderLoadedAction
+export type OperationsActions = | OperationsFolderLoadedAction
+  | OperationsListLoadedAction
   | OperationsLogoutAction;

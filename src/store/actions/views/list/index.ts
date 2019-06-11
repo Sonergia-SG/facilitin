@@ -13,8 +13,10 @@ import {
   LIST_SORTED_UPDATE,
 } from '../../../types';
 
+import { addMessageToQueue } from '../../../../components/Alert'
+
 import { API_PATH } from '../../../../variables';
-import { folder } from '../../../reducer/entities/schema';
+import { operation } from '../../../reducer/entities/schema';
 
 import capture from '../../../../tools/errorReporting/captureException';
 
@@ -105,12 +107,22 @@ export const loadList = (toTab?: Tab): ThunkAction<void, AppState, null, Action<
 
     if (json.status === 'success') {
       // ! add flat values here
-      const normalized = normalize<Entities, { values: Array<number> }>(json, { values: [folder] });
+      const normalized = normalize<Entities, { values: Array<number> }>(json, { values: [operation] });
       dispatch(listLoaded(normalized, tab));
     } else {
+      addMessageToQueue({
+        duration: 2500,
+        type: 'error',
+        message: 'Erreur pendant la mise à jour de la liste'
+      })
       dispatch(listError(tab));
     }
   } catch (e) {
+    addMessageToQueue({
+      duration: 2500,
+      type: 'error',
+      message: 'Erreur pendant la mise à jour de la liste'
+    })
     capture(e);
     dispatch(listError(tab));
   }

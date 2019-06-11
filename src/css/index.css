@@ -127,3 +127,100 @@ button.togglesonergia {
 #div-but-litige {
   margin-top: -80px !important;
 }
+
+@-webkit-keyframes anim {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-moz-keyframes anim {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-ms-keyframes anim {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes anim {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.Loading-Text {
+  position: relative;
+  color: #ffffff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  -ms-background-clip: text;
+  -ms-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.Loading-Text:before,
+.Loading-Text:after {
+  position: absolute;
+  content: '';
+}
+
+.Loading-Text:before {
+  z-index: -2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: inherit;
+  background-size: cover;
+  -webkit-animation: anim 3s infinite ease-in;
+  -moz-animation: anim 3s infinite ease-in;
+  -ms-animation: anim 3s infinite ease-in;
+  animation: anim 3s infinite ease-in;
+}
+
+.Loading-Text:after {
+  position: absolute;
+  z-index: -1;
+  top: 0.125em;
+  right: 0.125em;
+  bottom: 0.125em;
+  left: 0.125em;
+  background-color: #ffffff;
+}
+
+.Loading-Text_one {
+  background-image: linear-gradient(-45deg, #f28b24, #c4c4c4, #f28b24);
+  background-size: 400% 400%;
+  -webkit-animation: anim 2.5s infinite linear;
+  -moz-animation: anim 2.5s infinite ease-in;
+  -ms-animation: anim 2.5s infinite ease-in;
+  animation: anim 2.5s infinite ease-in;
+}

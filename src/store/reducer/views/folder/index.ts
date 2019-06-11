@@ -10,16 +10,18 @@ import {
   FOLDER_LOADED,
   FOLDER_ERROR,
   LOGOUT,
+  FOLDER_UPDATE_MOA_VALUE,
+  FOLDER_CLEAN_MOA_VALUE,
+  FOLDER_UPDATE_MOA_LOADING,
+  FOLDER_UPDATE_MOA_LOADED,
+  FOLDER_UPDATE_MOA_ERROR,
 } from '../../../types';
 
 const initialState = {
   pending: {},
 };
 
-const folder = (
-  state: FolderState = initialState,
-  action: FolderAction
-): FolderState => {
+const folder = (state: FolderState = initialState, action: FolderAction): FolderState => {
   switch (action.type) {
     case FOLDER_LOADING:
       return {
@@ -54,11 +56,7 @@ const folder = (
             checkPoint: {
               ...idx(state, _ => _.pending[action.folderId].checkPoint),
               [action.checkPointId]: {
-                ...idx(
-                  state,
-                  _ =>
-                    _.pending[action.folderId].checkPoint[action.checkPointId]
-                ),
+                ...idx(state, _ => _.pending[action.folderId].checkPoint[action.checkPointId]),
                 status: FolderCheckPointStatus.SENDING,
                 prevValue: action.prevValue,
               },
@@ -90,15 +88,67 @@ const folder = (
             checkPoint: {
               ...idx(state, _ => _.pending[action.folderId].checkPoint),
               [action.checkPointId]: {
-                ...idx(
-                  state,
-                  _ =>
-                    _.pending[action.folderId].checkPoint[action.checkPointId]
-                ),
+                ...idx(state, _ => _.pending[action.folderId].checkPoint[action.checkPointId]),
                 status: FolderCheckPointStatus.ERROR,
               },
             },
           },
+        },
+      };
+    case FOLDER_UPDATE_MOA_VALUE:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            moa: {
+              ...idx(state, _ => _.pending[action.idDpOperation].moa),
+              [action.key]: action.value,
+            },
+          },
+        },
+      };
+    case FOLDER_UPDATE_MOA_LOADING:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            moaLoading: true,
+          },
+        },
+      };
+    case FOLDER_UPDATE_MOA_LOADED:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            moaLoading: false,
+            moa: undefined,
+          },
+        },
+      };
+    case FOLDER_UPDATE_MOA_ERROR:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            moaLoading: false,
+          },
+        },
+      };
+    case FOLDER_CLEAN_MOA_VALUE:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: undefined,
         },
       };
     case LOGOUT:

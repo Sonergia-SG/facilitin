@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { denormalize } from 'normalizr';
 // @ts-ignore
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
@@ -26,40 +27,48 @@ import {
   listUpdateSorted,
 } from '../store/actions/views/list';
 
+import { operation } from '../store/reducer/entities/schema';
+
 import { AppState } from '../store';
-import { Folders, MOA } from '../store/reducer/entities/types';
+import { Entities, OperationFull, MOA } from '../store/reducer/entities/types';
 import { ListState, Tab as TabType } from '../store/reducer/views/list/type';
 
 const COLUMNS = [
   {
     Header: 'N° Dossier',
-    accessor: 'id_dossierprime', // String-based value accessors!
+    id: 'id_dossierprime',
+    accessor: (d: OperationFull) => d.id_dossierprime, // String-based value accessors!
   },
   {
     Header: 'N° Action',
-    accessor: 'id_dp_operation',
+    id: 'id_dp_operation',
+    accessor: (d: OperationFull) => d.id_dp_operation,
     // Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
   },
   {
     Header: 'Etat',
-    accessor: 'label_public',
+    id: 'label_public',
+    accessor: (d: OperationFull) => d.statut ? d.statut.label_public : ' - ',
   },
   {
     Header: 'Nb Jours res',
-    accessor: 'delai_instruction',
+    id: 'delai_instruction',
+    accessor: (d: OperationFull) => d.moderemuneration.delai_instruction,
   },
   {
     Header: 'MOA',
     id: 'moa_nom',
-    accessor: (d: MOA) => `${d.moa_nom} ${d.moa_prenom} ${d.moa_denomination}`,
+    accessor: (d: OperationFull) => d.dossierprime ? `${d.dossierprime.moa_nom} ${d.dossierprime.moa_prenom} ${d.dossierprime.moa_denomination}` : ' - ',
   },
   {
     Header: 'FOST',
-    accessor: 'code_operation',
+    id: 'code_operation',
+    accessor: (d: OperationFull) => d.code_operation,
   },
   {
     Header: ' ',
-    accessor: 'ddddd',
+    id: 'stats',
+    accessor: 'TODO',
   },
 ];
 
@@ -78,7 +87,7 @@ interface Props extends RouteComponentProps {
   listUpdatePageSize: typeof listUpdatePageSize;
   listUpdateSorted: typeof listUpdateSorted;
   apiKey: string | null;
-  allFolders: Folders;
+  entities: Entities;
   listState: ListState;
 }
 
@@ -116,11 +125,15 @@ class Liste extends Component<Props> {
   };
 
   render() {
-    const { listState, allFolders } = this.props;
-    const { selectedTab, tab, search, pageSize } = listState;
-    const { loading, data, page, sorted } = tab[selectedTab];
+    const { listState, entities } = this.props;
+    const {
+      selectedTab, tab, search, pageSize,
+    } = listState;
+    const {
+      loading, data, page, sorted,
+    } = tab[selectedTab];
 
-    const mappedData = data.map(id => allFolders[id]);
+    const mappedData: [OperationFull] = denormalize(data, [operation], entities);
     const filteredData = search
       ? mappedData.filter(row => String(row.id_dp_operation).includes(search))
       : mappedData;
@@ -138,10 +151,7 @@ class Liste extends Component<Props> {
           defaultValue={search}
           onChange={e => this.props.listUpdateSearch(e.target.value)}
         />
-        <Tabs
-          defaultIndex={selectedTab}
-          onSelect={(index: TabType) => this.handleData(index)}
-        >
+        <Tabs defaultIndex={selectedTab} onSelect={(index: TabType) => this.handleData(index)}>
           <TabList>
             <Tab>A traiter</Tab>
             <Tab>Incomplet</Tab>
@@ -152,7 +162,6 @@ class Liste extends Component<Props> {
           <TabPanel>
             <ReactTable
               {...TRANSLATIONS}
-              filterable
               data={filteredData}
               defaultPageSize={10}
               className="-striped -highlight cur_pointer"
@@ -232,7 +241,7 @@ export default connect(
   (s: AppState) => ({
     apiKey: s.user.apiKey,
     listState: s.views.list,
-    allFolders: s.entities.folders,
+    entities: s.entities,
   }),
   {
     loadList,
@@ -240,5 +249,5 @@ export default connect(
     listUpdatePage,
     listUpdatePageSize,
     listUpdateSorted,
-  }
+  },
 )(withRouter(Liste));

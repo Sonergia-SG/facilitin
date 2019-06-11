@@ -33,39 +33,11 @@ export enum TypeModal {
 }
 
 class Folder extends Component<Props> {
-  state = {
-    open_moa: false,
-    open_moe: false,
-    open_travaux: false,
-  };
-
   componentWillMount() {
     this.props.fetchFolder(parseInt(this.props.match.params.folderId, 0));
   }
 
-  onOpenModal = (type: TypeModal) => () => {
-    if (type === 'moa') {
-      this.setState({ open_moa: true });
-    } else if (type === 'moe') {
-      this.setState({ open_moe: true });
-    } else {
-      this.setState({ open_travaux: true });
-    }
-  };
-
-  onCloseModalType = (type: TypeModal) => {
-    if (type === 'moa') {
-      this.setState({ open_moa: false });
-    } else if (type === 'moe') {
-      this.setState({ open_moe: false });
-    } else {
-      this.setState({ open_travaux: false });
-    }
-  };
-
   render() {
-    /* eslint-disable camelcase */
-    const { open_moa, open_moe, open_travaux } = this.state;
     const { entities, match, folderState } = this.props;
     const { folderId } = match.params;
     const operation = entities.operations[parseInt(folderId, 10)];
@@ -74,9 +46,10 @@ class Folder extends Component<Props> {
       operationSchema,
       entities
     );
+
+    const folderPending = folderState.pending[parseInt(folderId, 10)];
+    const loading = folderPending ? !!folderPending.loading : true;
     if (!operation || !data || !data.dossierprimefile) {
-      const folderPending = folderState.pending[parseInt(folderId, 10)];
-      const loading = folderPending ? !!folderPending.loading : true;
       return <Empty loading={loading} />;
     }
 
@@ -88,10 +61,10 @@ class Folder extends Component<Props> {
           <Link to="/liste">{"< Retour à la liste d'opérations"}</Link>
         </div>
         <div className="tile is-ancestor">
-          <Left title={title} data={data} />
+          <Left loading={loading} title={title} data={data} />
           <div className="tile is-parent">
             <div className="tile is-child" style={{ marginTop: 0 }}>
-              <Collapsed valeur={data.dossierprimefile} />
+              <Collapsed valeur={data.dossierprimefile} loading={loading} />
             </div>
           </div>
         </div>
