@@ -18,6 +18,8 @@ import { API_PATH } from '../../../variables';
 
 import { logout } from '../views/login'
 
+import rest from '../../../tools/rest'
+
 // eslint-disable-next-line import/prefer-default-export
 export const addToken = (apiKey: string): UserAddTokenAction => ({
   type: USER_ADD_TOKEN,
@@ -43,12 +45,7 @@ export const getUserInfos = (): ThunkAction => async (dispatch, getState) => {
 
     const { apiKey } = getState().user;
 
-    const res = await fetch(`${API_PATH}getinfouser/`, {
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `bearer ${apiKey}`,
-      },
-    });
+    const res = await rest(`${API_PATH}getinfouser/`);
 
     if (res.status === 200) {
       type Json = {

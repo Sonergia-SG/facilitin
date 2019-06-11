@@ -33,6 +33,7 @@ import {
   Sorted,
 } from '../../../reducer/views/list/type';
 import { Normalized, Entities } from '../../../reducer/entities/types';
+import rest from '../../../../tools/rest';
 
 export const listLoading = (tab: Tab): ListListLoadingAction => ({
   type: LIST_LOADING,
@@ -92,14 +93,7 @@ export const loadList = (toTab?: Tab): ThunkAction => async (
   }
 
   try {
-    const res = await fetch(`${API_PATH}liste/${tab}`, {
-      method: 'get',
-      headers: new Headers({
-        'user-agent': 'Mozilla/4.0 MDN Example',
-        'content-type': 'application/json',
-        Authorization: `bearer ${apiKey}`,
-      }),
-    });
+    const res = await rest(`${API_PATH}liste/${tab}`);
 
     const json = await res.json();
 

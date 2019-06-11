@@ -41,6 +41,7 @@ import {
   FoldersUpdateMoaLoaded,
   FolderMOAString,
 } from '../../../reducer/entities/types';
+import rest from '../../../../tools/rest';
 
 type FolderUpdateCheckPointLoadingParams = {
   folderId: number;
@@ -125,14 +126,7 @@ export const fetchFolder = (idDpOperation: number): ThunkAction => async (dispat
   const { apiKey } = getState().user;
 
   try {
-    const res = await fetch(`${API_PATH}detailaction/${idDpOperation}`, {
-      method: 'get',
-      headers: new Headers({
-        'user-agent': 'Mozilla/4.0 MDN Example',
-        'content-type': 'application/json',
-        Authorization: `bearer ${apiKey}`,
-      }),
-    });
+    const res = await rest(`${API_PATH}detailaction/${idDpOperation}`);
 
     const json = await res.json();
 
@@ -224,12 +218,8 @@ export const updateMoaValues = (
 
     dispatch(folderUpdateMoaLoading(idDpOperation));
 
-    const res = await fetch(`${API_PATH}updatedossierprime/${idDossierPrime}`, {
+    const res = await rest(`${API_PATH}updatedossierprime/${idDossierPrime}`, {
       method: 'post',
-      headers: new Headers({
-        'content-type': 'application/json',
-        Authorization: `bearer ${apiKey}`,
-      }),
       body: JSON.stringify(values),
     });
 
