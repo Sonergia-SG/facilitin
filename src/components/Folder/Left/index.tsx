@@ -10,12 +10,13 @@ import SecondaryData from './SecondaryData';
 interface Props {
   title: String;
   data: OperationFull;
+  loading: boolean;
 }
 
-const Left = ({ title, data }: Props) => (
+const Left = ({ title, data, loading }: Props) => (
   <div className="tile is-vertical is-3">
     <div className="tile is-parent is-vertical">
-      <GeneralInfos title={title} data={data} />
+      <GeneralInfos loading={loading} title={title} data={data} />
       <SecondaryData data={data} />
       <CheckPointsSummary data={data} />
       <EndButton />

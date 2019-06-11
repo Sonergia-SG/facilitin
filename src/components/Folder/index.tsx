@@ -61,7 +61,7 @@ class Folder extends Component<Props> {
           <Link to="/liste">{"< Retour à la liste d'opérations"}</Link>
         </div>
         <div className="tile is-ancestor">
-          <Left title={title} data={data} />
+          <Left loading={loading} title={title} data={data} />
           <div className="tile is-parent">
             <div className="tile is-child" style={{ marginTop: 0 }}>
               <Collapsed valeur={data.dossierprimefile} loading={loading} />

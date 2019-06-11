@@ -234,14 +234,14 @@ export const updateMoaValues = (
 
     if (res.status === 200) {
       addMessageToQueue({
-        duration: 1500,
+        duration: 2500,
         type: 'info',
         message: 'Les infos du MOA ont étaient mise à jour'
       })
       dispatch(folderUpdateMoaLoaded(idDpOperation, idDossierPrime, values))
     } else {
       addMessageToQueue({
-        duration: 2500,
+        duration: 4500,
         type: 'error',
         message: 'Erreur pendant la mise à jour des infos du MOA'
       })
@@ -249,7 +249,7 @@ export const updateMoaValues = (
     }
   } catch (error) {
     addMessageToQueue({
-      duration: 2500,
+      duration: 4500,
       type: 'error',
       message: 'Erreur pendant la mise à jour des infos du MOA'
     })
