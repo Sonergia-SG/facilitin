@@ -2,6 +2,9 @@ import { normalize } from 'normalizr';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
+import { addMessageToQueue } from '../../../../components/Alert'
+import captureException from '../../../../tools/errorReporting/captureException.js'
+
 import { API_PATH } from '../../../../variables';
 
 import {
@@ -136,9 +139,20 @@ export const fetchFolder = (
       const normalized = normalize(json.values[0], operation);
       dispatch(folderUpdateLoaded(idDpOperation, normalized));
     } else {
+      addMessageToQueue({
+        duration: 2500,
+        type: 'error',
+        message: 'Erreur pendant la récupération des informations de l\'opération'
+      })
       dispatch(folderUpdateError(idDpOperation));
     }
   } catch (error) {
+    captureException(error);
+    addMessageToQueue({
+      duration: 2500,
+      type: 'error',
+      message: 'Erreur pendant la récupération des informations de l\'opération'
+    })
     dispatch(folderUpdateError(idDpOperation));
   }
 };
@@ -156,10 +170,21 @@ checkPointId: number;
   dispatch(folderUpdateCheckPointLoading({ folderId, checkPointId, prevValue }));
 
   try {
+    addMessageToQueue({
+      duration: 2500,
+      type: 'info',
+      message: 'fake action'
+    })
     setTimeout(() => {
       dispatch(folderUpdateCheckPointLoaded({ folderId, checkPointId }));
     }, 500);
   } catch (error) {
+    captureException(error)
+    addMessageToQueue({
+      duration: 2500,
+      type: 'error',
+      message: 'Erreur pendant la mise à jout du point de controle'
+    })
     dispatch(folderUpdateCheckPointError({ folderId, checkPointId }));
   }
 };
@@ -208,11 +233,26 @@ export const updateMoaValues = (
     });
 
     if (res.status === 200) {
+      addMessageToQueue({
+        duration: 1500,
+        type: 'info',
+        message: 'Les infos du MOA ont étaient mise à jour'
+      })
       dispatch(folderUpdateMoaLoaded(idDpOperation, idDossierPrime, values))
     } else {
+      addMessageToQueue({
+        duration: 2500,
+        type: 'error',
+        message: 'Erreur pendant la mise à jour des infos du MOA'
+      })
       dispatch(folderUpdateMoaError(idDpOperation))  
     }
   } catch (error) {
+    addMessageToQueue({
+      duration: 2500,
+      type: 'error',
+      message: 'Erreur pendant la mise à jour des infos du MOA'
+    })
     dispatch(folderUpdateMoaError(idDpOperation))
   }
 };
