@@ -29,8 +29,8 @@ class Init extends Component {
     if (displayApp) {
       return (
         <Provider store={getStore()}>
-          <Alert />
           <Router />
+          <Alert />
         </Provider>
       );
     }
