@@ -21,25 +21,16 @@ class HeaderNav extends Component<Props> {
   render() {
     return (
       <nav
+        style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
         className="navbar navbar1"
         role="navigation"
         aria-label="main navigation"
       >
-        <div className="navbar-brand">
-          <img src={logoSmall} alt="Logo Sonergia" height="55" />
-        </div>
-        <div className="navbar-end">
-          <div className="navbar-item">
-            <div className="buttons">
-              <button
-                type="button"
-                className="button is-primary"
-                onClick={this.deconnexionSubmit}
-              >
-                <strong>Déconnexion</strong>
-              </button>
-            </div>
-          </div>
+        <img src={logoSmall} alt="Logo Sonergia" height="55" />
+        <div>
+          <button type="button" className="button is-primary" onClick={this.deconnexionSubmit}>
+            <strong>Déconnexion</strong>
+          </button>
         </div>
       </nav>
     );
@@ -48,5 +39,5 @@ class HeaderNav extends Component<Props> {
 
 export default connect(
   null,
-  { logout }
+  { logout },
 )(withRouter(HeaderNav));

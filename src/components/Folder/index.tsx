@@ -25,7 +25,7 @@ interface State {
 
 class Folder extends Component<Props, State> {
   state: Readonly<State> = {
-    commentsOpened: false,
+    commentsOpened: true,
   };
 
   componentWillMount() {

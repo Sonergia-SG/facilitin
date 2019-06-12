@@ -45,7 +45,7 @@ export const getUserInfos = (): ThunkAction => async (dispatch, getState) => {
 
     const { apiKey } = getState().user;
 
-    const res = await rest(`${API_PATH}getinfouser/`);
+    const res = await rest(`${API_PATH}getinfouser`);
 
     if (res.status === 200) {
       type Json = {
