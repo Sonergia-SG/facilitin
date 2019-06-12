@@ -115,7 +115,7 @@ class Actions extends Component<Props> {
   onRowClick = (state: any, rowInfo: any) => ({
     onClick: () => {
       if (rowInfo) {
-        this.props.history.push(`/folder/${rowInfo.original.id_dp_operation}`);
+        this.props.history.push(`/actions/${rowInfo.original.id_dp_operation}`);
       }
     },
   });
