@@ -58,7 +58,7 @@ class Folder extends Component<Props> {
     return (
       <div>
         <div style={{ margin: '0 0 25px' }}>
-          <Link to="/liste">{"< Retour à la liste d'opérations"}</Link>
+          <Link to="/actions">{"< Retour à la liste d'opérations"}</Link>
         </div>
         <div className="tile is-ancestor">
           <Left loading={loading} title={title} data={data} />

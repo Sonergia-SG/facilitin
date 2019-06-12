@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Liste from '../Liste';
+import Actions from '../Actions';
 import Folder from '../Folder';
 import Header from '../Header';
 
@@ -21,9 +21,9 @@ class AppRouter extends Component<Props> {
       <div>
         <Header />
         <Switch>
-          <Route path="/list" component={Liste} />
+          <Route path="/actions" component={Actions} />
           <Route path="/folder/:folderId" component={Folder} />
-          <Redirect to="/list" />
+          {<Redirect to="/actions" />}
         </Switch>
       </div>
     );

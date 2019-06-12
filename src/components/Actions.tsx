@@ -91,7 +91,7 @@ interface Props extends RouteComponentProps {
   listState: ListState;
 }
 
-class Liste extends Component<Props> {
+class Actions extends Component<Props> {
   componentDidMount() {
     this.props.loadList();
   }
@@ -250,4 +250,4 @@ export default connect(
     listUpdatePageSize,
     listUpdateSorted,
   },
-)(withRouter(Liste));
+)(withRouter(Actions));

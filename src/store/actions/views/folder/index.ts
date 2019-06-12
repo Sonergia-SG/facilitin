@@ -218,8 +218,8 @@ export const updateMoaValues = (
 
     dispatch(folderUpdateMoaLoading(idDpOperation));
 
-    const res = await rest(`${API_PATH}updatedossierprime/${idDossierPrime}`, {
-      method: 'post',
+    const res = await rest(`${API_PATH}dossierprimes/${idDossierPrime}`, {
+      method: 'put',
       body: JSON.stringify(values),
     });
 
