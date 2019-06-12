@@ -126,7 +126,7 @@ export const fetchFolder = (idDpOperation: number): ThunkAction => async (dispat
   const { apiKey } = getState().user;
 
   try {
-    const res = await rest(`${API_PATH}detailaction/${idDpOperation}`);
+    const res = await rest(`${API_PATH}actions/${idDpOperation}`);
 
     const json = await res.json();
 
