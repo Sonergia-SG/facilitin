@@ -23,7 +23,7 @@ class AppRouter extends Component<Props> {
         <Switch>
           <Route path="/actions/:folderId" component={Folder} />
           <Route path="/actions" component={Actions} />
-          {<Redirect to="/actions" />}
+          <Redirect to="/actions" />
         </Switch>
       </div>
     );

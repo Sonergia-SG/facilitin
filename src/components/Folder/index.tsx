@@ -2,13 +2,15 @@
  * Created by stephane.mallaroni on 15/04/2019.
  */
 import React, { Component } from 'react';
-import { RouteComponentProps, Link } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
 
 import Collapsed from './Collapsed';
 import Empty from './Empty';
 import Left from './Left';
+import Container from './Container';
+
 import { fetchFolder } from '../../store/actions/views/folder';
 
 import { operation as operationSchema } from '../../store/reducer/entities/schema';
@@ -41,25 +43,18 @@ class Folder extends Component<Props> {
     const { entities, match, folderState } = this.props;
     const { folderId } = match.params;
     const operation = entities.operations[parseInt(folderId, 10)];
-    const data: OperationFull = denormalize(
-      operation,
-      operationSchema,
-      entities
-    );
+    const data: OperationFull = denormalize(operation, operationSchema, entities);
 
     const folderPending = folderState.pending[parseInt(folderId, 10)];
     const loading = folderPending ? !!folderPending.loading : true;
     if (!operation || !data || !data.dossierprimefile) {
-      return <Empty loading={loading} />;
+      return <Container><Empty loading={loading} /></Container>;
     }
 
     const title = `Dossier N° ${data.id_dossierprime}`;
 
     return (
-      <div>
-        <div style={{ margin: '0 0 25px' }}>
-          <Link to="/actions">{"< Retour à la liste d'opérations"}</Link>
-        </div>
+      <Container>
         <div className="tile is-ancestor">
           <Left loading={loading} title={title} data={data} />
           <div className="tile is-parent">
@@ -68,12 +63,12 @@ class Folder extends Component<Props> {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     );
   }
 }
 
 export default connect(
   (s: AppState) => ({ entities: s.entities, folderState: s.views.folder }),
-  { fetchFolder }
+  { fetchFolder },
 )(Folder);
