@@ -20,7 +20,6 @@ import {
 } from '../../../types';
 
 import { operation } from '../../../reducer/entities/schema';
-import { AppState } from '../../../../store';
 import { ThunkAction } from '../../../actions';
 import {
   FolderFolderUpdateCheckpointLoadingAction,
@@ -39,7 +38,9 @@ import { ListListLoadedNormalized } from '../../../reducer/views/list/type';
 import {
   BooleanNumber,
   FoldersUpdateMoaLoaded,
-  FolderMOAString,
+  CheckPointsFolderUpdateCheckpointLoadingAction,
+  CheckPointsFolderUpdateChekpointLoadedAction,
+  CheckPointsFolderUpdateCheckpointErrorAction,
 } from '../../../reducer/entities/types';
 import rest from '../../../../tools/rest';
 
@@ -53,7 +54,7 @@ export const folderUpdateCheckPointLoading = ({
   folderId,
   checkPointId,
   prevValue,
-}: FolderUpdateCheckPointLoadingParams): FolderFolderUpdateCheckpointLoadingAction => ({
+}: FolderUpdateCheckPointLoadingParams): FolderFolderUpdateCheckpointLoadingAction & CheckPointsFolderUpdateCheckpointLoadingAction => ({
   type: FOLDER_UPDATE_CHECK_POINT_LOADING,
   folderId,
   checkPointId,
@@ -68,7 +69,7 @@ type FolderUpdateCheckPointLoadedParams = {
 export const folderUpdateCheckPointLoaded = ({
   folderId,
   checkPointId,
-}: FolderUpdateCheckPointLoadedParams): FolderFolderUpdateChekpointLoadedAction => ({
+}: FolderUpdateCheckPointLoadedParams): FolderFolderUpdateChekpointLoadedAction & CheckPointsFolderUpdateChekpointLoadedAction => ({
   type: FOLDER_UPDATE_CHECK_POINT_LOADED,
   folderId,
   checkPointId,
@@ -76,15 +77,18 @@ export const folderUpdateCheckPointLoaded = ({
 type FolderUpdateCheckPointErrorParams = {
   folderId: number;
   checkPointId: number;
+  prevValue: BooleanNumber;
 };
 
 export const folderUpdateCheckPointError = ({
   folderId,
   checkPointId,
-}: FolderUpdateCheckPointErrorParams): FolderFolderUpdateCheckpointErrorAction => ({
+  prevValue,
+}: FolderUpdateCheckPointErrorParams): FolderFolderUpdateCheckpointErrorAction | CheckPointsFolderUpdateCheckpointErrorAction => ({
   type: FOLDER_UPDATE_CHECK_POINT_ERROR,
   folderId,
   checkPointId,
+  prevValue,
 });
 
 export const folderUpdateLoading = (idDpOperation: number): FolderFolderLoadingAction => ({
@@ -180,7 +184,7 @@ checkPointId: number;
       type: 'error',
       message: 'Erreur pendant la mise à jout du point de controle',
     });
-    dispatch(folderUpdateCheckPointError({ folderId, checkPointId }));
+    dispatch(folderUpdateCheckPointError({ folderId, checkPointId, prevValue }));
   }
 };
 

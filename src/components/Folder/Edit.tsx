@@ -27,11 +27,11 @@ interface Props extends RouteComponentProps<Params> {
 }
 
 const Edit = ({ entities, match, folderState, selectedAccordion, handleAccordionClick }: Props) => {
-  const { folderId } = match.params;
-  const operation = entities.operations[parseInt(folderId, 10)];
+  const folderId = parseInt(match.params.folderId, 10);
+  const operation = entities.operations[folderId];
   const data: OperationFull = denormalize(operation, operationSchema, entities);
 
-  const folderPending = folderState.pending[parseInt(folderId, 10)];
+  const folderPending = folderState.pending[folderId];
   const loading = folderPending ? !!folderPending.loading : true;
   if (!operation || !data || !data.dossierprimefile) {
     return <Empty loading={loading} />;
@@ -50,6 +50,8 @@ const Edit = ({ entities, match, folderState, selectedAccordion, handleAccordion
             selectedAccordion={selectedAccordion}
             handleAccordionClick={handleAccordionClick}
             loading={loading}
+            pending={folderPending}
+            folderId={folderId}
           />
         </div>
       </div>
