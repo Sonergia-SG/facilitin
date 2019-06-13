@@ -21,12 +21,23 @@ interface Props extends RouteComponentProps<Params> {
 
 interface State {
   commentsOpened: boolean;
+  selectedAccordion: number | undefined;
 }
 
 class Folder extends Component<Props, State> {
   state: Readonly<State> = {
     commentsOpened: false,
+    selectedAccordion: 0,
   };
+
+  handleAccordionClick = (index: number) => () => {
+    const { selectedAccordion } = this.state;
+    if (selectedAccordion === index) {
+      this.setState({ selectedAccordion: undefined })
+    } else {
+      this.setState({ selectedAccordion: index })
+    }
+  }
 
   componentWillMount() {
     this.props.fetchFolder(parseInt(this.props.match.params.folderId, 0));
@@ -39,12 +50,12 @@ class Folder extends Component<Props, State> {
   };
 
   render() {
-    const { commentsOpened } = this.state;
+    const { commentsOpened, selectedAccordion } = this.state;
     return (
       <Container toggleComments={this.toggleComments}>
         <div style={{ display: 'flex' }}>
           <div style={{ flex: 1 }}>
-            <Edit />
+            <Edit selectedAccordion={selectedAccordion} handleAccordionClick={this.handleAccordionClick} />
           </div>
           <Comments commentsOpened={commentsOpened} />
         </div>

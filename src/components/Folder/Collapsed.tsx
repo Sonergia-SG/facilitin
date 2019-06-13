@@ -14,6 +14,8 @@ interface Props {
   files?: Array<SonergiaFile>;
   checkPoints?: Array<CheckPoint>;
   loading: boolean;
+  selectedAccordion: number | undefined;
+  handleAccordionClick: (index: number) => () => void
 }
 
 class Collapsed extends Component<Props> {
@@ -24,7 +26,7 @@ class Collapsed extends Component<Props> {
   }
 
   render() {
-    const { files, checkPoints, loading } = this.props;
+    const { files, checkPoints, loading, selectedAccordion, handleAccordionClick } = this.props;
 
     if (!files || files.length === 0) {
       return (
@@ -38,7 +40,14 @@ class Collapsed extends Component<Props> {
       <div>
         <section className="accordions">
           {files.map((file, index) => (
-            <Accordion file={file} checkPoints={checkPoints} key={file.id_file} numero={index} />
+            <Accordion
+              file={file}
+              checkPoints={checkPoints}
+              key={file.id_file}
+              numero={index}
+              isSelected={selectedAccordion === index}
+              handleClick={handleAccordionClick(index)}
+            />
           ))}
         </section>
       </div>

@@ -11,14 +11,15 @@ interface Props {
   title: String;
   data: OperationFull;
   loading: boolean;
+  selectedAccordion: number | undefined;
 }
 
-const Left = ({ title, data, loading }: Props) => (
+const Left = ({ title, data, loading, selectedAccordion }: Props) => (
   <div className="tile is-vertical is-3">
     <div className="tile is-parent is-vertical">
       <GeneralInfos loading={loading} title={title} data={data} />
       <SecondaryData data={data} />
-      <CheckPointsSummary data={data} />
+      <CheckPointsSummary selectedAccordion={selectedAccordion} data={data} />
       <EndButton />
     </div>
   </div>

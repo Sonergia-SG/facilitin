@@ -22,9 +22,11 @@ interface Params {
 interface Props extends RouteComponentProps<Params> {
   entities: Entities;
   folderState: FolderState;
+  selectedAccordion: number | undefined;
+  handleAccordionClick: (index: number) => () => void
 }
 
-const Edit = ({ entities, match, folderState }: Props) => {
+const Edit = ({ entities, match, folderState, selectedAccordion, handleAccordionClick }: Props) => {
   const { folderId } = match.params;
   const operation = entities.operations[parseInt(folderId, 10)];
   const data: OperationFull = denormalize(operation, operationSchema, entities);
@@ -39,12 +41,14 @@ const Edit = ({ entities, match, folderState }: Props) => {
 
   return (
     <div className="tile is-ancestor">
-      <Left loading={loading} title={title} data={data} />
+      <Left selectedAccordion={selectedAccordion} loading={loading} title={title} data={data} />
       <div className="tile is-parent">
         <div className="tile is-child" style={{ marginTop: 0 }}>
           <Collapsed
             files={data.dossierprimefile}
             checkPoints={data.point_controles}
+            selectedAccordion={selectedAccordion}
+            handleAccordionClick={handleAccordionClick}
             loading={loading}
           />
         </div>
