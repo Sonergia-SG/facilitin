@@ -1,0 +1,23 @@
+.Comment-Container {
+  margin: 5px 15px;
+  border-top: 1px #787878 solid;
+}
+
+.Comment-Header {
+  margin: 10px 0 14px 0;
+}
+
+.Comment-Content {
+  margin-bottom: 10px;
+}
+
+.Comment-Username {
+  font-weight: 700;
+}
+
+.Comment-Date {
+  font-weight: 500;
+}
+
+.Comment-Message {
+}

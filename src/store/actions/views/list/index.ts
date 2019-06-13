@@ -93,7 +93,7 @@ export const loadList = (toTab?: Tab): ThunkAction => async (
   }
 
   try {
-    const res = await rest(`${API_PATH}actions/?type_liste=${tab}`);
+    const res = await rest(`${API_PATH}actions?type_liste=${tab}`);
 
     const json = await res.json();
 

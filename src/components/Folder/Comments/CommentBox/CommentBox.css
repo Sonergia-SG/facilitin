@@ -1,0 +1,13 @@
+.Comment-Box-Container {
+  border-top: 1px #b3afaf solid;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Comment-Box-SendButton-Container {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
