@@ -91,7 +91,7 @@ interface Props extends RouteComponentProps {
   listState: ListState;
 }
 
-class Liste extends Component<Props> {
+class Actions extends Component<Props> {
   componentDidMount() {
     this.props.loadList();
   }
@@ -115,7 +115,7 @@ class Liste extends Component<Props> {
   onRowClick = (state: any, rowInfo: any) => ({
     onClick: () => {
       if (rowInfo) {
-        this.props.history.push(`/folder/${rowInfo.original.id_dp_operation}`);
+        this.props.history.push(`/actions/${rowInfo.original.id_dp_operation}`);
       }
     },
   });
@@ -250,4 +250,4 @@ export default connect(
     listUpdatePageSize,
     listUpdateSorted,
   },
-)(withRouter(Liste));
+)(withRouter(Actions));

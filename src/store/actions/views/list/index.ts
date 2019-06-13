@@ -1,6 +1,4 @@
 import { normalize } from 'normalizr';
-import { ThunkAction } from 'redux-thunk';
-import { Action } from 'redux';
 
 import {
   LIST_LOADING,
@@ -20,7 +18,7 @@ import { operation } from '../../../reducer/entities/schema';
 
 import capture from '../../../../tools/errorReporting/captureException';
 
-import { AppState } from '../../../../store';
+import { ThunkAction } from '../../../actions';
 import {
   Tab,
   ListListLoadingAction,
@@ -35,6 +33,7 @@ import {
   Sorted,
 } from '../../../reducer/views/list/type';
 import { Normalized, Entities } from '../../../reducer/entities/types';
+import rest from '../../../../tools/rest';
 
 export const listLoading = (tab: Tab): ListListLoadingAction => ({
   type: LIST_LOADING,
@@ -80,7 +79,7 @@ export const listUpdateSorted = (sorted: Sorted): ListListSortedAction => ({
   sorted,
 });
 
-export const loadList = (toTab?: Tab): ThunkAction<void, AppState, null, Action<string>> => async (
+export const loadList = (toTab?: Tab): ThunkAction => async (
   dispatch,
   getState,
 ) => {
@@ -94,14 +93,7 @@ export const loadList = (toTab?: Tab): ThunkAction<void, AppState, null, Action<
   }
 
   try {
-    const res = await fetch(`${API_PATH}liste/${tab}`, {
-      method: 'get',
-      headers: new Headers({
-        'user-agent': 'Mozilla/4.0 MDN Example',
-        'content-type': 'application/json',
-        Authorization: `bearer ${apiKey}`,
-      }),
-    });
+    const res = await rest(`${API_PATH}actions/?type_liste=${tab}`);
 
     const json = await res.json();
 
