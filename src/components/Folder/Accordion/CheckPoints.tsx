@@ -2,8 +2,8 @@ import React, { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 
 import { CheckPoint } from '../../../store/reducer/entities/types';
-import { AppState } from '../../../store'
-import { updateFolderCheckPoint } from '../../../store/actions/views/folder'
+import { AppState } from '../../../store';
+import { updateFolderCheckPoint } from '../../../store/actions/views/folder';
 
 import './CheckPoints.css';
 import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
@@ -15,7 +15,9 @@ interface Props {
   updateFolderCheckPoint: any;
 }
 
-const CheckPoints = ({ checkPoints, fileId, folderId, updateFolderCheckPoint }: Props) => {
+const CheckPoints = ({
+  checkPoints, fileId, folderId, updateFolderCheckPoint,
+}: Props) => {
   const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === fileId);
 
   if (fileCheckPoints.length === 0) {
@@ -38,7 +40,11 @@ const CheckPoints = ({ checkPoints, fileId, folderId, updateFolderCheckPoint }: 
               name={'{value.id_controle}'}
               checked={!!checked}
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                updateFolderCheckPoint({ folderId, checkPointId: value.id_point_controle })
+                updateFolderCheckPoint({
+                  folderId,
+                  checkPointId: value.id_point_controle,
+                  idDpFile: value.pivot.id_dp_file,
+                });
               }}
             />
             <label className="CheckPoints-CheckPoint-Label" htmlFor={'{value.id_controle}'}>
@@ -52,6 +58,7 @@ const CheckPoints = ({ checkPoints, fileId, folderId, updateFolderCheckPoint }: 
   );
 };
 
-export default connect((s: AppState) => ({
-
-}), { updateFolderCheckPoint })(CheckPoints);
+export default connect(
+  (s: AppState) => ({}),
+  { updateFolderCheckPoint },
+)(CheckPoints);

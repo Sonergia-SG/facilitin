@@ -159,24 +159,36 @@ export const fetchFolder = (idDpOperation: number): ThunkAction => async (dispat
 export const updateFolderCheckPoint = ({
   folderId,
   checkPointId,
+  idDpFile
 }: {
 folderId: number;
 checkPointId: number;
-}): ThunkAction => (dispatch, getState) => {
+idDpFile: number;
+}): ThunkAction => async (dispatch, getState) => {
   const checkPoint = getState().entities.checkPoints[checkPointId];
   const prevValue = checkPoint ? checkPoint.pivot.valide : 0;
 
   dispatch(folderUpdateCheckPointLoading({ folderId, checkPointId, prevValue }));
 
   try {
-    addMessageToQueue({
-      duration: 2500,
-      type: 'info',
-      message: 'fake action',
-    });
-    setTimeout(() => {
+    const result = await rest(`${API_PATH}actions/${folderId}/controles/${checkPointId}`, {
+      method: 'put',
+      body: JSON.stringify({
+        valide: prevValue === 1 ? 0 : 1,
+        id_dp_file: idDpFile,
+      })
+    })
+
+    if (result.status === 200) {
       dispatch(folderUpdateCheckPointLoaded({ folderId, checkPointId }));
-    }, 500);
+    } else {
+      addMessageToQueue({
+        duration: 2500,
+        type: 'error',
+        message: 'Erreur pendant la mise à jout du point de controle',
+      });
+      dispatch(folderUpdateCheckPointError({ folderId, checkPointId, prevValue }));
+    }
   } catch (error) {
     captureException(error);
     addMessageToQueue({
