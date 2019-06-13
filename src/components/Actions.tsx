@@ -32,6 +32,7 @@ import { operation } from '../store/reducer/entities/schema';
 import { AppState } from '../store';
 import { Entities, OperationFull, MOA } from '../store/reducer/entities/types';
 import { ListState, Tab as TabType } from '../store/reducer/views/list/type';
+import { UserFonction } from '../store/reducer/user/types';
 
 const COLUMNS = [
   {
@@ -87,6 +88,7 @@ interface Props extends RouteComponentProps {
   listUpdatePageSize: typeof listUpdatePageSize;
   listUpdateSorted: typeof listUpdateSorted;
   apiKey: string | null;
+  userFonction: UserFonction | null;
   entities: Entities;
   listState: ListState;
 }
@@ -125,7 +127,7 @@ class Actions extends Component<Props> {
   };
 
   render() {
-    const { listState, entities } = this.props;
+    const { listState, entities, userFonction } = this.props;
     const {
       selectedTab, tab, search, pageSize,
     } = listState;
@@ -153,8 +155,8 @@ class Actions extends Component<Props> {
         />
         <Tabs defaultIndex={selectedTab} onSelect={(index: TabType) => this.handleData(index)}>
           <TabList>
-            <Tab>A traiter</Tab>
-            <Tab>Incomplet</Tab>
+            <Tab>{userFonction === 'instructeur_initial' ? 'A traiter' : 'Incomplet'}</Tab>
+            <Tab>{userFonction === 'instructeur_initial' ? 'Incomplet' : 'A traiter'}</Tab>
             <Tab>Rejet</Tab>
             <Tab>Validés</Tab>
           </TabList>
@@ -242,6 +244,7 @@ export default connect(
     apiKey: s.user.apiKey,
     listState: s.views.list,
     entities: s.entities,
+    userFonction: s.user.user && s.user.user.fonction,
   }),
   {
     loadList,
