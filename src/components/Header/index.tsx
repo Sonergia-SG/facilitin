@@ -5,9 +5,11 @@ import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import logoSmall from '../images/sonergia_small.png';
+import logoSmall from '../../images/sonergia_small.png';
 
-import { logout } from '../store/actions/views/login/index';
+import { logout } from '../../store/actions/views/login/index';
+
+import UserInfos from './UserInfos';
 
 interface Props extends RouteComponentProps {
   logout: typeof logout;
@@ -27,7 +29,8 @@ class HeaderNav extends Component<Props> {
         aria-label="main navigation"
       >
         <img src={logoSmall} alt="Logo Sonergia" height="55" />
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <UserInfos />
           <button type="button" className="button is-primary" onClick={this.deconnexionSubmit}>
             <strong>Déconnexion</strong>
           </button>

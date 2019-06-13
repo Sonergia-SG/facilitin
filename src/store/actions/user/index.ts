@@ -43,31 +43,33 @@ export const getUserInfos = (): ThunkAction => async (dispatch, getState) => {
   try {
     dispatch(userInfosLoading());
 
-    const { apiKey } = getState().user;
-
     const res = await rest(`${API_PATH}getinfouser`);
 
-    if (res.status === 200) {
-      type Json = {
-        status: string;
-        values: [UserInfos];
-      };
-      const json: Json = await res.json();
-
-      const user = json.values[0];
-      if (user) {
-        dispatch(userInfosLoaded(user));
-      } else {
-        dispatch(userInfosError());
-        // dispatch(logout())
-      }
-    } else {
-      dispatch(userInfosError());
-      // dispatch(logout())
+    switch (res.status) {
+      case 200:
+        type Json = {
+          status: string;
+          values: [UserInfos];
+        };
+        const json: Json = await res.json();
+  
+        const user = json.values[0];
+        if (user) {
+          dispatch(userInfosLoaded(user));
+        } else {
+          dispatch(userInfosError());
+          dispatch(logout())
+        }
+        break;
+        case 401:
+        default:
+          dispatch(userInfosError());
+          dispatch(logout())
+        break;
     }
   } catch (error) {
     captureException(error);
     dispatch(userInfosError());
-    // dispatch(logout())
+    dispatch(logout())
   }
 };

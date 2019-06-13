@@ -6,12 +6,14 @@ import {
   USER_INFOS_ERROR,
 } from '../../types';
 
+export type UserFonction = 'instructeur_initial' | 'instructeur_suivi' | ''
+
 export interface UserInfos {
   nom: string;
   prenom: string;
   identifiant: string;
   id_groupe: number;
-  fonction: string;
+  fonction: UserFonction;
 }
 
 export interface UserState {
