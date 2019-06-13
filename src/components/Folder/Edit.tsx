@@ -51,6 +51,7 @@ const Edit = ({ entities, match, folderState, selectedAccordion, handleAccordion
             handleAccordionClick={handleAccordionClick}
             loading={loading}
             folderId={folderId}
+            pending={folderPending}
           />
         </div>
       </div>

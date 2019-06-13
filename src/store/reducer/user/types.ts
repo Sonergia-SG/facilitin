@@ -4,9 +4,10 @@ import {
   USER_INFOS_LOADING,
   USER_INFOS_LOADED,
   USER_INFOS_ERROR,
+  INIT,
 } from '../../types';
 
-export type UserFonction = 'instructeur_initial' | 'instructeur_suivi' | ''
+export type UserFonction = 'instructeur_initial' | 'instructeur_suivi' | '';
 
 export interface UserInfos {
   nom: string;
@@ -20,6 +21,10 @@ export interface UserState {
   apiKey: string | null;
   infosLoading: boolean;
   user: UserInfos | null;
+}
+
+export interface UserInit {
+  type: typeof INIT;
 }
 
 export interface UserAddTokenAction {
@@ -44,7 +49,8 @@ export interface UserLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type UserActionTypes = | UserAddTokenAction
+export type UserActionTypes = | UserInit
+  | UserAddTokenAction
   | UserLogoutAction
   | UserInfosLoading
   | UserInfosLoaded

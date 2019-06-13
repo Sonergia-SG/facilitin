@@ -7,16 +7,18 @@ import { updateFolderCheckPoint } from '../../../store/actions/views/folder';
 
 import './CheckPoints.css';
 import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
+import idx from 'idx';
 
 interface Props {
   checkPoints: Array<CheckPoint> | undefined;
   fileId: number;
   folderId: number;
   updateFolderCheckPoint: any;
+  pending: FolderPendingItem | undefined;
 }
 
 const CheckPoints = ({
-  checkPoints, fileId, folderId, updateFolderCheckPoint,
+  checkPoints, fileId, folderId, updateFolderCheckPoint, pending,
 }: Props) => {
   const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === fileId);
 
@@ -28,10 +30,13 @@ const CheckPoints = ({
     );
   }
 
+  const loading = pending ? !!pending.loading : true;
+
   return (
     <div className="CheckPoints-CheckPoint-Container">
       {fileCheckPoints.map((value) => {
         const checked = value.pivot.valide ? ' checked' : '';
+        const checkPointStatus = idx(pending, _ => _.checkPoint[value.id_point_controle].status)
 
         return (
           <div className="CheckPoints-CheckPoint-Line" key={value.id_point_controle}>
@@ -39,6 +44,7 @@ const CheckPoints = ({
               type="checkbox"
               name={'{value.id_controle}'}
               checked={!!checked}
+              disabled={loading || checkPointStatus === 'sending'}
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 updateFolderCheckPoint({
                   folderId,
