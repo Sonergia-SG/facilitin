@@ -12,7 +12,6 @@ import { FileFull as SonergiaFile, CheckPoint } from '../../../store/reducer/ent
 import fileFolderDisplayType from '../helper/fileFolderDisplayType';
 
 import './Accordion.css';
-import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 
 interface Props {
   file: SonergiaFile;
@@ -20,12 +19,11 @@ interface Props {
   numero: number;
   isSelected: boolean;
   handleClick: () => void;
-  pending: FolderPendingItem | undefined;
   folderId: number;
 }
 
 const Accordion = ({
-  file, isSelected, checkPoints, handleClick, pending, folderId
+  file, isSelected, checkPoints, handleClick, folderId
 }: Props) => {
   const color = StateToColor(file);
 
@@ -64,7 +62,7 @@ const Accordion = ({
               </div>
             </div>
             <div className="Accordion-CheckPoints">
-              <CheckPoints folderId={folderId} pending={pending} checkPoints={checkPoints} fileId={file.id_dp_file} />
+              <CheckPoints folderId={folderId} checkPoints={checkPoints} fileId={file.id_dp_file} />
             </div>
             <div className="Accordion-Button-Position">
               <button

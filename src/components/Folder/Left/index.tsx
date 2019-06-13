@@ -12,14 +12,22 @@ interface Props {
   data: OperationFull;
   loading: boolean;
   selectedAccordion: number | undefined;
+  handleAccordionClick: (index: number) => () => void;
 }
 
-const Left = ({ title, data, loading, selectedAccordion }: Props) => (
+const Left = ({
+  title, data, loading, selectedAccordion, handleAccordionClick,
+}: Props) => (
   <div className="tile is-vertical is-3">
     <div className="tile is-parent is-vertical">
       <GeneralInfos loading={loading} title={title} data={data} />
       <SecondaryData data={data} />
-      <CheckPointsSummary selectedAccordion={selectedAccordion} data={data} />
+      <CheckPointsSummary
+        checkPoints={data.point_controles}
+        handleAccordionClick={handleAccordionClick}
+        selectedAccordion={selectedAccordion}
+        data={data}
+      />
       <EndButton />
     </div>
   </div>

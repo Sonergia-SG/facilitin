@@ -1,0 +1,14 @@
+.Actions-Left-CheckPointSummary-File {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Actions-Left-CheckPointSummary-Left {
+  display: flex;
+  align-items: center;
+}
+
+.Actions-Left-CheckPointSummary-File-Count {
+}

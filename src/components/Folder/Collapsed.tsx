@@ -9,7 +9,6 @@ import { FileFull as SonergiaFile, CheckPoint } from '../../store/reducer/entiti
 
 import Accordion from './Accordion';
 import Loading from '../Loading';
-import { FolderPendingItem } from '../../store/reducer/views/folder/types';
 
 interface Props {
   files?: Array<SonergiaFile>;
@@ -17,7 +16,6 @@ interface Props {
   loading: boolean;
   selectedAccordion: number | undefined;
   handleAccordionClick: (index: number) => () => void
-  pending: FolderPendingItem | undefined;
   folderId: number;
 }
 
@@ -29,7 +27,7 @@ class Collapsed extends Component<Props> {
   }
 
   render() {
-    const { files, checkPoints, loading, selectedAccordion, handleAccordionClick, pending, folderId } = this.props;
+    const { files, checkPoints, loading, selectedAccordion, handleAccordionClick, folderId } = this.props;
 
     if (!files || files.length === 0) {
       return (
@@ -50,7 +48,6 @@ class Collapsed extends Component<Props> {
               numero={index}
               isSelected={selectedAccordion === index}
               handleClick={handleAccordionClick(index)}
-              pending={pending}
               folderId={folderId}
             />
           ))}

@@ -11,12 +11,11 @@ import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 interface Props {
   checkPoints: Array<CheckPoint> | undefined;
   fileId: number;
-  pending: FolderPendingItem | undefined;
   folderId: number;
   updateFolderCheckPoint: any;
 }
 
-const CheckPoints = ({ checkPoints, fileId, pending, folderId, updateFolderCheckPoint }: Props) => {
+const CheckPoints = ({ checkPoints, fileId, folderId, updateFolderCheckPoint }: Props) => {
   const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === fileId);
 
   if (fileCheckPoints.length === 0) {

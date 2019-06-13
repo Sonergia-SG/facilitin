@@ -41,7 +41,7 @@ const Edit = ({ entities, match, folderState, selectedAccordion, handleAccordion
 
   return (
     <div className="tile is-ancestor">
-      <Left selectedAccordion={selectedAccordion} loading={loading} title={title} data={data} />
+      <Left selectedAccordion={selectedAccordion} handleAccordionClick={handleAccordionClick} loading={loading} title={title} data={data} />
       <div className="tile is-parent">
         <div className="tile is-child" style={{ marginTop: 0 }}>
           <Collapsed
@@ -50,7 +50,6 @@ const Edit = ({ entities, match, folderState, selectedAccordion, handleAccordion
             selectedAccordion={selectedAccordion}
             handleAccordionClick={handleAccordionClick}
             loading={loading}
-            pending={folderPending}
             folderId={folderId}
           />
         </div>
