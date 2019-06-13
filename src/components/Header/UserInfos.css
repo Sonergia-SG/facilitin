@@ -1,0 +1,10 @@
+.Header-UserInfos-Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Header-UserInfos-Value {
+  text-align: right;
+  font-weight: 500;
+}
