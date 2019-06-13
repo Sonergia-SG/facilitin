@@ -49,11 +49,11 @@ export const getUserInfos = (): ThunkAction => async (dispatch, getState) => {
       case 200:
         type Json = {
           status: string;
-          values: [UserInfos];
+          values: UserInfos;
         };
         const json: Json = await res.json();
   
-        const user = json.values[0];
+        const user = json.values;
         if (user) {
           dispatch(userInfosLoaded(user));
         } else {
