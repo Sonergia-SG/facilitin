@@ -42,7 +42,11 @@ const Edit = ({ entities, match, folderState }: Props) => {
       <Left loading={loading} title={title} data={data} />
       <div className="tile is-parent">
         <div className="tile is-child" style={{ marginTop: 0 }}>
-          <Collapsed valeur={data.dossierprimefile} loading={loading} />
+          <Collapsed
+            files={data.dossierprimefile}
+            checkPoints={data.point_controles}
+            loading={loading}
+          />
         </div>
       </div>
     </div>

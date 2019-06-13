@@ -31,9 +31,9 @@ export interface SimpleFile {
   litige: BooleanNumber;
 }
 
-export interface File extends SimpleFile {}
+export interface File extends SimpleFile { }
 
-export interface FileFull extends SimpleFile {}
+export interface FileFull extends SimpleFile { }
 
 export interface Files {
   [index: number]: File;
@@ -193,10 +193,12 @@ export interface CheckPoint {
   nom: string;
   id_penalite: BooleanNumber;
   automatique: BooleanNumber;
+  is_controle_file: BooleanNumber;
   pivot: {
     id_dp_operation: number;
     id_point_controle: number;
     valide: BooleanNumber;
+    id_dp_file: number;
   };
   pointcontrolcategories: CheckPointCategory;
 }

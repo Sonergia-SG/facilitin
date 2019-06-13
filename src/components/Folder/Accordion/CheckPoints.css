@@ -1,0 +1,12 @@
+.CheckPoints-CheckPoint-Container {
+  margin-left: 18px;
+}
+
+.CheckPoints-CheckPoint-Line {
+  display: flex;
+  align-items: center;
+}
+
+.CheckPoints-CheckPoint-Label {
+  margin-left: 9px;
+}
