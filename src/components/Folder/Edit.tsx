@@ -22,14 +22,16 @@ interface Params {
 interface Props extends RouteComponentProps<Params> {
   entities: Entities;
   folderState: FolderState;
+  selectedAccordion: number | undefined;
+  handleAccordionClick: (index: number) => () => void
 }
 
-const Edit = ({ entities, match, folderState }: Props) => {
-  const { folderId } = match.params;
-  const operation = entities.operations[parseInt(folderId, 10)];
+const Edit = ({ entities, match, folderState, selectedAccordion, handleAccordionClick }: Props) => {
+  const folderId = parseInt(match.params.folderId, 10);
+  const operation = entities.operations[folderId];
   const data: OperationFull = denormalize(operation, operationSchema, entities);
 
-  const folderPending = folderState.pending[parseInt(folderId, 10)];
+  const folderPending = folderState.pending[folderId];
   const loading = folderPending ? !!folderPending.loading : true;
   if (!operation || !data || !data.dossierprimefile) {
     return <Empty loading={loading} />;
@@ -39,10 +41,18 @@ const Edit = ({ entities, match, folderState }: Props) => {
 
   return (
     <div className="tile is-ancestor">
-      <Left loading={loading} title={title} data={data} />
+      <Left selectedAccordion={selectedAccordion} handleAccordionClick={handleAccordionClick} loading={loading} title={title} data={data} />
       <div className="tile is-parent">
         <div className="tile is-child" style={{ marginTop: 0 }}>
-          <Collapsed valeur={data.dossierprimefile} loading={loading} />
+          <Collapsed
+            files={data.dossierprimefile}
+            checkPoints={data.point_controles}
+            selectedAccordion={selectedAccordion}
+            handleAccordionClick={handleAccordionClick}
+            loading={loading}
+            folderId={folderId}
+            pending={folderPending}
+          />
         </div>
       </div>
     </div>

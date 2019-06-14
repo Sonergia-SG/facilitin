@@ -74,6 +74,7 @@ export interface FolderFolderUpdateCheckpointErrorAction {
   type: typeof FOLDER_UPDATE_CHECK_POINT_ERROR;
   folderId: number;
   checkPointId: number;
+  prevValue: BooleanNumber;
 }
 
 export interface FolderFolderUpdateMoaValue {

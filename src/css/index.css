@@ -107,10 +107,12 @@ button.togglesonergia {
   margin-top: 0;
 }
 .left-active {
-  background-color: #16a0e0;
+  color: #16a0e0 !important;
 }
 .item_menu_gauche {
   padding: 3px;
+  border-radius: 4px;
+  transition: color 0.2s ease;
 }
 .modal_title {
   font-size: 30px;
@@ -123,9 +125,6 @@ button.togglesonergia {
 }
 #button-litige {
   width: 106px;
-}
-#div-but-litige {
-  margin-top: -80px !important;
 }
 
 @-webkit-keyframes anim {
