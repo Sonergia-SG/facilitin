@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import './Comments.css';
 
 import { denormalize } from 'normalizr';
-import { loadComments, updateNewCommentMessage } from '../../../store/actions/views/comments';
+import {
+  loadComments,
+  updateNewCommentMessage,
+  postComment,
+} from '../../../store/actions/views/comments';
 
 import Empty from '../Empty';
 
@@ -19,6 +23,7 @@ interface Props {
   action: Operation;
   commentsOpened: boolean;
   loadComments: any;
+  postComment: any;
   updateNewCommentMessage: typeof updateNewCommentMessage;
   commentState?: CommentsByFolders;
   entities: Entities;
@@ -26,13 +31,13 @@ interface Props {
 
 class Comments extends Component<Props> {
   componentDidMount() {
-    const { loadComments, action } = this.props;
-    loadComments(action.id_dp_operation, action.id_dossierprime);
+    const { action } = this.props;
+    this.props.loadComments(action.id_dp_operation, action.id_dossierprime);
   }
 
   render() {
     const {
-      commentsOpened, commentState, entities, updateNewCommentMessage, action,
+      commentsOpened, commentState, entities, action,
     } = this.props;
 
     const loading = commentState ? commentState.pending.loading : true;
@@ -61,14 +66,16 @@ class Comments extends Component<Props> {
       >
         <div className="Comments-Container-Inner">
           <div className="Comments-List">
-            {normalizedComments.map(c => (
+            {normalizedComments.reverse().map(c => (
               <Comment key={c.id_log} comment={c} />
             ))}
           </div>
           <CommentBox
             idDpFolder={action.id_dp_operation}
-            update={updateNewCommentMessage}
+            update={this.props.updateNewCommentMessage}
+            post={() => this.props.postComment(action.id_dp_operation, action.id_dossierprime)}
             message={commentState.pending.newMessage}
+            loading={commentState.pending.postLoading}
           />
         </div>
       </div>
@@ -85,5 +92,5 @@ export default connect(
     commentState: s.views.comments.byFolders[action.id_dp_operation],
     entities: s.entities,
   }),
-  { loadComments, updateNewCommentMessage },
+  { loadComments, updateNewCommentMessage, postComment },
 )(Comments);

@@ -3,6 +3,13 @@
     "browser": true,
     "jest": true
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts", ".tsx"]
+      }
+    }
+  },
   "extends": "airbnb",
   "parser": "babel-eslint",
   "rules": {
