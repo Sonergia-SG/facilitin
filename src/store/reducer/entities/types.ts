@@ -6,6 +6,7 @@ import {
   FOLDER_UPDATE_CHECK_POINT_LOADING,
   FOLDER_UPDATE_CHECK_POINT_LOADED,
   FOLDER_UPDATE_CHECK_POINT_ERROR,
+  COMMENTS_LIST_LOADED,
 } from '../../types';
 
 export enum BooleanNumber {
@@ -221,6 +222,8 @@ export interface Entities {
   checkPoints: CheckPoints;
   checkPointCategories: CheckPointCategories;
   operations: Operations;
+  users: Users;
+  comments: Comments;
 }
 
 export interface Normalized {
@@ -337,3 +340,46 @@ export interface OperationsLogoutAction {
 export type OperationsActions = | OperationsFolderLoadedAction
   | OperationsListLoadedAction
   | OperationsLogoutAction;
+
+export interface User {
+  id_user: number,
+  nom: string,
+  prenom: string,
+}
+
+export interface Users {
+  [index: number]: User;
+}
+
+export interface UsersCommentsListLoadedAction {
+  type: typeof COMMENTS_LIST_LOADED;
+  normalized: Normalized;
+}
+
+export type UsersActions = UsersCommentsListLoadedAction;
+
+export interface CommentSimple {
+  id_log: number,
+  id_user: number,
+  date_log: string,
+  message: string,
+}
+
+export interface Comment extends CommentSimple {
+  user: number
+}
+
+export interface CommentFull extends CommentSimple {
+  user: User
+}
+
+export interface Comments {
+  [index: number]: Comment;
+}
+
+export interface CommentsCommentsListLoadedAction {
+  type: typeof COMMENTS_LIST_LOADED;
+  normalized: Normalized;
+}
+
+export type CommentsActions = CommentsCommentsListLoadedAction;

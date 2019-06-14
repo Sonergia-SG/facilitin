@@ -10,6 +10,8 @@ import Edit from './Edit';
 import Comments from './Comments'
 
 import { fetchFolder } from '../../store/actions/views/folder';
+import { Entities } from '../../store/reducer/entities/types';
+import { AppState } from '../../store';
 
 interface Params {
   folderId: string;
@@ -17,6 +19,7 @@ interface Params {
 
 interface Props extends RouteComponentProps<Params> {
   fetchFolder: any;
+  entities: Entities;
 }
 
 interface State {
@@ -50,14 +53,18 @@ class Folder extends Component<Props, State> {
   };
 
   render() {
+    const { match, entities } = this.props;
     const { commentsOpened, selectedAccordion } = this.state;
+    const folderId = parseInt(match.params.folderId, 10);
+    const action = entities.operations[folderId];
+
     return (
       <Container toggleComments={this.toggleComments}>
         <div style={{ display: 'flex' }}>
           <div style={{ flex: 1 }}>
             <Edit selectedAccordion={selectedAccordion} handleAccordionClick={this.handleAccordionClick} />
           </div>
-          <Comments commentsOpened={commentsOpened} />
+          <Comments action={action} commentsOpened={commentsOpened} />
         </div>
       </Container>
     );
@@ -65,6 +72,6 @@ class Folder extends Component<Props, State> {
 }
 
 export default connect(
-  null,
+  (s: AppState) => ({ entities: s.entities }),
   { fetchFolder },
 )(Folder);
