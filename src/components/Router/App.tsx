@@ -1,4 +1,4 @@
-import React, { Component, CSSProperties } from 'react';
+import React, { Component, CSSProperties, ReactNode } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useTransition, animated } from 'react-spring';
@@ -17,12 +17,12 @@ import './App.css';
 interface Props {
   userLoading: boolean;
   userInfos: UserInfos | null;
-  getUserInfos: any;
+  getInfos: any;
 }
 
-class LoadOnMount extends Component<{ getUserInfos: any }> {
+class LoadOnMount extends Component<{ getInfos: any, children: ReactNode }> {
   componentDidMount() {
-    this.props.getUserInfos();
+    this.props.getInfos();
   }
 
   render() {
@@ -30,21 +30,21 @@ class LoadOnMount extends Component<{ getUserInfos: any }> {
   }
 }
 
-const AppRouter = ({ userLoading, userInfos, getUserInfos }: Props) => {
+const AppRouter = ({ userLoading, userInfos, getInfos }: Props) => {
   const displayApp = !userLoading && !!userInfos;
 
   const transitions = useTransition<boolean, CSSProperties>(
-    displayApp, 
-    (item) => `${item}`,
+    displayApp,
+    item => `${item}`,
     {
       from: { position: 'absolute', opacity: 0 },
       enter: { opacity: 1 },
       leave: { opacity: 0 },
-    }
+    },
   );
 
   return (
-    <LoadOnMount getUserInfos={getUserInfos}>
+    <LoadOnMount getInfos={getInfos}>
       {transitions.map(({ item, props, key }) => (item ? (
         <animated.div key={key} style={props} className="Router-App-Container">
           <Header />
@@ -65,5 +65,5 @@ const AppRouter = ({ userLoading, userInfos, getUserInfos }: Props) => {
 
 export default connect(
   (s: AppState) => ({ userLoading: s.user.infosLoading, userInfos: s.user.user }),
-  { getUserInfos },
+  { getInfos: getUserInfos },
 )(AppRouter);

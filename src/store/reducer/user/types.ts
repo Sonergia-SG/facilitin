@@ -14,6 +14,7 @@ export interface UserInfos {
   prenom: string;
   identifiant: string;
   id_groupe: number;
+  id_user: number;
   fonction: UserFonction;
 }
 

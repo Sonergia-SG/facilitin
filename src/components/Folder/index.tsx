@@ -59,7 +59,11 @@ class Folder extends Component<Props, State> {
     const action = entities.operations[folderId];
 
     return (
-      <Container toggleComments={this.toggleComments}>
+      <Container
+        commentsOpened={commentsOpened}
+        toggleComments={this.toggleComments}
+        folderId={folderId}
+      >
         <div style={{ display: 'flex' }}>
           <div style={{ flex: 1 }}>
             <Edit
@@ -67,7 +71,7 @@ class Folder extends Component<Props, State> {
               handleAccordionClick={this.handleAccordionClick}
             />
           </div>
-          <Comments action={action} commentsOpened={commentsOpened} />
+          {action && <Comments action={action} commentsOpened={commentsOpened} />}
         </div>
       </Container>
     );
