@@ -1,3 +1,5 @@
 {
   "**/*.js": ["prettier", "eslint --fix", "git add"],
+  "**/*.ts": ["prettier", "eslint --fix", "git add"],
+  "**/*.tsx": ["prettier", "eslint --fix", "git add"],
 }
