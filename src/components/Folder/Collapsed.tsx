@@ -46,7 +46,7 @@ class Collapsed extends Component<Props> {
             <Accordion
               file={file}
               checkPoints={checkPoints}
-              key={file.id_file}
+              key={file.id_dp_file}
               numero={index}
               isSelected={selectedAccordion === index}
               handleClick={handleAccordionClick(index)}

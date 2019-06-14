@@ -14,7 +14,7 @@ export const checkPoint = new schema.Entity(
   { idAttribute: 'id_point_controle' }
 );
 
-export const file = new schema.Entity('files', {}, { idAttribute: 'id_file' });
+export const file = new schema.Entity('files', {}, { idAttribute: 'id_dp_file' });
 
 export const folder = new schema.Entity(
   'folders',

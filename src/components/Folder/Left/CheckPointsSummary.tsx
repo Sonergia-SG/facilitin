@@ -4,9 +4,9 @@ import { OperationFull, CheckPoint } from '../../../store/reducer/entities/types
 
 import fileFolderDisplayType from '../helper/fileFolderDisplayType';
 
-import Picto from './Picto'
+import Picto from './Picto';
 
-import './CheckPointSummary.css'
+import './CheckPointSummary.css';
 
 interface Props {
   data: OperationFull;
@@ -15,35 +15,51 @@ interface Props {
   handleAccordionClick: (index: number) => () => void;
 }
 
-const CheckPointsSummary = ({ data, selectedAccordion, handleAccordionClick, checkPoints }: Props) => {
+const CheckPointsSummary = ({
+  data,
+  selectedAccordion,
+  handleAccordionClick,
+  checkPoints,
+}: Props) => {
   if (data.dossierprimefile && data.dossierprimefile.length > 0) {
     return (
       <div className="tile is-child notification ">
         <div className="content">
           {data.dossierprimefile.map((value, index) => {
-            const currentCheckPoints = checkPoints.filter(c => c.pivot.id_dp_file === value.id_dp_file)
-            const validCheckPoints = currentCheckPoints.filter(c => c.pivot.valide === 1)
+            const currentCheckPoints = checkPoints.filter(
+              c => c.pivot.id_dp_file === value.id_dp_file,
+            );
+            const validCheckPoints = currentCheckPoints.filter(c => c.pivot.valide === 1);
+
+            const active = selectedAccordion === index;
 
             return (
               <div
                 className="Actions-Left-CheckPointSummary-File"
-                key={value.id_file}
+                key={value.id_dp_file}
                 onClick={handleAccordionClick(index)}
                 style={{ cursor: 'pointer' }}
               >
-                <div className="Actions-Left-CheckPointSummary-Left" >
+                <div className="Actions-Left-CheckPointSummary-Left">
                   <Picto total={currentCheckPoints.length} valid={validCheckPoints.length} />
                   <h4
                     style={{ margin: 0 }}
-                    className={`item_menu_gauche ${selectedAccordion === index ? 'left-active' : ''}`}
+                    className={`item_menu_gauche ${active ? 'left-active' : ''}`}
                     id={`${index}pp`}
                   >
                     {fileFolderDisplayType(value)}
                   </h4>
                 </div>
-                <p className="Actions-Left-CheckPointSummary-File-Count" >{validCheckPoints.length}/{currentCheckPoints.length}</p>
+                <p
+                  style={{ color: active ? '#16a0e0' : 'black', fontWeight: 500 }}
+                  className="Actions-Left-CheckPointSummary-File-Count"
+                >
+                  {validCheckPoints.length}
+                  {'/'}
+                  {currentCheckPoints.length}
+                </p>
               </div>
-            )
+            );
           })}
         </div>
       </div>

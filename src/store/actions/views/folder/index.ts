@@ -1,5 +1,6 @@
 import { normalize } from 'normalizr';
 
+import idx from 'idx';
 import { addMessageToQueue } from '../../../../components/Alert';
 import captureException from '../../../../tools/errorReporting/captureException.js';
 
@@ -41,6 +42,7 @@ import {
   CheckPointsFolderUpdateCheckpointLoadingAction,
   CheckPointsFolderUpdateChekpointLoadedAction,
   CheckPointsFolderUpdateCheckpointErrorAction,
+  FilesFolcerCheckPointLoaded,
 } from '../../../reducer/entities/types';
 import rest from '../../../../tools/rest';
 
@@ -54,7 +56,8 @@ export const folderUpdateCheckPointLoading = ({
   folderId,
   checkPointId,
   prevValue,
-}: FolderUpdateCheckPointLoadingParams): FolderFolderUpdateCheckpointLoadingAction & CheckPointsFolderUpdateCheckpointLoadingAction => ({
+}: FolderUpdateCheckPointLoadingParams): FolderFolderUpdateCheckpointLoadingAction &
+CheckPointsFolderUpdateCheckpointLoadingAction => ({
   type: FOLDER_UPDATE_CHECK_POINT_LOADING,
   folderId,
   checkPointId,
@@ -64,15 +67,23 @@ export const folderUpdateCheckPointLoading = ({
 type FolderUpdateCheckPointLoadedParams = {
   folderId: number;
   checkPointId: number;
+  statusCode: number | null;
+  idDpFile: number;
 };
 
 export const folderUpdateCheckPointLoaded = ({
   folderId,
   checkPointId,
-}: FolderUpdateCheckPointLoadedParams): FolderFolderUpdateChekpointLoadedAction & CheckPointsFolderUpdateChekpointLoadedAction => ({
+  statusCode,
+  idDpFile,
+}: FolderUpdateCheckPointLoadedParams): FolderFolderUpdateChekpointLoadedAction &
+CheckPointsFolderUpdateChekpointLoadedAction &
+FilesFolcerCheckPointLoaded => ({
   type: FOLDER_UPDATE_CHECK_POINT_LOADED,
   folderId,
   checkPointId,
+  statusCode,
+  idDpFile,
 });
 type FolderUpdateCheckPointErrorParams = {
   folderId: number;
@@ -84,7 +95,9 @@ export const folderUpdateCheckPointError = ({
   folderId,
   checkPointId,
   prevValue,
-}: FolderUpdateCheckPointErrorParams): FolderFolderUpdateCheckpointErrorAction | CheckPointsFolderUpdateCheckpointErrorAction => ({
+}: FolderUpdateCheckPointErrorParams):
+| FolderFolderUpdateCheckpointErrorAction
+| CheckPointsFolderUpdateCheckpointErrorAction => ({
   type: FOLDER_UPDATE_CHECK_POINT_ERROR,
   folderId,
   checkPointId,
@@ -127,7 +140,6 @@ export const folderCleanMoaValue = (idDpOperation: number): FolderFoldercleanMoa
 
 export const fetchFolder = (idDpOperation: number): ThunkAction => async (dispatch, getState) => {
   dispatch(folderUpdateLoading(idDpOperation));
-  const { apiKey } = getState().user;
 
   try {
     const res = await rest(`${API_PATH}actions/${idDpOperation}`);
@@ -159,7 +171,7 @@ export const fetchFolder = (idDpOperation: number): ThunkAction => async (dispat
 export const updateFolderCheckPoint = ({
   folderId,
   checkPointId,
-  idDpFile
+  idDpFile,
 }: {
 folderId: number;
 checkPointId: number;
@@ -176,11 +188,24 @@ idDpFile: number;
       body: JSON.stringify({
         valide: prevValue === 1 ? 0 : 1,
         id_dp_file: idDpFile,
-      })
-    })
+      }),
+    });
 
     if (result.status === 200) {
-      dispatch(folderUpdateCheckPointLoaded({ folderId, checkPointId }));
+      type JSON = {
+        status: 'success' | 'fail';
+        statut_actuel: Array<{
+          code_statut: 0 | 15;
+          label_public: string;
+          code_couleur: string;
+        }>;
+      };
+      const json: JSON = await result.json();
+      const jsonStatusCode = idx(json, _ => _.statut_actuel[0].code_statut);
+      const statusCode = typeof jsonStatusCode === 'number' ? jsonStatusCode : null;
+      dispatch(folderUpdateCheckPointLoaded({
+        folderId, checkPointId, idDpFile, statusCode,
+      }));
     } else {
       addMessageToQueue({
         duration: 2500,
@@ -226,7 +251,6 @@ export const updateMoaValues = (
   idDpOperation: number,
 ): ThunkAction => async (dispatch, getState) => {
   try {
-    const { apiKey } = getState().user;
     const pending = getState().views.folder.pending[idDpOperation];
 
     if (!pending) throw new Error('Pending is missing for MOa update');

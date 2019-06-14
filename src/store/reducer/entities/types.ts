@@ -1,4 +1,12 @@
-import { LOGOUT, FOLDER_LOADED, LIST_LOADED, FOLDER_UPDATE_MOA_LOADED, FOLDER_UPDATE_CHECK_POINT_LOADING, FOLDER_UPDATE_CHECK_POINT_LOADED, FOLDER_UPDATE_CHECK_POINT_ERROR } from '../../types';
+import {
+  LOGOUT,
+  FOLDER_LOADED,
+  LIST_LOADED,
+  FOLDER_UPDATE_MOA_LOADED,
+  FOLDER_UPDATE_CHECK_POINT_LOADING,
+  FOLDER_UPDATE_CHECK_POINT_LOADED,
+  FOLDER_UPDATE_CHECK_POINT_ERROR,
+} from '../../types';
 
 export enum BooleanNumber {
   ON = 1,
@@ -31,9 +39,9 @@ export interface SimpleFile {
   litige: BooleanNumber;
 }
 
-export interface File extends SimpleFile { }
+export interface File extends SimpleFile {}
 
-export interface FileFull extends SimpleFile { }
+export interface FileFull extends SimpleFile {}
 
 export interface Files {
   [index: number]: File;
@@ -62,9 +70,9 @@ export interface OperationSimple {
     label_prive?: string;
   };
   moderemuneration: {
-    id_remuneration: number,
-    delai_instruction: string,
-  },
+    id_remuneration: number;
+    delai_instruction: string;
+  };
 }
 
 export interface Operation extends OperationSimple {
@@ -224,11 +232,19 @@ export interface FilesFolderLoadedAction {
   normalized: Normalized;
 }
 
+export interface FilesFolcerCheckPointLoaded {
+  type: typeof FOLDER_UPDATE_CHECK_POINT_LOADED;
+  idDpFile: number;
+  statusCode: number | null;
+}
+
 export interface FilesLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type FilesActions = FilesFolderLoadedAction | FilesLogoutAction;
+export type FilesActions = | FilesFolderLoadedAction
+  | FilesFolcerCheckPointLoaded
+  | FilesLogoutAction;
 
 export interface FoldersFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -286,8 +302,7 @@ export interface CheckPointsFolderUpdateCheckpointErrorAction {
   preValue: BooleanNumber;
 }
 
-export type CheckPointsActions = 
-  | CheckPointsFolderUpdateCheckpointLoadingAction
+export type CheckPointsActions = | CheckPointsFolderUpdateCheckpointLoadingAction
   | CheckPointsFolderUpdateChekpointLoadedAction
   | CheckPointsFolderUpdateCheckpointErrorAction
   | CheckPointsFolderLoadedAction
