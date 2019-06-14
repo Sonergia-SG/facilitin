@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { useTransition, animated } from 'react-spring';
 
 import './Comments.css';
 
@@ -65,11 +66,7 @@ class Comments extends Component<Props> {
         className={`Comments-Container Comments-Container_${commentsOpened ? 'Opened' : 'Closed'}`}
       >
         <div className="Comments-Container-Inner">
-          <div className="Comments-List">
-            {normalizedComments.reverse().map(c => (
-              <Comment key={c.id_log} comment={c} />
-            ))}
-          </div>
+          <List comments={normalizedComments} />
           <CommentBox
             idDpFolder={action.id_dp_operation}
             update={this.props.updateNewCommentMessage}
@@ -82,6 +79,33 @@ class Comments extends Component<Props> {
     );
   }
 }
+
+const List = ({ comments }: { comments: Array<CommentFull> }) => {
+  const transitions = useTransition(comments, c => c.id_log, {
+    from: {
+      transform: 'translate3d(450px,0,0)',
+      opacity: 0.2,
+    },
+    enter: () => ({
+      transform: 'translate3d(0,0,0)',
+      opacity: 1,
+    }),
+    leave: () => ({
+      transform: 'translate3d(450px,0,0)',
+      opacity: 0.2,
+    }),
+  });
+
+  return (
+    <div className="Comments-List">
+      {transitions.reverse().map(({ item, key, props }) => (
+        <animated.div key={key} style={props}>
+          <Comment comment={item} />
+        </animated.div>
+      ))}
+    </div>
+  );
+};
 
 interface ConnectProps {
   action: Operation;
