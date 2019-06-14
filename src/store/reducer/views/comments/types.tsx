@@ -3,6 +3,7 @@ import {
   COMMENTS_LIST_LOADING,
   COMMENTS_LIST_LOADED,
   COMMENTS_LIST_ERROR,
+  UPDATE_NEW_COMMENT_MESSAGE,
 } from '../../../types';
 import { CommentsLoadedNormalized } from '../../../actions/views/comments';
 
@@ -42,7 +43,14 @@ export interface CommentsListErrorAction {
   idDpFolder: number;
 }
 
+export interface CommentsUpdateNewMessage {
+  type: typeof UPDATE_NEW_COMMENT_MESSAGE;
+  message: string;
+  idDpFolder: number;
+}
+
 export type CommentsAction = | CommentsIniAction
   | CommentsListLoadingAction
   | CommentsListLoadedAction
-  | CommentsListErrorAction;
+  | CommentsListErrorAction
+  | CommentsUpdateNewMessage;

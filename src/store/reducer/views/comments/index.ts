@@ -1,6 +1,6 @@
 import idx from 'idx'
 
-import { INIT, COMMENTS_LIST_LOADING, COMMENTS_LIST_LOADED, COMMENTS_LIST_ERROR } from '../../../types'
+import { INIT, COMMENTS_LIST_LOADING, COMMENTS_LIST_LOADED, COMMENTS_LIST_ERROR, UPDATE_NEW_COMMENT_MESSAGE } from '../../../types'
 import { CommentsAction, CommentsState, CommentsByFolders } from './types';
 
 const defaultState = {
@@ -69,6 +69,23 @@ const comments = (state: CommentsState = defaultState, action: CommentsAction) =
             pending: {
               ...folderState.pending,
               loading: false,
+            }
+          }
+        }
+      }
+    }
+    case UPDATE_NEW_COMMENT_MESSAGE: {
+      const folderState = getPrevFolder(state, action.idDpFolder)
+
+      return {
+        ...state,
+        byFolders: {
+          ...state.byFolders,
+          [action.idDpFolder]: {
+            ...folderState,
+            pending: {
+              ...folderState.pending,
+              newMessage: action.message,
             }
           }
         }

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 import './Comments.css';
 
-import { loadComments } from '../../../store/actions/views/comments';
+import { denormalize } from 'normalizr';
+import { loadComments, updateNewCommentMessage } from '../../../store/actions/views/comments';
 
 import Empty from '../Empty';
 
@@ -12,13 +13,13 @@ import Comment from './Comment';
 import { Operation, Entities, CommentFull } from '../../../store/reducer/entities/types';
 import { AppState } from '../../../store';
 import { CommentsByFolders } from '../../../store/reducer/views/comments/types';
-import { denormalize } from 'normalizr';
 import { comment } from '../../../store/reducer/entities/schema';
 
 interface Props {
   action: Operation;
   commentsOpened: boolean;
   loadComments: any;
+  updateNewCommentMessage: typeof updateNewCommentMessage;
   commentState?: CommentsByFolders;
   entities: Entities;
 }
@@ -30,7 +31,9 @@ class Comments extends Component<Props> {
   }
 
   render() {
-    const { commentsOpened, commentState, entities } = this.props;
+    const {
+      commentsOpened, commentState, entities, updateNewCommentMessage, action,
+    } = this.props;
 
     const loading = commentState ? commentState.pending.loading : true;
 
@@ -46,7 +49,11 @@ class Comments extends Component<Props> {
       );
     }
 
-    const normalizedComments: Array<CommentFull> = denormalize(commentState.comments, [comment], entities);
+    const normalizedComments: Array<CommentFull> = denormalize(
+      commentState.comments,
+      [comment],
+      entities,
+    );
 
     return (
       <div
@@ -58,7 +65,11 @@ class Comments extends Component<Props> {
               <Comment key={c.id_log} comment={c} />
             ))}
           </div>
-          <CommentBox />
+          <CommentBox
+            idDpFolder={action.id_dp_operation}
+            update={updateNewCommentMessage}
+            message={commentState.pending.newMessage}
+          />
         </div>
       </div>
     );
@@ -74,5 +85,5 @@ export default connect(
     commentState: s.views.comments.byFolders[action.id_dp_operation],
     entities: s.entities,
   }),
-  { loadComments },
+  { loadComments, updateNewCommentMessage },
 )(Comments);

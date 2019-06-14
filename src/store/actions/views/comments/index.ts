@@ -1,6 +1,6 @@
 import { ThunkAction } from '../../../actions'
-import { COMMENTS_LIST_LOADING, COMMENTS_LIST_LOADED, COMMENTS_LIST_ERROR } from "../../../types";
-import { CommentsListLoadingAction, CommentsListLoadedAction, CommentsListErrorAction } from "../../../reducer/views/comments/types";
+import { COMMENTS_LIST_LOADING, COMMENTS_LIST_LOADED, COMMENTS_LIST_ERROR, UPDATE_NEW_COMMENT_MESSAGE } from "../../../types";
+import { CommentsListLoadingAction, CommentsListLoadedAction, CommentsListErrorAction, CommentsUpdateNewMessage } from "../../../reducer/views/comments/types";
 import { CommentFull, Entities } from "../../../reducer/entities/types";
 import captureException from '../../../../tools/errorReporting/captureException';
 import rest from '../../../../tools/rest';
@@ -56,3 +56,9 @@ export const loadComments = (idDpFolder: number, idDossierprime: number): ThunkA
     dispatch(commentsError(idDpFolder))
   }
 }
+
+export const updateNewCommentMessage = (message: string, idDpFolder: number): CommentsUpdateNewMessage => ({
+  type: UPDATE_NEW_COMMENT_MESSAGE,
+  message,
+  idDpFolder,
+})
