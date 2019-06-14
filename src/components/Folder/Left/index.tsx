@@ -20,7 +20,12 @@ const Left = ({
 }: Props) => (
   <div className="tile is-vertical is-3">
     <div className="tile is-parent is-vertical">
-      <GeneralInfos loading={loading} title={title} data={data} />
+      <GeneralInfos
+        loading={loading}
+        title={title}
+        data={data}
+        checkPoints={data.point_controles}
+      />
       <SecondaryData data={data} />
       <CheckPointsSummary
         checkPoints={data.point_controles}

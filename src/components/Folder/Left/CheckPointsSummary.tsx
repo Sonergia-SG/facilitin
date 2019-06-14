@@ -41,7 +41,10 @@ const CheckPointsSummary = ({
                 style={{ cursor: 'pointer' }}
               >
                 <div className="Actions-Left-CheckPointSummary-Left">
-                  <Picto total={currentCheckPoints.length} valid={validCheckPoints.length} />
+                  <Picto
+                    total={currentCheckPoints.length}
+                    valid={validCheckPoints.length}
+                  />
                   <h4
                     style={{ margin: 0 }}
                     className={`item_menu_gauche ${active ? 'left-active' : ''}`}

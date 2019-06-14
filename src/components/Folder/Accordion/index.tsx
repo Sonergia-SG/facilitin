@@ -25,7 +25,7 @@ interface Props {
 }
 
 const Accordion = ({
-  file, isSelected, checkPoints, handleClick, folderId, pending
+  file, isSelected, checkPoints, handleClick, folderId, pending,
 }: Props) => {
   const color = StateToColor(file);
 
@@ -64,7 +64,12 @@ const Accordion = ({
               </div>
             </div>
             <div className="Accordion-CheckPoints">
-              <CheckPoints pending={pending} folderId={folderId} checkPoints={checkPoints} fileId={file.id_dp_file} />
+              <CheckPoints
+                pending={pending}
+                folderId={folderId}
+                checkPoints={checkPoints}
+                fileId={file.id_dp_file}
+              />
             </div>
             <div className="Accordion-Button-Position">
               <button

@@ -1,0 +1,9 @@
+.Left-GeneralInfos-Pictos {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Left-GeneralInfos-Picto {
+  display: flex;
+  align-items: center;
+}

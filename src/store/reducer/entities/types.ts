@@ -36,7 +36,7 @@ export interface SimpleFile {
   is_horodatage: BooleanNumber;
   is_subrogation: BooleanNumber;
   statut: number;
-  litige: BooleanNumber;
+  litige?: BooleanNumber;
 }
 
 export interface File extends SimpleFile {}
@@ -206,7 +206,7 @@ export interface CheckPoint {
     id_dp_operation: number;
     id_point_controle: number;
     valide: BooleanNumber;
-    id_dp_file: number;
+    id_dp_file?: number;
   };
   pointcontrolcategories: CheckPointCategory;
 }
