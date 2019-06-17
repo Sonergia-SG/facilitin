@@ -7,9 +7,11 @@ import { connect } from 'react-redux';
 
 import Container from './Container';
 import Edit from './Edit';
-import Comments from './Comments'
+import Comments from './Comments';
 
 import { fetchFolder } from '../../store/actions/views/folder';
+import { Entities } from '../../store/reducer/entities/types';
+import { AppState } from '../../store';
 
 interface Params {
   folderId: string;
@@ -17,6 +19,7 @@ interface Params {
 
 interface Props extends RouteComponentProps<Params> {
   fetchFolder: any;
+  entities: Entities;
 }
 
 interface State {
@@ -25,23 +28,23 @@ interface State {
 }
 
 class Folder extends Component<Props, State> {
-  state: Readonly<State> = {
+  state: State = {
     commentsOpened: false,
     selectedAccordion: 0,
   };
 
-  handleAccordionClick = (index: number) => () => {
-    const { selectedAccordion } = this.state;
-    if (selectedAccordion === index) {
-      this.setState({ selectedAccordion: undefined })
-    } else {
-      this.setState({ selectedAccordion: index })
-    }
-  }
-
   componentWillMount() {
     this.props.fetchFolder(parseInt(this.props.match.params.folderId, 0));
   }
+
+  handleAccordionClick = (index: number) => () => {
+    const { selectedAccordion } = this.state;
+    if (selectedAccordion === index) {
+      this.setState({ selectedAccordion: undefined });
+    } else {
+      this.setState({ selectedAccordion: index });
+    }
+  };
 
   toggleComments = () => {
     const { commentsOpened } = this.state;
@@ -50,14 +53,25 @@ class Folder extends Component<Props, State> {
   };
 
   render() {
+    const { match, entities } = this.props;
     const { commentsOpened, selectedAccordion } = this.state;
+    const folderId = parseInt(match.params.folderId, 10);
+    const action = entities.operations[folderId];
+
     return (
-      <Container toggleComments={this.toggleComments}>
+      <Container
+        commentsOpened={commentsOpened}
+        toggleComments={this.toggleComments}
+        folderId={folderId}
+      >
         <div style={{ display: 'flex' }}>
           <div style={{ flex: 1 }}>
-            <Edit selectedAccordion={selectedAccordion} handleAccordionClick={this.handleAccordionClick} />
+            <Edit
+              selectedAccordion={selectedAccordion}
+              handleAccordionClick={this.handleAccordionClick}
+            />
           </div>
-          <Comments commentsOpened={commentsOpened} />
+          {action && <Comments action={action} commentsOpened={commentsOpened} />}
         </div>
       </Container>
     );
@@ -65,6 +79,6 @@ class Folder extends Component<Props, State> {
 }
 
 export default connect(
-  null,
+  (s: AppState) => ({ entities: s.entities }),
   { fetchFolder },
 )(Folder);

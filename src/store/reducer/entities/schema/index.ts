@@ -29,5 +29,19 @@ export const operation = new schema.Entity(
     dossierprimefile: [file],
     point_controles: [checkPoint],
   },
-  { idAttribute: 'id_dp_operation' }
+  { idAttribute: 'id_dp_operation' },
 );
+
+export const user = new schema.Entity(
+  'users',
+  {},
+  { idAttribute: 'id_user' },
+)
+
+export const comment = new schema.Entity(
+  'comments',
+  {
+    user,
+  },
+  { idAttribute: 'id_log' },
+)
