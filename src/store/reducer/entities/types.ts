@@ -7,12 +7,39 @@ import {
   FOLDER_UPDATE_CHECK_POINT_LOADED,
   FOLDER_UPDATE_CHECK_POINT_ERROR,
   COMMENTS_LIST_LOADED,
+  FOLDER_FILE_LITIGE_LOADED,
 } from '../../types';
 
-export enum BooleanNumber {
-  ON = 1,
-  OFF = 0,
+export interface User {
+  id_user: number,
+  nom: string,
+  prenom: string,
 }
+
+export interface Users {
+  [index: number]: User;
+}
+
+export interface CommentSimple {
+  id_log: number,
+  id_user: number,
+  date_log: string,
+  message: string,
+}
+
+export interface Comment extends CommentSimple {
+  user: number
+}
+
+export interface CommentFull extends CommentSimple {
+  user: User
+}
+
+export interface Comments {
+  [index: number]: Comment;
+}
+
+export type BooleanNumber = 0 | 1;
 
 export interface SimpleFile {
   id_dp_file: number;
@@ -57,39 +84,6 @@ export interface MOA {
   moa_cp: string;
   moa_ville: string;
   moa_denomination: string;
-}
-
-export interface OperationSimple {
-  id_dp_operation: number;
-  id_dossierprime: number;
-  id_operation: number;
-  code_operation: string;
-  statut?: {
-    code_statut?: number;
-    label_public?: string;
-    id_statut?: number;
-    label_prive?: string;
-  };
-  moderemuneration: {
-    id_remuneration: number;
-    delai_instruction: string;
-  };
-}
-
-export interface Operation extends OperationSimple {
-  dossierprime?: number;
-  dossierprimefile?: [number];
-  point_controles: [number];
-}
-
-export interface OperationFull extends OperationSimple {
-  dossierprime?: FolderFull;
-  dossierprimefile?: [FileFull];
-  point_controles: [CheckPoint];
-}
-
-export interface Operations {
-  [index: number]: Operation;
 }
 
 export interface FolderMOAString {
@@ -216,6 +210,39 @@ export interface CheckPoints {
   [index: number]: CheckPoint;
 }
 
+export interface OperationSimple {
+  id_dp_operation: number;
+  id_dossierprime: number;
+  id_operation: number;
+  code_operation: string;
+  statut?: {
+    code_statut?: number;
+    label_public?: string;
+    id_statut?: number;
+    label_prive?: string;
+  };
+  moderemuneration: {
+    id_remuneration: number;
+    delai_instruction: string;
+  };
+}
+
+export interface Operation extends OperationSimple {
+  dossierprime?: number;
+  dossierprimefile?: [number];
+  point_controles: [number];
+}
+
+export interface OperationFull extends OperationSimple {
+  dossierprime?: FolderFull;
+  dossierprimefile?: [FileFull];
+  point_controles: [CheckPoint];
+}
+
+export interface Operations {
+  [index: number]: Operation;
+}
+
 export interface Entities {
   files: Files;
   folders: Folders;
@@ -241,12 +268,19 @@ export interface FilesFolcerCheckPointLoaded {
   statusCode: number | null;
 }
 
+export interface FileLitigeLoaded {
+  type: typeof FOLDER_FILE_LITIGE_LOADED;
+  idDpFile: number;
+  statusCode: number | null;
+}
+
 export interface FilesLogoutAction {
   type: typeof LOGOUT;
 }
 
 export type FilesActions = | FilesFolderLoadedAction
   | FilesFolcerCheckPointLoaded
+  | FileLitigeLoaded
   | FilesLogoutAction;
 
 export interface FoldersFolderLoadedAction {
@@ -341,41 +375,12 @@ export type OperationsActions = | OperationsFolderLoadedAction
   | OperationsListLoadedAction
   | OperationsLogoutAction;
 
-export interface User {
-  id_user: number,
-  nom: string,
-  prenom: string,
-}
-
-export interface Users {
-  [index: number]: User;
-}
-
 export interface UsersCommentsListLoadedAction {
   type: typeof COMMENTS_LIST_LOADED;
   normalized: Normalized;
 }
 
 export type UsersActions = UsersCommentsListLoadedAction;
-
-export interface CommentSimple {
-  id_log: number,
-  id_user: number,
-  date_log: string,
-  message: string,
-}
-
-export interface Comment extends CommentSimple {
-  user: number
-}
-
-export interface CommentFull extends CommentSimple {
-  user: User
-}
-
-export interface Comments {
-  [index: number]: Comment;
-}
 
 export interface CommentsCommentsListLoadedAction {
   type: typeof COMMENTS_LIST_LOADED;

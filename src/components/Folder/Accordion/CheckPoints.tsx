@@ -1,24 +1,23 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import idx from 'idx';
 
 import { CheckPoint } from '../../../store/reducer/entities/types';
-import { AppState } from '../../../store';
 import { updateFolderCheckPoint } from '../../../store/actions/views/folder';
 
 import './CheckPoints.css';
 import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
-import idx from 'idx';
 
 interface Props {
   checkPoints: Array<CheckPoint> | undefined;
   fileId: number;
   folderId: number;
-  updateFolderCheckPoint: any;
+  updateCheckPoint: any;
   pending: FolderPendingItem | undefined;
 }
 
 const CheckPoints = ({
-  checkPoints, fileId, folderId, updateFolderCheckPoint, pending,
+  checkPoints, fileId, folderId, updateCheckPoint, pending,
 }: Props) => {
   const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === fileId);
 
@@ -36,17 +35,18 @@ const CheckPoints = ({
     <div className="CheckPoints-CheckPoint-Container">
       {fileCheckPoints.map((value) => {
         const checked = value.pivot.valide ? ' checked' : '';
-        const checkPointStatus = idx(pending, _ => _.checkPoint[value.id_point_controle].status)
+        const checkPointStatus = idx(pending, _ => _.checkPoint[value.id_point_controle].status);
 
         return (
           <div className="CheckPoints-CheckPoint-Line" key={value.id_point_controle}>
             <input
               type="checkbox"
+              id={'{value.id_controle}'}
               name={'{value.id_controle}'}
               checked={!!checked}
-              disabled={loading || checkPointStatus === 'sending'}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                updateFolderCheckPoint({
+              disabled={loading || checkPointStatus === 'SENDING'}
+              onChange={() => {
+                updateCheckPoint({
                   folderId,
                   checkPointId: value.id_point_controle,
                   idDpFile: value.pivot.id_dp_file,
@@ -65,6 +65,6 @@ const CheckPoints = ({
 };
 
 export default connect(
-  (s: AppState) => ({}),
-  { updateFolderCheckPoint },
+  null,
+  { updateCheckPoint: updateFolderCheckPoint },
 )(CheckPoints);

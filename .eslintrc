@@ -19,6 +19,16 @@
       "always",
       { "ignoreClassFields": true }
     ],
-    "linebreak-style": [1, "windows"]
+    "linebreak-style": [1, "windows"],
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "components": ["label"],
+        "required": {
+          "every": ["id"]
+        },
+        "allowChildren": false
+      }
+    ]
   }
 }

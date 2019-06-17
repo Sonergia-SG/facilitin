@@ -2,7 +2,7 @@ import { normalize } from 'normalizr';
 
 import idx from 'idx';
 import { addMessageToQueue } from '../../../../components/Alert';
-import captureException from '../../../../tools/errorReporting/captureException.js';
+import captureException from '../../../../tools/errorReporting/captureException';
 
 import { API_PATH } from '../../../../variables';
 
@@ -18,10 +18,13 @@ import {
   FOLDER_UPDATE_MOA_LOADING,
   FOLDER_UPDATE_MOA_ERROR,
   FOLDER_UPDATE_MOA_LOADED,
+  FOLDER_FILE_LITIGE_LOADING,
+  FOLDER_FILE_LITIGE_LOADED,
+  FOLDER_FILE_LITIGE_ERROR,
 } from '../../../types';
 
 import { operation } from '../../../reducer/entities/schema';
-import { ThunkAction } from '../../../actions';
+import { ThunkAction } from '../..';
 import {
   FolderFolderUpdateCheckpointLoadingAction,
   FolderFolderUpdateChekpointLoadedAction,
@@ -34,6 +37,9 @@ import {
   FolderFolderUpdateMoaLoading,
   FolderFolderUpdateMoaError,
   FolderFolderUpdateMoaLoaded,
+  FolderFolderLitigeLoading,
+  FolderFolderLitigeLoaded,
+  FolderFolderLitigeError,
 } from '../../../reducer/views/folder/types';
 import { ListListLoadedNormalized } from '../../../reducer/views/list/type';
 import {
@@ -43,6 +49,7 @@ import {
   CheckPointsFolderUpdateChekpointLoadedAction,
   CheckPointsFolderUpdateCheckpointErrorAction,
   FilesFolcerCheckPointLoaded,
+  FileLitigeLoaded,
 } from '../../../reducer/entities/types';
 import rest from '../../../../tools/rest';
 
@@ -138,7 +145,7 @@ export const folderCleanMoaValue = (idDpOperation: number): FolderFoldercleanMoa
   idDpOperation,
 });
 
-export const fetchFolder = (idDpOperation: number): ThunkAction => async (dispatch, getState) => {
+export const fetchFolder = (idDpOperation: number): ThunkAction => async (dispatch) => {
   dispatch(folderUpdateLoading(idDpOperation));
 
   try {
@@ -192,7 +199,7 @@ idDpFile: number;
     });
 
     if (result.status === 200) {
-      type JSON = {
+      type JSONType = {
         status: 'success' | 'fail';
         statut_actuel: Array<{
           code_statut: 0 | 15;
@@ -200,12 +207,17 @@ idDpFile: number;
           code_couleur: string;
         }>;
       };
-      const json: JSON = await result.json();
+      const json: JSONType = await result.json();
       const jsonStatusCode = idx(json, _ => _.statut_actuel[0].code_statut);
       const statusCode = typeof jsonStatusCode === 'number' ? jsonStatusCode : null;
-      dispatch(folderUpdateCheckPointLoaded({
-        folderId, checkPointId, idDpFile, statusCode,
-      }));
+      dispatch(
+        folderUpdateCheckPointLoaded({
+          folderId,
+          checkPointId,
+          idDpFile,
+          statusCode,
+        }),
+      );
     } else {
       addMessageToQueue({
         duration: 2500,
@@ -232,12 +244,12 @@ export const folderUpdateMoaLoading = (idDpOperation: number): FolderFolderUpdat
 
 export const folderUpdateMoaLoaded = (
   idDpOperation: number,
-  id_dossierprime: number,
+  iddossierprime: number,
   values: { [index: string]: string },
 ): FolderFolderUpdateMoaLoaded & FoldersUpdateMoaLoaded => ({
   type: FOLDER_UPDATE_MOA_LOADED,
   idDpOperation,
-  id_dossierprime,
+  id_dossierprime: iddossierprime,
   values,
 });
 
@@ -285,5 +297,77 @@ export const updateMoaValues = (
       message: 'Erreur pendant la mise à jour des infos du MOA',
     });
     dispatch(folderUpdateMoaError(idDpOperation));
+  }
+};
+
+const folderFileLitigeLoading = (
+  idDpOperation: number,
+  idDpFile: number,
+): FolderFolderLitigeLoading => ({
+  type: FOLDER_FILE_LITIGE_LOADING,
+  idDpOperation,
+  idDpFile,
+});
+
+const folderFileLitigeLoaded = (
+  idDpOperation: number,
+  statusCode: number,
+  idDpFile: number,
+): FolderFolderLitigeLoaded & FileLitigeLoaded => ({
+  type: FOLDER_FILE_LITIGE_LOADED,
+  idDpOperation,
+  idDpFile,
+  statusCode,
+});
+
+const folderFileLitigeError = (
+  idDpOperation: number,
+  idDpFile: number,
+): FolderFolderLitigeError => ({
+  type: FOLDER_FILE_LITIGE_ERROR,
+  idDpOperation,
+  idDpFile,
+});
+
+export const folderFileInLitige = (idDpOperation: number, idDpFile: number): ThunkAction => async (
+  dispatch,
+) => {
+  const dispatchError = () => {
+    addMessageToQueue({
+      duration: 3000,
+      message: 'Erreur pendant la mise en litige du document',
+      type: 'error',
+    });
+    dispatch(folderFileLitigeError(idDpOperation, idDpFile));
+  };
+
+  try {
+    dispatch(folderFileLitigeLoading(idDpOperation, idDpFile));
+
+    const result = await rest(`${API_PATH}setlitige/${idDpFile}`, { method: 'put' });
+
+    if (result.status === 200) {
+      type JSON = {
+        status: 'success' | 'fail';
+        statut_file: Array<{
+          code_statut: 10 | 15;
+          label_public: string;
+          code_couleur: string;
+        }>;
+      };
+      const json: JSON = await result.json();
+      const statutFile = idx(json, _ => _.statut_file[0].code_statut);
+
+      if (statutFile) {
+        dispatch(folderFileLitigeLoaded(idDpOperation, statutFile, idDpFile));
+      } else {
+        dispatchError();
+      }
+    } else {
+      dispatchError();
+    }
+  } catch (error) {
+    captureException(error);
+    dispatchError();
   }
 };

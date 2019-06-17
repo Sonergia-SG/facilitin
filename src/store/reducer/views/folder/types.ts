@@ -11,17 +11,23 @@ import {
   FOLDER_UPDATE_MOA_ERROR,
   FOLDER_UPDATE_MOA_LOADED,
   FOLDER_UPDATE_MOA_LOADING,
+  FOLDER_FILE_LITIGE_LOADING,
+  FOLDER_FILE_LITIGE_ERROR,
+  FOLDER_FILE_LITIGE_LOADED,
 } from '../../../types';
-import { BooleanNumber, FolderMOAString } from '../../entities/types';
+import { BooleanNumber } from '../../entities/types';
 
-export enum FolderCheckPointStatus {
-  SENDING = 'sending',
-  ERROR = 'error',
-}
+export type FolderCheckPointStatus = 'SENDING' | 'ERROR';
 
 export interface FolderPendingItem {
   loading?: boolean;
   moaLoading?: boolean;
+  litige?: {
+    [index: number]: {
+      loading: boolean;
+    };
+  };
+  litigeLoading?: boolean;
   checkPoint?: {
     [index: number]:
       | {
@@ -108,6 +114,24 @@ export interface FolderFolderUpdateMoaLoaded {
   idDpOperation: number;
 }
 
+export interface FolderFolderLitigeLoading {
+  type: typeof FOLDER_FILE_LITIGE_LOADING;
+  idDpOperation: number;
+  idDpFile: number;
+}
+
+export interface FolderFolderLitigeError {
+  type: typeof FOLDER_FILE_LITIGE_ERROR;
+  idDpOperation: number;
+  idDpFile: number;
+}
+
+export interface FolderFolderLitigeLoaded {
+  type: typeof FOLDER_FILE_LITIGE_LOADED;
+  idDpOperation: number;
+  idDpFile: number;
+}
+
 export type FolderAction = | FolderFolderLoadingAction
   | FolderFolderErrorAction
   | FolderFolderLoadedAction
@@ -119,4 +143,7 @@ export type FolderAction = | FolderFolderLoadingAction
   | FolderFolderUpdateMoaLoading
   | FolderFolderUpdateMoaLoaded
   | FolderFolderUpdateMoaError
+  | FolderFolderLitigeLoading
+  | FolderFolderLitigeLoaded
+  | FolderFolderLitigeError
   | FolderLogoutAction;
