@@ -74,9 +74,11 @@ const Accordion = ({
             <div className="Accordion-Button-Position">
               <button
                 type="button"
+                style={{ transition: 'opacity 0.5s ease' }}
                 className="button is-danger is-outlined is-pulled-right"
                 id="button-litige"
-                onClick={e => alert('not defined')}
+                disabled={file.statut === 15}
+                onClick={() => alert('not defined')}
               >
                 {'Litige'}
               </button>
