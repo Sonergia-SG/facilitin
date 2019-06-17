@@ -1,27 +1,30 @@
 import React from 'react';
 
-import './GeneralInfos.css'
+import './GeneralInfos.css';
 
 import { OperationFull, CheckPoint } from '../../../store/reducer/entities/types';
+
+import inLitige from './helpers/checkPointInLitige';
 
 interface Props {
   title: String;
   data: OperationFull;
   loading: boolean;
-  checkPoints: Array<CheckPoint>
+  checkPoints: Array<CheckPoint>;
 }
 
-const GeneralInfos = ({ title, data, loading, checkPoints }: Props) => {
-  const allCheckPoints = checkPoints.filter(c => c.pivot.id_dp_file !== null)
-  const litigeCheckPoints = []
-  /* const checkPointsWithFile = allCheckPoints.map(c => ({
-      ...c,
-      file: data.dossierprimefile && data.dossierprimefile[c.pivot.id_dp_file],
-    }))
-  const litigeCheckPoints = checkPointsWithFile.filter(c => c.file && c.file.litige)*/
+const GeneralInfos = ({
+  title, data, loading, checkPoints,
+}: Props) => {
+  const allCheckPoints = checkPoints.filter(c => c.pivot.id_dp_file !== null);
 
-  const validCheckPoints = allCheckPoints.filter(c => c.pivot.valide)
-  const invalidCheckPoints = allCheckPoints.filter(c => !c.pivot.valide)
+  const validCheckPoints = allCheckPoints.filter(c => c.pivot.valide);
+  const litigeCheckPoints = allCheckPoints
+    .filter(c => inLitige(c, data))
+    .filter(c => !c.pivot.valide);
+  const invalidCheckPoints = allCheckPoints
+    .filter(c => !inLitige(c, data))
+    .filter(c => !c.pivot.valide);
 
   return (
     <div className="tile is-child notification has-text-centered">
@@ -43,7 +46,7 @@ const GeneralInfos = ({ title, data, loading, checkPoints }: Props) => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default GeneralInfos;

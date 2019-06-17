@@ -25,9 +25,9 @@ const CheckPointsSummary = ({
     return (
       <div className="tile is-child notification ">
         <div className="content">
-          {data.dossierprimefile.map((value, index) => {
+          {data.dossierprimefile.map((file, index) => {
             const currentCheckPoints = checkPoints.filter(
-              c => c.pivot.id_dp_file === value.id_dp_file,
+              c => c.pivot.id_dp_file === file.id_dp_file,
             );
             const validCheckPoints = currentCheckPoints.filter(c => c.pivot.valide === 1);
 
@@ -36,21 +36,25 @@ const CheckPointsSummary = ({
             return (
               <div
                 className="Actions-Left-CheckPointSummary-File"
-                key={value.id_dp_file}
+                role="button"
+                tabIndex={0}
+                key={file.id_dp_file}
                 onClick={handleAccordionClick(index)}
+                onKeyPress={handleAccordionClick(index)}
                 style={{ cursor: 'pointer' }}
               >
                 <div className="Actions-Left-CheckPointSummary-Left">
                   <Picto
                     total={currentCheckPoints.length}
                     valid={validCheckPoints.length}
+                    litige={file.statut === 10}
                   />
                   <h4
                     style={{ margin: 0 }}
                     className={`item_menu_gauche ${active ? 'left-active' : ''}`}
                     id={`${index}pp`}
                   >
-                    {fileFolderDisplayType(value)}
+                    {fileFolderDisplayType(file)}
                   </h4>
                 </div>
                 <p
