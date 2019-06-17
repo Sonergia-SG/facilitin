@@ -30,6 +30,9 @@ const CheckPointsSummary = ({
               c => c.pivot.id_dp_file === file.id_dp_file,
             );
             const validCheckPoints = currentCheckPoints.filter(c => c.pivot.valide === 1);
+            const litigeCheckPoints = currentCheckPoints.filter(
+              c => c.pivot.valide === 0 && c.automatique === 1,
+            );
 
             const active = selectedAccordion === index;
 
@@ -47,7 +50,7 @@ const CheckPointsSummary = ({
                   <Picto
                     total={currentCheckPoints.length}
                     valid={validCheckPoints.length}
-                    litige={file.statut === 10}
+                    litige={litigeCheckPoints.length}
                   />
                   <h4
                     style={{ margin: 0 }}
@@ -57,14 +60,23 @@ const CheckPointsSummary = ({
                     {fileFolderDisplayType(file)}
                   </h4>
                 </div>
-                <p
-                  style={{ color: active ? '#16a0e0' : 'black', fontWeight: 500 }}
-                  className="Actions-Left-CheckPointSummary-File-Count"
-                >
-                  {validCheckPoints.length}
-                  {'/'}
-                  {currentCheckPoints.length}
-                </p>
+                {litigeCheckPoints.length === 0 ? (
+                  <p
+                    style={{ color: active ? '#16a0e0' : 'black', fontWeight: 500 }}
+                    className="Actions-Left-CheckPointSummary-File-Count"
+                  >
+                    {validCheckPoints.length}
+                    {'/'}
+                    {currentCheckPoints.length}
+                  </p>
+                ) : (
+                  <p
+                    style={{ color: active ? '#16a0e0' : 'black', fontWeight: 500 }}
+                    className="Actions-Left-CheckPointSummary-File-Count"
+                  >
+                    {litigeCheckPoints.length}
+                  </p>
+                )}
               </div>
             );
           })}
