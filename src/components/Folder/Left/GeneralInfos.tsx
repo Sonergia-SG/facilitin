@@ -1,27 +1,31 @@
 import React from 'react';
 
-import './GeneralInfos.css'
+import './GeneralInfos.css';
 
 import { OperationFull, CheckPoint } from '../../../store/reducer/entities/types';
+
+import inLitige from './helpers/checkPointInLitige';
 
 interface Props {
   title: String;
   data: OperationFull;
   loading: boolean;
-  checkPoints: Array<CheckPoint>
+  checkPoints: Array<CheckPoint>;
 }
 
-const GeneralInfos = ({ title, data, loading, checkPoints }: Props) => {
-  const allCheckPoints = checkPoints.filter(c => c.pivot.id_dp_file !== null)
-  const litigeCheckPoints = []
-  /* const checkPointsWithFile = allCheckPoints.map(c => ({
-      ...c,
-      file: data.dossierprimefile && data.dossierprimefile[c.pivot.id_dp_file],
-    }))
-  const litigeCheckPoints = checkPointsWithFile.filter(c => c.file && c.file.litige)*/
+const GeneralInfos = ({
+  title, data, loading, checkPoints,
+}: Props) => {
+  const allCheckPoints = checkPoints.filter(c => c.pivot.id_dp_file !== null);
+  const litigeCheckPoints = allCheckPoints.filter(c => inLitige(c));
 
-  const validCheckPoints = allCheckPoints.filter(c => c.pivot.valide)
-  const invalidCheckPoints = allCheckPoints.filter(c => !c.pivot.valide)
+  const nbFiles = data.dossierprimefile ? data.dossierprimefile.length : 0;
+  const litigeFiles = data.dossierprimefile
+    ? data.dossierprimefile.filter(c => c.statut === 10).length
+    : 0;
+  const validFiles = data.dossierprimefile
+    ? data.dossierprimefile.filter(c => c.statut === 15).length
+    : 0;
 
   return (
     <div className="tile is-child notification has-text-centered">
@@ -31,19 +35,19 @@ const GeneralInfos = ({ title, data, loading, checkPoints }: Props) => {
       <div className="Left-GeneralInfos-Pictos">
         <div className="Left-GeneralInfos-Picto">
           <i className="fas fa-exclamation-triangle" style={{ color: '#F61616' }} />
-          <p>{`${litigeCheckPoints.length}/${allCheckPoints.length}`}</p>
+          <p>{litigeCheckPoints.length}</p>
         </div>
         <div className="Left-GeneralInfos-Picto">
           <i className="fas fa-exclamation-triangle" style={{ color: '#FBD44A' }} />
-          <p>{`${invalidCheckPoints.length}/${allCheckPoints.length}`}</p>
+          <p>{`${litigeFiles}/${nbFiles}`}</p>
         </div>
         <div className="Left-GeneralInfos-Picto">
           <i className="fas fa-check-circle" style={{ color: '#2BA048' }} />
-          <p>{`${validCheckPoints.length}/${allCheckPoints.length}`}</p>
+          <p>{`${validFiles}/${nbFiles}`}</p>
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default GeneralInfos;

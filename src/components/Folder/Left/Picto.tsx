@@ -3,11 +3,11 @@ import React from 'react';
 interface Props {
   total: number;
   valid: number;
-  litige?: boolean;
+  litige: number;
 }
 
-const resolveIco = (total: number, valid: number, litige?: boolean) => {
-  if (litige) {
+const resolveIco = (total: number, valid: number, litige: number) => {
+  if (litige > 0) {
     return {
       key: 'error',
       name: 'fa-exclamation-triangle',

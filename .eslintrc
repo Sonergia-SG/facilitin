@@ -13,12 +13,22 @@
   "extends": "airbnb",
   "parser": "babel-eslint",
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".tsx"] }],
     "react/destructuring-assignment": [
       1,
       "always",
       { "ignoreClassFields": true }
     ],
-    "linebreak-style": [1, "windows"]
+    "linebreak-style": [1, "windows"],
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "components": ["label"],
+        "required": {
+          "every": ["id"]
+        },
+        "allowChildren": false
+      }
+    ]
   }
 }

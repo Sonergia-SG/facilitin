@@ -1,6 +1,6 @@
 import idx from 'idx';
 
-import { FolderState, FolderAction, FolderCheckPointStatus } from './types';
+import { FolderState, FolderAction } from './types';
 
 import {
   FOLDER_UPDATE_CHECK_POINT_LOADING,
@@ -15,6 +15,9 @@ import {
   FOLDER_UPDATE_MOA_LOADING,
   FOLDER_UPDATE_MOA_LOADED,
   FOLDER_UPDATE_MOA_ERROR,
+  FOLDER_FILE_LITIGE_LOADING,
+  FOLDER_FILE_LITIGE_LOADED,
+  FOLDER_FILE_LITIGE_ERROR,
 } from '../../../types';
 
 const initialState = {
@@ -57,7 +60,7 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
               ...idx(state, _ => _.pending[action.folderId].checkPoint),
               [action.checkPointId]: {
                 ...idx(state, _ => _.pending[action.folderId].checkPoint[action.checkPointId]),
-                status: FolderCheckPointStatus.SENDING,
+                status: 'SENDING',
                 prevValue: action.prevValue,
               },
             },
@@ -89,7 +92,7 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
               ...idx(state, _ => _.pending[action.folderId].checkPoint),
               [action.checkPointId]: {
                 ...idx(state, _ => _.pending[action.folderId].checkPoint[action.checkPointId]),
-                status: FolderCheckPointStatus.ERROR,
+                status: 'ERROR',
               },
             },
           },
@@ -143,6 +146,45 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
           },
         },
       };
+    case FOLDER_FILE_LITIGE_LOADING: {
+      const { idDpFile, idDpOperation } = action;
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [idDpOperation]: {
+            ...idx(state, _ => _.pending[idDpOperation]),
+            litige: {
+              ...idx(state, _ => _.pending[idDpOperation].litige),
+              [idDpFile]: {
+                ...idx(state, _ => _.pending[idDpOperation].litige[idDpFile]),
+                loading: true,
+              },
+            },
+          },
+        },
+      };
+    }
+    case FOLDER_FILE_LITIGE_LOADED:
+    case FOLDER_FILE_LITIGE_ERROR: {
+      const { idDpFile, idDpOperation } = action;
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [idDpOperation]: {
+            ...idx(state, _ => _.pending[idDpOperation]),
+            litige: {
+              ...idx(state, _ => _.pending[idDpOperation].litige),
+              [idDpFile]: {
+                ...idx(state, _ => _.pending[idDpOperation].litige[idDpFile]),
+                loading: false,
+              },
+            },
+          },
+        },
+      };
+    }
     case FOLDER_CLEAN_MOA_VALUE:
       return {
         ...state,

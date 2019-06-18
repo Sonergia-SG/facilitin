@@ -17,7 +17,8 @@ import {
 } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-import Loading from './Loading';
+import StatusCell from './StatusCell';
+import Loading from '../Loading';
 
 import {
   loadList,
@@ -25,14 +26,14 @@ import {
   listUpdatePage,
   listUpdatePageSize,
   listUpdateSorted,
-} from '../store/actions/views/list';
+} from '../../store/actions/views/list';
 
-import { operation } from '../store/reducer/entities/schema';
+import { operation } from '../../store/reducer/entities/schema';
 
-import { AppState } from '../store';
-import { Entities, OperationFull, MOA } from '../store/reducer/entities/types';
-import { ListState, Tab as TabType } from '../store/reducer/views/list/type';
-import { UserFonction } from '../store/reducer/user/types';
+import { AppState } from '../../store';
+import { Entities, OperationFull } from '../../store/reducer/entities/types';
+import { ListState, Tab as TabType } from '../../store/reducer/views/list/type';
+import { UserFonction } from '../../store/reducer/user/types';
 
 const COLUMNS = [
   {
@@ -49,7 +50,7 @@ const COLUMNS = [
   {
     Header: 'Etat',
     id: 'label_public',
-    accessor: (d: OperationFull) => d.statut ? d.statut.label_public : ' - ',
+    accessor: (d: OperationFull) => (d.statut ? d.statut.label_public : ' - '),
   },
   {
     Header: 'Nb Jours res',
@@ -59,7 +60,11 @@ const COLUMNS = [
   {
     Header: 'MOA',
     id: 'moa_nom',
-    accessor: (d: OperationFull) => d.dossierprime ? `${d.dossierprime.moa_nom} ${d.dossierprime.moa_prenom} ${d.dossierprime.moa_denomination}` : ' - ',
+    accessor: (d: OperationFull) => (d.dossierprime
+      ? `${d.dossierprime.moa_nom} ${d.dossierprime.moa_prenom} ${
+        d.dossierprime.moa_denomination
+      }`
+      : ' - '),
   },
   {
     Header: 'FOST',
@@ -70,6 +75,7 @@ const COLUMNS = [
     Header: ' ',
     id: 'stats',
     accessor: 'TODO',
+    Cell: StatusCell,
   },
 ];
 
