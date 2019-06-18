@@ -6,6 +6,8 @@ import { OperationFull, CheckPoint } from '../../../store/reducer/entities/types
 
 import inLitige from './helpers/checkPointInLitige';
 
+import Status from './Status';
+
 interface Props {
   title: String;
   data: OperationFull;
@@ -29,8 +31,15 @@ const GeneralInfos = ({
 
   return (
     <div style={{ flexGrow: 0 }} className="tile is-child notification has-text-centered">
-      <p className={`title${loading ? ' Loading-Text Loading-Text_one' : ''}`}>{title}</p>
+      <p
+        className={`Left-GeneralInfos-Title title${
+          loading ? ' Loading-Text Loading-Text_one' : ''
+        }`}
+      >
+        {title}
+      </p>
       <p className="subtitle">{data.code_operation}</p>
+      <Status status={data.statut} />
       <div className="content" />
       <div className="Left-GeneralInfos-Pictos">
         <div className="Left-GeneralInfos-Picto">

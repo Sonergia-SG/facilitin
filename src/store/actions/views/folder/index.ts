@@ -407,18 +407,25 @@ type FolderEnding = (idDpOperation: number) => ThunkAction;
 
 export const folderEnding: FolderEnding = idDpOperation => async (dispatch) => {
   const dispatchError = () => {
+    addMessageToQueue({
+      duration: 3000,
+      message: "Erreur pendant le traitement de validation de l'opération",
+      type: 'error',
+    });
     dispatch(folderEndingError(idDpOperation));
   };
 
   try {
     dispatch(folderEndingLoading(idDpOperation));
 
-    const result = await rest(`${API_PATH}actions/${idDpOperation}/terminerinstruction`);
+    const result = await rest(`${API_PATH}actions/${idDpOperation}/terminerinstruction`, {
+      method: 'put',
+    });
 
     if (result.status === 200) {
       const json: FolderEndingResponse = await result.json();
 
-      if (json.status === 'sucess') {
+      if (json.status === 'success') {
         const [status] = json.statut_action;
         dispatch(folderEndingLoaded(idDpOperation, status));
       } else {

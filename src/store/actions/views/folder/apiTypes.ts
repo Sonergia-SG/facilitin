@@ -6,7 +6,7 @@ export type FolderEndingResponse = | {
   status: 'fail';
 }
 | {
-  status: 'sucess';
+  status: 'success';
   statut_action: [{
     code_statut: 8 | 0;
     label_public: string;

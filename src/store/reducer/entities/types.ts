@@ -215,6 +215,7 @@ export interface OperationStatus {
   code_statut?: number;
   label_public?: string;
   id_statut?: number;
+  code_couleur?: string;
   label_prive?: string;
 }
 
