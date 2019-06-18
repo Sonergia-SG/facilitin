@@ -28,7 +28,7 @@ const GeneralInfos = ({
     : 0;
 
   return (
-    <div className="tile is-child notification has-text-centered">
+    <div style={{ flexGrow: 0 }} className="tile is-child notification has-text-centered">
       <p className={`title${loading ? ' Loading-Text Loading-Text_one' : ''}`}>{title}</p>
       <p className="subtitle">{data.code_operation}</p>
       <div className="content" />

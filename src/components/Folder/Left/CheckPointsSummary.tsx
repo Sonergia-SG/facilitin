@@ -23,7 +23,7 @@ const CheckPointsSummary = ({
 }: Props) => {
   if (data.dossierprimefile && data.dossierprimefile.length > 0) {
     return (
-      <div className="tile is-child notification ">
+      <div style={{ flexGrow: 0 }} className="tile is-child notification ">
         <div className="content">
           {data.dossierprimefile.map((file, index) => {
             const currentCheckPoints = checkPoints.filter(

@@ -18,7 +18,7 @@ interface Props {
 const Left = ({
   title, data, loading, selectedAccordion, handleAccordionClick,
 }: Props) => (
-  <div className="tile is-vertical is-3">
+  <div style={{ minWidth: 320 }} className="tile is-vertical is-3">
     <div className="tile is-parent is-vertical">
       <GeneralInfos
         loading={loading}
