@@ -10,7 +10,7 @@ const EndButton = ({ data }: Props) => {
     ? data.dossierprimefile.every(f => f.statut === 15 || f.statut === 10)
     : false;
 
-  if (displayButton) {
+  if (true || displayButton) {
     return (
       <div className="tile is-child">
         <div className="content has-text-centered">

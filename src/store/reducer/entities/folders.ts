@@ -2,7 +2,9 @@
 import merge from 'lodash.merge';
 
 import { Folders, FoldersActions } from './types';
-import { LIST_LOADED, LOGOUT, FOLDER_LOADED, FOLDER_UPDATE_MOA_LOADED } from '../../types';
+import {
+  LIST_LOADED, LOGOUT, FOLDER_LOADED, FOLDER_UPDATE_MOA_LOADED,
+} from '../../types';
 
 const folders = (state: Folders = {}, action: FoldersActions): Folders => {
   switch (action.type) {
@@ -17,8 +19,8 @@ const folders = (state: Folders = {}, action: FoldersActions): Folders => {
         [action.id_dossierprime]: {
           ...state[action.id_dossierprime],
           ...action.values,
-        }
-      }
+        },
+      };
     case LOGOUT:
       return {};
     default:
