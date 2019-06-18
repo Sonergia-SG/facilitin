@@ -33,7 +33,7 @@ const Left = ({
         selectedAccordion={selectedAccordion}
         data={data}
       />
-      <EndButton />
+      <EndButton data={data} />
     </div>
   </div>
 );
