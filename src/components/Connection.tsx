@@ -1,9 +1,8 @@
 /**
  * Created by stephane.mallaroni on 11/04/2019.
  */
-import React, { Component, RefObject } from 'react';
-import { withRouter } from 'react-router-dom';
-import { RouteChildrenProps  } from 'react-router';
+import React, { Component } from 'react';
+import { RouteChildrenProps } from 'react-router';
 import { connect } from 'react-redux';
 
 import logo from '../images/sonergia.png';

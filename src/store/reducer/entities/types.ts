@@ -122,9 +122,9 @@ export interface SimpleFolder extends FolderMOAString {
   id_dp_operation: number;
   id_dossierprime: number;
   code_operation: string;
-  moa?: MOA[];
-  moe?: {}[];
-  travaux?: {}[];
+  moa?: Array<MOA>;
+  moe?: Array<{}>;
+  travaux?: Array<{}>;
   moa_est_societe: 0;
   moa_is_syndic: BooleanNumber;
   moa_no_siret: BooleanNumber;
@@ -169,11 +169,11 @@ export interface SimpleFolder extends FolderMOAString {
 }
 
 export interface Folder extends SimpleFolder {
-  documents?: number[];
+  documents?: Array<number>;
 }
 
 export interface FolderFull extends SimpleFolder {
-  documents?: FileFull[];
+  documents?: Array<FileFull>;
 }
 
 export interface Folders {

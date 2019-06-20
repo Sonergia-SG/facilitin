@@ -7,7 +7,7 @@ import { OperationFull, CheckPoint } from '../../../store/reducer/entities/types
 import inLitige from './helpers/checkPointInLitige';
 
 interface Props {
-  title: String;
+  title: string;
   data: OperationFull;
   loading: boolean;
   checkPoints: Array<CheckPoint>;

@@ -16,7 +16,7 @@ interface Props {
   checkPoints?: Array<CheckPoint>;
   loading: boolean;
   selectedAccordion: number | undefined;
-  handleAccordionClick: (index: number) => () => void
+  handleAccordionClick: (index: number) => () => void;
   folderId: number;
   pending: FolderPendingItem | undefined;
 }
@@ -29,7 +29,9 @@ class Collapsed extends Component<Props> {
   }
 
   render() {
-    const { files, checkPoints, loading, selectedAccordion, handleAccordionClick, folderId, pending } = this.props;
+    const {
+      files, checkPoints, loading, selectedAccordion, handleAccordionClick, folderId, pending,
+    } = this.props;
 
     if (!files || files.length === 0) {
       return (

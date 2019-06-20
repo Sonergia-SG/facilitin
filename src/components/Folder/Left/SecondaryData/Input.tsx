@@ -30,6 +30,10 @@ const Input = ({
 
   const isEdited = value !== undefined;
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    update(idDpOperation, valueKey, e.target.value);
+  };
+
   return (
     <Fragment>
       <label htmlFor={valueKey}>{label}</label>
@@ -40,8 +44,7 @@ const Input = ({
         className={`input${isEdited ? ' is-info' : ''}`}
         disabled={disabled}
         value={typeof value === 'string' ? value : cleanOriginalValue}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => update(idDpOperation, valueKey, e.target.value)
-        }
+        onChange={handleChange}
       />
     </Fragment>
   );

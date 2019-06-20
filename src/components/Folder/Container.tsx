@@ -36,22 +36,21 @@ const Container = ({
             onMouseEnter={() => updateHover(true)}
             onMouseLeave={() => updateHover(false)}
             className="button is-medium"
+            type="button"
             onClick={toggleComments}
             onKeyDown={toggleComments}
-            role="button"
-            tabIndex={0}
           >
             <span className="icon is-medium">
               <i style={{ color: 'black' }} className="fas fa-envelope" />
             </span>
           </button>
           {displayLastMessage && (
-          <div className="Folder-Header-NotigBadge" />
+            <div className="Folder-Header-NotigBadge" />
           )}
           {!commentsOpened && displayLastMessage && hover && (
-          <p className="Folder-Header-MessageOverlay">
-            {idx(lastComment, _ => _.message)}
-          </p>
+            <p className="Folder-Header-MessageOverlay">
+              {idx(lastComment, _ => _.message)}
+            </p>
           )}
         </div>
       </div>

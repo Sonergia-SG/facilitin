@@ -6,7 +6,7 @@ import { CheckPoint, FileFull } from '../../store/reducer/entities/types';
 
 // const nonCoche = !pointControle.some(v => v.controle_valide === 1);
 // return nonCoche;
-const pointManuelNonCoche = (pointControle: CheckPoint[]) => false;
+const pointManuelNonCoche = (pointControle: Array<CheckPoint>) => false;
 // if (str.nb_bad_controle_auto > 0) return 'accordion_bad_controle';
 // if (str.litige === 1) return 'accordion_litige';
 // const manuelIsEmpty = pointManuelNonCoche(str.point_controle);

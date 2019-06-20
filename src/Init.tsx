@@ -7,7 +7,7 @@ import './css/index.css';
 import Router from './components/Router';
 
 import storeCreator, { getStore } from './store';
-import Alert from './components/Alert'
+import Alert from './components/Alert';
 
 class Init extends Component {
   state = {

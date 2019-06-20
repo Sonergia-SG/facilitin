@@ -82,11 +82,10 @@ export const listUpdateSorted = (sorted: Sorted): ListListSortedAction => ({
 export const loadList = (toTab?: Tab): ThunkAction => async (
   dispatch,
   getState,
-) => {
+): Promise<void> => {
   const tab = toTab || getState().views.list.selectedTab;
 
   dispatch(listLoading(tab));
-  const { apiKey } = getState().user;
 
   if (toTab !== undefined && toTab !== getState().views.list.selectedTab) {
     dispatch(listChangeTab(toTab));
@@ -99,7 +98,8 @@ export const loadList = (toTab?: Tab): ThunkAction => async (
 
     if (json.status === 'success') {
       // ! add flat values here
-      const normalized = normalize<Entities, { values: number[] }>(json, { values: [operation] });
+      interface Result { values: Array<number> }
+      const normalized = normalize<Entities, Result>(json, { values: [operation] });
       dispatch(listLoaded(normalized, tab));
     } else {
       addMessageToQueue({

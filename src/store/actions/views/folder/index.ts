@@ -201,11 +201,11 @@ export const updateFolderCheckPoint = ({
     if (result.status === 200) {
       interface JSONType {
         status: 'success' | 'fail';
-        statut_actuel: {
+        statut_actuel: Array<{
           code_statut: 0 | 15;
           label_public: string;
           code_couleur: string;
-        }[];
+        }>;
       }
       const json: JSONType = await result.json();
       const jsonStatusCode = idx(json, _ => _.statut_actuel[0].code_statut);
@@ -350,11 +350,11 @@ export const folderFileInLitige = (
     if (result.status === 200) {
       interface JSON {
         status: 'success' | 'fail';
-        statut_file: {
+        statut_file: Array<{
           code_statut: 10 | 15;
           label_public: string;
           code_couleur: string;
-        }[];
+        }>;
       }
       const json: JSON = await result.json();
       const statutFile = idx(json, _ => _.statut_file[0].code_statut);

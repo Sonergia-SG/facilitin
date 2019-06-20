@@ -8,7 +8,7 @@ import EndButton from './EndButton';
 import SecondaryData from './SecondaryData';
 
 interface Props {
-  title: String;
+  title: string;
   data: OperationFull;
   loading: boolean;
   selectedAccordion: number | undefined;

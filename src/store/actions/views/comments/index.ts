@@ -63,7 +63,7 @@ export const loadComments = (
     if (result.status === 200) {
       interface JSON {
         status: 'success' | 'fail';
-        value: CommentFull[];
+        value: Array<CommentFull>;
       }
       const json: JSON = await result.json();
 

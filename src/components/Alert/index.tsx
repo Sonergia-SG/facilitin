@@ -9,17 +9,28 @@ interface PublicMessage {
   duration: number;
   type: 'info' | 'warning' | 'error';
   message: string;
-};
+}
 
-interface Message extends PublicMessage{
+interface Message extends PublicMessage {
   key: string;
-};
+}
 
 interface State {
   messages: Array<Message>;
 }
 
 let internalAddMessageToQueue: (message: PublicMessage) => void;
+
+const optToastClass = (toast: Message) => {
+  switch (toast.type) {
+    case 'error':
+      return ' Alert-Toast-Error';
+    case 'warning':
+      return ' Alert-Toast-Warning';
+    default:
+      return '';
+  }
+};
 
 class Alert extends Component<{}, State> {
   state: Readonly<State> = {
@@ -31,9 +42,10 @@ class Alert extends Component<{}, State> {
   }
 
   addMessage = (message: PublicMessage) => {
+    const { messages } = this.state;
     this.setState(
       {
-        messages: [...this.state.messages, { key: uuidv4(), ...message}],
+        messages: [...messages, { key: uuidv4(), ...message }],
       },
       () => {
         if (this.state.messages.length === 1) this.listenMessages();
@@ -55,8 +67,9 @@ class Alert extends Component<{}, State> {
   };
 
   removeMessage = () => {
+    const { messages } = this.state;
     this.setState({
-      messages: this.state.messages.slice(1),
+      messages: messages.slice(1),
     });
   };
 
@@ -90,28 +103,13 @@ const Toasts = ({ messages }: { messages: Array<Message> }) => {
   return (
     <div>
       {transitions.map(({ item, key, props }) => (
-        <animated.div
-          key={key}
-          style={props}
-          className={`Alert-Toast${optToastClass(item)}`}
-        >
+        <animated.div key={key} style={props} className={`Alert-Toast${optToastClass(item)}`}>
           <p className="Alert-Message">{item.message}</p>
         </animated.div>
       ))}
     </div>
   );
 };
-
-const optToastClass = (toast: Message) => {
-  switch (toast.type) {
-    case 'error':
-      return ' Alert-Toast-Error'
-    case 'warning':
-      return ' Alert-Toast-Warning'
-    default:
-      return ''
-  }
-}
 
 export const addMessageToQueue = (message: PublicMessage) => {
   if (internalAddMessageToQueue) {

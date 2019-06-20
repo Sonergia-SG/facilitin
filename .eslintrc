@@ -38,7 +38,10 @@
     ],
     "@typescript-eslint/camelcase": "warning",
     "@typescript-eslint/indent": ["error", 2],
-    "@typescript-eslint/no-empty-interface": "warning"
+    "@typescript-eslint/no-empty-interface": "warning",
+    "@typescript-eslint/array-type": ["error", "generic"],
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "@typescript-eslint/explicit-function-return-type": "off"
   },
   "overrides": [
     {

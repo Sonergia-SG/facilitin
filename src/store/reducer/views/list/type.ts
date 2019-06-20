@@ -27,8 +27,8 @@ export enum Tab {
 
 export interface TabState {
   page: Tab;
-  data: number[];
-  sorted: Sorted[];
+  data: Array<number>;
+  sorted: Array<Sorted>;
   loading: boolean;
 }
 
@@ -51,7 +51,7 @@ export interface ListListLoadingAction {
 
 export interface ListListLoadedNormalized {
   result: {
-    values: number[];
+    values: Array<number>;
   };
 }
 
