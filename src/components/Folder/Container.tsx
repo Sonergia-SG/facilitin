@@ -19,12 +19,18 @@ interface Props {
 }
 
 const Container = ({
-  children, toggleComments, comments, entities, userId, commentsOpened,
+  children,
+  toggleComments,
+  comments,
+  entities,
+  userId,
+  commentsOpened,
 }: Props) => {
   const normalizedComments: Array<CommentFull> = denormalize(comments, [comment], entities);
   const lastComment = idx(normalizedComments, _ => _[normalizedComments.length - 1]);
 
-  const displayLastMessage = idx(lastComment, _ => _.user.id_user) !== userId;
+  const lastMsgUserId = idx(lastComment, _ => _.user.id_user);
+  const displayLastMessage = lastMsgUserId === undefined ? false : lastMsgUserId !== userId;
   const [hover, updateHover] = useState(false);
 
   return (
@@ -36,22 +42,17 @@ const Container = ({
             onMouseEnter={() => updateHover(true)}
             onMouseLeave={() => updateHover(false)}
             className="button is-medium"
+            type="button"
             onClick={toggleComments}
             onKeyDown={toggleComments}
-            role="button"
-            tabIndex={0}
           >
             <span className="icon is-medium">
               <i style={{ color: 'black' }} className="fas fa-envelope" />
             </span>
           </button>
-          {displayLastMessage && (
-          <div className="Folder-Header-NotigBadge" />
-          )}
+          {displayLastMessage && <div className="Folder-Header-NotigBadge" />}
           {!commentsOpened && displayLastMessage && hover && (
-          <p className="Folder-Header-MessageOverlay">
-            {idx(lastComment, _ => _.message)}
-          </p>
+            <p className="Folder-Header-MessageOverlay">{idx(lastComment, _ => _.message)}</p>
           )}
         </div>
       </div>

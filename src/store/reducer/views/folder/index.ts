@@ -18,6 +18,9 @@ import {
   FOLDER_FILE_LITIGE_LOADING,
   FOLDER_FILE_LITIGE_LOADED,
   FOLDER_FILE_LITIGE_ERROR,
+  FOLDER_ENDING_LOADING,
+  FOLDER_ENDING_LOADED,
+  FOLDER_ENDING_ERROR,
 } from '../../../types';
 
 const initialState = {
@@ -193,6 +196,31 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
           [action.idDpOperation]: undefined,
         },
       };
+    case FOLDER_ENDING_LOADING: {
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...state.pending[action.idDpOperation],
+            endingLoading: true,
+          },
+        },
+      };
+    }
+    case FOLDER_ENDING_ERROR:
+    case FOLDER_ENDING_LOADED: {
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...state.pending[action.idDpOperation],
+            endingLoading: false,
+          },
+        },
+      };
+    }
     case LOGOUT:
       return initialState;
     default:
