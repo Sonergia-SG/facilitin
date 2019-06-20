@@ -16,11 +16,7 @@ export const checkPoint = new schema.Entity(
 
 export const file = new schema.Entity('files', {}, { idAttribute: 'id_dp_file' });
 
-export const folder = new schema.Entity(
-  'folders',
-  {},
-  { idAttribute: 'id_dossierprime' },
-);
+export const folder = new schema.Entity('folders', {}, { idAttribute: 'id_dossierprime' });
 
 export const operation = new schema.Entity(
   'operations',
@@ -32,11 +28,7 @@ export const operation = new schema.Entity(
   { idAttribute: 'id_dp_operation' },
 );
 
-export const user = new schema.Entity(
-  'users',
-  {},
-  { idAttribute: 'id_user' },
-);
+export const user = new schema.Entity('users', {}, { idAttribute: 'id_user' });
 
 export const comment = new schema.Entity(
   'comments',

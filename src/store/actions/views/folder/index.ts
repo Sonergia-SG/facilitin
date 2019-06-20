@@ -7,6 +7,11 @@ import captureException from '../../../../tools/errorReporting/captureException'
 import { API_PATH } from '../../../../variables';
 
 import {
+  FolderEndingResponse,
+  FolderFileLitigeResponse,
+  FolderUpdateCheckPointResponse,
+} from './apiTypes';
+import {
   FOLDER_UPDATE_CHECK_POINT_LOADING,
   FOLDER_UPDATE_CHECK_POINT_LOADED,
   FOLDER_UPDATE_CHECK_POINT_ERROR,
@@ -21,6 +26,9 @@ import {
   FOLDER_FILE_LITIGE_LOADING,
   FOLDER_FILE_LITIGE_LOADED,
   FOLDER_FILE_LITIGE_ERROR,
+  FOLDER_ENDING_LOADING,
+  FOLDER_ENDING_LOADED,
+  FOLDER_ENDING_ERROR,
 } from '../../../types';
 
 import { operation } from '../../../reducer/entities/schema';
@@ -40,6 +48,9 @@ import {
   FolderFolderLitigeLoading,
   FolderFolderLitigeLoaded,
   FolderFolderLitigeError,
+  FolderFolderEndingLoading,
+  FolderFolderEndingLoaded,
+  FolderFolderEndingError,
 } from '../../../reducer/views/folder/types';
 import { ListListLoadedNormalized } from '../../../reducer/views/list/type';
 import {
@@ -50,6 +61,8 @@ import {
   CheckPointsFolderUpdateCheckpointErrorAction,
   FilesFolcerCheckPointLoaded,
   FileLitigeLoaded,
+  OperationStatus,
+  OperationsFolderEndingLoaded,
 } from '../../../reducer/entities/types';
 import rest from '../../../../tools/rest';
 
@@ -187,6 +200,15 @@ export const updateFolderCheckPoint = ({
   const checkPoint = getState().entities.checkPoints[checkPointId];
   const prevValue = checkPoint ? checkPoint.pivot.valide : 0;
 
+  const dispatchError = () => {
+    addMessageToQueue({
+      duration: 2500,
+      type: 'error',
+      message: 'Erreur pendant la mise à jout du point de controle',
+    });
+    dispatch(folderUpdateCheckPointError({ folderId, checkPointId, prevValue }));
+  };
+
   dispatch(folderUpdateCheckPointLoading({ folderId, checkPointId, prevValue }));
 
   try {
@@ -199,41 +221,28 @@ export const updateFolderCheckPoint = ({
     });
 
     if (result.status === 200) {
-      interface JSONType {
-        status: 'success' | 'fail';
-        statut_actuel: Array<{
-          code_statut: 0 | 15;
-          label_public: string;
-          code_couleur: string;
-        }>;
+      const json: FolderUpdateCheckPointResponse = await result.json();
+
+      if (json.status === 'success') {
+        const jsonStatusCode = idx(json, _ => _.statut_actuel[0].code_statut);
+        const statusCode = typeof jsonStatusCode === 'number' ? jsonStatusCode : null;
+        dispatch(
+          folderUpdateCheckPointLoaded({
+            folderId,
+            checkPointId,
+            idDpFile,
+            statusCode,
+          }),
+        );
+      } else {
+        dispatchError();
       }
-      const json: JSONType = await result.json();
-      const jsonStatusCode = idx(json, _ => _.statut_actuel[0].code_statut);
-      const statusCode = typeof jsonStatusCode === 'number' ? jsonStatusCode : null;
-      dispatch(
-        folderUpdateCheckPointLoaded({
-          folderId,
-          checkPointId,
-          idDpFile,
-          statusCode,
-        }),
-      );
     } else {
-      addMessageToQueue({
-        duration: 2500,
-        type: 'error',
-        message: 'Erreur pendant la mise à jout du point de controle',
-      });
-      dispatch(folderUpdateCheckPointError({ folderId, checkPointId, prevValue }));
+      dispatchError();
     }
   } catch (error) {
     captureException(error);
-    addMessageToQueue({
-      duration: 2500,
-      type: 'error',
-      message: 'Erreur pendant la mise à jout du point de controle',
-    });
-    dispatch(folderUpdateCheckPointError({ folderId, checkPointId, prevValue }));
+    dispatchError();
   }
 };
 
@@ -348,19 +357,77 @@ export const folderFileInLitige = (
     const result = await rest(`${API_PATH}setlitige/${idDpFile}`, { method: 'put' });
 
     if (result.status === 200) {
-      interface JSON {
-        status: 'success' | 'fail';
-        statut_file: Array<{
-          code_statut: 10 | 15;
-          label_public: string;
-          code_couleur: string;
-        }>;
-      }
-      const json: JSON = await result.json();
-      const statutFile = idx(json, _ => _.statut_file[0].code_statut);
+      const json: FolderFileLitigeResponse = await result.json();
+      if (json.status === 'success') {
+        const statutFile = idx(json, _ => _.statut_file[0].code_statut);
 
-      if (statutFile) {
-        dispatch(folderFileLitigeLoaded(idDpOperation, statutFile, idDpFile));
+        if (statutFile) {
+          dispatch(folderFileLitigeLoaded(idDpOperation, statutFile, idDpFile));
+        } else {
+          dispatchError();
+        }
+      } else {
+        dispatchError();
+      }
+    } else {
+      dispatchError();
+    }
+  } catch (error) {
+    captureException(error);
+    dispatchError();
+  }
+};
+
+type FolderEndingLoading = (idDpOperation: number) => FolderFolderEndingLoading;
+
+const folderEndingLoading: FolderEndingLoading = idDpOperation => ({
+  type: FOLDER_ENDING_LOADING,
+  idDpOperation,
+});
+
+type FolderEndingLoaded = (
+  idDpOperation: number,
+  status: OperationStatus
+) => FolderFolderEndingLoaded & OperationsFolderEndingLoaded;
+
+const folderEndingLoaded: FolderEndingLoaded = (idDpOperation, status) => ({
+  type: FOLDER_ENDING_LOADED,
+  idDpOperation,
+  status,
+});
+
+type FolderEndingError = (idDpOperation: number) => FolderFolderEndingError;
+
+const folderEndingError: FolderEndingError = idDpOperation => ({
+  type: FOLDER_ENDING_ERROR,
+  idDpOperation,
+});
+
+type FolderEnding = (idDpOperation: number) => ThunkAction;
+
+export const folderEnding: FolderEnding = idDpOperation => async (dispatch) => {
+  const dispatchError = () => {
+    addMessageToQueue({
+      duration: 3000,
+      message: "Erreur pendant le traitement de validation de l'opération",
+      type: 'error',
+    });
+    dispatch(folderEndingError(idDpOperation));
+  };
+
+  try {
+    dispatch(folderEndingLoading(idDpOperation));
+
+    const result = await rest(`${API_PATH}actions/${idDpOperation}/terminerinstruction`, {
+      method: 'put',
+    });
+
+    if (result.status === 200) {
+      const json: FolderEndingResponse = await result.json();
+
+      if (json.status === 'success') {
+        const [status] = json.statut_action;
+        dispatch(folderEndingLoaded(idDpOperation, status));
       } else {
         dispatchError();
       }

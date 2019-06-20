@@ -8,6 +8,7 @@ import {
   FOLDER_UPDATE_CHECK_POINT_ERROR,
   COMMENTS_LIST_LOADED,
   FOLDER_FILE_LITIGE_LOADED,
+  FOLDER_ENDING_LOADED,
 } from '../../types';
 
 export interface User {
@@ -177,7 +178,7 @@ export interface FolderFull extends SimpleFolder {
 }
 
 export interface Folders {
-  [index: number]: File;
+  [index: number]: Folder;
 }
 
 export interface CheckPointCategory {
@@ -210,17 +211,20 @@ export interface CheckPoints {
   [index: number]: CheckPoint;
 }
 
+export interface OperationStatus {
+  code_statut?: number;
+  label_public?: string;
+  id_statut?: number;
+  code_couleur?: string;
+  label_prive?: string;
+}
+
 export interface OperationSimple {
   id_dp_operation: number;
   id_dossierprime: number;
   id_operation: number;
   code_operation: string;
-  statut?: {
-    code_statut?: number;
-    label_public?: string;
-    id_statut?: number;
-    label_prive?: string;
-  };
+  statut?: OperationStatus;
   moderemuneration: {
     id_remuneration: number;
     delai_instruction: string;
@@ -367,12 +371,19 @@ export interface OperationsListLoadedAction {
   normalized: Normalized;
 }
 
+export interface OperationsFolderEndingLoaded {
+  type: typeof FOLDER_ENDING_LOADED;
+  status: OperationStatus;
+  idDpOperation: number;
+}
+
 export interface OperationsLogoutAction {
   type: typeof LOGOUT;
 }
 
 export type OperationsActions = | OperationsFolderLoadedAction
 | OperationsListLoadedAction
+| OperationsFolderEndingLoaded
 | OperationsLogoutAction;
 
 export interface UsersCommentsListLoadedAction {

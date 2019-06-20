@@ -14,6 +14,9 @@ import {
   FOLDER_FILE_LITIGE_LOADING,
   FOLDER_FILE_LITIGE_ERROR,
   FOLDER_FILE_LITIGE_LOADED,
+  FOLDER_ENDING_LOADING,
+  FOLDER_ENDING_LOADED,
+  FOLDER_ENDING_ERROR,
 } from '../../../types';
 import { BooleanNumber } from '../../entities/types';
 
@@ -22,12 +25,13 @@ export type FolderCheckPointStatus = 'SENDING' | 'ERROR';
 export interface FolderPendingItem {
   loading?: boolean;
   moaLoading?: boolean;
+  endingLoading?: boolean;
+  litigeLoading?: boolean;
   litige?: {
     [index: number]: {
       loading: boolean;
     };
   };
-  litigeLoading?: boolean;
   checkPoint?: {
     [index: number]:
     | {
@@ -132,6 +136,21 @@ export interface FolderFolderLitigeLoaded {
   idDpFile: number;
 }
 
+export interface FolderFolderEndingLoading {
+  type: typeof FOLDER_ENDING_LOADING;
+  idDpOperation: number;
+}
+
+export interface FolderFolderEndingLoaded {
+  type: typeof FOLDER_ENDING_LOADED;
+  idDpOperation: number;
+}
+
+export interface FolderFolderEndingError {
+  type: typeof FOLDER_ENDING_ERROR;
+  idDpOperation: number;
+}
+
 export type FolderAction = | FolderFolderLoadingAction
 | FolderFolderErrorAction
 | FolderFolderLoadedAction
@@ -146,4 +165,7 @@ export type FolderAction = | FolderFolderLoadingAction
 | FolderFolderLitigeLoading
 | FolderFolderLitigeLoaded
 | FolderFolderLitigeError
+| FolderFolderEndingLoading
+| FolderFolderEndingLoaded
+| FolderFolderEndingError
 | FolderLogoutAction;

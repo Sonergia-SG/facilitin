@@ -44,6 +44,7 @@ const Edit = ({
   return (
     <div className="tile is-ancestor">
       <Left
+        pending={folderPending}
         selectedAccordion={selectedAccordion}
         handleAccordionClick={handleAccordionClick}
         loading={loading}
