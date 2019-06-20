@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/camelcase */
+
 import StateToColor from '../index.ts';
 
 describe('Test StateToColor', () => {

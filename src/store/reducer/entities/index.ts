@@ -15,5 +15,5 @@ export default combineReducers({
   operations,
   files,
   comments,
-  users
+  users,
 });

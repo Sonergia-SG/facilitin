@@ -9,15 +9,11 @@ interface Props {
   data: OperationFull;
 }
 
+type Selected = 'MOA' | 'MOE' | 'SITE';
+
 interface State {
   selected?: Selected;
   edit: boolean;
-}
-
-enum Selected {
-  MOA,
-  MOE,
-  SITE,
 }
 
 class SecondaryData extends Component<Props, State> {
@@ -50,9 +46,9 @@ class SecondaryData extends Component<Props, State> {
     const { data } = this.props;
     const { selected, edit } = this.state;
 
-    const moaSelected = selected === Selected.MOA;
-    const moeSelected = selected === Selected.MOE;
-    const siteSelected = selected === Selected.SITE;
+    const moaSelected = selected === 'MOA';
+    const moeSelected = selected === 'MOE';
+    const siteSelected = selected === 'SITE';
 
     const someoneSelected = !!edit;
 
@@ -63,23 +59,38 @@ class SecondaryData extends Component<Props, State> {
       >
         <div className="SecondaryData-Items">
           <div
-            onMouseEnter={this.select(Selected.MOA)}
+            onMouseEnter={this.select('MOA')}
             onClick={this.editMode}
-            className={`SecondaryData-Item${someoneSelected  ? '' : ' SecondaryDataSelectable'}${moaSelected ? ' SecondaryData-Item-Selected' : ''}`}
+            onKeyPress={this.editMode}
+            className={`SecondaryData-Item${someoneSelected ? '' : ' SecondaryDataSelectable'}${
+              moaSelected ? ' SecondaryData-Item-Selected' : ''
+            }`}
+            role="button"
+            tabIndex={0}
           >
             {'MOA'}
           </div>
           <div
-            onMouseEnter={this.select(Selected.MOE)}
+            onMouseEnter={this.select('MOE')}
             onClick={this.editMode}
-            className={`SecondaryData-Item${someoneSelected  ? '' : ' SecondaryDataSelectable'}${moeSelected ? ' SecondaryData-Item-Selected' : ''}`}
+            onKeyPress={this.editMode}
+            className={`SecondaryData-Item${someoneSelected ? '' : ' SecondaryDataSelectable'}${
+              moeSelected ? ' SecondaryData-Item-Selected' : ''
+            }`}
+            role="button"
+            tabIndex={0}
           >
             {'MOE'}
           </div>
           <div
-            onMouseEnter={this.select(Selected.SITE)}
+            onMouseEnter={this.select('SITE')}
             onClick={this.editMode}
-            className={`SecondaryData-Item${someoneSelected  ? '' : ' SecondaryDataSelectable'}${siteSelected ? ' SecondaryData-Item-Selected' : ''}`}
+            onKeyPress={this.editMode}
+            className={`SecondaryData-Item${someoneSelected ? '' : ' SecondaryDataSelectable'}${
+              siteSelected ? ' SecondaryData-Item-Selected' : ''
+            }`}
+            role="button"
+            tabIndex={0}
           >
             {'Travaux'}
           </div>

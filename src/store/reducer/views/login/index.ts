@@ -1,4 +1,4 @@
-import { LoginState, LoginAction } from './types'
+import { LoginState, LoginAction } from './types';
 import {
   LOGIN_LOADING,
   LOGIN_LOADED,

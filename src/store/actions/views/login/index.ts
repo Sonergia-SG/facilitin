@@ -25,7 +25,7 @@ import {
   LoginLoginUpdateEmailAction,
   LoginLoginUpdatePasswordAction,
 } from '../../../reducer/views/login/types';
-import { ThunkAction } from '../../../actions';
+import { ThunkAction } from '../..';
 
 export const loginLoading = (): LoginLoginLoadingAction => ({
   type: LOGIN_LOADING,
@@ -100,7 +100,7 @@ export const loginRequest = (): ThunkAction => async (
         dispatch(addToken(json.api_key));
       }
     } catch (error) {
-      type KnowErrors = { [index: string]: string };
+      interface KnowErrors { [index: string]: string }
       const knowErrors: KnowErrors = {
         [ERROR_APPEND]: "Une erreur s'est produite",
         [WRONG_ID]: 'Identifiants inconnus',

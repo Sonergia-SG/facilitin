@@ -8,7 +8,7 @@ import idx from 'idx';
 import StateToColor from '../../StateToColor';
 import DropZone from '../../DropZone';
 import CheckPoints from './CheckPoints';
-import DownloadFile from './DownloadFile'
+import DownloadFile from './DownloadFile';
 
 import { folderFileInLitige } from '../../../store/actions/views/folder';
 

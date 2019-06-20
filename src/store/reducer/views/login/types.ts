@@ -10,9 +10,9 @@ import {
 } from '../../../types';
 
 export interface Errors {
-  email: string | null,
-  password: string | null,
-  formulaire: string | null,
+  email: string | null;
+  password: string | null;
+  formulaire: string | null;
 }
 
 export interface LoginState {

@@ -9,7 +9,7 @@ import SecondaryData from './SecondaryData';
 import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 
 interface Props {
-  title: String;
+  title: string;
   data: OperationFull;
   loading: boolean;
   selectedAccordion: number | undefined;

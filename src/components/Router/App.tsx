@@ -20,7 +20,7 @@ interface Props {
   getInfos: any;
 }
 
-class LoadOnMount extends Component<{ getInfos: any, children: ReactNode }> {
+class LoadOnMount extends Component<{ getInfos: any; children: ReactNode }> {
   componentDidMount() {
     this.props.getInfos();
   }

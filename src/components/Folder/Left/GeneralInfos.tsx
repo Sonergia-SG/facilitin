@@ -9,7 +9,7 @@ import inLitige from './helpers/checkPointInLitige';
 import Status from './Status';
 
 interface Props {
-  title: String;
+  title: string;
   data: OperationFull;
   loading: boolean;
   checkPoints: Array<CheckPoint>;

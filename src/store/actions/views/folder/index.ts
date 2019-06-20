@@ -66,11 +66,11 @@ import {
 } from '../../../reducer/entities/types';
 import rest from '../../../../tools/rest';
 
-type FolderUpdateCheckPointLoadingParams = {
+interface FolderUpdateCheckPointLoadingParams {
   folderId: number;
   checkPointId: number;
   prevValue: BooleanNumber;
-};
+}
 
 export const folderUpdateCheckPointLoading = ({
   folderId,
@@ -84,12 +84,12 @@ CheckPointsFolderUpdateCheckpointLoadingAction => ({
   prevValue,
 });
 
-type FolderUpdateCheckPointLoadedParams = {
+interface FolderUpdateCheckPointLoadedParams {
   folderId: number;
   checkPointId: number;
   statusCode: number | null;
   idDpFile: number;
-};
+}
 
 export const folderUpdateCheckPointLoaded = ({
   folderId,
@@ -105,11 +105,11 @@ FilesFolcerCheckPointLoaded => ({
   statusCode,
   idDpFile,
 });
-type FolderUpdateCheckPointErrorParams = {
+interface FolderUpdateCheckPointErrorParams {
   folderId: number;
   checkPointId: number;
   prevValue: BooleanNumber;
-};
+}
 
 export const folderUpdateCheckPointError = ({
   folderId,
@@ -193,9 +193,9 @@ export const updateFolderCheckPoint = ({
   checkPointId,
   idDpFile,
 }: {
-folderId: number;
-checkPointId: number;
-idDpFile: number;
+  folderId: number;
+  checkPointId: number;
+  idDpFile: number;
 }): ThunkAction => async (dispatch, getState) => {
   const checkPoint = getState().entities.checkPoints[checkPointId];
   const prevValue = checkPoint ? checkPoint.pivot.valide : 0;

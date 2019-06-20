@@ -1,4 +1,4 @@
-import { ListState, ListAction, Tab } from './type'
+import { ListState, ListAction, Tab } from './type';
 
 import {
   LIST_LOADING,

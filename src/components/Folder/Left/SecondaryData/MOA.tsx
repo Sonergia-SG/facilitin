@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import {
@@ -42,9 +42,9 @@ const MOA = ({
   if (!dossierprime) return <p>Unavailable</p>;
 
   const loading = !!pending && !!pending.moaLoading;
-  const edited = !!pending && !!pending.moa
+  const edited = !!pending && !!pending.moa;
 
-  const disabledInput = !edit || loading
+  const disabledInput = !edit || loading;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>

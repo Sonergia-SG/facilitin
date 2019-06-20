@@ -12,9 +12,9 @@ import {
 } from '../../types';
 
 export interface User {
-  id_user: number,
-  nom: string,
-  prenom: string,
+  id_user: number;
+  nom: string;
+  prenom: string;
 }
 
 export interface Users {
@@ -22,18 +22,18 @@ export interface Users {
 }
 
 export interface CommentSimple {
-  id_log: number,
-  id_user: number,
-  date_log: string,
-  message: string,
+  id_log: number;
+  id_user: number;
+  date_log: string;
+  message: string;
 }
 
 export interface Comment extends CommentSimple {
-  user: number
+  user: number;
 }
 
 export interface CommentFull extends CommentSimple {
-  user: User
+  user: User;
 }
 
 export interface Comments {
@@ -283,9 +283,9 @@ export interface FilesLogoutAction {
 }
 
 export type FilesActions = | FilesFolderLoadedAction
-  | FilesFolcerCheckPointLoaded
-  | FileLitigeLoaded
-  | FilesLogoutAction;
+| FilesFolcerCheckPointLoaded
+| FileLitigeLoaded
+| FilesLogoutAction;
 
 export interface FoldersFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -308,9 +308,9 @@ export interface FoldersUpdateMoaLoaded {
 }
 
 export type FoldersActions = | FoldersFolderLoadedAction
-  | FoldersLogoutAction
-  | FoldersUpdateMoaLoaded
-  | FoldersListLoadedAction;
+| FoldersLogoutAction
+| FoldersUpdateMoaLoaded
+| FoldersListLoadedAction;
 
 export interface CheckPointsFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -344,11 +344,11 @@ export interface CheckPointsFolderUpdateCheckpointErrorAction {
 }
 
 export type CheckPointsActions = | CheckPointsFolderUpdateCheckpointLoadingAction
-  | CheckPointsFolderUpdateChekpointLoadedAction
-  | CheckPointsFolderUpdateCheckpointErrorAction
-  | CheckPointsFolderLoadedAction
-  | CheckPointsListLoadedAction
-  | CheckPointsLogoutAction;
+| CheckPointsFolderUpdateChekpointLoadedAction
+| CheckPointsFolderUpdateCheckpointErrorAction
+| CheckPointsFolderLoadedAction
+| CheckPointsListLoadedAction
+| CheckPointsLogoutAction;
 
 export interface CheckPointCategoriesFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -360,7 +360,7 @@ export interface CheckPointCategoriesLogoutAction {
 }
 
 export type CheckPointCategoriesActions = | CheckPointCategoriesFolderLoadedAction
-  | CheckPointCategoriesLogoutAction;
+| CheckPointCategoriesLogoutAction;
 
 export interface OperationsFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -382,9 +382,9 @@ export interface OperationsLogoutAction {
 }
 
 export type OperationsActions = | OperationsFolderLoadedAction
-  | OperationsListLoadedAction
-  | OperationsFolderEndingLoaded
-  | OperationsLogoutAction;
+| OperationsListLoadedAction
+| OperationsFolderEndingLoaded
+| OperationsLogoutAction;
 
 export interface UsersCommentsListLoadedAction {
   type: typeof COMMENTS_LIST_LOADED;

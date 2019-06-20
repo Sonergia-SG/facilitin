@@ -15,7 +15,7 @@ export type FolderEndingResponse = | {
 };
 
 export type FolderFileLitigeResponse = | {
-  status: 'fail',
+  status: 'fail';
 } | {
   status: 'success';
   statut_file: Array<{
@@ -26,12 +26,12 @@ export type FolderFileLitigeResponse = | {
 }
 
 export type FolderUpdateCheckPointResponse = | {
-  status: 'fail',
+  status: 'fail';
 } | {
-  status: 'success',
+  status: 'success';
   statut_actuel: [{
     code_statut: 0 | 15;
     label_public: string;
     code_couleur: string;
-  }]
+  }];
 }

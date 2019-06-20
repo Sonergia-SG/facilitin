@@ -69,10 +69,10 @@ export interface CommentsPostCommentError {
 }
 
 export type CommentsAction = | CommentsIniAction
-  | CommentsListLoadingAction
-  | CommentsListLoadedAction
-  | CommentsListErrorAction
-  | CommentsUpdateNewMessage
-  | CommentsPostCommentLoading
-  | CommentsPostCommentLoaded
-  | CommentsPostCommentError;
+| CommentsListLoadingAction
+| CommentsListLoadedAction
+| CommentsListErrorAction
+| CommentsUpdateNewMessage
+| CommentsPostCommentLoading
+| CommentsPostCommentLoaded
+| CommentsPostCommentError;

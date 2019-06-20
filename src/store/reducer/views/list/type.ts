@@ -100,12 +100,12 @@ export interface ListInitAction {
 }
 
 export type ListAction = | ListListLoadingAction
-  | ListListLoadedAction
-  | ListListErrorAction
-  | ListListChangeSearchAction
-  | ListListChangeTabAction
-  | ListListChangePageAction
-  | ListListPageSizeAction
-  | ListListSortedAction
-  | ListLogoutAction
-  | ListInitAction;
+| ListListLoadedAction
+| ListListErrorAction
+| ListListChangeSearchAction
+| ListListChangeTabAction
+| ListListChangePageAction
+| ListListPageSizeAction
+| ListListSortedAction
+| ListLogoutAction
+| ListInitAction;

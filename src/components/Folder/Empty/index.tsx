@@ -4,7 +4,7 @@ import Loading from '../../Loading';
 import Error from '../../Error';
 
 interface Props {
-  loading: boolean,
+  loading: boolean;
 }
 
 const Empty = ({ loading }: Props) => (

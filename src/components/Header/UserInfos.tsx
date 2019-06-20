@@ -1,10 +1,10 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
 
-import { UserInfos as UserType, UserFonction } from '../../store/reducer/user/types'
-import { AppState } from '../../store'
+import { UserInfos as UserType, UserFonction } from '../../store/reducer/user/types';
+import { AppState } from '../../store';
 
-import './UserInfos.css'
+import './UserInfos.css';
 import captureException from '../../tools/errorReporting/captureException';
 
 interface Props {
@@ -14,21 +14,25 @@ interface Props {
 const resolveType = (type: UserFonction) => {
   switch (type) {
     case 'instructeur_initial':
-      return 'Instructeur initial'
+      return 'Instructeur initial';
     case 'instructeur_suivi':
-      return 'Instructeur de suivi'
+      return 'Instructeur de suivi';
     case '':
-      return ''
+      return '';
     default:
-      captureException(new Error(`Misssing type : ${type}`))
-      return ''
+      captureException(new Error(`Misssing type : ${type}`));
+      return '';
   }
-}
+};
 
 const UserInfos = ({ user }: Props) => user && (
-  <div className="Header-UserInfos-Container" >
-    <p className="Header-UserInfos-Value" >{user.nom} {user.prenom}</p>
-    <p className="Header-UserInfos-Value" >{resolveType(user.fonction)}</p>
+  <div className="Header-UserInfos-Container">
+    <p className="Header-UserInfos-Value">
+      {user.nom}
+      {' '}
+      {user.prenom}
+    </p>
+    <p className="Header-UserInfos-Value">{resolveType(user.fonction)}</p>
   </div>
 );
 

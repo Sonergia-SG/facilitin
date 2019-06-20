@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface Props {
-  msg: string,
-};
+  msg: string;
+}
 
 const Error = ({ msg }: Props) => (
   <div>

@@ -7,8 +7,8 @@ import Dropzone, { DropEvent } from 'react-dropzone';
 interface FileType extends File {
   name: string;
   path: string;
-  lastModified: number,
-  size: number,
+  lastModified: number;
+  size: number;
   type: string;
 }
 
@@ -21,7 +21,7 @@ class DropZone extends Component<{}, State> {
     files: [],
   };
 
-  onDrop = (acceptedFiles: File[]) => {
+  onDrop = (acceptedFiles: Array<File>) => {
     this.setState({
       files: acceptedFiles,
     });

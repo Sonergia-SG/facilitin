@@ -17,7 +17,7 @@ const initialState: UserState = {
 const user = (state = initialState, action: UserActionTypes): UserState => {
   switch (action.type) {
     case INIT:
-      return { ...state, infosLoading: true }
+      return { ...state, infosLoading: true };
     case USER_ADD_TOKEN:
       return { ...state, apiKey: action.apiKey };
     case USER_INFOS_LOADING:
