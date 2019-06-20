@@ -1,18 +1,19 @@
 import React, { ChangeEvent, Fragment } from 'react';
 import idx from 'idx';
 
-import { folderUpdateMoaValue } from '../../../../store/actions/views/folder';
-import { FolderFull, FolderMOAString } from '../../../../store/reducer/entities/types';
+import { folderUpdateMoaValue, folderUpdateMoeValue } from '../../../../store/actions/views/folder';
+import { FolderFull, FolderMOAString, FolderMOEString } from '../../../../store/reducer/entities/types';
 import { FolderPendingItem } from '../../../../store/reducer/views/folder/types';
 
 interface Props {
   idDpOperation: number;
-  valueKey: keyof FolderMOAString;
+  valueKey: keyof FolderMOAString | keyof FolderMOEString;
   label: string;
   disabled: boolean;
   dossierprime: FolderFull;
   pending?: FolderPendingItem;
-  update: typeof folderUpdateMoaValue;
+  pendingKey: 'moe' | 'moa';
+  update: typeof folderUpdateMoaValue | typeof folderUpdateMoeValue;
 }
 
 const Input = ({
@@ -23,8 +24,9 @@ const Input = ({
   disabled,
   update,
   idDpOperation,
+  pendingKey,
 }: Props) => {
-  const value = idx(pending, _ => _.moa[valueKey]);
+  const value = idx(pending, _ => _[pendingKey][valueKey]);
   const originalValue = dossierprime[valueKey];
   const cleanOriginalValue = originalValue === null ? undefined : originalValue;
 

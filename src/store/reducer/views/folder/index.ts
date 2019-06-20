@@ -11,6 +11,7 @@ import {
   FOLDER_ERROR,
   LOGOUT,
   FOLDER_UPDATE_MOA_VALUE,
+  FOLDER_UPDATE_MOE_VALUE,
   FOLDER_CLEAN_MOA_VALUE,
   FOLDER_UPDATE_MOA_LOADING,
   FOLDER_UPDATE_MOA_LOADED,
@@ -21,6 +22,10 @@ import {
   FOLDER_ENDING_LOADING,
   FOLDER_ENDING_LOADED,
   FOLDER_ENDING_ERROR,
+  FOLDER_CLEAN_MOE_VALUE,
+  FOLDER_UPDATE_MOE_LOADING,
+  FOLDER_UPDATE_MOE_LOADED,
+  FOLDER_UPDATE_MOE_ERROR,
 } from '../../../types';
 
 const initialState = {
@@ -115,6 +120,20 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
           },
         },
       };
+    case FOLDER_UPDATE_MOE_VALUE:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            moe: {
+              ...idx(state, _ => _.pending[action.idDpOperation].moe),
+              [action.key]: action.value,
+            },
+          },
+        },
+      };
     case FOLDER_UPDATE_MOA_LOADING:
       return {
         ...state,
@@ -146,6 +165,40 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
           [action.idDpOperation]: {
             ...idx(state, _ => _.pending[action.idDpOperation]),
             moaLoading: false,
+          },
+        },
+      };
+    case FOLDER_UPDATE_MOE_LOADING:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            moeLoading: true,
+          },
+        },
+      };
+    case FOLDER_UPDATE_MOE_LOADED:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            moeLoading: false,
+            moe: undefined,
+          },
+        },
+      };
+    case FOLDER_UPDATE_MOE_ERROR:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            moeLoading: false,
           },
         },
       };
@@ -193,7 +246,21 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
         ...state,
         pending: {
           ...state.pending,
-          [action.idDpOperation]: undefined,
+          [action.idDpOperation]: {
+            ...state.pending[action.idDpOperation],
+            moa: undefined,
+          },
+        },
+      };
+    case FOLDER_CLEAN_MOE_VALUE:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...state.pending[action.idDpOperation],
+            moe: undefined,
+          },
         },
       };
     case FOLDER_ENDING_LOADING: {

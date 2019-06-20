@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import {
-  folderUpdateMoaValue,
-  folderCleanMoaValue,
-  updateMoaValues,
+  folderUpdateMoeValue,
+  folderCleanMoeValue,
+  updateMoeValues,
 } from '../../../../store/actions/views/folder';
 
 import { FolderFull } from '../../../../store/reducer/entities/types';
@@ -23,12 +23,12 @@ interface ConnectProps {
 
 interface Props extends ConnectProps {
   pending?: FolderPendingItem;
-  updateMoa: typeof folderUpdateMoaValue;
+  updateMoe: typeof folderUpdateMoeValue;
   post: any;
-  clean: typeof folderCleanMoaValue;
+  clean: typeof folderCleanMoeValue;
 }
 
-const MOA = ({
+const MOE = ({
   idDpOperation,
   idDossierPrime,
   edit,
@@ -36,87 +36,28 @@ const MOA = ({
   cancel,
   post,
   pending,
-  updateMoa,
+  updateMoe,
   clean,
 }: Props) => {
   if (!dossierprime) return <p>Unavailable</p>;
 
-  const loading = !!pending && !!pending.moaLoading;
-  const edited = !!pending && !!pending.moa;
+  const loading = !!pending && !!pending.moeLoading;
+  const edited = !!pending && !!pending.moe;
 
   const disabledInput = !edit || loading;
+
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Input
-        label="Nom MOA : "
-        valueKey="moa_nom"
+        label="siret :"
+        valueKey="moe_siret"
         idDpOperation={idDpOperation}
         disabled={disabledInput}
         dossierprime={dossierprime}
         pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Prénom MOA : "
-        valueKey="moa_prenom"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Fonction MOA : "
-        valueKey="moa_fonction"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Adresse rue : "
-        valueKey="moa_rue"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Adresse rue 2 : "
-        valueKey="moa_rue2"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Code Postal : "
-        valueKey="moa_cp"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Ville : "
-        valueKey="moa_ville"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
+        pendingKey="moe"
+        update={updateMoe}
       />
       <div
         style={{
@@ -166,5 +107,5 @@ export default connect(
   (s: AppState, p: ConnectProps) => ({
     pending: s.views.folder.pending[p.idDpOperation],
   }),
-  { updateMoa: folderUpdateMoaValue, clean: folderCleanMoaValue, post: updateMoaValues },
-)(MOA);
+  { updateMoe: folderUpdateMoeValue, clean: folderCleanMoeValue, post: updateMoeValues },
+)(MOE);
