@@ -39,7 +39,7 @@
     "build:dev": "sh -ac 'REACT_APP_API_PATH=https://api-public-dev.sonergia.fr/ && yarn start'",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.js"
+    "lint": "eslint --ext .js,.ts,.tssx src/"
   },
   "browserslist": [
     ">0.2%",
@@ -50,6 +50,8 @@
   "homepage": "https://themis.sonergia.fr/",
   "devDependencies": {
     "@types/react-redux": "^7.0.9",
+    "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/parser": "^1.10.2",
     "babel-eslint": "^9.0.0",
     "eslint-config-airbnb": "^17.1.0",
     "husky": "^2.3.0",

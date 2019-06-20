@@ -3,7 +3,7 @@ import { schema } from 'normalizr';
 export const checkPointCategory = new schema.Entity(
   'checkPointCategories',
   {},
-  { idAttribute: 'id_point_controle_categorie' }
+  { idAttribute: 'id_point_controle_categorie' },
 );
 
 export const checkPoint = new schema.Entity(
@@ -11,7 +11,7 @@ export const checkPoint = new schema.Entity(
   {
     pointcontrolcategories: checkPointCategory,
   },
-  { idAttribute: 'id_point_controle' }
+  { idAttribute: 'id_point_controle' },
 );
 
 export const file = new schema.Entity('files', {}, { idAttribute: 'id_dp_file' });
@@ -19,7 +19,7 @@ export const file = new schema.Entity('files', {}, { idAttribute: 'id_dp_file' }
 export const folder = new schema.Entity(
   'folders',
   {},
-  { idAttribute: 'id_dossierprime' }
+  { idAttribute: 'id_dossierprime' },
 );
 
 export const operation = new schema.Entity(
@@ -36,7 +36,7 @@ export const user = new schema.Entity(
   'users',
   {},
   { idAttribute: 'id_user' },
-)
+);
 
 export const comment = new schema.Entity(
   'comments',
@@ -44,4 +44,4 @@ export const comment = new schema.Entity(
     user,
   },
   { idAttribute: 'id_log' },
-)
+);

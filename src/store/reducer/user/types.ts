@@ -51,8 +51,8 @@ export interface UserLogoutAction {
 }
 
 export type UserActionTypes = | UserInit
-  | UserAddTokenAction
-  | UserLogoutAction
-  | UserInfosLoading
-  | UserInfosLoaded
-  | UserInfosError;
+| UserAddTokenAction
+| UserLogoutAction
+| UserInfosLoading
+| UserInfosLoaded
+| UserInfosError;

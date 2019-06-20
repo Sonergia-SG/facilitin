@@ -53,11 +53,11 @@ import {
 } from '../../../reducer/entities/types';
 import rest from '../../../../tools/rest';
 
-type FolderUpdateCheckPointLoadingParams = {
+interface FolderUpdateCheckPointLoadingParams {
   folderId: number;
   checkPointId: number;
   prevValue: BooleanNumber;
-};
+}
 
 export const folderUpdateCheckPointLoading = ({
   folderId,
@@ -71,12 +71,12 @@ CheckPointsFolderUpdateCheckpointLoadingAction => ({
   prevValue,
 });
 
-type FolderUpdateCheckPointLoadedParams = {
+interface FolderUpdateCheckPointLoadedParams {
   folderId: number;
   checkPointId: number;
   statusCode: number | null;
   idDpFile: number;
-};
+}
 
 export const folderUpdateCheckPointLoaded = ({
   folderId,
@@ -92,11 +92,11 @@ FilesFolcerCheckPointLoaded => ({
   statusCode,
   idDpFile,
 });
-type FolderUpdateCheckPointErrorParams = {
+interface FolderUpdateCheckPointErrorParams {
   folderId: number;
   checkPointId: number;
   prevValue: BooleanNumber;
-};
+}
 
 export const folderUpdateCheckPointError = ({
   folderId,
@@ -180,9 +180,9 @@ export const updateFolderCheckPoint = ({
   checkPointId,
   idDpFile,
 }: {
-folderId: number;
-checkPointId: number;
-idDpFile: number;
+  folderId: number;
+  checkPointId: number;
+  idDpFile: number;
 }): ThunkAction => async (dispatch, getState) => {
   const checkPoint = getState().entities.checkPoints[checkPointId];
   const prevValue = checkPoint ? checkPoint.pivot.valide : 0;
@@ -199,14 +199,14 @@ idDpFile: number;
     });
 
     if (result.status === 200) {
-      type JSONType = {
+      interface JSONType {
         status: 'success' | 'fail';
-        statut_actuel: Array<{
+        statut_actuel: {
           code_statut: 0 | 15;
           label_public: string;
           code_couleur: string;
-        }>;
-      };
+        }[];
+      }
       const json: JSONType = await result.json();
       const jsonStatusCode = idx(json, _ => _.statut_actuel[0].code_statut);
       const statusCode = typeof jsonStatusCode === 'number' ? jsonStatusCode : null;
@@ -329,9 +329,10 @@ const folderFileLitigeError = (
   idDpFile,
 });
 
-export const folderFileInLitige = (idDpOperation: number, idDpFile: number): ThunkAction => async (
-  dispatch,
-) => {
+export const folderFileInLitige = (
+  idDpOperation: number,
+  idDpFile: number,
+): ThunkAction => async (dispatch) => {
   const dispatchError = () => {
     addMessageToQueue({
       duration: 3000,
@@ -347,14 +348,14 @@ export const folderFileInLitige = (idDpOperation: number, idDpFile: number): Thu
     const result = await rest(`${API_PATH}setlitige/${idDpFile}`, { method: 'put' });
 
     if (result.status === 200) {
-      type JSON = {
+      interface JSON {
         status: 'success' | 'fail';
-        statut_file: Array<{
+        statut_file: {
           code_statut: 10 | 15;
           label_public: string;
           code_couleur: string;
-        }>;
-      };
+        }[];
+      }
       const json: JSON = await result.json();
       const statutFile = idx(json, _ => _.statut_file[0].code_statut);
 

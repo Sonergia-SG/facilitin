@@ -61,10 +61,10 @@ export const loadComments = (
     );
 
     if (result.status === 200) {
-      type JSON = {
+      interface JSON {
         status: 'success' | 'fail';
-        value: Array<CommentFull>;
-      };
+        value: CommentFull[];
+      }
       const json: JSON = await result.json();
 
       if (json.value.length > 0) {

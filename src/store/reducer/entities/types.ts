@@ -11,9 +11,9 @@ import {
 } from '../../types';
 
 export interface User {
-  id_user: number,
-  nom: string,
-  prenom: string,
+  id_user: number;
+  nom: string;
+  prenom: string;
 }
 
 export interface Users {
@@ -21,18 +21,18 @@ export interface Users {
 }
 
 export interface CommentSimple {
-  id_log: number,
-  id_user: number,
-  date_log: string,
-  message: string,
+  id_log: number;
+  id_user: number;
+  date_log: string;
+  message: string;
 }
 
 export interface Comment extends CommentSimple {
-  user: number
+  user: number;
 }
 
 export interface CommentFull extends CommentSimple {
-  user: User
+  user: User;
 }
 
 export interface Comments {
@@ -122,9 +122,9 @@ export interface SimpleFolder extends FolderMOAString {
   id_dp_operation: number;
   id_dossierprime: number;
   code_operation: string;
-  moa?: Array<MOA>;
-  moe?: Array<{}>;
-  travaux?: Array<{}>;
+  moa?: MOA[];
+  moe?: {}[];
+  travaux?: {}[];
   moa_est_societe: 0;
   moa_is_syndic: BooleanNumber;
   moa_no_siret: BooleanNumber;
@@ -169,11 +169,11 @@ export interface SimpleFolder extends FolderMOAString {
 }
 
 export interface Folder extends SimpleFolder {
-  documents?: Array<number>;
+  documents?: number[];
 }
 
 export interface FolderFull extends SimpleFolder {
-  documents?: Array<FileFull>;
+  documents?: FileFull[];
 }
 
 export interface Folders {
@@ -279,9 +279,9 @@ export interface FilesLogoutAction {
 }
 
 export type FilesActions = | FilesFolderLoadedAction
-  | FilesFolcerCheckPointLoaded
-  | FileLitigeLoaded
-  | FilesLogoutAction;
+| FilesFolcerCheckPointLoaded
+| FileLitigeLoaded
+| FilesLogoutAction;
 
 export interface FoldersFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -304,9 +304,9 @@ export interface FoldersUpdateMoaLoaded {
 }
 
 export type FoldersActions = | FoldersFolderLoadedAction
-  | FoldersLogoutAction
-  | FoldersUpdateMoaLoaded
-  | FoldersListLoadedAction;
+| FoldersLogoutAction
+| FoldersUpdateMoaLoaded
+| FoldersListLoadedAction;
 
 export interface CheckPointsFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -340,11 +340,11 @@ export interface CheckPointsFolderUpdateCheckpointErrorAction {
 }
 
 export type CheckPointsActions = | CheckPointsFolderUpdateCheckpointLoadingAction
-  | CheckPointsFolderUpdateChekpointLoadedAction
-  | CheckPointsFolderUpdateCheckpointErrorAction
-  | CheckPointsFolderLoadedAction
-  | CheckPointsListLoadedAction
-  | CheckPointsLogoutAction;
+| CheckPointsFolderUpdateChekpointLoadedAction
+| CheckPointsFolderUpdateCheckpointErrorAction
+| CheckPointsFolderLoadedAction
+| CheckPointsListLoadedAction
+| CheckPointsLogoutAction;
 
 export interface CheckPointCategoriesFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -356,7 +356,7 @@ export interface CheckPointCategoriesLogoutAction {
 }
 
 export type CheckPointCategoriesActions = | CheckPointCategoriesFolderLoadedAction
-  | CheckPointCategoriesLogoutAction;
+| CheckPointCategoriesLogoutAction;
 
 export interface OperationsFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -372,8 +372,8 @@ export interface OperationsLogoutAction {
 }
 
 export type OperationsActions = | OperationsFolderLoadedAction
-  | OperationsListLoadedAction
-  | OperationsLogoutAction;
+| OperationsListLoadedAction
+| OperationsLogoutAction;
 
 export interface UsersCommentsListLoadedAction {
   type: typeof COMMENTS_LIST_LOADED;

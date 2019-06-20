@@ -11,14 +11,14 @@ import {
   LIST_SORTED_UPDATE,
 } from '../../../types';
 
-import { addMessageToQueue } from '../../../../components/Alert'
+import { addMessageToQueue } from '../../../../components/Alert';
 
 import { API_PATH } from '../../../../variables';
 import { operation } from '../../../reducer/entities/schema';
 
 import capture from '../../../../tools/errorReporting/captureException';
 
-import { ThunkAction } from '../../../actions';
+import { ThunkAction } from '../..';
 import {
   Tab,
   ListListLoadingAction,
@@ -99,22 +99,22 @@ export const loadList = (toTab?: Tab): ThunkAction => async (
 
     if (json.status === 'success') {
       // ! add flat values here
-      const normalized = normalize<Entities, { values: Array<number> }>(json, { values: [operation] });
+      const normalized = normalize<Entities, { values: number[] }>(json, { values: [operation] });
       dispatch(listLoaded(normalized, tab));
     } else {
       addMessageToQueue({
         duration: 2500,
         type: 'error',
-        message: 'Erreur pendant la mise à jour de la liste'
-      })
+        message: 'Erreur pendant la mise à jour de la liste',
+      });
       dispatch(listError(tab));
     }
   } catch (e) {
     addMessageToQueue({
       duration: 2500,
       type: 'error',
-      message: 'Erreur pendant la mise à jour de la liste'
-    })
+      message: 'Erreur pendant la mise à jour de la liste',
+    });
     capture(e);
     dispatch(listError(tab));
   }

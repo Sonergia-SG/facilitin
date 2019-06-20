@@ -6,7 +6,7 @@ import { LOGOUT, FOLDER_LOADED, LIST_LOADED } from '../../types';
 
 const operations = (
   state: Operations = {},
-  action: OperationsActions
+  action: OperationsActions,
 ): Operations => {
   switch (action.type) {
     case LIST_LOADED:

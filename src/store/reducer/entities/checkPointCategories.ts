@@ -6,7 +6,7 @@ import { LOGOUT, FOLDER_LOADED } from '../../types';
 
 const checkPointCategories = (
   state: CheckPointCategories = {},
-  action: CheckPointCategoriesActions
+  action: CheckPointCategoriesActions,
 ): CheckPointCategories => {
   switch (action.type) {
     case FOLDER_LOADED: {

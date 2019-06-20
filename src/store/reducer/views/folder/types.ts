@@ -30,11 +30,11 @@ export interface FolderPendingItem {
   litigeLoading?: boolean;
   checkPoint?: {
     [index: number]:
-      | {
-          status?: FolderCheckPointStatus;
-          prevValue?: BooleanNumber;
-        }
-      | undefined;
+    | {
+      status?: FolderCheckPointStatus;
+      prevValue?: BooleanNumber;
+    }
+    | undefined;
   };
   moa?: {
     [index: string]: string;
@@ -133,17 +133,17 @@ export interface FolderFolderLitigeLoaded {
 }
 
 export type FolderAction = | FolderFolderLoadingAction
-  | FolderFolderErrorAction
-  | FolderFolderLoadedAction
-  | FolderFolderUpdateCheckpointLoadingAction
-  | FolderFolderUpdateChekpointLoadedAction
-  | FolderFolderUpdateCheckpointErrorAction
-  | FolderFolderUpdateMoaValue
-  | FolderFoldercleanMoaValue
-  | FolderFolderUpdateMoaLoading
-  | FolderFolderUpdateMoaLoaded
-  | FolderFolderUpdateMoaError
-  | FolderFolderLitigeLoading
-  | FolderFolderLitigeLoaded
-  | FolderFolderLitigeError
-  | FolderLogoutAction;
+| FolderFolderErrorAction
+| FolderFolderLoadedAction
+| FolderFolderUpdateCheckpointLoadingAction
+| FolderFolderUpdateChekpointLoadedAction
+| FolderFolderUpdateCheckpointErrorAction
+| FolderFolderUpdateMoaValue
+| FolderFoldercleanMoaValue
+| FolderFolderUpdateMoaLoading
+| FolderFolderUpdateMoaLoaded
+| FolderFolderUpdateMoaError
+| FolderFolderLitigeLoading
+| FolderFolderLitigeLoaded
+| FolderFolderLitigeError
+| FolderLogoutAction;

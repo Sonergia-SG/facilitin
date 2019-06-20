@@ -2,8 +2,15 @@
 import merge from 'lodash.merge';
 import idx from 'idx';
 
-import { CheckPoints, CheckPointsActions } from './types'
-import { LOGOUT, FOLDER_LOADED, LIST_LOADED, FOLDER_UPDATE_CHECK_POINT_LOADING, FOLDER_UPDATE_CHECK_POINT_LOADED, FOLDER_UPDATE_CHECK_POINT_ERROR } from '../../types';
+import { CheckPoints, CheckPointsActions } from './types';
+import {
+  LOGOUT,
+  FOLDER_LOADED,
+  LIST_LOADED,
+  FOLDER_UPDATE_CHECK_POINT_LOADING,
+  FOLDER_UPDATE_CHECK_POINT_LOADED,
+  FOLDER_UPDATE_CHECK_POINT_ERROR,
+} from '../../types';
 
 const checkPoints = (state: CheckPoints = {}, action: CheckPointsActions): CheckPoints => {
   switch (action.type) {
@@ -13,7 +20,7 @@ const checkPoints = (state: CheckPoints = {}, action: CheckPointsActions): Check
       return merge({}, state, c);
     }
     case FOLDER_UPDATE_CHECK_POINT_LOADING: {
-      if (!idx(state, _ => _[action.checkPointId].pivot)) return state
+      if (!idx(state, _ => _[action.checkPointId].pivot)) return state;
 
       return {
         ...state,
@@ -22,12 +29,12 @@ const checkPoints = (state: CheckPoints = {}, action: CheckPointsActions): Check
           pivot: {
             ...state[action.checkPointId].pivot,
             valide: state[action.checkPointId].pivot.valide === 0 ? 1 : 0,
-          }
-        }
-      }
+          },
+        },
+      };
     }
     case FOLDER_UPDATE_CHECK_POINT_ERROR: {
-      if (!idx(state, _ => _[action.checkPointId].pivot)) return state
+      if (!idx(state, _ => _[action.checkPointId].pivot)) return state;
 
       return {
         ...state,
@@ -36,9 +43,9 @@ const checkPoints = (state: CheckPoints = {}, action: CheckPointsActions): Check
           pivot: {
             ...state[action.checkPointId].pivot,
             valide: action.preValue,
-          }
-        }
-      }
+          },
+        },
+      };
     }
     case LOGOUT:
       return {};

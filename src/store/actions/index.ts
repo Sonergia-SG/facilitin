@@ -1,7 +1,7 @@
 import { ThunkAction as Thunk } from 'redux-thunk';
 import { Action } from 'redux';
 
-import { AppState } from '../../store';
+import { AppState } from '..';
 
 
 export * from './user';
