@@ -8,6 +8,7 @@ import idx from 'idx';
 import StateToColor from '../../StateToColor';
 import DropZone from '../../DropZone';
 import CheckPoints from './CheckPoints';
+import DownloadFile from './DownloadFile'
 
 import { folderFileInLitige } from '../../../store/actions/views/folder';
 
@@ -71,11 +72,7 @@ const Accordion = ({
                   <DropZone />
                 </div>
               </div>
-              <div style={{ width: 190, marginTop: 5 }} className="notification tilebordered">
-                <div className="content has-text-centered bigplus">
-                  <i className="fas fa-file-download fa-2x" />
-                </div>
-              </div>
+              <DownloadFile file={file} />
             </div>
             <div className="Accordion-CheckPoints">
               <CheckPoints
