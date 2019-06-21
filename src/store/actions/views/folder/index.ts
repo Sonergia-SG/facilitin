@@ -34,6 +34,9 @@ import {
   FOLDER_UPDATE_MOE_LOADING,
   FOLDER_UPDATE_MOE_ERROR,
   FOLDER_UPDATE_MOE_LOADED,
+  FOLDER_FILE_UPDATE_LOADING,
+  FOLDER_FILE_UPDATE_LOADED,
+  FOLDER_FILE_UPDATE_ERROR,
   FOLDER_UPDATE_SITE_VALUE,
   FOLDER_CLEAN_SITE_VALUE,
   FOLDER_UPDATE_SITE_LOADING,
@@ -66,6 +69,9 @@ import {
   FolderFolderUpdateMoeLoaded,
   FolderFolderUpdateMoeError,
   FolderFolderUpdateMoeLoading,
+  FolderFolderUpdateFileLoading,
+  FolderFolderUpdateFileLoaded,
+  FolderFolderUpdateFileError,
   FolderFolderUpdateSiteValue,
   FolderFoldercleanSiteValue,
   FolderFolderUpdateSiteLoading,
@@ -620,3 +626,78 @@ export const folderEnding: FolderEnding = idDpOperation => async (dispatch) => {
     dispatchError();
   }
 };
+
+type FolderUpdateFileLoading = (
+  idDpOperation: number,
+  idFile: number
+) => FolderFolderUpdateFileLoading;
+
+export const folderUpdateFileLoading: FolderUpdateFileLoading = (idDpOperation, idFile) => ({
+  type: FOLDER_FILE_UPDATE_LOADING,
+  idDpOperation,
+  idFile,
+});
+
+type FolderUpdateFileLoaded = (
+  idDpOperation: number,
+  idFile: number
+) => FolderFolderUpdateFileLoaded;
+
+export const folderUpdateFileLoaded: FolderUpdateFileLoaded = (idDpOperation, idFile) => ({
+  type: FOLDER_FILE_UPDATE_LOADED,
+  idDpOperation,
+  idFile,
+});
+
+type FolderUpdateFileError = (idDpOperation: number, idFile: number) => FolderFolderUpdateFileError;
+
+export const folderUpdateFileError: FolderUpdateFileError = (idDpOperation, idFile) => ({
+  type: FOLDER_FILE_UPDATE_ERROR,
+  idDpOperation,
+  idFile,
+});
+
+type UploadFile = (
+  idDpOperation: number,
+  idFile: number,
+  file: File,
+  base64: string
+) => ThunkAction;
+
+export const uploadFile: UploadFile = (idDpOpearation, idFile, file, base64) => (
+  async (dispatch) => {
+    const dispatchError = () => {
+      addMessageToQueue({
+        duration: 3000,
+        message: 'Erreur pendant la mise à jour du fichier',
+        type: 'error',
+      });
+      dispatch(folderUpdateFileError(idDpOpearation, idFile));
+    };
+
+    try {
+      dispatch(folderUpdateFileLoading(idDpOpearation, idFile));
+
+      const result = await rest(`${API_PATH}files/${idFile}`, {
+        method: 'put',
+        body: JSON.stringify({
+          mimetype: file.type,
+          filename: file.name,
+          binaycontent: base64,
+        }),
+      });
+
+      if (result.status === 200) {
+        const j: { status: 'success' | 'fail' } = await result.json();
+
+        if (j.status === 'success') dispatch(folderUpdateFileLoaded(idDpOpearation, idFile));
+        else dispatchError();
+      } else {
+        dispatchError();
+      }
+    } catch (error) {
+      captureException(error);
+      dispatchError();
+    }
+  }
+);

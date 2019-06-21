@@ -69,7 +69,7 @@ const Accordion = ({
             <div className="Accordion-Files">
               <div style={{ width: 190 }} className="notification has-text-centered tilebordered">
                 <div className="content">
-                  <DropZone />
+                  <DropZone file={file} idDpOperation={folderId} />
                 </div>
               </div>
               <DownloadFile file={file} />

@@ -83,7 +83,7 @@ export const loadList = (toTab?: Tab): ThunkAction => async (
   dispatch,
   getState,
 ): Promise<void> => {
-  const tab = toTab || getState().views.list.selectedTab;
+  const tab = typeof toTab === 'number' ? toTab : getState().views.list.selectedTab;
 
   dispatch(listLoading(tab));
 

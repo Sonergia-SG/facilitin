@@ -8,11 +8,22 @@ import Loader from 'react-loader-spinner';
 interface Props {
   show?: boolean;
   type?: string;
+  heigth?: string;
+  width?: string;
 }
 
-const Loading = ({ show, type }: Props) => {
+const Loading = ({
+  show, type, heigth, width,
+}: Props) => {
   if (show) {
-    return <Loader type={type || 'Puff'} color="#EE6D42" height="110" width="110" />;
+    return (
+      <Loader
+        type={type || 'Puff'}
+        color="#EE6D42"
+        height={heigth || '110'}
+        width={width || '110'}
+      />
+    );
   }
   return <span />;
 };
