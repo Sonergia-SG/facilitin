@@ -14,7 +14,8 @@ interface Props {
 
 const EndButton = ({ data, ending, pending }: Props) => {
   const displayButton = data.dossierprimefile
-    ? data.dossierprimefile.every(f => f.statut === 15 || f.statut === 10)
+    ? data.dossierprimefile.some(f => f.statut === 10)
+      || data.dossierprimefile.every(f => f.statut === 15 || f.statut === 10)
     : false;
 
   if (displayButton) {
