@@ -5,6 +5,7 @@ import { OperationFull } from '../../../../store/reducer/entities/types';
 
 import MOA from './MOA';
 import MOE from './MOE';
+import Site from './Site';
 
 interface Props {
   data: OperationFull;
@@ -115,7 +116,15 @@ class SecondaryData extends Component<Props, State> {
               cancel={this.cancel}
             />
           )}
-          {siteSelected && <div>Site</div>}
+          {siteSelected && (
+            <Site
+              edit={edit}
+              dossierprime={data.dossierprime}
+              idDpOperation={data.id_dp_operation}
+              idDossierPrime={data.id_dossierprime}
+              cancel={this.cancel}
+            />
+          )}
         </div>
       </div>
     );
