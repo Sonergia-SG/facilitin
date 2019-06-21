@@ -1,0 +1,19 @@
+# This is a sample build configuration for JavaScript.
+# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: node:10.15.3
+
+pipelines:
+  branches:
+    dev:
+      - step:
+          name: Dev deploy
+          deployment: test
+          script:
+            - yarn
+            - yarn build
+            - cp build/index.html build/200.html
+            - yarn global add surge
+            - surge build/ --domain https://themis-sonergia.surge.sh --token $SURGE_TOKEN
