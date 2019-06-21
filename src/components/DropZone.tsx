@@ -4,15 +4,23 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
+import idx from 'idx';
 
 import { File as SonergiaFile } from '../store/reducer/entities/types';
 
 import { uploadFile } from '../store/actions/views/folder/index';
+import { AppState } from '../store';
 
-interface Props {
+import Loading from './Loading';
+
+interface ConnectProps {
   file: SonergiaFile;
   idDpOperation: number;
+}
+
+interface Props extends ConnectProps {
   upload: any;
+  loading: boolean;
 }
 
 interface State {
@@ -64,47 +72,68 @@ class DropZone extends Component<Props, State> {
   render() {
     const maxSize = 5242880;
     const { file } = this.state;
+    const { loading } = this.props;
 
     return (
       <div className="text-center mt-5">
-        <Dropzone
-          onDrop={this.onDrop}
-          accept="application/pdf, application/msword, application/vnd.oasis.opendocument.text"
-          minSize={0}
-          maxSize={maxSize}
-          multiple={false}
-        >
-          {({
-            getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles,
-          }) => {
-            const isFileTooLarge = rejectedFiles.length > 0 && rejectedFiles[0].size > maxSize;
-            return (
-              <div {...getRootProps()}>
-                <input
-                  ref={(ref: HTMLInputElement) => {
-                    this.input = ref;
-                  }}
-                  {...getInputProps()}
-                />
-                <span className="bigplus">
-                  <i className="fas fa-file-upload fa-2x" />
-                </span>
-                <br />
-                {isDragActive && !isDragReject ? 'Déposez votre fichier ici !' : ''}
-                {isDragReject && 'Type de fichier non accepté !'}
-                {isFileTooLarge && (
-                  <div className="text-danger mt-2">Le fichier est trop volumineux (5Mb Max).</div>
-                )}
-              </div>
-            );
-          }}
-        </Dropzone>
-        {file && (
-          <div className="notification is-primary notif-file">{file.name}</div>
+        {loading ? (
+          <div
+            style={{
+              width: 125,
+              height: 105,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Loading show heigth="80" width="80" />
+          </div>
+        ) : (
+          <Dropzone
+            onDrop={this.onDrop}
+            accept="application/pdf, application/msword, application/vnd.oasis.opendocument.text"
+            minSize={0}
+            maxSize={maxSize}
+            multiple={false}
+          >
+            {({
+              getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles,
+            }) => {
+              const isFileTooLarge = rejectedFiles.length > 0 && rejectedFiles[0].size > maxSize;
+              return (
+                <div {...getRootProps()}>
+                  <input
+                    ref={(ref: HTMLInputElement) => {
+                      this.input = ref;
+                    }}
+                    {...getInputProps()}
+                  />
+                  <span className="bigplus">
+                    <i className="fas fa-file-upload fa-2x" />
+                  </span>
+                  <br />
+                  {isDragActive && !isDragReject ? 'Déposez votre fichier ici !' : ''}
+                  {isDragReject && 'Type de fichier non accepté !'}
+                  {isFileTooLarge && (
+                    <div className="text-danger mt-2">
+                      Le fichier est trop volumineux (5Mb Max).
+                    </div>
+                  )}
+                </div>
+              );
+            }}
+          </Dropzone>
         )}
+        {file && <div className="notification is-primary notif-file">{file.name}</div>}
       </div>
     );
   }
 }
 
-export default connect(null, { upload: uploadFile })(DropZone);
+export default connect(
+  (s: AppState, p: ConnectProps) => ({
+    loading:
+      idx(s, _ => _.views.folder.pending[p.idDpOperation].file[p.file.id_file].loading) || false,
+  }),
+  { upload: uploadFile },
+)(DropZone);
