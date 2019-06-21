@@ -29,6 +29,11 @@ import {
   FOLDER_FILE_UPDATE_LOADING,
   FOLDER_FILE_UPDATE_LOADED,
   FOLDER_FILE_UPDATE_ERROR,
+  FOLDER_UPDATE_SITE_VALUE,
+  FOLDER_UPDATE_SITE_LOADING,
+  FOLDER_UPDATE_SITE_LOADED,
+  FOLDER_UPDATE_SITE_ERROR,
+  FOLDER_CLEAN_SITE_VALUE,
 } from '../../../types';
 
 const initialState = {
@@ -137,6 +142,20 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
           },
         },
       };
+    case FOLDER_UPDATE_SITE_VALUE:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            site: {
+              ...idx(state, _ => _.pending[action.idDpOperation].site),
+              [action.key]: action.value,
+            },
+          },
+        },
+      };
     case FOLDER_UPDATE_MOA_LOADING:
       return {
         ...state,
@@ -205,6 +224,40 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
           },
         },
       };
+    case FOLDER_UPDATE_SITE_LOADING:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            siteLoading: true,
+          },
+        },
+      };
+    case FOLDER_UPDATE_SITE_LOADED:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            siteLoading: false,
+            site: undefined,
+          },
+        },
+      };
+    case FOLDER_UPDATE_SITE_ERROR:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...idx(state, _ => _.pending[action.idDpOperation]),
+            siteLoading: false,
+          },
+        },
+      };
     case FOLDER_FILE_LITIGE_LOADING: {
       const { idDpFile, idDpOperation } = action;
       return {
@@ -263,6 +316,17 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
           [action.idDpOperation]: {
             ...state.pending[action.idDpOperation],
             moe: undefined,
+          },
+        },
+      };
+    case FOLDER_CLEAN_SITE_VALUE:
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...state.pending[action.idDpOperation],
+            site: undefined,
           },
         },
       };

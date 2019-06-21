@@ -25,6 +25,11 @@ import {
   FOLDER_FILE_UPDATE_LOADING,
   FOLDER_FILE_UPDATE_LOADED,
   FOLDER_FILE_UPDATE_ERROR,
+  FOLDER_UPDATE_SITE_VALUE,
+  FOLDER_CLEAN_SITE_VALUE,
+  FOLDER_UPDATE_SITE_LOADING,
+  FOLDER_UPDATE_SITE_ERROR,
+  FOLDER_UPDATE_SITE_LOADED,
 } from '../../../types';
 import { BooleanNumber } from '../../entities/types';
 
@@ -34,6 +39,7 @@ export interface FolderPendingItem {
   loading?: boolean;
   moaLoading?: boolean;
   moeLoading?: boolean;
+  siteLoading?: boolean;
   endingLoading?: boolean;
   litigeLoading?: boolean;
   litige?: {
@@ -59,6 +65,9 @@ export interface FolderPendingItem {
     [fileId: number]: {
       loading: boolean;
     };
+  };
+  site?: {
+    [index: string]: string | null;
   };
 }
 
@@ -118,6 +127,14 @@ export interface FolderFolderUpdateMoeValue {
   idDpOperation: number;
 }
 
+export interface FolderFolderUpdateSiteValue {
+  type: typeof FOLDER_UPDATE_SITE_VALUE;
+  key: string;
+  value: string | null;
+  idDpOperation: number;
+}
+
+
 export interface FolderFoldercleanMoaValue {
   type: typeof FOLDER_CLEAN_MOA_VALUE;
   idDpOperation: number;
@@ -125,6 +142,11 @@ export interface FolderFoldercleanMoaValue {
 
 export interface FolderFoldercleanMoeValue {
   type: typeof FOLDER_CLEAN_MOE_VALUE;
+  idDpOperation: number;
+}
+
+export interface FolderFoldercleanSiteValue {
+  type: typeof FOLDER_CLEAN_SITE_VALUE;
   idDpOperation: number;
 }
 
@@ -159,6 +181,21 @@ export interface FolderFolderUpdateMoeError {
 
 export interface FolderFolderUpdateMoeLoaded {
   type: typeof FOLDER_UPDATE_MOE_LOADED;
+  idDpOperation: number;
+}
+
+export interface FolderFolderUpdateSiteLoading {
+  type: typeof FOLDER_UPDATE_SITE_LOADING;
+  idDpOperation: number;
+}
+
+export interface FolderFolderUpdateSiteError {
+  type: typeof FOLDER_UPDATE_SITE_ERROR;
+  idDpOperation: number;
+}
+
+export interface FolderFolderUpdateSiteLoaded {
+  type: typeof FOLDER_UPDATE_SITE_LOADED;
   idDpOperation: number;
 }
 
@@ -221,14 +258,19 @@ export type FolderAction = | FolderFolderLoadingAction
 | FolderFolderUpdateCheckpointErrorAction
 | FolderFolderUpdateMoaValue
 | FolderFolderUpdateMoeValue
+| FolderFolderUpdateSiteValue
 | FolderFoldercleanMoaValue
 | FolderFoldercleanMoeValue
+| FolderFoldercleanSiteValue
 | FolderFolderUpdateMoaLoading
 | FolderFolderUpdateMoaLoaded
 | FolderFolderUpdateMoaError
 | FolderFolderUpdateMoeLoading
 | FolderFolderUpdateMoeLoaded
 | FolderFolderUpdateMoeError
+| FolderFolderUpdateSiteLoading
+| FolderFolderUpdateSiteLoaded
+| FolderFolderUpdateSiteError
 | FolderFolderLitigeLoading
 | FolderFolderLitigeLoaded
 | FolderFolderLitigeError

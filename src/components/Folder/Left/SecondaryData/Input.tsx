@@ -1,19 +1,35 @@
 import React, { ChangeEvent, Fragment } from 'react';
 import idx from 'idx';
 
-import { folderUpdateMoaValue, folderUpdateMoeValue } from '../../../../store/actions/views/folder';
-import { FolderFull, FolderMOAString, FolderMOEString } from '../../../../store/reducer/entities/types';
+import {
+  folderUpdateMoaValue,
+  folderUpdateMoeValue,
+  folderUpdateSiteValue,
+} from '../../../../store/actions/views/folder';
+import {
+  FolderFull,
+  FolderMOAString,
+  FolderMOEString,
+  FolderSiteString,
+} from '../../../../store/reducer/entities/types';
 import { FolderPendingItem } from '../../../../store/reducer/views/folder/types';
+
+type GenericUpdate = (idDpOperation: number, key: string, value: string) => void;
 
 interface Props {
   idDpOperation: number;
-  valueKey: keyof FolderMOAString | keyof FolderMOEString;
+  valueKey: keyof FolderMOAString | keyof FolderMOEString | keyof FolderSiteString;
   label: string;
   disabled: boolean;
   dossierprime: FolderFull;
   pending?: FolderPendingItem;
-  pendingKey: 'moe' | 'moa';
-  update: typeof folderUpdateMoaValue | typeof folderUpdateMoeValue;
+  pendingKey: 'moe' | 'moa' | 'site';
+  type?: string;
+  update:
+  | GenericUpdate
+  | typeof folderUpdateMoaValue
+  | typeof folderUpdateMoeValue
+  | typeof folderUpdateSiteValue;
 }
 
 const Input = ({
@@ -25,6 +41,7 @@ const Input = ({
   update,
   idDpOperation,
   pendingKey,
+  type,
 }: Props) => {
   const value = idx(pending, _ => _[pendingKey][valueKey]);
   const originalValue = dossierprime[valueKey];
@@ -40,7 +57,7 @@ const Input = ({
     <Fragment>
       <label htmlFor={valueKey}>{label}</label>
       <input
-        type="text"
+        type={type || 'text'}
         name={valueKey}
         placeholder={label}
         className={`input${isEdited ? ' is-info' : ''}`}

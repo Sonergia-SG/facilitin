@@ -19,7 +19,8 @@
 
 .Comments-Container_Opened {
   transform: translate(0);
-  box-shadow: 2px 5px 8px 1px #4a4949;
+  box-shadow: 3px 5px 8px 0px #4a4949;
+  border: 1px #fbfbfb solid;
 }
 
 .Comments-Container-Inner {

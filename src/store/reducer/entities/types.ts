@@ -10,6 +10,7 @@ import {
   FOLDER_FILE_LITIGE_LOADED,
   FOLDER_ENDING_LOADED,
   FOLDER_UPDATE_MOE_LOADED,
+  FOLDER_UPDATE_SITE_LOADED,
 } from '../../types';
 
 export interface User {
@@ -138,13 +139,20 @@ export interface FolderMOEString {
   moe_iban: string;
 }
 
-export interface SimpleFolder extends FolderMOAString, FolderMOEString {
+export interface FolderSiteString {
+  adresse_travaux_rue: string;
+  adresse_travaux_nomsite: string;
+  adresse_travaux_rue2: string;
+  adresse_travaux_cp: string;
+  adresse_travaux_ville: string;
+  date_debut_travaux: string | null;
+  date_fin_travaux: string | null;
+}
+
+export interface SimpleFolder extends FolderMOAString, FolderMOEString, FolderSiteString {
   id_dp_operation: number;
   id_dossierprime: number;
   code_operation: string;
-  moa?: Array<MOA>;
-  moe?: Array<{}>;
-  travaux?: Array<{}>;
   moa_est_societe: 0;
   moa_is_syndic: BooleanNumber;
   moa_no_siret: BooleanNumber;
@@ -153,24 +161,6 @@ export interface SimpleFolder extends FolderMOAString, FolderMOEString {
   moa_nombre_personne: number;
   moa_remp_preca: number;
   moe_role: number;
-  adresse_travaux_rue: string;
-  adresse_travaux_nomsite: string;
-  adresse_travaux_rue2: string;
-  adresse_travaux_cp: string;
-  adresse_travaux_ville: string;
-  date_debut_travaux: string | null;
-  date_fin_travaux: string | null;
-  /* code_operation: "BAR-TH-106"
-  date_reception: "2018-06-11"
-  delai_instruction?: "331 jours de retard"
-  id_dossierprime: 19925
-  id_dp_operation: 60839
-  is_avant_projet: 0
-  label_public: "Dossier Incomplet"
-  moa_denomination: ""
-  moa_nom: "JAUD"
-  moa_prenom: "Jean-Marie"
-  statut_operation: 13 */
 }
 
 export interface Folder extends SimpleFolder {
@@ -317,10 +307,17 @@ export interface FoldersUpdateMoeLoaded {
   values: { [index: string]: string };
 }
 
+export interface FoldersUpdateSiteLoaded {
+  type: typeof FOLDER_UPDATE_SITE_LOADED;
+  id_dossierprime: number;
+  values: { [index: string]: string | null };
+}
+
 export type FoldersActions = | FoldersFolderLoadedAction
 | FoldersLogoutAction
 | FoldersUpdateMoaLoaded
 | FoldersUpdateMoeLoaded
+| FoldersUpdateSiteLoaded
 | FoldersListLoadedAction;
 
 export interface CheckPointsFolderLoadedAction {
