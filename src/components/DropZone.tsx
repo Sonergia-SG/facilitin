@@ -2,34 +2,68 @@
  * Created by stephane.mallaroni on 15/04/2019.
  */
 import React, { Component } from 'react';
-import Dropzone, { DropEvent } from 'react-dropzone';
+import Dropzone from 'react-dropzone';
+import { connect } from 'react-redux';
 
-interface FileType extends File {
-  name: string;
-  path: string;
-  lastModified: number;
-  size: number;
-  type: string;
+import { File as SonergiaFile } from '../store/reducer/entities/types';
+
+import { uploadFile } from '../store/actions/views/folder/index';
+
+interface Props {
+  file: SonergiaFile;
+  idDpOperation: number;
+  upload: any;
 }
 
 interface State {
-  files: Array<File>;
+  file: File | undefined;
 }
 
-class DropZone extends Component<{}, State> {
-  state = {
-    files: [],
+class DropZone extends Component<Props, State> {
+  state: Readonly<State> = {
+    file: undefined,
   };
 
+  reader = new FileReader();
+
+  input: HTMLInputElement | undefined = undefined;
+
+  /* componentDidMount() {
+    if (this.input && this.reader) {
+      this.reader.addEventListener('load', () => {
+        console.log(this.reader.result);
+      });
+
+      this.reader.readAsDataURL(this.input);
+    }
+  } */
+
   onDrop = (acceptedFiles: Array<File>) => {
-    this.setState({
-      files: acceptedFiles,
-    });
+    const reader = new FileReader();
+    const file = acceptedFiles[0];
+
+    const { upload, idDpOperation, file: originalFile } = this.props;
+
+    const handleLoad = () => {
+      if (typeof reader.result === 'string') {
+        this.setState({
+          file,
+        });
+
+        upload(idDpOperation, originalFile.id_file, file, reader.result);
+      }
+
+      reader.removeEventListener('load', handleLoad);
+    };
+
+    reader.addEventListener('load', handleLoad);
+
+    reader.readAsDataURL(file);
   };
 
   render() {
     const maxSize = 5242880;
-    const { files } = this.state;
+    const { file } = this.state;
 
     return (
       <div className="text-center mt-5">
@@ -46,7 +80,12 @@ class DropZone extends Component<{}, State> {
             const isFileTooLarge = rejectedFiles.length > 0 && rejectedFiles[0].size > maxSize;
             return (
               <div {...getRootProps()}>
-                <input {...getInputProps()} />
+                <input
+                  ref={(ref: HTMLInputElement) => {
+                    this.input = ref;
+                  }}
+                  {...getInputProps()}
+                />
                 <span className="bigplus">
                   <i className="fas fa-file-upload fa-2x" />
                 </span>
@@ -60,14 +99,12 @@ class DropZone extends Component<{}, State> {
             );
           }}
         </Dropzone>
-        {files.map((f: File) => (
-          <div className="notification is-primary notif-file" key={f.lastModified}>
-            {f.name}
-          </div>
-        ))}
+        {file && (
+          <div className="notification is-primary notif-file">{file.name}</div>
+        )}
       </div>
     );
   }
 }
 
-export default DropZone;
+export default connect(null, { upload: uploadFile })(DropZone);

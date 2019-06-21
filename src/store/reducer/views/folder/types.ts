@@ -22,6 +22,9 @@ import {
   FOLDER_UPDATE_MOE_LOADING,
   FOLDER_UPDATE_MOE_ERROR,
   FOLDER_UPDATE_MOE_LOADED,
+  FOLDER_FILE_UPDATE_LOADING,
+  FOLDER_FILE_UPDATE_LOADED,
+  FOLDER_FILE_UPDATE_ERROR,
 } from '../../../types';
 import { BooleanNumber } from '../../entities/types';
 
@@ -47,10 +50,15 @@ export interface FolderPendingItem {
     | undefined;
   };
   moa?: {
-    [index: string]: string;
+    [key: string]: string;
   };
   moe?: {
-    [index: string]: string;
+    [key: string]: string;
+  };
+  file?: {
+    [fileId: number]: {
+      loading: boolean;
+    };
   };
 }
 
@@ -187,6 +195,24 @@ export interface FolderFolderEndingError {
   idDpOperation: number;
 }
 
+export interface FolderFolderUpdateFileLoading {
+  type: typeof FOLDER_FILE_UPDATE_LOADING;
+  idDpOperation: number;
+  idFile: number;
+}
+
+export interface FolderFolderUpdateFileLoaded {
+  type: typeof FOLDER_FILE_UPDATE_LOADED;
+  idDpOperation: number;
+  idFile: number;
+}
+
+export interface FolderFolderUpdateFileError {
+  type: typeof FOLDER_FILE_UPDATE_ERROR;
+  idDpOperation: number;
+  idFile: number;
+}
+
 export type FolderAction = | FolderFolderLoadingAction
 | FolderFolderErrorAction
 | FolderFolderLoadedAction
@@ -209,4 +235,7 @@ export type FolderAction = | FolderFolderLoadingAction
 | FolderFolderEndingLoading
 | FolderFolderEndingLoaded
 | FolderFolderEndingError
+| FolderFolderUpdateFileLoading
+| FolderFolderUpdateFileLoaded
+| FolderFolderUpdateFileError
 | FolderLogoutAction;

@@ -26,6 +26,9 @@ import {
   FOLDER_UPDATE_MOE_LOADING,
   FOLDER_UPDATE_MOE_LOADED,
   FOLDER_UPDATE_MOE_ERROR,
+  FOLDER_FILE_UPDATE_LOADING,
+  FOLDER_FILE_UPDATE_LOADED,
+  FOLDER_FILE_UPDATE_ERROR,
 } from '../../../types';
 
 const initialState = {
@@ -284,6 +287,39 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
           [action.idDpOperation]: {
             ...state.pending[action.idDpOperation],
             endingLoading: false,
+          },
+        },
+      };
+    }
+    case FOLDER_FILE_UPDATE_LOADING: {
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...state.pending[action.idDpOperation],
+            file: {
+              [action.idFile]: {
+                loading: true,
+              },
+            },
+          },
+        },
+      };
+    }
+    case FOLDER_FILE_UPDATE_ERROR:
+    case FOLDER_FILE_UPDATE_LOADED: {
+      return {
+        ...state,
+        pending: {
+          ...state.pending,
+          [action.idDpOperation]: {
+            ...state.pending[action.idDpOperation],
+            file: {
+              [action.idFile]: {
+                loading: false,
+              },
+            },
           },
         },
       };
