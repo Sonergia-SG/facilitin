@@ -55,6 +55,7 @@ const MOA = ({
         disabled={disabledInput}
         dossierprime={dossierprime}
         pending={pending}
+        pendingKey="moa"
         update={updateMoa}
       />
       <Input
@@ -64,6 +65,7 @@ const MOA = ({
         disabled={disabledInput}
         dossierprime={dossierprime}
         pending={pending}
+        pendingKey="moa"
         update={updateMoa}
       />
       <Input
@@ -73,6 +75,7 @@ const MOA = ({
         disabled={disabledInput}
         dossierprime={dossierprime}
         pending={pending}
+        pendingKey="moa"
         update={updateMoa}
       />
       <Input
@@ -82,6 +85,7 @@ const MOA = ({
         disabled={disabledInput}
         dossierprime={dossierprime}
         pending={pending}
+        pendingKey="moa"
         update={updateMoa}
       />
       <Input
@@ -91,6 +95,7 @@ const MOA = ({
         disabled={disabledInput}
         dossierprime={dossierprime}
         pending={pending}
+        pendingKey="moa"
         update={updateMoa}
       />
       <Input
@@ -100,6 +105,7 @@ const MOA = ({
         disabled={disabledInput}
         dossierprime={dossierprime}
         pending={pending}
+        pendingKey="moa"
         update={updateMoa}
       />
       <Input
@@ -109,6 +115,7 @@ const MOA = ({
         disabled={disabledInput}
         dossierprime={dossierprime}
         pending={pending}
+        pendingKey="moa"
         update={updateMoa}
       />
       <div

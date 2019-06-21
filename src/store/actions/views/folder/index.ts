@@ -19,6 +19,7 @@ import {
   FOLDER_LOADED,
   FOLDER_ERROR,
   FOLDER_UPDATE_MOA_VALUE,
+  FOLDER_UPDATE_MOE_VALUE,
   FOLDER_CLEAN_MOA_VALUE,
   FOLDER_UPDATE_MOA_LOADING,
   FOLDER_UPDATE_MOA_ERROR,
@@ -29,6 +30,10 @@ import {
   FOLDER_ENDING_LOADING,
   FOLDER_ENDING_LOADED,
   FOLDER_ENDING_ERROR,
+  FOLDER_CLEAN_MOE_VALUE,
+  FOLDER_UPDATE_MOE_LOADING,
+  FOLDER_UPDATE_MOE_ERROR,
+  FOLDER_UPDATE_MOE_LOADED,
 } from '../../../types';
 
 import { operation } from '../../../reducer/entities/schema';
@@ -41,7 +46,9 @@ import {
   FolderFolderLoadedAction,
   FolderFolderErrorAction,
   FolderFolderUpdateMoaValue,
+  FolderFolderUpdateMoeValue,
   FolderFoldercleanMoaValue,
+  FolderFoldercleanMoeValue,
   FolderFolderUpdateMoaLoading,
   FolderFolderUpdateMoaError,
   FolderFolderUpdateMoaLoaded,
@@ -51,6 +58,9 @@ import {
   FolderFolderEndingLoading,
   FolderFolderEndingLoaded,
   FolderFolderEndingError,
+  FolderFolderUpdateMoeLoaded,
+  FolderFolderUpdateMoeError,
+  FolderFolderUpdateMoeLoading,
 } from '../../../reducer/views/folder/types';
 import { ListListLoadedNormalized } from '../../../reducer/views/list/type';
 import {
@@ -63,6 +73,7 @@ import {
   FileLitigeLoaded,
   OperationStatus,
   OperationsFolderEndingLoaded,
+  FoldersUpdateMoeLoaded,
 } from '../../../reducer/entities/types';
 import rest from '../../../../tools/rest';
 
@@ -153,8 +164,25 @@ export const folderUpdateMoaValue = (
   key,
   value,
 });
+
+export const folderUpdateMoeValue = (
+  idDpOperation: number,
+  key: string,
+  value: string,
+): FolderFolderUpdateMoeValue => ({
+  type: FOLDER_UPDATE_MOE_VALUE,
+  idDpOperation,
+  key,
+  value,
+});
+
 export const folderCleanMoaValue = (idDpOperation: number): FolderFoldercleanMoaValue => ({
   type: FOLDER_CLEAN_MOA_VALUE,
+  idDpOperation,
+});
+
+export const folderCleanMoeValue = (idDpOperation: number): FolderFoldercleanMoeValue => ({
+  type: FOLDER_CLEAN_MOE_VALUE,
   idDpOperation,
 });
 
@@ -306,6 +334,69 @@ export const updateMoaValues = (
       message: 'Erreur pendant la mise à jour des infos du MOA',
     });
     dispatch(folderUpdateMoaError(idDpOperation));
+  }
+};
+
+export const folderUpdateMoeLoading = (idDpOperation: number): FolderFolderUpdateMoeLoading => ({
+  type: FOLDER_UPDATE_MOE_LOADING,
+  idDpOperation,
+});
+
+export const folderUpdateMoeLoaded = (
+  idDpOperation: number,
+  iddossierprime: number,
+  values: { [index: string]: string },
+): FolderFolderUpdateMoeLoaded & FoldersUpdateMoeLoaded => ({
+  type: FOLDER_UPDATE_MOE_LOADED,
+  idDpOperation,
+  id_dossierprime: iddossierprime,
+  values,
+});
+
+export const folderUpdateMoeError = (idDpOperation: number): FolderFolderUpdateMoeError => ({
+  type: FOLDER_UPDATE_MOE_ERROR,
+  idDpOperation,
+});
+
+export const updateMoeValues = (
+  idDossierPrime: number,
+  idDpOperation: number,
+): ThunkAction => async (dispatch, getState) => {
+  try {
+    const pending = getState().views.folder.pending[idDpOperation];
+
+    if (!pending) throw new Error('Pending is missing for MOE update');
+    const values = pending.moe || {};
+
+    dispatch(folderUpdateMoeLoading(idDpOperation));
+
+    const res = await rest(`${API_PATH}dossierprimes/${idDossierPrime}`, {
+      method: 'put',
+      body: JSON.stringify(values),
+    });
+
+    if (res.status === 200) {
+      addMessageToQueue({
+        duration: 2500,
+        type: 'info',
+        message: 'Les infos du MOE ont étaient mise à jour',
+      });
+      dispatch(folderUpdateMoeLoaded(idDpOperation, idDossierPrime, values));
+    } else {
+      addMessageToQueue({
+        duration: 4500,
+        type: 'error',
+        message: 'Erreur pendant la mise à jour des infos du MOE',
+      });
+      dispatch(folderUpdateMoeError(idDpOperation));
+    }
+  } catch (error) {
+    addMessageToQueue({
+      duration: 4500,
+      type: 'error',
+      message: 'Erreur pendant la mise à jour des infos du MOE',
+    });
+    dispatch(folderUpdateMoeError(idDpOperation));
   }
 };
 

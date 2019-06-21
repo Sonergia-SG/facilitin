@@ -3,6 +3,7 @@ import {
   FOLDER_UPDATE_CHECK_POINT_LOADED,
   FOLDER_UPDATE_CHECK_POINT_ERROR,
   FOLDER_UPDATE_MOA_VALUE,
+  FOLDER_UPDATE_MOE_VALUE,
   FOLDER_LOADING,
   FOLDER_LOADED,
   FOLDER_ERROR,
@@ -17,6 +18,10 @@ import {
   FOLDER_ENDING_LOADING,
   FOLDER_ENDING_LOADED,
   FOLDER_ENDING_ERROR,
+  FOLDER_CLEAN_MOE_VALUE,
+  FOLDER_UPDATE_MOE_LOADING,
+  FOLDER_UPDATE_MOE_ERROR,
+  FOLDER_UPDATE_MOE_LOADED,
 } from '../../../types';
 import { BooleanNumber } from '../../entities/types';
 
@@ -25,6 +30,7 @@ export type FolderCheckPointStatus = 'SENDING' | 'ERROR';
 export interface FolderPendingItem {
   loading?: boolean;
   moaLoading?: boolean;
+  moeLoading?: boolean;
   endingLoading?: boolean;
   litigeLoading?: boolean;
   litige?: {
@@ -41,6 +47,9 @@ export interface FolderPendingItem {
     | undefined;
   };
   moa?: {
+    [index: string]: string;
+  };
+  moe?: {
     [index: string]: string;
   };
 }
@@ -94,8 +103,20 @@ export interface FolderFolderUpdateMoaValue {
   idDpOperation: number;
 }
 
+export interface FolderFolderUpdateMoeValue {
+  type: typeof FOLDER_UPDATE_MOE_VALUE;
+  key: string;
+  value: string;
+  idDpOperation: number;
+}
+
 export interface FolderFoldercleanMoaValue {
   type: typeof FOLDER_CLEAN_MOA_VALUE;
+  idDpOperation: number;
+}
+
+export interface FolderFoldercleanMoeValue {
+  type: typeof FOLDER_CLEAN_MOE_VALUE;
   idDpOperation: number;
 }
 
@@ -115,6 +136,21 @@ export interface FolderFolderUpdateMoaError {
 
 export interface FolderFolderUpdateMoaLoaded {
   type: typeof FOLDER_UPDATE_MOA_LOADED;
+  idDpOperation: number;
+}
+
+export interface FolderFolderUpdateMoeLoading {
+  type: typeof FOLDER_UPDATE_MOE_LOADING;
+  idDpOperation: number;
+}
+
+export interface FolderFolderUpdateMoeError {
+  type: typeof FOLDER_UPDATE_MOE_ERROR;
+  idDpOperation: number;
+}
+
+export interface FolderFolderUpdateMoeLoaded {
+  type: typeof FOLDER_UPDATE_MOE_LOADED;
   idDpOperation: number;
 }
 
@@ -158,10 +194,15 @@ export type FolderAction = | FolderFolderLoadingAction
 | FolderFolderUpdateChekpointLoadedAction
 | FolderFolderUpdateCheckpointErrorAction
 | FolderFolderUpdateMoaValue
+| FolderFolderUpdateMoeValue
 | FolderFoldercleanMoaValue
+| FolderFoldercleanMoeValue
 | FolderFolderUpdateMoaLoading
 | FolderFolderUpdateMoaLoaded
 | FolderFolderUpdateMoaError
+| FolderFolderUpdateMoeLoading
+| FolderFolderUpdateMoeLoaded
+| FolderFolderUpdateMoeError
 | FolderFolderLitigeLoading
 | FolderFolderLitigeLoaded
 | FolderFolderLitigeError

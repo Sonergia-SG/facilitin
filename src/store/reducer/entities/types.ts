@@ -9,6 +9,7 @@ import {
   COMMENTS_LIST_LOADED,
   FOLDER_FILE_LITIGE_LOADED,
   FOLDER_ENDING_LOADED,
+  FOLDER_UPDATE_MOE_LOADED,
 } from '../../types';
 
 export interface User {
@@ -119,7 +120,25 @@ export interface FolderMOAString {
   moa_beneficiaire_role: string | null;
 }
 
-export interface SimpleFolder extends FolderMOAString {
+export interface FolderMOEString {
+  moe_denomination: string;
+  moe_siret: string;
+  moe_tel: string;
+  moe_fax: string;
+  moe_rue: string;
+  moe_cp: string;
+  moe_ville: string;
+  moe_commentaire: string;
+  moe_individu_email: string;
+  moe_contact: string;
+  moe_contact_prenom: string;
+  moe_contact_mobile: string;
+  moe_contact_fonction: string;
+  moe_bic: string;
+  moe_iban: string;
+}
+
+export interface SimpleFolder extends FolderMOAString, FolderMOEString {
   id_dp_operation: number;
   id_dossierprime: number;
   code_operation: string;
@@ -133,22 +152,7 @@ export interface SimpleFolder extends FolderMOAString {
   moa_nombre_menage: number;
   moa_nombre_personne: number;
   moa_remp_preca: number;
-  moe_denomination: string;
-  moe_siret: string;
-  moe_tel: string;
-  moe_fax: string;
-  moe_rue: string;
-  moe_cp: string;
-  moe_ville: string;
   moe_role: number;
-  moe_commentaire: string;
-  moe_individu_email: string;
-  moe_contact: string;
-  moe_contact_prenom: string;
-  moe_contact_mobile: string;
-  moe_contact_fonction: string;
-  moe_bic: string;
-  moe_iban: string;
   adresse_travaux_rue: string;
   adresse_travaux_nomsite: string;
   adresse_travaux_rue2: string;
@@ -307,9 +311,16 @@ export interface FoldersUpdateMoaLoaded {
   values: { [index: string]: string };
 }
 
+export interface FoldersUpdateMoeLoaded {
+  type: typeof FOLDER_UPDATE_MOE_LOADED;
+  id_dossierprime: number;
+  values: { [index: string]: string };
+}
+
 export type FoldersActions = | FoldersFolderLoadedAction
 | FoldersLogoutAction
 | FoldersUpdateMoaLoaded
+| FoldersUpdateMoeLoaded
 | FoldersListLoadedAction;
 
 export interface CheckPointsFolderLoadedAction {
