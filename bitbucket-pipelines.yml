@@ -15,6 +15,11 @@ pipelines:
   branches:
     dev:
       - step:
+          name: Tests
+          script:
+            - yarn
+            - yarn test
+      - step:
           name: Dev deploy
           deployment: test
           script:
