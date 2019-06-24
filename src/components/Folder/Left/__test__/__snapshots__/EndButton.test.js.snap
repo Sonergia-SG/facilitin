@@ -1,0 +1,173 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EndButton not render EndButton if dossierprimefile is missing 1`] = `""`;
+
+exports[`EndButton not render EndButton if one dpfile is validated 1`] = `""`;
+
+exports[`EndButton render EndButton disabled if operation status has code "15" 1`] = `
+<div
+  className="tile is-child"
+>
+  <div
+    className="content has-text-centered"
+  >
+    <button
+      className="button is-primary is-outlined is-medium"
+      disabled={true}
+      onClick={[Function]}
+      style={
+        Object {
+          "transition": "opacity .2s ease",
+        }
+      }
+      type="button"
+    >
+      Terminer
+    </button>
+  </div>
+</div>
+`;
+
+exports[`EndButton render EndButton disabled if operation status missing "code_statut" 1`] = `
+<div
+  className="tile is-child"
+>
+  <div
+    className="content has-text-centered"
+  >
+    <button
+      className="button is-primary is-outlined is-medium"
+      disabled={true}
+      onClick={[Function]}
+      style={
+        Object {
+          "transition": "opacity .2s ease",
+        }
+      }
+      type="button"
+    >
+      Terminer
+    </button>
+  </div>
+</div>
+`;
+
+exports[`EndButton render EndButton enabled if operation status has code "0" 1`] = `
+<div
+  className="tile is-child"
+>
+  <div
+    className="content has-text-centered"
+  >
+    <button
+      className="button is-primary is-outlined is-medium"
+      disabled={false}
+      onClick={[Function]}
+      style={
+        Object {
+          "transition": "opacity .2s ease",
+        }
+      }
+      type="button"
+    >
+      Terminer
+    </button>
+  </div>
+</div>
+`;
+
+exports[`EndButton render EndButton if all dpfile is validated 1`] = `
+<div
+  className="tile is-child"
+>
+  <div
+    className="content has-text-centered"
+  >
+    <button
+      className="button is-primary is-outlined is-medium"
+      disabled={false}
+      onClick={[Function]}
+      style={
+        Object {
+          "transition": "opacity .2s ease",
+        }
+      }
+      type="button"
+    >
+      Terminer
+    </button>
+  </div>
+</div>
+`;
+
+exports[`EndButton render EndButton if one dpfile is rejected 1`] = `
+<div
+  className="tile is-child"
+>
+  <div
+    className="content has-text-centered"
+  >
+    <button
+      className="button is-primary is-outlined is-medium"
+      disabled={false}
+      onClick={[Function]}
+      style={
+        Object {
+          "transition": "opacity .2s ease",
+        }
+      }
+      type="button"
+    >
+      Terminer
+    </button>
+  </div>
+</div>
+`;
+
+exports[`EndButton render EndButton loading for pending endingLoading "true" 1`] = `
+<div
+  className="tile is-child"
+>
+  <div
+    className="content has-text-centered"
+  >
+    <button
+      className="button is-primary is-loading is-outlined is-medium"
+      disabled={false}
+      onClick={[Function]}
+      style={
+        Object {
+          "transition": "opacity .2s ease",
+        }
+      }
+      type="button"
+    >
+      Terminer
+    </button>
+  </div>
+</div>
+`;
+
+exports[`EndButton render EndButton not loading for pending endingLoading "false" 1`] = `
+<div
+  className="tile is-child"
+>
+  <div
+    className="content has-text-centered"
+  >
+    <button
+      className="button is-primary is-outlined is-medium"
+      disabled={false}
+      onClick={[Function]}
+      style={
+        Object {
+          "transition": "opacity .2s ease",
+        }
+      }
+      type="button"
+    >
+      Terminer
+    </button>
+  </div>
+</div>
+`;
