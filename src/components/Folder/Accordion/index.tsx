@@ -18,6 +18,7 @@ import fileFolderDisplayType from '../helper/fileFolderDisplayType';
 
 import './Accordion.css';
 import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
+import DocViewer from './DocViewer';
 
 interface Props {
   file: SonergiaFile;
@@ -65,6 +66,7 @@ const Accordion = ({
             </div> */}
         </div>
         <div className="accordion-body">
+          <DocViewer file={file} />
           <div className="Accordion-Box">
             <div className="Accordion-Files">
               <div style={{ width: 190 }} className="notification has-text-centered tilebordered">
