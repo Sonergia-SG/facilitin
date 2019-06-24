@@ -54,9 +54,13 @@
     "@typescript-eslint/eslint-plugin": "^1.10.2",
     "@typescript-eslint/parser": "^1.10.2",
     "babel-eslint": "^9.0.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.3.5",
     "eslint-config-airbnb": "^17.1.0",
     "husky": "^2.3.0",
     "lint-staged": "^8.1.7",
-    "prettier": "1.17.1"
+    "prettier": "1.17.1",
+    "react-test-renderer": "^16.8.6"
   }
 }

@@ -12,7 +12,7 @@ interface Props {
   ending: any;
 }
 
-const EndButton = ({ data, ending, pending }: Props) => {
+export const EndButtonComponent = ({ data, ending, pending }: Props) => {
   const displayButton = data.dossierprimefile
     ? data.dossierprimefile.some(f => f.statut === 10)
       || data.dossierprimefile.every(f => f.statut === 15 || f.statut === 10)
@@ -47,4 +47,4 @@ const EndButton = ({ data, ending, pending }: Props) => {
 export default connect(
   null,
   { ending: folderEnding },
-)(EndButton);
+)(EndButtonComponent);
