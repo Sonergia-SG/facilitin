@@ -1,0 +1,43 @@
+.Folder-Header {
+  margin: 0px 0px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Folder-Header-NotigBadge {
+  position: absolute;
+  right: 27px;
+  top: 10px;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 7px;
+}
+
+.Folder-Header-Button-Icon {
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color, 0.2s ease;
+}
+
+.Folder-Header-Button-Icon:hover {
+  background-color: #efefef;
+}
+
+.Folder-Header-Button-Icon:active {
+  background-color: #cfcfcf;
+}
+
+.Folder-Header-MessageOverlay {
+  position: absolute;
+  top: 5px;
+  right: 60px;
+  background-color: #1d1d1dbb;
+  color: #fff;
+  padding: 5px 10px;
+  width: 300px;
+  z-index: 1;
+  border-radius: 5px;
+}

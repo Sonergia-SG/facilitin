@@ -1,0 +1,25 @@
+.Left-GeneralInfos-Pictos {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Left-GeneralInfos-Picto {
+  display: flex;
+  align-items: center;
+}
+
+.Left-GeneralInfos-Title {
+  margin-top: 11px;
+}
+
+.Left-GeneralInfos-Status {
+  font-size: 1rem;
+  background-color: red;
+  color: #fff;
+  padding: 3px 5px;
+  border-radius: 4px;
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  box-shadow: 1px 1px 2px 0px #8c8c8c;
+}

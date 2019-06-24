@@ -1,0 +1,55 @@
+{
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts", ".tsx"]
+      }
+    }
+  },
+  "extends": ["airbnb", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".tsx"] }],
+    "react/destructuring-assignment": [
+      1,
+      "always",
+      { "ignoreClassFields": true }
+    ],
+    "linebreak-style": [0, "windows"],
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "components": ["label"],
+        "required": {
+          "every": ["id"]
+        },
+        "allowChildren": false
+      }
+    ],
+    "@typescript-eslint/camelcase": "warning",
+    "@typescript-eslint/indent": ["error", 2],
+    "@typescript-eslint/no-empty-interface": "warning",
+    "@typescript-eslint/array-type": ["error", "generic"],
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "@typescript-eslint/explicit-function-return-type": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "rules": {
+        "no-unused-vars": ["off"],
+        "no-undef": ["off"]
+      }
+    }
+  ]
+}
