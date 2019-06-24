@@ -3,7 +3,7 @@
 import StateToColor from '../index.ts';
 
 describe('Test StateToColor', () => {
-  it('have good result with nb_bad_controle_auto > 0', () => {
+  xit('have good result with nb_bad_controle_auto > 0', () => {
     const str = {
       point_controle: [{}],
       nb_bad_controle_auto: 1,
@@ -14,7 +14,7 @@ describe('Test StateToColor', () => {
     expect(color).toBe('accordion_bad_controle');
   });
 
-  it('have good result with litige === 1', () => {
+  xit('have good result with litige === 1', () => {
     const str = {
       point_controle: [{}],
       nb_bad_controle_auto: 0,
@@ -25,7 +25,7 @@ describe('Test StateToColor', () => {
     expect(color).toBe('accordion_litige');
   });
 
-  it('have good result with empty accordion', () => {
+  xit('have good result with empty accordion', () => {
     const str = {
       point_controle: [{}],
       nb_bad_controle_auto: 0,
@@ -36,7 +36,7 @@ describe('Test StateToColor', () => {
     expect(color).toBe('accordion_empty');
   });
 
-  it('have good result with accordion ok', () => {
+  xit('have good result with accordion ok', () => {
     const str = {
       point_controle: [
         {
@@ -53,7 +53,8 @@ describe('Test StateToColor', () => {
 
     expect(color).toBe('accordion_ok');
   });
-  it('have good result with empty accordion for all controle valide 0', () => {
+
+  xit('have good result with empty accordion for all controle valide 0', () => {
     const str = {
       point_controle: [
         {
