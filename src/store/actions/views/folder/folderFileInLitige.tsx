@@ -1,8 +1,4 @@
-import React from 'react';
 import idx from 'idx';
-
-// @ts-ignore
-import Teleport, { Alert } from 'react-teleportation';
 
 import { addMessageToQueue } from '../../../../components/Alert';
 import captureException from '../../../../tools/errorReporting/captureException';
@@ -24,8 +20,6 @@ import {
 } from '../../../reducer/views/folder/types';
 import { FileLitigeLoaded } from '../../../reducer/entities/types';
 import rest from '../../../../tools/rest';
-
-import { folderEnding } from '.';
 
 export const folderFileLitigeLoading = (
   idDpOperation: number,
@@ -81,25 +75,6 @@ export const folderFileInLitige = (
 
         if (statutFile) {
           dispatch(folderFileLitigeLoaded(idDpOperation, statutFile, idDpFile));
-
-          Teleport.init(
-            <Alert
-              title="Terminer l'instruction"
-              description="Le document est en rejet. Voulez vous terminer l\'instruction ?"
-              right={{
-                title: "Terminer l'instruction",
-                action: () => {
-                  Teleport.clear();
-                  dispatch(folderEnding(idDpOperation));
-                },
-              }}
-              left={{
-                title: "Continuer l'instruction",
-                action: () => Teleport.clear(),
-              }}
-            />,
-          );
-          // alert('Le document est en rejet. Voulez vous terminer l\'instruction ?', )
         } else {
           dispatchError();
         }

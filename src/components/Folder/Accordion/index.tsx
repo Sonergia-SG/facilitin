@@ -10,7 +10,7 @@ import DropZone from '../../DropZone';
 import CheckPoints from './CheckPoints';
 import DownloadFile from './DownloadFile';
 
-import { folderFileInLitige } from '../../../store/actions/views/folder';
+import { folderFileInLitige, folderEnding } from '../../../store/actions/views/folder';
 
 import { FileFull as SonergiaFile, CheckPoint } from '../../../store/reducer/entities/types';
 
@@ -18,6 +18,8 @@ import fileFolderDisplayType from '../helper/fileFolderDisplayType';
 
 import './Accordion.css';
 import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
+
+import useOpenModalAfterLoading from './useOpenModalAfterLoading';
 
 interface Props {
   file: SonergiaFile;
@@ -27,6 +29,7 @@ interface Props {
   handleClick: () => void;
   folderId: number;
   inLitige: any;
+  ending: any;
   pending: FolderPendingItem | undefined;
 }
 
@@ -37,12 +40,15 @@ const Accordion = ({
   handleClick,
   folderId,
   pending,
+  ending,
   inLitige,
 }: Props) => {
   const color = StateToColor(file);
 
   const litigeLoading = idx(pending, _ => _.litige[file.id_dp_file].loading) || false;
   const isLitige = file.statut === 10;
+
+  const [displayModal, toggleModal] = useOpenModalAfterLoading(litigeLoading);
 
   return (
     <div className="divAccordion">
@@ -99,11 +105,39 @@ const Accordion = ({
           </div>
         </div>
       </article>
+      <div className={`modal ${isSelected && displayModal ? ' is-active' : ''}`}>
+        <div className="modal-background" />
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">
+              {"Terminer l'instruction"}
+            </p>
+          </header>
+          <section className="modal-card-body">
+            {"Le document est en rejet. Voulez vous terminer l'instruction ?"}
+          </section>
+          <footer className="modal-card-foot">
+            <button
+              className="button is-success"
+              type="button"
+              onClick={() => {
+                ending(folderId);
+                toggleModal(false);
+              }}
+            >
+              {"Terminer l'instruction"}
+            </button>
+            <button className="button" type="button" onClick={() => toggleModal(false)}>
+              {"Continuer l'instruction"}
+            </button>
+          </footer>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default connect(
   null,
-  { inLitige: folderFileInLitige },
+  { inLitige: folderFileInLitige, ending: folderEnding },
 )(Accordion);
