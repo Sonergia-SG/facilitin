@@ -8,7 +8,6 @@ import { API_PATH } from '../../../../variables';
 
 import {
   FolderEndingResponse,
-  FolderFileLitigeResponse,
   FolderUpdateCheckPointResponse,
 } from './apiTypes';
 import {
@@ -24,9 +23,6 @@ import {
   FOLDER_UPDATE_MOA_LOADING,
   FOLDER_UPDATE_MOA_ERROR,
   FOLDER_UPDATE_MOA_LOADED,
-  FOLDER_FILE_LITIGE_LOADING,
-  FOLDER_FILE_LITIGE_LOADED,
-  FOLDER_FILE_LITIGE_ERROR,
   FOLDER_ENDING_LOADING,
   FOLDER_ENDING_LOADED,
   FOLDER_ENDING_ERROR,
@@ -60,9 +56,6 @@ import {
   FolderFolderUpdateMoaLoading,
   FolderFolderUpdateMoaError,
   FolderFolderUpdateMoaLoaded,
-  FolderFolderLitigeLoading,
-  FolderFolderLitigeLoaded,
-  FolderFolderLitigeError,
   FolderFolderEndingLoading,
   FolderFolderEndingLoaded,
   FolderFolderEndingError,
@@ -86,7 +79,6 @@ import {
   CheckPointsFolderUpdateChekpointLoadedAction,
   CheckPointsFolderUpdateCheckpointErrorAction,
   FilesFolcerCheckPointLoaded,
-  FileLitigeLoaded,
   OperationStatus,
   OperationsFolderEndingLoaded,
   FoldersUpdateMoeLoaded,
@@ -496,75 +488,6 @@ export const updateSiteValues = (
   }
 };
 
-const folderFileLitigeLoading = (
-  idDpOperation: number,
-  idDpFile: number,
-): FolderFolderLitigeLoading => ({
-  type: FOLDER_FILE_LITIGE_LOADING,
-  idDpOperation,
-  idDpFile,
-});
-
-const folderFileLitigeLoaded = (
-  idDpOperation: number,
-  statusCode: number,
-  idDpFile: number,
-): FolderFolderLitigeLoaded & FileLitigeLoaded => ({
-  type: FOLDER_FILE_LITIGE_LOADED,
-  idDpOperation,
-  idDpFile,
-  statusCode,
-});
-
-const folderFileLitigeError = (
-  idDpOperation: number,
-  idDpFile: number,
-): FolderFolderLitigeError => ({
-  type: FOLDER_FILE_LITIGE_ERROR,
-  idDpOperation,
-  idDpFile,
-});
-
-export const folderFileInLitige = (
-  idDpOperation: number,
-  idDpFile: number,
-): ThunkAction => async (dispatch) => {
-  const dispatchError = () => {
-    addMessageToQueue({
-      duration: 3000,
-      message: 'Erreur pendant la mise en litige du document',
-      type: 'error',
-    });
-    dispatch(folderFileLitigeError(idDpOperation, idDpFile));
-  };
-
-  try {
-    dispatch(folderFileLitigeLoading(idDpOperation, idDpFile));
-
-    const result = await rest(`${API_PATH}setlitige/${idDpFile}`, { method: 'put' });
-
-    if (result.status === 200) {
-      const json: FolderFileLitigeResponse = await result.json();
-      if (json.status === 'success') {
-        const statutFile = idx(json, _ => _.statut_file[0].code_statut);
-
-        if (statutFile) {
-          dispatch(folderFileLitigeLoaded(idDpOperation, statutFile, idDpFile));
-        } else {
-          dispatchError();
-        }
-      } else {
-        dispatchError();
-      }
-    } else {
-      dispatchError();
-    }
-  } catch (error) {
-    captureException(error);
-    dispatchError();
-  }
-};
-
 type FolderEndingLoading = (idDpOperation: number) => FolderFolderEndingLoading;
 
 const folderEndingLoading: FolderEndingLoading = idDpOperation => ({
@@ -701,3 +624,6 @@ export const uploadFile: UploadFile = (idDpOpearation, idFile, file, base64) => 
     }
   }
 );
+
+
+export * from './folderFileInLitige';
