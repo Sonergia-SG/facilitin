@@ -9,6 +9,7 @@ import StateToColor from '../../StateToColor';
 import DropZone from '../../DropZone';
 import CheckPoints from './CheckPoints';
 import DownloadFile from './DownloadFile';
+import Litige from './Litige';
 
 import { folderFileInLitige, folderEnding } from '../../../store/actions/views/folder';
 
@@ -46,7 +47,6 @@ const Accordion = ({
   const color = StateToColor(file);
 
   const litigeLoading = idx(pending, _ => _.litige[file.id_dp_file].loading) || false;
-  const isLitige = file.statut === 10;
 
   const [displayModal, toggleModal] = useOpenModalAfterLoading(litigeLoading);
 
@@ -89,18 +89,12 @@ const Accordion = ({
               />
             </div>
             <div className="Accordion-Button-Position">
-              <button
-                type="button"
-                style={{ transition: 'opacity 0.5s ease' }}
-                className={`button is-danger${isLitige ? '' : ' is-outlined'} is-pulled-right${
-                  litigeLoading ? ' is-loading' : ''
-                }`}
-                id="button-litige"
-                disabled={file.statut === 15 || isLitige}
-                onClick={() => inLitige(folderId, file.id_dp_file)}
-              >
-                {'Litige'}
-              </button>
+              <Litige
+                file={file}
+                loading={litigeLoading}
+                folderId={folderId}
+                inLitige={inLitige}
+              />
             </div>
           </div>
         </div>

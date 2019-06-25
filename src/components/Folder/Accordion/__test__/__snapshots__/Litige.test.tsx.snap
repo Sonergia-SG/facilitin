@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Litige button render Litige button disabled for status 10 (rejected) 1`] = `
+<button
+  className="button is-danger is-pulled-right"
+  disabled={true}
+  id="button-litige"
+  onClick={[Function]}
+  style={
+    Object {
+      "transition": "opacity 0.5s ease",
+    }
+  }
+  type="button"
+>
+  Litige
+</button>
+`;
+
+exports[`Litige button render Litige button disabled for status 15 (accespted) 1`] = `
+<button
+  className="button is-danger is-outlined is-pulled-right"
+  disabled={true}
+  id="button-litige"
+  onClick={[Function]}
+  style={
+    Object {
+      "transition": "opacity 0.5s ease",
+    }
+  }
+  type="button"
+>
+  Litige
+</button>
+`;
+
+exports[`Litige button render Litige button enabled by default 1`] = `
+<button
+  className="button is-danger is-outlined is-pulled-right"
+  disabled={false}
+  id="button-litige"
+  onClick={[Function]}
+  style={
+    Object {
+      "transition": "opacity 0.5s ease",
+    }
+  }
+  type="button"
+>
+  Litige
+</button>
+`;
+
+exports[`Litige button render Litige button loading 1`] = `
+<button
+  className="button is-danger is-outlined is-pulled-right is-loading"
+  disabled={false}
+  id="button-litige"
+  onClick={[Function]}
+  style={
+    Object {
+      "transition": "opacity 0.5s ease",
+    }
+  }
+  type="button"
+>
+  Litige
+</button>
+`;
