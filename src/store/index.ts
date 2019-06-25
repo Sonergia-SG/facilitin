@@ -24,7 +24,7 @@ let store: any;
 const storeCreator = () => {
   const initialState = localStorage.getItem(storeKey);
 
-  const enhancers = composeEnhancers(middlewares, persistState(undefined, { key: storeKey }));
+  const enhancers = composeEnhancers(middlewares, persistState(['user'], { key: storeKey }));
 
   store = initialState
     ? createStore(reducer, JSON.parse(initialState), enhancers)

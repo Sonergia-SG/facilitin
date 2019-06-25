@@ -2,7 +2,8 @@
 
 exports[`Litige button render Litige button disabled for status 10 (rejected) 1`] = `
 <button
-  className="button is-danger is-pulled-right"
+  className="button is-danger is-pulled-right tooltip is-tooltip-left"
+  data-tooltip="Le document est déjà rejeté"
   disabled={true}
   id="button-litige"
   onClick={[Function]}
@@ -19,7 +20,8 @@ exports[`Litige button render Litige button disabled for status 10 (rejected) 1`
 
 exports[`Litige button render Litige button disabled for status 15 (accespted) 1`] = `
 <button
-  className="button is-danger is-outlined is-pulled-right"
+  className="button is-danger is-outlined is-pulled-right tooltip is-tooltip-left"
+  data-tooltip="Tous les checkpoints sont validés"
   disabled={true}
   id="button-litige"
   onClick={[Function]}
@@ -37,6 +39,7 @@ exports[`Litige button render Litige button disabled for status 15 (accespted) 1
 exports[`Litige button render Litige button enabled by default 1`] = `
 <button
   className="button is-danger is-outlined is-pulled-right"
+  data-tooltip="Tous les checkpoints sont validés"
   disabled={false}
   id="button-litige"
   onClick={[Function]}
@@ -54,6 +57,7 @@ exports[`Litige button render Litige button enabled by default 1`] = `
 exports[`Litige button render Litige button loading 1`] = `
 <button
   className="button is-danger is-outlined is-pulled-right is-loading"
+  data-tooltip="Tous les checkpoints sont validés"
   disabled={false}
   id="button-litige"
   onClick={[Function]}
