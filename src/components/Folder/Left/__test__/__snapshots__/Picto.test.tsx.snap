@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Picto render error for litige 1`] = `
+<div
+  key="error"
+>
+  <i
+    className="fas fa-exclamation-triangle"
+    style={
+      Object {
+        "color": "#F61616",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Picto render success if total === valid 1`] = `
+<div
+  key="ok"
+>
+  <i
+    className="fas fa-check-circle"
+    style={
+      Object {
+        "color": "#2BA048",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Picto render warning if total !== valid 1`] = `
+<div
+  key="warning"
+>
+  <i
+    className="fas fa-exclamation-triangle"
+    style={
+      Object {
+        "color": "#FBD44A",
+      }
+    }
+  />
+</div>
+`;
