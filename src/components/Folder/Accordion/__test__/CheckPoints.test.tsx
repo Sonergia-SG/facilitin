@@ -124,4 +124,21 @@ describe('CheckPoints', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('can\'t update checkpoint if it\'s an automatic checkpoint', () => {
+    const wrapper = shallow(
+      <CheckPoints
+        checkPoints={[{
+          ...defaultCheckPoint,
+          automatique: 1,
+        }]}
+        fileId={0}
+        folderId={0}
+        updateCheckPoint={() => 'Hello'}
+        pending={{}}
+      />,
+    );
+
+    expect(wrapper).toMatchSnapshot();
+  });
 });

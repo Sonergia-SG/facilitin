@@ -17,7 +17,11 @@ interface Props {
 }
 
 export const CheckPointsComponent = ({
-  checkPoints, fileId, folderId, updateCheckPoint, pending,
+  checkPoints,
+  fileId,
+  folderId,
+  updateCheckPoint,
+  pending,
 }: Props) => {
   const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === fileId);
 
@@ -49,6 +53,8 @@ export const CheckPointsComponent = ({
               _ => _.checkPoint[value.id_point_controle].status,
             );
 
+            const disabled = loading || checkPointStatus === 'SENDING' || value.automatique === 1;
+
             return (
               <tr key={value.id_point_controle}>
                 <td className="CheckPoints-Table-Center">
@@ -58,7 +64,7 @@ export const CheckPointsComponent = ({
                     name={`${value.id_point_controle}`}
                     checked={value.pivot.valide === 1}
                     value="yes"
-                    disabled={loading || checkPointStatus === 'SENDING'}
+                    disabled={disabled}
                     onChange={() => {
                       updateCheckPoint({
                         folderId,
@@ -76,7 +82,7 @@ export const CheckPointsComponent = ({
                     name={`${value.id_point_controle}`}
                     checked={value.pivot.valide === 0}
                     value="no"
-                    disabled={loading || checkPointStatus === 'SENDING'}
+                    disabled={disabled}
                     onChange={() => {
                       updateCheckPoint({
                         folderId,
