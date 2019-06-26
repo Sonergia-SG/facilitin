@@ -90,18 +90,21 @@ interface FolderUpdateCheckPointLoadingParams {
   folderId: number;
   checkPointId: number;
   prevValue: BooleanNumber;
+  newValue: 0 | 1;
 }
 
 export const folderUpdateCheckPointLoading = ({
   folderId,
   checkPointId,
   prevValue,
+  newValue,
 }: FolderUpdateCheckPointLoadingParams): FolderFolderUpdateCheckpointLoadingAction &
 CheckPointsFolderUpdateCheckpointLoadingAction => ({
   type: FOLDER_UPDATE_CHECK_POINT_LOADING,
   folderId,
   checkPointId,
   prevValue,
+  newValue,
 });
 
 interface FolderUpdateCheckPointLoadedParams {
@@ -245,10 +248,12 @@ export const updateFolderCheckPoint = ({
   folderId,
   checkPointId,
   idDpFile,
+  newValue,
 }: {
   folderId: number;
   checkPointId: number;
   idDpFile: number;
+  newValue: 0 | 1;
 }): ThunkAction => async (dispatch, getState) => {
   const checkPoint = getState().entities.checkPoints[checkPointId];
   const prevValue = checkPoint ? checkPoint.pivot.valide : 0;
@@ -262,7 +267,9 @@ export const updateFolderCheckPoint = ({
     dispatch(folderUpdateCheckPointError({ folderId, checkPointId, prevValue }));
   };
 
-  dispatch(folderUpdateCheckPointLoading({ folderId, checkPointId, prevValue }));
+  dispatch(folderUpdateCheckPointLoading({
+    folderId, checkPointId, prevValue, newValue,
+  }));
 
   try {
     const result = await rest(`${API_PATH}actions/${folderId}/controles/${checkPointId}`, {

@@ -195,7 +195,7 @@ export interface CheckPoint {
   pivot: {
     id_dp_operation: number;
     id_point_controle: number;
-    valide: BooleanNumber;
+    valide: 1 | 0 | -1;
     id_dp_file?: number;
   };
   pointcontrolcategories: CheckPointCategory;
@@ -337,6 +337,7 @@ export interface CheckPointsLogoutAction {
 export interface CheckPointsFolderUpdateCheckpointLoadingAction {
   type: typeof FOLDER_UPDATE_CHECK_POINT_LOADING;
   checkPointId: number;
+  newValue: 0 | 1;
 }
 
 export interface CheckPointsFolderUpdateChekpointLoadedAction {

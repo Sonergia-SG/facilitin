@@ -1,0 +1,311 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckPoints render correctly during folder loading 1`] = `
+<div
+  className="CheckPoints-CheckPoint-Container"
+>
+  <table
+    className="CheckPoints-Table"
+  >
+    <thead>
+      <tr>
+        <th>
+          Oui
+        </th>
+        <th>
+          Non
+        </th>
+        <th />
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        key="0"
+      >
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <input
+            checked={true}
+            disabled={true}
+            id="0_yes"
+            name="0"
+            onChange={[Function]}
+            type="radio"
+            value="yes"
+          />
+        </td>
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <input
+            checked={false}
+            disabled={true}
+            id="0_no"
+            name="0"
+            onChange={[Function]}
+            type="radio"
+            value="no"
+          />
+        </td>
+        <td>
+          <label
+            className="CheckPoints-CheckPoint-Label"
+            htmlFor="{value.id_controle}"
+          >
+            Checkpoint test
+          </label>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`CheckPoints render correctly with checkpoint no traited 1`] = `
+<div
+  className="CheckPoints-CheckPoint-Container"
+>
+  <table
+    className="CheckPoints-Table"
+  >
+    <thead>
+      <tr>
+        <th>
+          Oui
+        </th>
+        <th>
+          Non
+        </th>
+        <th />
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        key="0"
+      >
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <input
+            checked={false}
+            disabled={false}
+            id="0_yes"
+            name="0"
+            onChange={[Function]}
+            type="radio"
+            value="yes"
+          />
+        </td>
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <input
+            checked={false}
+            disabled={false}
+            id="0_no"
+            name="0"
+            onChange={[Function]}
+            type="radio"
+            value="no"
+          />
+        </td>
+        <td>
+          <label
+            className="CheckPoints-CheckPoint-Label"
+            htmlFor="{value.id_controle}"
+          >
+            Checkpoint test
+          </label>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`CheckPoints render correctly with checkpoint sending 1`] = `
+<div
+  className="CheckPoints-CheckPoint-Container"
+>
+  <table
+    className="CheckPoints-Table"
+  >
+    <thead>
+      <tr>
+        <th>
+          Oui
+        </th>
+        <th>
+          Non
+        </th>
+        <th />
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        key="0"
+      >
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <input
+            checked={true}
+            disabled={true}
+            id="0_yes"
+            name="0"
+            onChange={[Function]}
+            type="radio"
+            value="yes"
+          />
+        </td>
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <input
+            checked={false}
+            disabled={true}
+            id="0_no"
+            name="0"
+            onChange={[Function]}
+            type="radio"
+            value="no"
+          />
+        </td>
+        <td>
+          <label
+            className="CheckPoints-CheckPoint-Label"
+            htmlFor="{value.id_controle}"
+          >
+            Checkpoint test
+          </label>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`CheckPoints render correctly with checkpoint valid 1`] = `
+<div
+  className="CheckPoints-CheckPoint-Container"
+>
+  <table
+    className="CheckPoints-Table"
+  >
+    <thead>
+      <tr>
+        <th>
+          Oui
+        </th>
+        <th>
+          Non
+        </th>
+        <th />
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        key="0"
+      >
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <input
+            checked={true}
+            disabled={false}
+            id="0_yes"
+            name="0"
+            onChange={[Function]}
+            type="radio"
+            value="yes"
+          />
+        </td>
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <input
+            checked={false}
+            disabled={false}
+            id="0_no"
+            name="0"
+            onChange={[Function]}
+            type="radio"
+            value="no"
+          />
+        </td>
+        <td>
+          <label
+            className="CheckPoints-CheckPoint-Label"
+            htmlFor="{value.id_controle}"
+          >
+            Checkpoint test
+          </label>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`CheckPoints render correctly with default checkpoint 1`] = `
+<div
+  className="CheckPoints-CheckPoint-Container"
+>
+  <table
+    className="CheckPoints-Table"
+  >
+    <thead>
+      <tr>
+        <th>
+          Oui
+        </th>
+        <th>
+          Non
+        </th>
+        <th />
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        key="0"
+      >
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <input
+            checked={false}
+            disabled={false}
+            id="0_yes"
+            name="0"
+            onChange={[Function]}
+            type="radio"
+            value="yes"
+          />
+        </td>
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <input
+            checked={true}
+            disabled={false}
+            id="0_no"
+            name="0"
+            onChange={[Function]}
+            type="radio"
+            value="no"
+          />
+        </td>
+        <td>
+          <label
+            className="CheckPoints-CheckPoint-Label"
+            htmlFor="{value.id_controle}"
+          >
+            Checkpoint test
+          </label>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
