@@ -1,0 +1,361 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GeneralInfos render correctly with all checkpoints valid 1`] = `
+<div
+  className="tile is-child notification has-text-centered"
+  style={
+    Object {
+      "flexGrow": 0,
+    }
+  }
+>
+  <p
+    className="Left-GeneralInfos-Title title"
+  >
+    Dossier N°
+  </p>
+  <p
+    className="subtitle"
+  >
+    BAR-TH-113
+  </p>
+  <Status />
+  <div
+    className="content"
+  />
+  <div
+    className="Left-GeneralInfos-Pictos"
+  >
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-exclamation-triangle"
+        style={
+          Object {
+            "color": "#F61616",
+          }
+        }
+      />
+      <p>
+        0/4
+      </p>
+    </div>
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-exclamation-triangle"
+        style={
+          Object {
+            "color": "#FBD44A",
+          }
+        }
+      />
+      <p>
+        0/4
+      </p>
+    </div>
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-circle"
+        style={
+          Object {
+            "color": "#444",
+          }
+        }
+      />
+      <p>
+        0/4
+      </p>
+    </div>
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-check-circle"
+        style={
+          Object {
+            "color": "#2BA048",
+          }
+        }
+      />
+      <p>
+        4/4
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
+<div
+  className="tile is-child notification has-text-centered"
+  style={
+    Object {
+      "flexGrow": 0,
+    }
+  }
+>
+  <p
+    className="Left-GeneralInfos-Title title"
+  >
+    Dossier N°
+  </p>
+  <p
+    className="subtitle"
+  >
+    BAR-TH-113
+  </p>
+  <Status />
+  <div
+    className="content"
+  />
+  <div
+    className="Left-GeneralInfos-Pictos"
+  >
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-exclamation-triangle"
+        style={
+          Object {
+            "color": "#F61616",
+          }
+        }
+      />
+      <p>
+        0/5
+      </p>
+    </div>
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-exclamation-triangle"
+        style={
+          Object {
+            "color": "#FBD44A",
+          }
+        }
+      />
+      <p>
+        1/5
+      </p>
+    </div>
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-circle"
+        style={
+          Object {
+            "color": "#444",
+          }
+        }
+      />
+      <p>
+        0/5
+      </p>
+    </div>
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-check-circle"
+        style={
+          Object {
+            "color": "#2BA048",
+          }
+        }
+      />
+      <p>
+        4/5
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
+<div
+  className="tile is-child notification has-text-centered"
+  style={
+    Object {
+      "flexGrow": 0,
+    }
+  }
+>
+  <p
+    className="Left-GeneralInfos-Title title"
+  >
+    Dossier N°
+  </p>
+  <p
+    className="subtitle"
+  >
+    BAR-TH-113
+  </p>
+  <Status />
+  <div
+    className="content"
+  />
+  <div
+    className="Left-GeneralInfos-Pictos"
+  >
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-exclamation-triangle"
+        style={
+          Object {
+            "color": "#F61616",
+          }
+        }
+      />
+      <p>
+        1/5
+      </p>
+    </div>
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-exclamation-triangle"
+        style={
+          Object {
+            "color": "#FBD44A",
+          }
+        }
+      />
+      <p>
+        0/5
+      </p>
+    </div>
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-circle"
+        style={
+          Object {
+            "color": "#444",
+          }
+        }
+      />
+      <p>
+        0/5
+      </p>
+    </div>
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-check-circle"
+        style={
+          Object {
+            "color": "#2BA048",
+          }
+        }
+      />
+      <p>
+        4/5
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`GeneralInfos render correctly with untraited checkpoints 1`] = `
+<div
+  className="tile is-child notification has-text-centered"
+  style={
+    Object {
+      "flexGrow": 0,
+    }
+  }
+>
+  <p
+    className="Left-GeneralInfos-Title title"
+  >
+    Dossier N°
+  </p>
+  <p
+    className="subtitle"
+  >
+    BAR-TH-113
+  </p>
+  <Status />
+  <div
+    className="content"
+  />
+  <div
+    className="Left-GeneralInfos-Pictos"
+  >
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-exclamation-triangle"
+        style={
+          Object {
+            "color": "#F61616",
+          }
+        }
+      />
+      <p>
+        0/5
+      </p>
+    </div>
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-exclamation-triangle"
+        style={
+          Object {
+            "color": "#FBD44A",
+          }
+        }
+      />
+      <p>
+        0/5
+      </p>
+    </div>
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-circle"
+        style={
+          Object {
+            "color": "#444",
+          }
+        }
+      />
+      <p>
+        1/5
+      </p>
+    </div>
+    <div
+      className="Left-GeneralInfos-Picto"
+    >
+      <i
+        className="fas fa-check-circle"
+        style={
+          Object {
+            "color": "#2BA048",
+          }
+        }
+      />
+      <p>
+        4/5
+      </p>
+    </div>
+  </div>
+</div>
+`;
