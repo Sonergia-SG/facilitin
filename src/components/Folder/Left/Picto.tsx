@@ -3,15 +3,39 @@ import React from 'react';
 interface Props {
   total: number;
   valid: number;
+  unTraited: number;
   litige: number;
+  rejected: number;
 }
 
-const resolveIco = (total: number, valid: number, litige: number) => {
-  if (litige > 0) {
+const resolveIco = (
+  total: number,
+  valid: number,
+  litige: number,
+  rejected: number,
+  untraited: number,
+) => {
+  if (rejected > 0) {
     return {
       key: 'error',
       name: 'fa-exclamation-triangle',
       color: '#F61616',
+    };
+  }
+
+  if (litige > 0) {
+    return {
+      key: 'warning',
+      name: 'fa-exclamation-triangle',
+      color: '#FBD44A',
+    };
+  }
+
+  if (untraited > 0) {
+    return {
+      key: 'untraited',
+      name: 'fa-circle',
+      color: '#444',
     };
   }
 
@@ -24,14 +48,16 @@ const resolveIco = (total: number, valid: number, litige: number) => {
   }
 
   return {
-    key: 'warning',
-    name: 'fa-exclamation-triangle',
-    color: '#FBD44A',
+    key: 'untraited',
+    name: 'fa-circle',
+    color: '#444',
   };
 };
 
-const Picto = ({ litige, total, valid }: Props) => {
-  const icoConfig = resolveIco(total, valid, litige);
+const Picto = ({
+  litige, total, valid, rejected, unTraited,
+}: Props) => {
+  const icoConfig = resolveIco(total, valid, litige, rejected, unTraited);
 
   return (
     <div key={icoConfig.key}>

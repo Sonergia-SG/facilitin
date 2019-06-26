@@ -1,6 +1,81 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Picto render error for litige 1`] = `
+exports[`Picto display untraited for strange results 1`] = `
+<div
+  key="untraited"
+>
+  <i
+    className="fas fa-circle"
+    style={
+      Object {
+        "color": "#444",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Picto make checked less priority 1`] = `
+<div
+  key="ok"
+>
+  <i
+    className="fas fa-check-circle"
+    style={
+      Object {
+        "color": "#2BA048",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Picto make error more priority 1`] = `
+<div
+  key="error"
+>
+  <i
+    className="fas fa-exclamation-triangle"
+    style={
+      Object {
+        "color": "#F61616",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Picto make untraited more priority 1`] = `
+<div
+  key="untraited"
+>
+  <i
+    className="fas fa-circle"
+    style={
+      Object {
+        "color": "#444",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Picto make warning more priority 1`] = `
+<div
+  key="warning"
+>
+  <i
+    className="fas fa-exclamation-triangle"
+    style={
+      Object {
+        "color": "#FBD44A",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Picto render error for rejected 1`] = `
 <div
   key="error"
 >
@@ -30,7 +105,22 @@ exports[`Picto render success if total === valid 1`] = `
 </div>
 `;
 
-exports[`Picto render warning if total !== valid 1`] = `
+exports[`Picto render untraited 1`] = `
+<div
+  key="untraited"
+>
+  <i
+    className="fas fa-circle"
+    style={
+      Object {
+        "color": "#444",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Picto render warning for litige 1`] = `
 <div
   key="warning"
 >
