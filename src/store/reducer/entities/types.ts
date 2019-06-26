@@ -195,7 +195,7 @@ export interface CheckPoint {
   pivot: {
     id_dp_operation: number;
     id_point_controle: number;
-    valide: BooleanNumber;
+    valide: 1 | 0 | -1;
     id_dp_file?: number;
   };
   pointcontrolcategories: CheckPointCategory;

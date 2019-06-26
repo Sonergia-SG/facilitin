@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { act } from 'react-dom/test-utils';
 import handleHook from '../../../../tools/test/handleHook';
 

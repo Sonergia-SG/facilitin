@@ -16,7 +16,7 @@ interface Props {
   pending: FolderPendingItem | undefined;
 }
 
-const CheckPoints = ({
+export const CheckPointsComponent = ({
   checkPoints, fileId, folderId, updateCheckPoint, pending,
 }: Props) => {
   const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === fileId);
@@ -105,4 +105,4 @@ const CheckPoints = ({
 export default connect(
   null,
   { updateCheckPoint: updateFolderCheckPoint },
-)(CheckPoints);
+)(CheckPointsComponent);

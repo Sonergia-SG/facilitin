@@ -36,6 +36,10 @@
         "allowChildren": false
       }
     ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "devDependencies": ["**/*.test.{js,ts,tsx}"] }
+    ],
     "@typescript-eslint/camelcase": "warning",
     "@typescript-eslint/indent": ["error", 2],
     "@typescript-eslint/no-empty-interface": "warning",
