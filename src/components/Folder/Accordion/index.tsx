@@ -9,7 +9,7 @@ import StateToColor from '../../StateToColor';
 import DropZone from '../../DropZone';
 import CheckPoints from './CheckPoints';
 import DownloadFile from './DownloadFile';
-import Litige from './Litige';
+import Validation from './Validation';
 
 import { folderFileInLitige, folderEnding } from '../../../store/actions/views/folder';
 
@@ -28,6 +28,7 @@ interface Props {
   numero: number;
   isSelected: boolean;
   handleClick: () => void;
+  goNext: () => void;
   folderId: number;
   inLitige: any;
   ending: any;
@@ -41,6 +42,7 @@ const Accordion = ({
   handleClick,
   folderId,
   pending,
+  goNext,
   ending,
   inLitige,
 }: Props) => {
@@ -97,10 +99,12 @@ const Accordion = ({
               />
             </div>
             <div className="Accordion-Button-Position">
-              <Litige
+              <Validation
                 file={file}
+                goNext={goNext}
                 loading={litigeLoading}
                 folderId={folderId}
+                checkPoints={checkPoints}
                 inLitige={inLitige}
               />
             </div>
