@@ -28,7 +28,7 @@ const checkPoints = (state: CheckPoints = {}, action: CheckPointsActions): Check
           ...state[action.checkPointId],
           pivot: {
             ...state[action.checkPointId].pivot,
-            valide: state[action.checkPointId].pivot.valide === 0 ? 1 : 0,
+            valide: action.newValue,
           },
         },
       };

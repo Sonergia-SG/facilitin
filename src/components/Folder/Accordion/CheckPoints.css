@@ -2,9 +2,11 @@
   margin-left: 18px;
 }
 
-.CheckPoints-CheckPoint-Line {
-  display: flex;
-  align-items: center;
+.CheckPoints-Table th {
+  padding: 0 5px;
+}
+.CheckPoints-Table .CheckPoints-Table-Center {
+  text-align: center;
 }
 
 .CheckPoints-CheckPoint-Label {

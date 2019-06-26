@@ -337,6 +337,7 @@ export interface CheckPointsLogoutAction {
 export interface CheckPointsFolderUpdateCheckpointLoadingAction {
   type: typeof FOLDER_UPDATE_CHECK_POINT_LOADING;
   checkPointId: number;
+  newValue: 0 | 1;
 }
 
 export interface CheckPointsFolderUpdateChekpointLoadedAction {
