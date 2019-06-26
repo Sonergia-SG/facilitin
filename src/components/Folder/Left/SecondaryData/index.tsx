@@ -82,7 +82,7 @@ class SecondaryData extends Component<Props, State> {
             role="button"
             tabIndex={0}
           >
-            {'MOE'}
+            {'Installateur'}
           </div>
           <div
             onMouseEnter={this.select('SITE')}
