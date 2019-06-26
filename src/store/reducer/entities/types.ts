@@ -189,7 +189,7 @@ export interface CheckPoint {
   id_point_controle: number;
   id_categorie: number;
   nom: string;
-  id_penalite: BooleanNumber;
+  id_penalite: number;
   automatique: BooleanNumber;
   is_controle_file: BooleanNumber;
   pivot: {

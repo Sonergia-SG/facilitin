@@ -1,21 +1,13 @@
 import React from 'react';
 
+import { CheckPoint } from '../../../store/reducer/entities/types';
+
 interface Props {
-  total: number;
-  valid: number;
-  unTraited: number;
-  litige: number;
-  rejected: number;
+  checkPoint: CheckPoint;
 }
 
-const resolveIco = (
-  total: number,
-  valid: number,
-  litige: number,
-  rejected: number,
-  untraited: number,
-) => {
-  if (rejected > 0) {
+const resolveIco = (c: CheckPoint) => {
+  if (c.id_penalite === 2 && c.pivot.valide === 0) {
     return {
       key: 'error',
       name: 'fa-exclamation-triangle',
@@ -23,7 +15,7 @@ const resolveIco = (
     };
   }
 
-  if (litige > 0) {
+  if (c.id_penalite === 1 && c.pivot.valide === 0) {
     return {
       key: 'warning',
       name: 'fa-exclamation-triangle',
@@ -31,7 +23,7 @@ const resolveIco = (
     };
   }
 
-  if (untraited > 0) {
+  if (c.pivot.valide === -1) {
     return {
       key: 'untraited',
       name: 'fa-circle',
@@ -39,7 +31,7 @@ const resolveIco = (
     };
   }
 
-  if (valid === total) {
+  if (c.pivot.valide === 1) {
     return {
       key: 'ok',
       name: 'fa-check-circle',
@@ -54,13 +46,11 @@ const resolveIco = (
   };
 };
 
-const Picto = ({
-  litige, total, valid, rejected, unTraited,
-}: Props) => {
-  const icoConfig = resolveIco(total, valid, litige, rejected, unTraited);
+const Picto = ({ checkPoint }: Props) => {
+  const icoConfig = resolveIco(checkPoint);
 
   return (
-    <div key={icoConfig.key}>
+    <div style={{ minWidth: 26 }} key={icoConfig.key}>
       <i className={`fas ${icoConfig.name}`} style={{ color: icoConfig.color }} />
     </div>
   );

@@ -9,6 +9,7 @@ exports[`CheckPoints can't update checkpoint if it's an automatic checkpoint 1`]
   >
     <thead>
       <tr>
+        <th />
         <th>
           Oui
         </th>
@@ -22,6 +23,33 @@ exports[`CheckPoints can't update checkpoint if it's an automatic checkpoint 1`]
       <tr
         key="0"
       >
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <Picto
+            checkPoint={
+              Object {
+                "automatique": 1,
+                "id_categorie": 0,
+                "id_penalite": 1,
+                "id_point_controle": 0,
+                "is_controle_file": 0,
+                "nom": "Checkpoint test",
+                "pivot": Object {
+                  "id_dp_file": 0,
+                  "id_dp_operation": 0,
+                  "id_point_controle": 0,
+                  "valide": 0,
+                },
+                "pointcontrolcategories": Object {
+                  "code_categorie": "CAT",
+                  "id_point_controle_categorie": 0,
+                  "nom_categorie": "NAME",
+                },
+              }
+            }
+          />
+        </td>
         <td
           className="CheckPoints-Table-Center"
         >
@@ -71,6 +99,7 @@ exports[`CheckPoints render correctly during folder loading 1`] = `
   >
     <thead>
       <tr>
+        <th />
         <th>
           Oui
         </th>
@@ -84,6 +113,33 @@ exports[`CheckPoints render correctly during folder loading 1`] = `
       <tr
         key="0"
       >
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <Picto
+            checkPoint={
+              Object {
+                "automatique": 0,
+                "id_categorie": 0,
+                "id_penalite": 1,
+                "id_point_controle": 0,
+                "is_controle_file": 0,
+                "nom": "Checkpoint test",
+                "pivot": Object {
+                  "id_dp_file": 0,
+                  "id_dp_operation": 0,
+                  "id_point_controle": 0,
+                  "valide": 1,
+                },
+                "pointcontrolcategories": Object {
+                  "code_categorie": "CAT",
+                  "id_point_controle_categorie": 0,
+                  "nom_categorie": "NAME",
+                },
+              }
+            }
+          />
+        </td>
         <td
           className="CheckPoints-Table-Center"
         >
@@ -133,6 +189,7 @@ exports[`CheckPoints render correctly with checkpoint no traited 1`] = `
   >
     <thead>
       <tr>
+        <th />
         <th>
           Oui
         </th>
@@ -146,6 +203,33 @@ exports[`CheckPoints render correctly with checkpoint no traited 1`] = `
       <tr
         key="0"
       >
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <Picto
+            checkPoint={
+              Object {
+                "automatique": 0,
+                "id_categorie": 0,
+                "id_penalite": 1,
+                "id_point_controle": 0,
+                "is_controle_file": 0,
+                "nom": "Checkpoint test",
+                "pivot": Object {
+                  "id_dp_file": 0,
+                  "id_dp_operation": 0,
+                  "id_point_controle": 0,
+                  "valide": -1,
+                },
+                "pointcontrolcategories": Object {
+                  "code_categorie": "CAT",
+                  "id_point_controle_categorie": 0,
+                  "nom_categorie": "NAME",
+                },
+              }
+            }
+          />
+        </td>
         <td
           className="CheckPoints-Table-Center"
         >
@@ -195,6 +279,7 @@ exports[`CheckPoints render correctly with checkpoint sending 1`] = `
   >
     <thead>
       <tr>
+        <th />
         <th>
           Oui
         </th>
@@ -208,6 +293,33 @@ exports[`CheckPoints render correctly with checkpoint sending 1`] = `
       <tr
         key="0"
       >
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <Picto
+            checkPoint={
+              Object {
+                "automatique": 0,
+                "id_categorie": 0,
+                "id_penalite": 1,
+                "id_point_controle": 0,
+                "is_controle_file": 0,
+                "nom": "Checkpoint test",
+                "pivot": Object {
+                  "id_dp_file": 0,
+                  "id_dp_operation": 0,
+                  "id_point_controle": 0,
+                  "valide": 1,
+                },
+                "pointcontrolcategories": Object {
+                  "code_categorie": "CAT",
+                  "id_point_controle_categorie": 0,
+                  "nom_categorie": "NAME",
+                },
+              }
+            }
+          />
+        </td>
         <td
           className="CheckPoints-Table-Center"
         >
@@ -257,6 +369,7 @@ exports[`CheckPoints render correctly with checkpoint valid 1`] = `
   >
     <thead>
       <tr>
+        <th />
         <th>
           Oui
         </th>
@@ -270,6 +383,33 @@ exports[`CheckPoints render correctly with checkpoint valid 1`] = `
       <tr
         key="0"
       >
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <Picto
+            checkPoint={
+              Object {
+                "automatique": 0,
+                "id_categorie": 0,
+                "id_penalite": 1,
+                "id_point_controle": 0,
+                "is_controle_file": 0,
+                "nom": "Checkpoint test",
+                "pivot": Object {
+                  "id_dp_file": 0,
+                  "id_dp_operation": 0,
+                  "id_point_controle": 0,
+                  "valide": 1,
+                },
+                "pointcontrolcategories": Object {
+                  "code_categorie": "CAT",
+                  "id_point_controle_categorie": 0,
+                  "nom_categorie": "NAME",
+                },
+              }
+            }
+          />
+        </td>
         <td
           className="CheckPoints-Table-Center"
         >
@@ -319,6 +459,7 @@ exports[`CheckPoints render correctly with default checkpoint 1`] = `
   >
     <thead>
       <tr>
+        <th />
         <th>
           Oui
         </th>
@@ -332,6 +473,33 @@ exports[`CheckPoints render correctly with default checkpoint 1`] = `
       <tr
         key="0"
       >
+        <td
+          className="CheckPoints-Table-Center"
+        >
+          <Picto
+            checkPoint={
+              Object {
+                "automatique": 0,
+                "id_categorie": 0,
+                "id_penalite": 1,
+                "id_point_controle": 0,
+                "is_controle_file": 0,
+                "nom": "Checkpoint test",
+                "pivot": Object {
+                  "id_dp_file": 0,
+                  "id_dp_operation": 0,
+                  "id_point_controle": 0,
+                  "valide": 0,
+                },
+                "pointcontrolcategories": Object {
+                  "code_categorie": "CAT",
+                  "id_point_controle_categorie": 0,
+                  "nom_categorie": "NAME",
+                },
+              }
+            }
+          />
+        </td>
         <td
           className="CheckPoints-Table-Center"
         >

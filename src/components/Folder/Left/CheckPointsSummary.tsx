@@ -29,9 +29,13 @@ const CheckPointsSummary = ({
             const currentCheckPoints = checkPoints.filter(
               c => c.pivot.id_dp_file === file.id_dp_file,
             );
+            const unTraited = currentCheckPoints.filter(c => c.pivot.valide === -1);
             const validCheckPoints = currentCheckPoints.filter(c => c.pivot.valide === 1);
             const litigeCheckPoints = currentCheckPoints.filter(
-              c => c.pivot.valide === 0 && c.automatique === 1,
+              c => c.pivot.valide === 0 && c.id_penalite === 1,
+            );
+            const rejectedCheckPoints = currentCheckPoints.filter(
+              c => c.pivot.valide === 0 && c.id_penalite === 2,
             );
 
             const active = selectedAccordion === index;
@@ -49,8 +53,10 @@ const CheckPointsSummary = ({
                 <div className="Actions-Left-CheckPointSummary-Left">
                   <Picto
                     total={currentCheckPoints.length}
+                    unTraited={unTraited.length}
                     valid={validCheckPoints.length}
                     litige={litigeCheckPoints.length}
+                    rejected={rejectedCheckPoints.length}
                   />
                   <h4
                     style={{ margin: 0 }}
@@ -60,23 +66,14 @@ const CheckPointsSummary = ({
                     {fileFolderDisplayType(file)}
                   </h4>
                 </div>
-                {litigeCheckPoints.length === 0 ? (
-                  <p
-                    style={{ color: active ? '#16a0e0' : 'black', fontWeight: 500 }}
-                    className="Actions-Left-CheckPointSummary-File-Count"
-                  >
-                    {validCheckPoints.length}
-                    {'/'}
-                    {currentCheckPoints.length}
-                  </p>
-                ) : (
-                  <p
-                    style={{ color: active ? '#16a0e0' : 'black', fontWeight: 500 }}
-                    className="Actions-Left-CheckPointSummary-File-Count"
-                  >
-                    {litigeCheckPoints.length}
-                  </p>
-                )}
+                <p
+                  style={{ color: active ? '#16a0e0' : 'black', fontWeight: 500 }}
+                  className="Actions-Left-CheckPointSummary-File-Count"
+                >
+                  {validCheckPoints.length}
+                  {'/'}
+                  {currentCheckPoints.length}
+                </p>
               </div>
             );
           })}
