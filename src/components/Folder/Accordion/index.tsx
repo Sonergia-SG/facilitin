@@ -54,21 +54,29 @@ const Accordion = ({
     <div className="divAccordion">
       <article className={`accordion ${isSelected ? 'is-active' : ''}`}>
         <div className={`accordion-header ${color}`}>
-          <div>
-            <button
-              type="button"
-              className="toggle togglesonergia"
-              aria-label="toggle"
-              onClick={handleClick}
-            />
-            {' '}
-            {fileFolderDisplayType(file)}
+          <div
+            onClick={handleClick}
+            onKeyPress={handleClick}
+            style={{ cursor: 'pointer', width: '100%' }}
+            role="button"
+            tabIndex={0}
+          >
+            <div>
+              <button
+                type="button"
+                className="toggle togglesonergia"
+                aria-label="toggle"
+                onClick={handleClick}
+              />
+              {' '}
+              {fileFolderDisplayType(file)}
+            </div>
+            {/* <div className="floatlink">
+                <a href="https://www.google.fr" target="_blank" rel="noopener noreferrer">
+                  {file.name_file}
+                </a>
+              </div> */}
           </div>
-          {/* <div className="floatlink">
-              <a href="https://www.google.fr" target="_blank" rel="noopener noreferrer">
-                {file.name_file}
-              </a>
-            </div> */}
         </div>
         <div className="accordion-body">
           <div className="Accordion-Box">
