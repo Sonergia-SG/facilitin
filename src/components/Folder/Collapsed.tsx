@@ -41,6 +41,8 @@ class Collapsed extends Component<Props> {
       );
     }
 
+    const safeSelected = selectedAccordion || 0;
+
     return (
       <div>
         <section className="accordions">
@@ -48,6 +50,13 @@ class Collapsed extends Component<Props> {
             <Accordion
               file={file}
               checkPoints={checkPoints}
+              goNext={() => {
+                if (safeSelected + 1 < files.length) {
+                  handleAccordionClick(safeSelected + 1)();
+                } else {
+                  handleAccordionClick(safeSelected)();
+                }
+              }}
               key={file.id_dp_file}
               numero={index}
               isSelected={selectedAccordion === index}
