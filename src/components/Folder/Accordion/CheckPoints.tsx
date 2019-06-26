@@ -8,6 +8,8 @@ import { updateFolderCheckPoint } from '../../../store/actions/views/folder';
 import './CheckPoints.css';
 import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 
+import Picto from './Picto';
+
 interface Props {
   checkPoints: Array<CheckPoint> | undefined;
   fileId: number;
@@ -42,7 +44,7 @@ export const CheckPointsComponent = ({
           <tr>
             <th>Oui</th>
             <th>Non</th>
-            {/* <th /> */}
+            <th />
             <th />
           </tr>
         </thead>
@@ -93,7 +95,9 @@ export const CheckPointsComponent = ({
                     }}
                   />
                 </td>
-                {/* <td className="CheckPoints-Table-Center">Ico</td> */}
+                <td className="CheckPoints-Table-Center">
+                  <Picto checkPoint={value} />
+                </td>
                 <td>
                   <label className="CheckPoints-CheckPoint-Label" htmlFor={'{value.id_controle}'}>
                     {value.nom}
