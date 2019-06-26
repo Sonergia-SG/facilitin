@@ -73,7 +73,6 @@ import {
 } from '../../../reducer/views/folder/types';
 import { ListListLoadedNormalized } from '../../../reducer/views/list/type';
 import {
-  BooleanNumber,
   FoldersUpdateMoaLoaded,
   CheckPointsFolderUpdateCheckpointLoadingAction,
   CheckPointsFolderUpdateChekpointLoadedAction,
@@ -89,7 +88,7 @@ import rest from '../../../../tools/rest';
 interface FolderUpdateCheckPointLoadingParams {
   folderId: number;
   checkPointId: number;
-  prevValue: BooleanNumber;
+  prevValue: 0 | 1 | -1;
   newValue: 0 | 1;
 }
 
@@ -131,7 +130,7 @@ FilesFolcerCheckPointLoaded => ({
 interface FolderUpdateCheckPointErrorParams {
   folderId: number;
   checkPointId: number;
-  prevValue: BooleanNumber;
+  prevValue: 0 | 1 | -1;
 }
 
 export const folderUpdateCheckPointError = ({
