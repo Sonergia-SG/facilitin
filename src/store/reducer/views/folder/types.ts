@@ -31,7 +31,6 @@ import {
   FOLDER_UPDATE_SITE_ERROR,
   FOLDER_UPDATE_SITE_LOADED,
 } from '../../../types';
-import { BooleanNumber } from '../../entities/types';
 
 export type FolderCheckPointStatus = 'SENDING' | 'ERROR';
 
@@ -51,7 +50,7 @@ export interface FolderPendingItem {
     [index: number]:
     | {
       status?: FolderCheckPointStatus;
-      prevValue?: BooleanNumber;
+      prevValue?: 0 | 1 | -1;
     }
     | undefined;
   };
@@ -97,7 +96,7 @@ export interface FolderFolderUpdateCheckpointLoadingAction {
   type: typeof FOLDER_UPDATE_CHECK_POINT_LOADING;
   folderId: number;
   checkPointId: number;
-  prevValue: BooleanNumber;
+  prevValue: 0 | 1 | -1;
 }
 
 export interface FolderFolderUpdateChekpointLoadedAction {
@@ -110,7 +109,7 @@ export interface FolderFolderUpdateCheckpointErrorAction {
   type: typeof FOLDER_UPDATE_CHECK_POINT_ERROR;
   folderId: number;
   checkPointId: number;
-  prevValue: BooleanNumber;
+  prevValue: 0 | 1 | -1;
 }
 
 export interface FolderFolderUpdateMoaValue {
