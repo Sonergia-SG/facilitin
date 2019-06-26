@@ -50,7 +50,7 @@ const Picto = ({ checkPoint }: Props) => {
   const icoConfig = resolveIco(checkPoint);
 
   return (
-    <div key={icoConfig.key}>
+    <div style={{ minWidth: 26 }} key={icoConfig.key}>
       <i className={`fas ${icoConfig.name}`} style={{ color: icoConfig.color }} />
     </div>
   );

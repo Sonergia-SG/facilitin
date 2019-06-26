@@ -42,9 +42,9 @@ export const CheckPointsComponent = ({
       <table className="CheckPoints-Table">
         <thead>
           <tr>
+            <th />
             <th>Oui</th>
             <th>Non</th>
-            <th />
             <th />
           </tr>
         </thead>
@@ -59,6 +59,9 @@ export const CheckPointsComponent = ({
 
             return (
               <tr key={value.id_point_controle}>
+                <td className="CheckPoints-Table-Center">
+                  <Picto checkPoint={value} />
+                </td>
                 <td className="CheckPoints-Table-Center">
                   <input
                     type="radio"
@@ -94,9 +97,6 @@ export const CheckPointsComponent = ({
                       });
                     }}
                   />
-                </td>
-                <td className="CheckPoints-Table-Center">
-                  <Picto checkPoint={value} />
                 </td>
                 <td>
                   <label className="CheckPoints-CheckPoint-Label" htmlFor={'{value.id_controle}'}>

@@ -1,9 +1,10 @@
 .CheckPoints-CheckPoint-Container {
-  margin-left: 18px;
+  margin-left: 2px;
 }
 
 .CheckPoints-Table th {
   padding: 0 5px;
+  font-size: 14px;
 }
 .CheckPoints-Table .CheckPoints-Table-Center {
   text-align: center;
