@@ -79,14 +79,13 @@ class DropZone extends Component<Props, State> {
         {loading ? (
           <div
             style={{
-              width: 125,
-              height: 105,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              margin: '0 3px',
             }}
           >
-            <Loading show heigth="80" width="80" />
+            <Loading show heigth="20" width="20" />
           </div>
         ) : (
           <Dropzone
@@ -108,17 +107,17 @@ class DropZone extends Component<Props, State> {
                     }}
                     {...getInputProps()}
                   />
-                  <span className="bigplus">
-                    <i className="fas fa-file-upload fa-2x" />
-                  </span>
-                  <br />
-                  {isDragActive && !isDragReject ? 'Déposez votre fichier ici !' : ''}
+                  <i
+                    style={{ fontSize: 24, cursor: 'pointer', margin: '0 3px' }}
+                    className="fas fa-file-upload"
+                  />
+                  {/* {isDragActive && !isDragReject ? 'Déposez votre fichier ici !' : ''}
                   {isDragReject && 'Type de fichier non accepté !'}
                   {isFileTooLarge && (
                     <div className="text-danger mt-2">
                       Le fichier est trop volumineux (5Mb Max).
                     </div>
-                  )}
+                  )} */}
                 </div>
               );
             }}

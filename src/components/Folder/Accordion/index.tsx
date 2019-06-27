@@ -1,7 +1,7 @@
 /**
  * Created by stephane.mallaroni on 15/04/2019.
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import idx from 'idx';
 
@@ -10,6 +10,8 @@ import DropZone from '../../DropZone';
 import CheckPoints from './CheckPoints';
 import DownloadFile from './DownloadFile';
 import Validation from './Validation';
+import ToggleViewer from './ToggleViewer';
+import Preview from './Preview';
 
 import { folderFileInLitige, folderEnding } from '../../../store/actions/views/folder';
 
@@ -49,8 +51,9 @@ const Accordion = ({
   const color = StateToColor(file);
 
   const litigeLoading = idx(pending, _ => _.litige[file.id_dp_file].loading) || false;
-
   const [displayModal, toggleModal] = useOpenModalAfterLoading(litigeLoading);
+
+  const [previewOppened, togglePreview] = useState(false);
 
   return (
     <div className="divAccordion">
@@ -82,21 +85,37 @@ const Accordion = ({
         </div>
         <div className="accordion-body">
           <div className="Accordion-Box">
-            <div className="Accordion-Files">
-              <div style={{ width: 190 }} className="notification has-text-centered tilebordered">
-                <div className="content">
-                  <DropZone file={file} idDpOperation={folderId} />
-                </div>
-              </div>
-              <DownloadFile file={file} />
-            </div>
-            <div className="Accordion-CheckPoints">
-              <CheckPoints
-                pending={pending}
-                folderId={folderId}
-                checkPoints={checkPoints}
-                fileId={file.id_dp_file}
+            <div className="Accordion-File-Header">
+              <ToggleViewer
+                toggle={() => togglePreview(!previewOppened)}
+                viewerOpened={previewOppened}
               />
+              {/* <DownloadFile file={file} /> */}
+              <DropZone file={file} idDpOperation={folderId} />
+              <h3 className="Accordion-File-name">FakeName.pdf</h3>
+            </div>
+            <div className="Accordion-Content">
+              {previewOppened && (
+                <div className="Accordion-Document-Viewer">
+                  <Preview file={file} />
+                </div>
+              )}
+              {/* <div className="Accordion-Files">
+                <div style={{ width: 190 }} className="notification has-text-centered tilebordered">
+                  <div className="content">
+                    <DropZone file={file} idDpOperation={folderId} />
+                  </div>
+                </div>
+                <DownloadFile file={file} />
+              </div> */}
+              <div className="Accordion-CheckPoints">
+                <CheckPoints
+                  pending={pending}
+                  folderId={folderId}
+                  checkPoints={checkPoints}
+                  fileId={file.id_dp_file}
+                />
+              </div>
             </div>
             <div className="Accordion-Button-Position">
               <Validation

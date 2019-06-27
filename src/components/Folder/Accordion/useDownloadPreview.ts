@@ -1,20 +1,15 @@
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
+
 import rest from '../../../tools/rest';
 import { API_PATH } from '../../../variables';
 import { addMessageToQueue } from '../../Alert';
-import { BooleanNumber, SimpleFile } from '../../../store/reducer/entities/types';
+import { SimpleFile, BooleanNumber } from '../../../store/reducer/entities/types';
 
-import downloadDataUri from '../../../tools/file/downloadDataUri';
-
-interface Props {
-  file: SimpleFile;
-}
-
-
-class DownloadFile extends Component<Props> {
-  downloadFile = async () => {
+const useDownloadPreview = (file: SimpleFile) => {
+  const [data, updateData] = useState('');
+  const downloadFile = async () => {
     try {
-      const result = await rest(`${API_PATH}files/${this.props.file.id_file}`);
+      const result = await rest(`${API_PATH}files/${file.id_file}`);
 
       if (result.status === 200) {
         interface JSON {
@@ -37,10 +32,13 @@ class DownloadFile extends Component<Props> {
         }
         const json: JSON = await result.json();
 
-        const file = json.file[0];
-        const b64 = `data:${file.mimetype};base64,${file.file_binary.binarycontent}`;
+        const fileWithData = json.file[0];
+        const b64 = `data:${fileWithData.mimetype};base64,${
+          fileWithData.file_binary.binarycontent
+        }`;
 
-        downloadDataUri(b64, file.filename);
+        updateData(b64);
+        // downloadDataUri(b64, fileWithData.filename);
       } else {
         addMessageToQueue({
           duration: 4000,
@@ -56,23 +54,11 @@ class DownloadFile extends Component<Props> {
         message: 'Erreur pendant la récupération du fichier',
       });
     }
-  }
+  };
 
-  render() {
-    return (
-      <div style={{ width: 20, margin: '0 3px' }}>
-        <div
-          onClick={this.downloadFile}
-          onKeyPress={this.downloadFile}
-          style={{ cursor: 'pointer' }}
-          role="button"
-          tabIndex={0}
-        >
-          <i style={{ fontSize: 24 }} className="fas fa-file-download" />
-        </div>
-      </div>
-    );
-  }
-}
+  useEffect(() => { downloadFile(); }, []);
 
-export default DownloadFile;
+  return data;
+};
+
+export default useDownloadPreview;
