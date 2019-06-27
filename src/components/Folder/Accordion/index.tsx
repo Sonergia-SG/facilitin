@@ -1,7 +1,7 @@
 /**
  * Created by stephane.mallaroni on 15/04/2019.
  */
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import idx from 'idx';
 
@@ -49,14 +49,25 @@ const Accordion = ({
   inLitige,
 }: Props) => {
   const color = StateToColor(file);
+  const selfRef = useRef(null);
 
   const litigeLoading = idx(pending, _ => _.litige[file.id_dp_file].loading) || false;
   const [displayModal, toggleModal] = useOpenModalAfterLoading(litigeLoading);
 
   const [previewOppened, togglePreview] = useState(false);
 
+  const toggleAndCroll = () => {
+    togglePreview(!previewOppened);
+
+    setTimeout(() => {
+      if (selfRef !== null && selfRef.current) {
+        idx(selfRef, (_: any) => _.current.scrollIntoView());
+      }
+    }, 10);
+  };
+
   return (
-    <div className="divAccordion">
+    <div ref={selfRef} className="divAccordion">
       <article className={`accordion ${isSelected ? 'is-active' : ''}`}>
         <div className={`accordion-header ${color}`}>
           <div
@@ -87,7 +98,7 @@ const Accordion = ({
           <div className="Accordion-Box">
             <div className="Accordion-File-Header">
               <ToggleViewer
-                toggle={() => togglePreview(!previewOppened)}
+                toggle={toggleAndCroll}
                 viewerOpened={previewOppened}
               />
               {/* <DownloadFile file={file} /> */}

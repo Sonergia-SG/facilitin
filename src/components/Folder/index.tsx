@@ -43,6 +43,16 @@ class Folder extends Component<Props, State> {
       this.setState({ selectedAccordion: undefined });
     } else {
       this.setState({ selectedAccordion: index });
+
+      setTimeout(() => {
+        const el = document.querySelector(`.divAccordion:nth-child(${index + 1})`);
+
+        if (el) {
+          el.scrollIntoView({
+            behavior: 'smooth',
+          });
+        }
+      }, 200);
     }
   };
 
@@ -65,7 +75,7 @@ class Folder extends Component<Props, State> {
         folderId={folderId}
       >
         <div style={{ display: 'flex' }}>
-          <div style={{ flex: 1 }}>
+          <div style={{ width: 'calc(100% - 12px)' }}>
             <Edit
               selectedAccordion={selectedAccordion}
               handleAccordionClick={this.handleAccordionClick}

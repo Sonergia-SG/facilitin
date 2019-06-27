@@ -33,7 +33,7 @@
   width: calc(100% - 250px);
   max-width: 800px;
   min-width: 300px;
-  height: calc(100vh - 44px - 39px - 54px);
+  height: calc(100vh - 44px - 39px - 54px - 80px - 130px);
   background-color: #ffff;
   margin-left: 7px;
   border: 1px solid #c4c4c4;

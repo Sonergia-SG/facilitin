@@ -1,8 +1,14 @@
 .Folder-Header {
-  margin: 0px 0px 25px;
+  padding: 0px 0px 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #0000;
+  transition: border-bottom 0.2s ease;
+}
+
+.Folder-Header-border {
+  border-bottom: 1px solid #cfcfcf;
 }
 
 .Folder-Header-NotigBadge {
@@ -40,4 +46,10 @@
   width: 300px;
   z-index: 1;
   border-radius: 5px;
+}
+
+.Folder-ScrollView:not([data-scroll='0']) {
+  .Folder-Header {
+    border-bottom: 1px solid black;
+  }
 }

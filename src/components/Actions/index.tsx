@@ -147,7 +147,12 @@ class Actions extends Component<Props> {
       : mappedData;
 
     return (
-      <div>
+      <div
+        style={{
+          height: 'calc(100vh - 130px)',
+          overflowY: 'auto',
+        }}
+      >
         <div className="has-text-centered content-loading">
           <div id="loading_liste">
             <Loading show={loading} type="ThreeDots" />
