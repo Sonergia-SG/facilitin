@@ -1,3 +1,5 @@
+import * as Sentry from '@sentry/browser';
+
 import {
   UserAddTokenAction,
   UserInfosLoading,
@@ -39,7 +41,15 @@ export const userInfosError = (): UserInfosError => ({
   type: USER_INFOS_ERROR,
 });
 
-export const getUserInfos = (): ThunkAction => async (dispatch, getState) => {
+export const getUserInfos = (): ThunkAction => async (dispatch) => {
+  const dispatchError = () => {
+    dispatch(userInfosError());
+    dispatch(logout());
+    Sentry.configureScope((scope) => {
+      scope.setUser(null);
+    });
+  };
+
   try {
     dispatch(userInfosLoading());
 
@@ -56,22 +66,23 @@ export const getUserInfos = (): ThunkAction => async (dispatch, getState) => {
         const user = json.values;
         if (user) {
           dispatch(userInfosLoaded(user));
+
+          Sentry.configureScope((scope) => {
+            scope.setUser({ id: `${user.id_user}` });
+          });
         } else {
-          dispatch(userInfosError());
-          dispatch(logout());
+          dispatchError();
         }
         break;
       }
       case 401:
       default: {
-        dispatch(userInfosError());
-        dispatch(logout());
+        dispatchError();
         break;
       }
     }
   } catch (error) {
     captureException(error);
-    dispatch(userInfosError());
-    dispatch(logout());
+    dispatchError();
   }
 };
