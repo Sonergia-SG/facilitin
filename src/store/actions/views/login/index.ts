@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/browser';
 
 import {
   LOGIN_LOADING,
@@ -40,9 +41,15 @@ export const loginError = (errors: Errors): LoginLoginErrorAction => ({
   errors,
 });
 
-export const logout = (): LoginLogoutAction => ({
-  type: LOGOUT,
-});
+export const logout = (): LoginLogoutAction => {
+  Sentry.configureScope((scope) => {
+    scope.setUser(null);
+  });
+
+  return {
+    type: LOGOUT,
+  };
+};
 
 export const updateErrors = (errors: Errors): LoginLoginUpdateErrosAction => ({
   type: LOGIN_UPDATE_ERRORS,
