@@ -6,6 +6,7 @@ import { OperationFull } from '../../../../store/reducer/entities/types';
 import MOA from './MOA';
 import MOE from './MOE';
 import Site from './Site';
+import AnimatedHeight from './AnimateHeight';
 
 interface Props {
   data: OperationFull;
@@ -90,35 +91,37 @@ const SecondaryData = ({ data }: Props) => {
           {'Travaux'}
         </div>
       </div>
-      <div>
-        {moaSelected && (
-          <MOA
-            edit={edit}
-            dossierprime={data.dossierprime}
-            idDpOperation={data.id_dp_operation}
-            idDossierPrime={data.id_dossierprime}
-            cancel={cancel}
-          />
-        )}
-        {moeSelected && (
-          <MOE
-            edit={edit}
-            dossierprime={data.dossierprime}
-            idDpOperation={data.id_dp_operation}
-            idDossierPrime={data.id_dossierprime}
-            cancel={cancel}
-          />
-        )}
-        {siteSelected && (
-          <Site
-            edit={edit}
-            dossierprime={data.dossierprime}
-            idDpOperation={data.id_dp_operation}
-            idDossierPrime={data.id_dossierprime}
-            cancel={cancel}
-          />
-        )}
-      </div>
+      <AnimatedHeight>
+        <div>
+          {moaSelected && (
+            <MOA
+              edit={edit}
+              dossierprime={data.dossierprime}
+              idDpOperation={data.id_dp_operation}
+              idDossierPrime={data.id_dossierprime}
+              cancel={cancel}
+            />
+          )}
+          {moeSelected && (
+            <MOE
+              edit={edit}
+              dossierprime={data.dossierprime}
+              idDpOperation={data.id_dp_operation}
+              idDossierPrime={data.id_dossierprime}
+              cancel={cancel}
+            />
+          )}
+          {siteSelected && (
+            <Site
+              edit={edit}
+              dossierprime={data.dossierprime}
+              idDpOperation={data.id_dp_operation}
+              idDossierPrime={data.id_dossierprime}
+              cancel={cancel}
+            />
+          )}
+        </div>
+      </AnimatedHeight>
     </div>
   );
 };
