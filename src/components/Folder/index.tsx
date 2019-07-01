@@ -58,6 +58,9 @@ class Folder extends Component<Props, State> {
     const folderId = parseInt(match.params.folderId, 10);
     const action = entities.operations[folderId];
 
+    // ? Wait status from API : lock in case of action reject
+    const locked = false;
+
     return (
       <Container
         commentsOpened={commentsOpened}
@@ -69,6 +72,7 @@ class Folder extends Component<Props, State> {
             <Edit
               selectedAccordion={selectedAccordion}
               handleAccordionClick={this.handleAccordionClick}
+              locked={locked}
             />
           </div>
           {action && <Comments action={action} commentsOpened={commentsOpened} />}

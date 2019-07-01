@@ -24,10 +24,11 @@ interface Props extends RouteComponentProps<Params> {
   folderState: FolderState;
   selectedAccordion: number | undefined;
   handleAccordionClick: (index: number) => () => void;
+  locked: boolean;
 }
 
 const Edit = ({
-  entities, match, folderState, selectedAccordion, handleAccordionClick,
+  entities, match, folderState, selectedAccordion, handleAccordionClick, locked,
 }: Props) => {
   const folderId = parseInt(match.params.folderId, 10);
   const operation = entities.operations[folderId];
@@ -50,6 +51,7 @@ const Edit = ({
         loading={loading}
         title={title}
         data={data}
+        locked={locked}
       />
       <div className="tile is-parent">
         <div className="tile is-child" style={{ marginTop: 0 }}>
@@ -61,6 +63,7 @@ const Edit = ({
             loading={loading}
             folderId={folderId}
             pending={folderPending}
+            locked={locked}
           />
         </div>
       </div>

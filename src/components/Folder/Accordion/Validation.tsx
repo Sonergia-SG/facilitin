@@ -10,6 +10,7 @@ interface Props {
   goNext: () => void;
   loading: boolean;
   checkPoints: Array<CheckPoint> | undefined;
+  locked: boolean;
 }
 
 const getConfig = (checkPoints: Array<CheckPoint>) => {
@@ -46,7 +47,7 @@ const getConfig = (checkPoints: Array<CheckPoint>) => {
 };
 
 const Litige = ({
-  file, inLitige, folderId, loading, checkPoints, goNext,
+  file, inLitige, folderId, loading, checkPoints, goNext, locked,
 }: Props) => {
   const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === file.id_dp_file);
 
@@ -59,7 +60,7 @@ const Litige = ({
       className={`button ${config.type} is-pulled-right${
         loading ? ' is-loading' : ''
       }`}
-      disabled={config.disabled}
+      disabled={config.disabled || locked}
       id="button-litige"
       onClick={() => {
         addMessageToQueue({

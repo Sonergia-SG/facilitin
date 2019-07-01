@@ -33,6 +33,7 @@ interface Props {
   inLitige: any;
   ending: any;
   pending: FolderPendingItem | undefined;
+  locked: boolean;
 }
 
 const Accordion = ({
@@ -45,6 +46,7 @@ const Accordion = ({
   goNext,
   ending,
   inLitige,
+  locked,
 }: Props) => {
   const color = StateToColor(file);
 
@@ -96,6 +98,7 @@ const Accordion = ({
                 folderId={folderId}
                 checkPoints={checkPoints}
                 fileId={file.id_dp_file}
+                locked={locked}
               />
             </div>
             <div className="Accordion-Button-Position">
@@ -106,6 +109,7 @@ const Accordion = ({
                 folderId={folderId}
                 checkPoints={checkPoints}
                 inLitige={inLitige}
+                locked={locked}
               />
             </div>
           </div>

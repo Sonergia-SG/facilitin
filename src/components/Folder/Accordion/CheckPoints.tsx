@@ -16,6 +16,7 @@ interface Props {
   folderId: number;
   updateCheckPoint: any;
   pending: FolderPendingItem | undefined;
+  locked: boolean;
 }
 
 export const CheckPointsComponent = ({
@@ -24,6 +25,7 @@ export const CheckPointsComponent = ({
   folderId,
   updateCheckPoint,
   pending,
+  locked,
 }: Props) => {
   const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === fileId);
 
@@ -55,7 +57,7 @@ export const CheckPointsComponent = ({
               _ => _.checkPoint[value.id_point_controle].status,
             );
 
-            const disabled = loading || checkPointStatus === 'SENDING' || value.automatique === 1;
+            const disabled = loading || checkPointStatus === 'SENDING' || value.automatique === 1 || locked;
 
             return (
               <tr key={value.id_point_controle}>

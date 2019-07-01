@@ -15,10 +15,11 @@ interface Props {
   selectedAccordion: number | undefined;
   pending: FolderPendingItem | undefined;
   handleAccordionClick: (index: number) => () => void;
+  locked: boolean;
 }
 
 const Left = ({
-  title, data, loading, selectedAccordion, handleAccordionClick, pending,
+  title, data, loading, selectedAccordion, handleAccordionClick, pending, locked,
 }: Props) => (
   <div style={{ minWidth: 320 }} className="tile is-vertical is-3">
     <div className="tile is-parent is-vertical">
@@ -28,14 +29,14 @@ const Left = ({
         data={data}
         checkPoints={data.point_controles}
       />
-      <SecondaryData data={data} />
+      <SecondaryData data={data} locked={locked} />
       <CheckPointsSummary
         checkPoints={data.point_controles}
         handleAccordionClick={handleAccordionClick}
         selectedAccordion={selectedAccordion}
         data={data}
       />
-      <EndButton pending={pending} data={data} />
+      <EndButton pending={pending} data={data} locked={locked} />
     </div>
   </div>
 );

@@ -9,6 +9,7 @@ import Site from './Site';
 
 interface Props {
   data: OperationFull;
+  locked: boolean;
 }
 
 type Selected = 'MOA' | 'MOE' | 'SITE';
@@ -45,7 +46,7 @@ class SecondaryData extends Component<Props, State> {
   };
 
   render() {
-    const { data } = this.props;
+    const { data, locked } = this.props;
     const { selected, edit } = this.state;
 
     const moaSelected = selected === 'MOA';
@@ -105,6 +106,7 @@ class SecondaryData extends Component<Props, State> {
               idDpOperation={data.id_dp_operation}
               idDossierPrime={data.id_dossierprime}
               cancel={this.cancel}
+              locked={locked}
             />
           )}
           {moeSelected && (
@@ -114,6 +116,7 @@ class SecondaryData extends Component<Props, State> {
               idDpOperation={data.id_dp_operation}
               idDossierPrime={data.id_dossierprime}
               cancel={this.cancel}
+              locked={locked}
             />
           )}
           {siteSelected && (
@@ -123,6 +126,7 @@ class SecondaryData extends Component<Props, State> {
               idDpOperation={data.id_dp_operation}
               idDossierPrime={data.id_dossierprime}
               cancel={this.cancel}
+              locked={locked}
             />
           )}
         </div>
