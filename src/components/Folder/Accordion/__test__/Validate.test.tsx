@@ -33,6 +33,7 @@ describe('Litige button', () => {
         inLitige={() => 'Hello'}
         checkPoints={[defaultCheckPoint]}
         goNext={() => ''}
+        locked={false}
         loading={false}
       />,
     );
@@ -51,6 +52,26 @@ describe('Litige button', () => {
           pivot: { ...defaultCheckPoint.pivot, valide: 1 },
         }]}
         goNext={() => ''}
+        locked={false}
+        loading={false}
+      />,
+    );
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('render locked', () => {
+    const wrapper = shallow(
+      <Validation
+        file={{ statut: 0, id_dp_file: 0 }}
+        folderId={0}
+        inLitige={() => 'Hello'}
+        checkPoints={[{
+          ...defaultCheckPoint,
+          pivot: { ...defaultCheckPoint.pivot, valide: 1 },
+        }]}
+        goNext={() => ''}
+        locked
         loading={false}
       />,
     );
@@ -69,6 +90,7 @@ describe('Litige button', () => {
           pivot: { ...defaultCheckPoint.pivot, valide: 0 },
         }]}
         goNext={() => ''}
+        locked={false}
         loading={false}
       />,
     );
@@ -88,6 +110,7 @@ describe('Litige button', () => {
           pivot: { ...defaultCheckPoint.pivot, valide: 0 },
         }]}
         goNext={() => ''}
+        locked={false}
         loading={false}
       />,
     );
