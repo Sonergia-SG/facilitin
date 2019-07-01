@@ -12,6 +12,7 @@ import { FolderPendingItem } from '../../../../store/reducer/views/folder/types'
 import { AppState } from '../../../../store';
 
 import Input from './Input';
+import { GenericForms } from './types';
 
 interface ConnectProps {
   idDpOperation: number;
@@ -26,6 +27,7 @@ interface Props extends ConnectProps {
   updateMoe: typeof folderUpdateMoeValue;
   post: any;
   clean: typeof folderCleanMoeValue;
+  def: GenericForms;
 }
 
 const MOE = ({
@@ -38,6 +40,7 @@ const MOE = ({
   pending,
   updateMoe,
   clean,
+  def,
 }: Props) => {
   if (!dossierprime) return <p>Unavailable</p>;
 
@@ -49,156 +52,21 @@ const MOE = ({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <Input
-        label="Denomination :"
-        valueKey="moe_denomination"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Siret :"
-        valueKey="moe_siret"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Télèphone :"
-        valueKey="moe_tel"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Fax :"
-        valueKey="moe_fax"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Rue :"
-        valueKey="moe_rue"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Code postal :"
-        valueKey="moe_cp"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Ville :"
-        valueKey="moe_ville"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Commentaire :"
-        valueKey="moe_commentaire"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Email :"
-        valueKey="moe_individu_email"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Contact :"
-        valueKey="moe_contact"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Contact prenom :"
-        valueKey="moe_contact_prenom"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Contact mobile :"
-        valueKey="moe_contact_mobile"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Contact fonction :"
-        valueKey="moe_contact_fonction"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="BIC :"
-        valueKey="moe_bic"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Iban :"
-        valueKey="moe_iban"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
+      {def.map(d => (
+        <Input
+          key={d.key}
+          label={`${d.label} :`}
+          valueKey={d.key}
+          value={d.value}
+          type={d.type}
+          idDpOperation={idDpOperation}
+          disabled={disabledInput}
+          dossierprime={dossierprime}
+          pending={pending}
+          pendingKey="moe"
+          update={updateMoe}
+        />
+      ))}
       <div
         style={{
           display: 'flex',

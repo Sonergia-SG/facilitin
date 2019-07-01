@@ -3,6 +3,8 @@ import './SecondataData.css';
 
 import { OperationFull } from '../../../../store/reducer/entities/types';
 
+import forms from './mockedForms';
+
 import MOA from './MOA';
 import MOE from './MOE';
 import Site from './Site';
@@ -105,6 +107,7 @@ class SecondaryData extends Component<Props, State> {
               idDpOperation={data.id_dp_operation}
               idDossierPrime={data.id_dossierprime}
               cancel={this.cancel}
+              def={forms.moa}
             />
           )}
           {moeSelected && (
@@ -114,6 +117,7 @@ class SecondaryData extends Component<Props, State> {
               idDpOperation={data.id_dp_operation}
               idDossierPrime={data.id_dossierprime}
               cancel={this.cancel}
+              def={forms.moe}
             />
           )}
           {siteSelected && (
@@ -123,6 +127,7 @@ class SecondaryData extends Component<Props, State> {
               idDpOperation={data.id_dp_operation}
               idDossierPrime={data.id_dossierprime}
               cancel={this.cancel}
+              def={forms.site}
             />
           )}
         </div>

@@ -24,6 +24,7 @@ interface Props {
   dossierprime: FolderFull;
   pending?: FolderPendingItem;
   pendingKey: 'moe' | 'moa' | 'site';
+  value?: string | null;
   type?: string;
   update:
   | GenericUpdate
@@ -35,6 +36,7 @@ interface Props {
 const Input = ({
   pending,
   valueKey,
+  value,
   dossierprime,
   label,
   disabled,
@@ -43,11 +45,11 @@ const Input = ({
   pendingKey,
   type,
 }: Props) => {
-  const value = idx(pending, _ => _[pendingKey][valueKey]);
-  const originalValue = dossierprime[valueKey];
+  const v = idx(pending, _ => _[pendingKey][valueKey]);
+  const originalValue = value || dossierprime[valueKey];
   const cleanOriginalValue = originalValue === null ? undefined : originalValue;
 
-  const isEdited = value !== undefined;
+  const isEdited = v !== undefined;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     update(idDpOperation, valueKey, e.target.value);
@@ -62,7 +64,7 @@ const Input = ({
         placeholder={label}
         className={`input${isEdited ? ' is-info' : ''}`}
         disabled={disabled}
-        value={typeof value === 'string' ? value : cleanOriginalValue}
+        value={typeof v === 'string' ? v : cleanOriginalValue}
         onChange={handleChange}
       />
     </Fragment>

@@ -12,6 +12,7 @@ import { FolderPendingItem } from '../../../../store/reducer/views/folder/types'
 import { AppState } from '../../../../store';
 
 import Input from './Input';
+import { GenericForms } from './types';
 
 interface ConnectProps {
   idDpOperation: number;
@@ -19,6 +20,7 @@ interface ConnectProps {
   edit: boolean;
   dossierprime?: FolderFull;
   cancel: () => void;
+  def: GenericForms;
 }
 
 interface Props extends ConnectProps {
@@ -38,6 +40,7 @@ const Site = ({
   pending,
   updateSite,
   clean,
+  def,
 }: Props) => {
   if (!dossierprime) return <p>Unavailable</p>;
 
@@ -48,86 +51,21 @@ const Site = ({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <Input
-        label="Nom du site :"
-        valueKey="adresse_travaux_nomsite"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="site"
-        update={updateSite}
-      />
-      <Input
-        label="Rue :"
-        valueKey="adresse_travaux_rue"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="site"
-        update={updateSite}
-      />
-      <Input
-        label="Rue complément :"
-        valueKey="adresse_travaux_rue2"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="site"
-        update={updateSite}
-      />
-      <Input
-        label="Code postal :"
-        valueKey="adresse_travaux_cp"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="site"
-        update={updateSite}
-      />
-      <Input
-        label="Ville :"
-        valueKey="adresse_travaux_ville"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="site"
-        update={updateSite}
-      />
-      <Input
-        label="Début des travaux :"
-        valueKey="date_debut_travaux"
-        type="date"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="site"
-        update={
-          (id: number, key: string, value: string) => {
-            updateSite(id, key, value === '' ? null : value);
-          }
-        }
-      />
-      <Input
-        label="Fin des travaux :"
-        type="date"
-        valueKey="date_fin_travaux"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="site"
-        update={
-          (id: number, key: string, value: string) => {
-            updateSite(id, key, value === '' ? null : value);
-          }
-        }
-      />
+      {def.map(d => (
+        <Input
+          key={d.key}
+          label={`${d.label} :`}
+          valueKey={d.key}
+          value={d.value}
+          type={d.type}
+          idDpOperation={idDpOperation}
+          disabled={disabledInput}
+          dossierprime={dossierprime}
+          pending={pending}
+          pendingKey="site"
+          update={updateSite}
+        />
+      ))}
       <div
         style={{
           display: 'flex',

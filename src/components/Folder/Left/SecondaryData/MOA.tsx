@@ -13,6 +13,8 @@ import { AppState } from '../../../../store';
 
 import Input from './Input';
 
+import { GenericForms } from './types';
+
 interface ConnectProps {
   idDpOperation: number;
   idDossierPrime: number;
@@ -26,6 +28,7 @@ interface Props extends ConnectProps {
   updateMoa: typeof folderUpdateMoaValue;
   post: any;
   clean: typeof folderCleanMoaValue;
+  def: GenericForms;
 }
 
 const MOA = ({
@@ -38,6 +41,7 @@ const MOA = ({
   pending,
   updateMoa,
   clean,
+  def,
 }: Props) => {
   if (!dossierprime) return <p>Unavailable</p>;
 
@@ -48,76 +52,21 @@ const MOA = ({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <Input
-        label="Nom MOA : "
-        valueKey="moa_nom"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Prénom MOA : "
-        valueKey="moa_prenom"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Fonction MOA : "
-        valueKey="moa_fonction"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Adresse rue : "
-        valueKey="moa_rue"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Adresse rue 2 : "
-        valueKey="moa_rue2"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Code Postal : "
-        valueKey="moa_cp"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Ville : "
-        valueKey="moa_ville"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
+      {def.map(d => (
+        <Input
+          key={d.key}
+          label={`${d.label} :`}
+          valueKey={d.key}
+          value={d.value}
+          type={d.type}
+          idDpOperation={idDpOperation}
+          disabled={disabledInput}
+          dossierprime={dossierprime}
+          pending={pending}
+          pendingKey="moa"
+          update={updateMoa}
+        />
+      ))}
       <div
         style={{
           display: 'flex',
