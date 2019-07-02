@@ -23,6 +23,7 @@
   width: 100%;
   height: calc(100% - 100px);
   background-image: url(https://www.sonergia.fr/img/BG/BG_sonergia-tools_Facilitin_1920x1080.jpg);
+  background-size: cover;
 }
 
 .Login-form {
