@@ -18,6 +18,16 @@ code {
     monospace;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: 'Montserrat', sans-serif;
+}
+
 #root {
   margin: 10px 30px;
 }
