@@ -1,0 +1,109 @@
+.Login-container {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.Login-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100px;
+}
+
+.Login-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(100% - 100px);
+  background-image: url(https://www.sonergia.fr/img/BG/BG_sonergia-tools_Facilitin_1920x1080.jpg);
+}
+
+.Login-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 50%;
+  background-color: #fff;
+}
+
+.Login-form-input {
+  border-radius: 1px;
+  background-color: #f9f9f9;
+}
+
+.Login-form-button {
+  background-color: #fa9819;
+  color: #fff;
+  border-radius: 1px;
+  transition: background-color 0.2s ease;
+  text-transform: uppercase;
+  font-size: 12px;
+  height: 3.5em;
+  padding: 0em 2em;
+  margin-top: 9px;
+}
+
+.Login-form-button:hover {
+  background-color: #faad49;
+  color: #fff;
+}
+
+.Login-form-button:active {
+  background-color: #ffc06d;
+  color: #fff;
+}
+
+.Login-info {
+  width: 50%;
+  background-color: #fa9819;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  .Login-info {
+    display: none;
+  }
+
+  .Login-form {
+    width: 100%;
+  }
+}
+
+.Login-info > h1 {
+  color: #fff;
+  text-align: center;
+  font-size: 28px;
+  text-transform: uppercase;
+}
+
+.Login-info > p {
+  color: #fff;
+  text-align: center;
+  font-size: 28px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.Login-info > h4 {
+  color: #fff;
+  font-weight: 500;
+}
+
+.Login-panel {
+  display: flex;
+  max-width: 600px;
+  width: 90%;
+  min-height: 400px;
+}
