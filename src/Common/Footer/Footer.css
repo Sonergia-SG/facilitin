@@ -1,0 +1,87 @@
+.Footer-container {
+  width: 100%;
+  padding: 10px 80px;
+  background-color: #444;
+}
+
+.Footer-always-visible {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.Footer-always-visible > p {
+  color: #fff;
+  font-size: 9px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.Footer-always-visible > button {
+  color: #fff;
+  border-color: #fff;
+  background-color: transparent;
+  font-size: 9px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.Footer-always-visible > button:hover {
+  color: #dbdbdb;
+}
+
+.Footer-always-visible > button:active {
+  color: #ababab;
+  border-color: #ababab;
+}
+
+.Footer-always-visible > button:focus {
+  color: #dbdbdb;
+  border-color: #dbdbdb;
+  outline: none;
+  box-shadow: none;
+}
+
+.Footer-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  width: 50px;
+  margin-left: calc(50% - 25px);
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  background-color: #444;
+}
+
+.Footer-selector > button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  margin-top: 5px;
+}
+
+.Footer-selector > button:hover {
+  color: #dbdbdb;
+}
+
+.Footer-selector > button:active {
+  color: #ababab;
+}
+
+.Footer-selector > button:focus {
+  color: #dbdbdb;
+}
+
+.Footer-selector > button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  margin-top: 5px;
+}
+
+.Footer-down {
+  transform: rotate(180deg);
+}
