@@ -147,7 +147,7 @@ class Actions extends Component<Props> {
       : mappedData;
 
     return (
-      <div>
+      <div style={{ backgroundColor: '#fff', padding: '10px 20px' }}>
         <div className="has-text-centered content-loading">
           <div id="loading_liste">
             <Loading show={loading} type="ThreeDots" />
@@ -155,6 +155,7 @@ class Actions extends Component<Props> {
         </div>
         <input
           className="input search-table"
+          style={{ width: 'auto' }}
           placeholder="N° Action"
           defaultValue={search}
           onChange={e => this.props.listUpdateSearch(e.target.value)}

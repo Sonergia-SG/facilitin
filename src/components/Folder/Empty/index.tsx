@@ -13,7 +13,7 @@ const Empty = ({ loading }: Props) => (
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      height: 'calc(100% - 120px)',
+      height: 'calc(100% - 80px)',
     }}
   >
     {loading

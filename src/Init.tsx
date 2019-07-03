@@ -9,6 +9,7 @@ import Router from './components/Router';
 
 import storeCreator, { getStore } from './store';
 import Alert from './components/Alert';
+import Layout from './Layout';
 
 class Init extends Component {
   state = {
@@ -30,7 +31,9 @@ class Init extends Component {
     if (displayApp) {
       return (
         <Provider store={getStore()}>
-          <Router />
+          <Layout>
+            <Router />
+          </Layout>
           <Alert />
         </Provider>
       );

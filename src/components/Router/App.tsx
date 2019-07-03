@@ -48,11 +48,15 @@ const AppRouter = ({ userLoading, userInfos, getInfos }: Props) => {
       {transitions.map(({ item, props, key }) => (item ? (
         <animated.div key={key} style={props} className="Router-App-Container">
           <Header />
-          <Switch>
-            <Route path="/actions/:folderId" component={Folder} />
-            <Route path="/actions" component={Actions} />
-            <Redirect to="/actions" />
-          </Switch>
+          <div className="Router-background">
+            <div className="Router-content-centered">
+              <Switch>
+                <Route path="/actions/:folderId" component={Folder} />
+                <Route path="/actions" component={Actions} />
+                <Redirect to="/actions" />
+              </Switch>
+            </div>
+          </div>
         </animated.div>
       ) : (
         <animated.div key={key} style={props} className="Router-App-Loading-Container">
