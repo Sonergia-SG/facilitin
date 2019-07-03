@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
-import 'bulma/css/bulma.css';
+// import 'bulma/css/bulma.css';
+import './Init.scss';
 import './css/index.css';
 
 import Router from './components/Router';

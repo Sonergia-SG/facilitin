@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Connection from '../Connection';
+import Login from '../Login';
 
 import { AppState } from '../../store/index';
 
@@ -24,7 +24,7 @@ const Root = ({ logged }: Props) => {
 
   return (
     <Switch>
-      <Route exact path="/login" component={Connection} />
+      <Route exact path="/login" component={Login} />
       <Redirect to="/login" />
     </Switch>
   );
