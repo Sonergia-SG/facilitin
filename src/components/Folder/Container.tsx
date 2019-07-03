@@ -36,7 +36,7 @@ const Container = ({
   const scrollView = useRef(null);
 
   return (
-    <div>
+    <div style={{ backgroundColor: '#fff', padding: '10px 20px' }}>
       <div className="Folder-Header">
         <Link to="/actions">{"< Retour à la liste d'opérations"}</Link>
         <div style={{ position: 'relative' }}>

@@ -1,8 +1,8 @@
 .Comments-Container {
   position: fixed;
   right: 0;
-  bottom: 0;
-  height: calc(100% - 59px - 120px);
+  bottom: 50px;
+  height: calc(100% - 59px - 80px - 10px - 10px - 50px);
   width: 525px;
   max-width: 100%;
   transition: transform 0.2s ease, box-shadow;
