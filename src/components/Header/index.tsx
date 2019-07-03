@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import logoSmall from '../../images/sonergia_small.png';
+import logoSmall from '../../images/logo_FACILITIN.png';
 
 import { logout } from '../../store/actions/views/login/index';
 
@@ -34,10 +34,13 @@ class HeaderNav extends Component<Props> {
         role="navigation"
         aria-label="main navigation"
       >
-        <img src={logoSmall} alt="Logo Sonergia" height="55" />
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <img src={logoSmall} style={{ height: 60 }} alt="Logo Sonergia" />
+        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
           <UserInfos />
-          <button type="button" className="button is-primary" onClick={this.deconnexionSubmit}>
+          <button type="button" className="button is-small" style={{ width: '100%' }} onClick={this.deconnexionSubmit}>
+            <span className="icon is-small">
+              <i className="far fa-times-circle" />
+            </span>
             <strong>Déconnexion</strong>
           </button>
         </div>
