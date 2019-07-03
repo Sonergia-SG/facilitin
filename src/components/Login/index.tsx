@@ -99,10 +99,10 @@ const Login = ({
             >
               Connexion
             </button>
+            {loginState.errors.formulaire && (
+              <p style={{ color: 'red' }}>{loginState.errors.formulaire}</p>
+            )}
           </form>
-          {loginState.errors.formulaire && (
-            <p style={{ color: 'red' }}>{loginState.errors.formulaire}</p>
-          )}
         </div>
       </div>
     </div>
