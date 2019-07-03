@@ -33,8 +33,7 @@ const UserInfos = ({ user }: Props) => user && (
     data-tooltip={resolveType(user.fonction)}
   >
     <p className="Header-UserInfos-Value">
-      {user.nom}
-      {user.prenom}
+      {`${user.nom} ${user.prenom}`}
     </p>
   </div>
 );
