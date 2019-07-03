@@ -2,6 +2,19 @@
   width: 100%;
   padding: 10px 80px;
   background-color: #444;
+  box-sizing: border-box;
+}
+
+@media only screen and (max-width: 850px) {
+  .Footer-container {
+    padding: 10px 5px 10px 10px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .Footer-always-visible > p {
+    display: none;
+  }
 }
 
 .Footer-always-visible {
@@ -59,6 +72,9 @@
 .Footer-selector > button {
   background-color: transparent;
   border: none;
+  outline: none;
+  border: none;
+  box-shadow: none;
   color: #fff;
   margin-top: 5px;
 }
@@ -75,6 +91,10 @@
   color: #dbdbdb;
 }
 
+.Footer-selector > button:focus:not(:active) {
+  box-shadow: none;
+}
+
 .Footer-selector > button {
   background-color: transparent;
   border: none;
@@ -82,6 +102,26 @@
   margin-top: 5px;
 }
 
+.Footer-selector-icon {
+  transition: transform 0.4s ease;
+}
+
 .Footer-down {
   transform: rotate(180deg);
+}
+
+.Footer-hacked-space {
+  height: 60px;
+  width: 100%;
+}
+
+.Footer-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.Footer-usefull-links {
+  color: #fff;
 }
