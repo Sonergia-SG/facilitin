@@ -18,6 +18,16 @@ code {
     monospace;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: 'Montserrat', sans-serif;
+}
+
 #root {
   margin: 10px 30px;
 }
@@ -52,9 +62,7 @@ code {
   left: calc(50% - 55px);
   z-index: 1000;
 }
-.navbar1 {
-  margin-bottom: 60px;
-}
+
 .footersonergia {
   width: 100%;
   margin-top: 80px;
