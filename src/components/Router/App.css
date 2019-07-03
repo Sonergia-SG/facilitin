@@ -1,18 +1,33 @@
 .Router-App-Loading-Container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .Router-App-Container {
   position: absolute;
-  top: 10px;
-  bottom: 10px;
-  left: 30px;
-  right: 30px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.Router-background {
+  display: flex;
+  justify-content: center;
+  background-image: url(https://www.sonergia.fr/img/BG/BG_sonergia-tools_Facilitin_1920x1080.jpg);
+  height: calc(100vh - 80px - 60px);
+  overflow: auto;
+  background-size: cover;
+  padding-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+}
+
+.Router-content-centered {
+  background-color: #fff0;
+  max-width: 1300px;
+  width: calc(100vw - 30px - 40px);
 }

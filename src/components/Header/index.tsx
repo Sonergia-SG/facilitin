@@ -23,7 +23,13 @@ class HeaderNav extends Component<Props> {
   render() {
     return (
       <nav
-        style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '10px 30px',
+          marginBottom: 0,
+        }}
         className="navbar navbar1"
         role="navigation"
         aria-label="main navigation"
