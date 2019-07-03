@@ -17,7 +17,7 @@
   display: flex;
   justify-content: center;
   background-image: url(https://www.sonergia.fr/img/BG/BG_sonergia-tools_Facilitin_1920x1080.jpg);
-  height: calc(100vh - 80px - 60px);
+  height: calc(100vh - 80px - 50px);
   overflow: auto;
   background-size: cover;
   padding-bottom: 30px;
