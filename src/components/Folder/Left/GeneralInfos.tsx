@@ -4,6 +4,8 @@ import './GeneralInfos.css';
 
 import { CheckPoint, OperationStatus } from '../../../store/reducer/entities/types';
 
+import Card from '../../../Common/UIKIT/Card';
+
 import inLitige from './helpers/checkPointInLitige';
 import rejected from './helpers/checkPointRejected';
 
@@ -29,7 +31,7 @@ const GeneralInfos = ({
   const validCheckPoints = allCheckPoints.filter(c => c.pivot.valide === 1);
 
   return (
-    <div style={{ flexGrow: 0 }} className="tile is-child notification has-text-centered">
+    <Card style={{ flexGrow: 0, marginTop: 0 }}>
       <p
         className={`Left-GeneralInfos-Title title${
           loading ? ' Loading-Text Loading-Text_one' : ''
@@ -58,7 +60,7 @@ const GeneralInfos = ({
           <p>{`${validCheckPoints.length}/${allCheckPoints.length}`}</p>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 

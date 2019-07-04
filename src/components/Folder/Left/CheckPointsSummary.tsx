@@ -4,6 +4,7 @@ import { OperationFull, CheckPoint } from '../../../store/reducer/entities/types
 
 import fileFolderDisplayType from '../helper/fileFolderDisplayType';
 
+import Card from '../../../Common/UIKIT/Card';
 import Picto from './Picto';
 
 import './CheckPointSummary.css';
@@ -23,7 +24,7 @@ const CheckPointsSummary = ({
 }: Props) => {
   if (data.dossierprimefile && data.dossierprimefile.length > 0) {
     return (
-      <div style={{ flexGrow: 0 }} className="tile is-child notification ">
+      <Card style={{ flexGrow: 0 }}>
         <div className="content">
           {data.dossierprimefile.map((file, index) => {
             const currentCheckPoints = checkPoints.filter(
@@ -78,7 +79,7 @@ const CheckPointsSummary = ({
             );
           })}
         </div>
-      </div>
+      </Card>
     );
   }
   return null;
