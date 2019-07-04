@@ -60,7 +60,6 @@ const CheckPointsSummary = ({
                     rejected={rejectedCheckPoints.length}
                   />
                   <h4
-                    style={{ margin: 0 }}
                     className={`item_menu_gauche ${active ? 'left-active' : ''}`}
                     id={`${index}pp`}
                   >
@@ -68,7 +67,7 @@ const CheckPointsSummary = ({
                   </h4>
                 </div>
                 <p
-                  style={{ color: active ? '#16a0e0' : 'black', fontWeight: 500 }}
+                  style={{ color: active ? '#16a0e0' : 'black' }}
                   className="Actions-Left-CheckPointSummary-File-Count"
                 >
                   {validCheckPoints.length}
