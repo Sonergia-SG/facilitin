@@ -49,6 +49,8 @@ export interface SimpleFile {
   id_file: number;
   id_dp_operation: number;
   id_dossierprime: number;
+  filename: string;
+  mimetype: string;
   is_devis: BooleanNumber;
   is_aat: BooleanNumber;
   is_facture: BooleanNumber;
@@ -149,7 +151,10 @@ export interface FolderSiteString {
   date_fin_travaux: string | null;
 }
 
-export interface SimpleFolder extends FolderMOAString, FolderMOEString, FolderSiteString {
+export interface SimpleFolder
+  extends FolderMOAString,
+  FolderMOEString,
+  FolderSiteString {
   id_dp_operation: number;
   id_dossierprime: number;
   code_operation: string;
@@ -276,10 +281,11 @@ export interface FilesLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type FilesActions = | FilesFolderLoadedAction
-| FilesFolcerCheckPointLoaded
-| FileLitigeLoaded
-| FilesLogoutAction;
+export type FilesActions =
+  | FilesFolderLoadedAction
+  | FilesFolcerCheckPointLoaded
+  | FileLitigeLoaded
+  | FilesLogoutAction;
 
 export interface FoldersFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -313,12 +319,13 @@ export interface FoldersUpdateSiteLoaded {
   values: { [index: string]: string | null };
 }
 
-export type FoldersActions = | FoldersFolderLoadedAction
-| FoldersLogoutAction
-| FoldersUpdateMoaLoaded
-| FoldersUpdateMoeLoaded
-| FoldersUpdateSiteLoaded
-| FoldersListLoadedAction;
+export type FoldersActions =
+  | FoldersFolderLoadedAction
+  | FoldersLogoutAction
+  | FoldersUpdateMoaLoaded
+  | FoldersUpdateMoeLoaded
+  | FoldersUpdateSiteLoaded
+  | FoldersListLoadedAction;
 
 export interface CheckPointsFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -352,12 +359,13 @@ export interface CheckPointsFolderUpdateCheckpointErrorAction {
   preValue: BooleanNumber;
 }
 
-export type CheckPointsActions = | CheckPointsFolderUpdateCheckpointLoadingAction
-| CheckPointsFolderUpdateChekpointLoadedAction
-| CheckPointsFolderUpdateCheckpointErrorAction
-| CheckPointsFolderLoadedAction
-| CheckPointsListLoadedAction
-| CheckPointsLogoutAction;
+export type CheckPointsActions =
+  | CheckPointsFolderUpdateCheckpointLoadingAction
+  | CheckPointsFolderUpdateChekpointLoadedAction
+  | CheckPointsFolderUpdateCheckpointErrorAction
+  | CheckPointsFolderLoadedAction
+  | CheckPointsListLoadedAction
+  | CheckPointsLogoutAction;
 
 export interface CheckPointCategoriesFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -368,8 +376,9 @@ export interface CheckPointCategoriesLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type CheckPointCategoriesActions = | CheckPointCategoriesFolderLoadedAction
-| CheckPointCategoriesLogoutAction;
+export type CheckPointCategoriesActions =
+  | CheckPointCategoriesFolderLoadedAction
+  | CheckPointCategoriesLogoutAction;
 
 export interface OperationsFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -390,10 +399,11 @@ export interface OperationsLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type OperationsActions = | OperationsFolderLoadedAction
-| OperationsListLoadedAction
-| OperationsFolderEndingLoaded
-| OperationsLogoutAction;
+export type OperationsActions =
+  | OperationsFolderLoadedAction
+  | OperationsListLoadedAction
+  | OperationsFolderEndingLoaded
+  | OperationsLogoutAction;
 
 export interface UsersCommentsListLoadedAction {
   type: typeof COMMENTS_LIST_LOADED;
