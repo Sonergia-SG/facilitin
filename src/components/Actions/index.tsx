@@ -147,7 +147,7 @@ class Actions extends Component<Props> {
       : mappedData;
 
     return (
-      <div style={{ backgroundColor: '#fff', padding: '10px 20px' }}>
+      <div style={{ backgroundColor: '#fff', padding: '10px 20px', marginBottom: 30 }}>
         <div className="has-text-centered content-loading">
           <div id="loading_liste">
             <Loading show={loading} type="ThreeDots" />

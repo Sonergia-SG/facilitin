@@ -34,7 +34,7 @@ const Container = ({
   const [hover, updateHover] = useState(false);
 
   return (
-    <div style={{ backgroundColor: '#fff', padding: '10px 20px' }}>
+    <div style={{ backgroundColor: '#fff', padding: '10px 20px', marginBottom: 30 }}>
       <div className="Folder-Header">
         <Link to="/actions">{"< Retour à la liste d'opérations"}</Link>
         <div style={{ position: 'relative' }}>
