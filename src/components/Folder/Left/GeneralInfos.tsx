@@ -2,7 +2,10 @@ import React from 'react';
 
 import './GeneralInfos.css';
 
-import { CheckPoint, OperationStatus } from '../../../store/reducer/entities/types';
+import {
+  CheckPoint,
+  OperationStatus,
+} from '../../../store/reducer/entities/types';
 
 import Card, { DarkHeader } from '../../../Common/UIKIT/Card';
 
@@ -27,11 +30,13 @@ const GeneralInfos = ({
   const allCheckPoints = checkPoints.filter(c => c.pivot.id_dp_file !== null);
   const rejectedCheckPoints = allCheckPoints.filter(c => rejected(c));
   const litigeCheckPoints = allCheckPoints.filter(c => inLitige(c));
-  const untraitedCheckPoints = allCheckPoints.filter(c => c.pivot.valide === -1);
+  const untraitedCheckPoints = allCheckPoints.filter(
+    c => c.pivot.valide === -1,
+  );
   const validCheckPoints = allCheckPoints.filter(c => c.pivot.valide === 1);
 
   return (
-    <Card style={{ flexGrow: 0, marginTop: 0 }}>
+    <Card style={{ flexGrow: 0, marginTop: 0, position: 'relative' }}>
       <DarkHeader>
         <h1
           className={`Left-GeneralInfos-Title${
@@ -46,11 +51,17 @@ const GeneralInfos = ({
       <div className="content" />
       <div className="Left-GeneralInfos-Pictos">
         <div className="Left-GeneralInfos-Picto">
-          <i className="fas fa-exclamation-triangle" style={{ color: '#F61616' }} />
+          <i
+            className="fas fa-exclamation-triangle"
+            style={{ color: '#F61616' }}
+          />
           <p>{`${rejectedCheckPoints.length}/${allCheckPoints.length}`}</p>
         </div>
         <div className="Left-GeneralInfos-Picto">
-          <i className="fas fa-exclamation-triangle" style={{ color: '#FBD44A' }} />
+          <i
+            className="fas fa-exclamation-triangle"
+            style={{ color: '#FBD44A' }}
+          />
           <p>{`${litigeCheckPoints.length}/${allCheckPoints.length}`}</p>
         </div>
         <div className="Left-GeneralInfos-Picto">
