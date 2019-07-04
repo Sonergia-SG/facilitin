@@ -4,7 +4,7 @@ import './GeneralInfos.css';
 
 import { CheckPoint, OperationStatus } from '../../../store/reducer/entities/types';
 
-import Card from '../../../Common/UIKIT/Card';
+import Card, { DarkHeader } from '../../../Common/UIKIT/Card';
 
 import inLitige from './helpers/checkPointInLitige';
 import rejected from './helpers/checkPointRejected';
@@ -32,14 +32,16 @@ const GeneralInfos = ({
 
   return (
     <Card style={{ flexGrow: 0, marginTop: 0 }}>
-      <p
-        className={`Left-GeneralInfos-Title title${
-          loading ? ' Loading-Text Loading-Text_one' : ''
-        }`}
-      >
-        {title}
-      </p>
-      <p className="subtitle">{data.code_operation}</p>
+      <DarkHeader>
+        <h1
+          className={`Left-GeneralInfos-Title${
+            loading ? ' Loading-Text Loading-Text_one' : ''
+          }`}
+        >
+          {title}
+        </h1>
+        <h2>{data.code_operation}</h2>
+      </DarkHeader>
       <Status status={data.statut} />
       <div className="content" />
       <div className="Left-GeneralInfos-Pictos">
