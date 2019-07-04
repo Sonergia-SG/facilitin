@@ -46,7 +46,7 @@ export type BooleanNumber = 0 | 1;
 
 export interface SimpleFile {
   id_dp_file: number;
-  id_file: number;
+  id_file: number | null;
   id_dp_operation: number;
   id_dossierprime: number;
   is_devis: BooleanNumber;

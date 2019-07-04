@@ -134,9 +134,15 @@ class DropZone extends Component<Props, State> {
 }
 
 export default connect(
-  (s: AppState, p: ConnectProps) => ({
-    loading:
-      idx(s, _ => _.views.folder.pending[p.idDpOperation].file[p.file.id_file].loading) || false,
-  }),
+  (s: AppState, p: ConnectProps) => {
+    if (p.file.id_file === null) return { loading: false };
+
+    const { pending } = s.views.folder;
+    const fileId = p.file.id_file;
+    return {
+      loading:
+        idx(pending, _ => _[p.idDpOperation].file[fileId].loading) || false,
+    };
+  },
   { upload: uploadFile },
 )(DropZone);

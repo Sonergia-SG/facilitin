@@ -22,6 +22,8 @@ import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 
 import useOpenModalAfterLoading from './useOpenModalAfterLoading';
 
+import MissingFile from './MissingFile';
+
 interface Props {
   file: SonergiaFile;
   checkPoints: Array<CheckPoint> | undefined;
@@ -81,34 +83,38 @@ const Accordion = ({
           </div>
         </div>
         <div className="accordion-body">
-          <div className="Accordion-Box">
-            <div className="Accordion-Files">
-              <div style={{ width: 190 }} className="notification has-text-centered tilebordered">
-                <div className="content">
-                  <DropZone file={file} idDpOperation={folderId} />
+          {file.id_file ? (
+            <div className="Accordion-Box">
+              <div className="Accordion-Files">
+                <div style={{ width: 190 }} className="notification has-text-centered tilebordered">
+                  <div className="content">
+                    <DropZone file={file} idDpOperation={folderId} />
+                  </div>
                 </div>
+                <DownloadFile file={file} />
               </div>
-              <DownloadFile file={file} />
+              <div className="Accordion-CheckPoints">
+                <CheckPoints
+                  pending={pending}
+                  folderId={folderId}
+                  checkPoints={checkPoints}
+                  fileId={file.id_dp_file}
+                />
+              </div>
+              <div className="Accordion-Button-Position">
+                <Validation
+                  file={file}
+                  goNext={goNext}
+                  loading={litigeLoading}
+                  folderId={folderId}
+                  checkPoints={checkPoints}
+                  inLitige={inLitige}
+                />
+              </div>
             </div>
-            <div className="Accordion-CheckPoints">
-              <CheckPoints
-                pending={pending}
-                folderId={folderId}
-                checkPoints={checkPoints}
-                fileId={file.id_dp_file}
-              />
-            </div>
-            <div className="Accordion-Button-Position">
-              <Validation
-                file={file}
-                goNext={goNext}
-                loading={litigeLoading}
-                folderId={folderId}
-                checkPoints={checkPoints}
-                inLitige={inLitige}
-              />
-            </div>
-          </div>
+          ) : (
+            <MissingFile file={file} loading={false} folderId={folderId} />
+          )}
         </div>
       </article>
       <div className={`modal ${isSelected && displayModal ? ' is-active' : ''}`}>
