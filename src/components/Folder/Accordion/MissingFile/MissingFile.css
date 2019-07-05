@@ -1,0 +1,30 @@
+.MissingFile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 10px 0px;
+}
+
+.MissingFile-icon {
+  font-size: 30px;
+}
+
+.MissingFile-title {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.MissingFile-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.MissingFile-buttons > button {
+  margin: 0 5px;
+}
+
+.MissingFile-infos {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}

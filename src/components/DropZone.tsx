@@ -47,26 +47,29 @@ class DropZone extends Component<Props, State> {
   } */
 
   onDrop = (acceptedFiles: Array<File>) => {
-    const reader = new FileReader();
     const file = acceptedFiles[0];
 
-    const { upload, idDpOperation, file: originalFile } = this.props;
+    if (file) {
+      const reader = new FileReader();
 
-    const handleLoad = () => {
-      if (typeof reader.result === 'string') {
-        this.setState({
-          file,
-        });
+      const { upload, idDpOperation, file: originalFile } = this.props;
 
-        upload(idDpOperation, originalFile.id_file, file, reader.result);
-      }
+      const handleLoad = () => {
+        if (typeof reader.result === 'string') {
+          this.setState({
+            file,
+          });
 
-      reader.removeEventListener('load', handleLoad);
-    };
+          upload(idDpOperation, originalFile.id_file, file, reader.result);
+        }
 
-    reader.addEventListener('load', handleLoad);
+        reader.removeEventListener('load', handleLoad);
+      };
 
-    reader.readAsDataURL(file);
+      reader.addEventListener('load', handleLoad);
+
+      reader.readAsDataURL(file);
+    }
   };
 
   render() {
@@ -131,9 +134,15 @@ class DropZone extends Component<Props, State> {
 }
 
 export default connect(
-  (s: AppState, p: ConnectProps) => ({
-    loading:
-      idx(s, _ => _.views.folder.pending[p.idDpOperation].file[p.file.id_file].loading) || false,
-  }),
+  (s: AppState, p: ConnectProps) => {
+    if (p.file.id_file === null) return { loading: false };
+
+    const { pending } = s.views.folder;
+    const fileId = p.file.id_file;
+    return {
+      loading:
+        idx(pending, _ => _[p.idDpOperation].file[fileId].loading) || false,
+    };
+  },
   { upload: uploadFile },
 )(DropZone);
