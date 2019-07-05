@@ -1,6 +1,7 @@
 .Accordion-Box {
   display: flex;
   position: relative;
+  background-color: #fff;
 }
 
 .Accordion-Files {

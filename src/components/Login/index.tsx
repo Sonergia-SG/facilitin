@@ -43,7 +43,9 @@ const Login = ({
           <div className="Login-info">
             <h1>Bienvenue dans votre espace</h1>
             <p>SONERGIA</p>
-            <h4>Entrez vos identifiants pour être orienté vers votre outils dédié</h4>
+            <h4>
+              Entrez vos identifiants pour être orienté vers votre outils dédié
+            </h4>
           </div>
           <form
             className="Login-form"
@@ -69,7 +71,11 @@ const Login = ({
                   <i className="far fa-user" />
                 </span>
               </p>
-              {loginState.errors.email && <p style={{ color: 'red' }}>{loginState.errors.email}</p>}
+              {loginState.errors.email && (
+                <p style={{ color: 'red', textAlign: 'center' }}>
+                  {loginState.errors.email}
+                </p>
+              )}
             </div>
             <div className="field">
               <p className="control has-icons-left">
@@ -100,7 +106,9 @@ const Login = ({
               Connexion
             </button>
             {loginState.errors.formulaire && (
-              <p style={{ color: 'red' }}>{loginState.errors.formulaire}</p>
+              <p style={{ color: 'red', textAlign: 'center' }}>
+                {loginState.errors.formulaire}
+              </p>
             )}
           </form>
         </div>

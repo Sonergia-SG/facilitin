@@ -3,6 +3,8 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  margin: 6px 0;
+  outline: none !important;
 }
 
 .Actions-Left-CheckPointSummary-Left {
@@ -10,5 +12,11 @@
   align-items: center;
 }
 
+.Actions-Left-CheckPointSummary-Left > h4 {
+  margin: 0 0 0 5px;
+  font-size: 1.15em;
+}
+
 .Actions-Left-CheckPointSummary-File-Count {
+  font-weight: 500;
 }

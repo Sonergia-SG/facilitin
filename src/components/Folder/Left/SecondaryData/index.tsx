@@ -3,6 +3,7 @@ import './SecondataData.css';
 
 import { OperationFull } from '../../../../store/reducer/entities/types';
 
+import Card from '../../../../Common/UIKIT/Card';
 import MOA from './MOA';
 import MOE from './MOE';
 import Site from './Site';
@@ -49,9 +50,9 @@ const SecondaryData = ({ data }: Props) => {
   const someoneSelected = !!edit;
 
   return (
-    <div
+    <Card
       onMouseLeave={clearSelected}
-      className="tile is-child notification SecondaryData-Container"
+      className="SecondaryData-Container"
     >
       <div className="SecondaryData-Items">
         <div
@@ -122,7 +123,7 @@ const SecondaryData = ({ data }: Props) => {
           )}
         </div>
       </AnimatedHeight>
-    </div>
+    </Card>
   );
 };
 
