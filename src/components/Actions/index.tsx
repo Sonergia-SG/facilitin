@@ -20,6 +20,8 @@ import 'react-tabs/style/react-tabs.css';
 import StatusCell from './StatusCell';
 import Loading from '../Loading';
 
+import ModernTable from './ModernTable';
+
 import {
   loadList,
   listUpdateSearch,
@@ -169,7 +171,16 @@ class Actions extends Component<Props> {
           </TabList>
 
           <TabPanel>
-            <ReactTable
+            <ModernTable
+              operations={filteredData}
+              onRowClick={(o) => {
+                this.props.history.push(`/actions/${o.id_dp_operation}`);
+              }}
+              page={page}
+              pageSize={10}
+              onPageChange={this.props.listUpdatePage}
+            />
+            {/* <ReactTable
               {...TRANSLATIONS}
               data={filteredData}
               defaultPageSize={10}
@@ -184,7 +195,7 @@ class Actions extends Component<Props> {
               onSortedChange={this.props.listUpdateSorted}
               getTdProps={this.onRowClick}
               getTrProps={this.getTrProps}
-            />
+            /> */}
           </TabPanel>
           <TabPanel>
             <ReactTable
@@ -205,7 +216,16 @@ class Actions extends Component<Props> {
             />
           </TabPanel>
           <TabPanel>
-            <ReactTable
+            <ModernTable
+              operations={filteredData}
+              onRowClick={(o) => {
+                this.props.history.push(`/actions/${o.id_dp_operation}`);
+              }}
+              page={page}
+              pageSize={10}
+              onPageChange={this.props.listUpdatePage}
+            />
+            {/* <ReactTable
               {...TRANSLATIONS}
               data={filteredData}
               defaultPageSize={10}
@@ -220,7 +240,7 @@ class Actions extends Component<Props> {
               onSortedChange={this.props.listUpdateSorted}
               getTdProps={this.onRowClick}
               getTrProps={this.getTrProps}
-            />
+            /> */}
           </TabPanel>
           <TabPanel>
             <ReactTable
