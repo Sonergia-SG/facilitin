@@ -74,7 +74,7 @@ export const listUpdatePageSize = (pageSize: number): ListListPageSizeAction => 
   pageSize,
 });
 
-export const listUpdateSorted = (sorted: Sorted): ListListSortedAction => ({
+export const listUpdateSorted = (sorted: Array<Sorted>): ListListSortedAction => ({
   type: LIST_SORTED_UPDATE,
   sorted,
 });

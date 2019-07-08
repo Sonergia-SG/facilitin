@@ -11,10 +11,10 @@ import {
   LOGOUT,
 } from '../../../types';
 
-import { Normalized } from '../../entities/types';
+export type SortedId = 'id_dp_operation' | 'id_dossierprime' | 'etat' | 'delai' | 'moa' | 'code_operation'
 
 export interface Sorted {
-  id: string;
+  id: SortedId;
   desc: boolean;
 }
 
@@ -88,7 +88,7 @@ export interface ListListPageSizeAction {
 
 export interface ListListSortedAction {
   type: typeof LIST_SORTED_UPDATE;
-  sorted: Sorted;
+  sorted: Array<Sorted>;
 }
 
 export interface ListLogoutAction {

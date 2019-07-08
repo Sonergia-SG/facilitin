@@ -5,9 +5,6 @@ import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
-// @ts-ignore
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
 import {
   Tab,
   Tabs,
@@ -17,8 +14,9 @@ import {
 } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-import StatusCell from './StatusCell';
 import Loading from '../Loading';
+
+import ModernTable from './ModernTable';
 
 import {
   loadList,
@@ -34,58 +32,6 @@ import { AppState } from '../../store';
 import { Entities, OperationFull } from '../../store/reducer/entities/types';
 import { ListState, Tab as TabType } from '../../store/reducer/views/list/type';
 import { UserFonction } from '../../store/reducer/user/types';
-
-const COLUMNS = [
-  {
-    Header: 'N° Dossier',
-    id: 'id_dossierprime',
-    accessor: (d: OperationFull) => d.id_dossierprime, // String-based value accessors!
-  },
-  {
-    Header: 'N° Action',
-    id: 'id_dp_operation',
-    accessor: (d: OperationFull) => d.id_dp_operation,
-    // Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-  },
-  {
-    Header: 'Etat',
-    id: 'label_public',
-    accessor: (d: OperationFull) => (d.statut ? d.statut.label_public : ' - '),
-  },
-  {
-    Header: 'Nb Jours res',
-    id: 'delai_instruction',
-    accessor: (d: OperationFull) => d.moderemuneration.delai_instruction,
-  },
-  {
-    Header: 'MOA',
-    id: 'moa_nom',
-    accessor: (d: OperationFull) => (d.dossierprime
-      ? `${d.dossierprime.moa_nom} ${d.dossierprime.moa_prenom} ${
-        d.dossierprime.moa_denomination
-      }`
-      : ' - '),
-  },
-  {
-    Header: 'FOST',
-    id: 'code_operation',
-    accessor: (d: OperationFull) => d.code_operation,
-  },
-  {
-    Header: ' ',
-    id: 'stats',
-    accessor: 'TODO',
-    Cell: StatusCell,
-  },
-];
-
-const TRANSLATIONS = {
-  previousText: 'Précédent',
-  nextText: 'Suivant',
-  loadingText: 'Chargement...',
-  ofText: 'sur',
-  rowsText: 'lignes',
-};
 
 interface Props extends RouteComponentProps {
   loadList: any;
@@ -104,36 +50,17 @@ class Actions extends Component<Props> {
     this.props.loadList();
   }
 
-  /* eslint-disable no-underscore-dangle */
-  getTrProps = (state: any, rowInfo: any) => {
-    if (rowInfo) {
-      if (rowInfo.row._original.statut_operation === 13) {
-        return { style: { background: '#FF7878', color: 'white' } };
-      }
-      if (rowInfo.row._original.statut_operation === 0) {
-        if (rowInfo.row._original.is_avant_projet === 0) {
-          return { style: { background: '#16A0E0', color: 'white' } };
-        }
-      }
-    }
-    return {};
-  };
-  /* eslint-enable */
-
-  onRowClick = (state: any, rowInfo: any) => ({
-    onClick: () => {
-      if (rowInfo) {
-        this.props.history.push(`/actions/${rowInfo.original.id_dp_operation}`);
-      }
-    },
-  });
-
   handleData = async (tab: TabType) => {
     this.props.loadList(tab);
   };
 
   render() {
-    const { listState, entities, userFonction } = this.props;
+    const {
+      listState,
+      entities,
+      userFonction,
+      history,
+    } = this.props;
     const {
       selectedTab, tab, search, pageSize,
     } = listState;
@@ -147,19 +74,12 @@ class Actions extends Component<Props> {
       : mappedData;
 
     return (
-      <div style={{ backgroundColor: '#fff', padding: '10px 20px', marginBottom: 30 }}>
+      <div style={{ backgroundColor: '#f1f2f7', padding: '10px 20px', marginBottom: 30 }}>
         <div className="has-text-centered content-loading">
           <div id="loading_liste">
             <Loading show={loading} type="ThreeDots" />
           </div>
         </div>
-        <input
-          className="input search-table"
-          style={{ width: 'auto' }}
-          placeholder="N° Action"
-          defaultValue={search}
-          onChange={e => this.props.listUpdateSearch(e.target.value)}
-        />
         <Tabs defaultIndex={selectedTab} onSelect={(index: TabType) => this.handleData(index)}>
           <TabList>
             <Tab>{userFonction === 'instructeur_initial' ? 'A traiter' : 'Incomplet'}</Tab>
@@ -169,75 +89,67 @@ class Actions extends Component<Props> {
           </TabList>
 
           <TabPanel>
-            <ReactTable
-              {...TRANSLATIONS}
-              data={filteredData}
-              defaultPageSize={10}
-              className="-striped -highlight cur_pointer"
-              noDataText="Aucun traitement pour cet onglet"
-              columns={COLUMNS}
+            <ModernTable
+              operations={filteredData}
+              onRowClick={(o) => {
+                history.push(`/actions/${o.id_dp_operation}`);
+              }}
               page={page}
-              onPageChange={this.props.listUpdatePage}
               pageSize={pageSize}
+              onPageChange={this.props.listUpdatePage}
               onPageSizeChange={this.props.listUpdatePageSize}
+              search={search}
+              onSearchChange={this.props.listUpdateSearch}
               sorted={sorted}
-              onSortedChange={this.props.listUpdateSorted}
-              getTdProps={this.onRowClick}
-              getTrProps={this.getTrProps}
+              updateSorted={this.props.listUpdateSorted}
             />
           </TabPanel>
           <TabPanel>
-            <ReactTable
-              {...TRANSLATIONS}
-              data={filteredData}
-              defaultPageSize={10}
-              className="-striped -highlight cur_pointer"
-              noDataText="Aucun traitement pour cet onglet"
-              columns={COLUMNS}
+            <ModernTable
+              operations={filteredData}
+              onRowClick={(o) => {
+                this.props.history.push(`/actions/${o.id_dp_operation}`);
+              }}
               page={page}
-              onPageChange={this.props.listUpdatePage}
               pageSize={pageSize}
+              onPageChange={this.props.listUpdatePage}
               onPageSizeChange={this.props.listUpdatePageSize}
+              search={search}
+              onSearchChange={this.props.listUpdateSearch}
               sorted={sorted}
-              onSortedChange={this.props.listUpdateSorted}
-              getTdProps={this.onRowClick}
-              getTrProps={this.getTrProps}
+              updateSorted={this.props.listUpdateSorted}
             />
           </TabPanel>
           <TabPanel>
-            <ReactTable
-              {...TRANSLATIONS}
-              data={filteredData}
-              defaultPageSize={10}
-              className="-striped -highlight cur_pointer"
-              noDataText="Aucun traitement pour cet onglet"
-              columns={COLUMNS}
+            <ModernTable
+              operations={filteredData}
+              onRowClick={(o) => {
+                this.props.history.push(`/actions/${o.id_dp_operation}`);
+              }}
               page={page}
-              onPageChange={this.props.listUpdatePage}
               pageSize={pageSize}
+              onPageChange={this.props.listUpdatePage}
               onPageSizeChange={this.props.listUpdatePageSize}
+              search={search}
+              onSearchChange={this.props.listUpdateSearch}
               sorted={sorted}
-              onSortedChange={this.props.listUpdateSorted}
-              getTdProps={this.onRowClick}
-              getTrProps={this.getTrProps}
+              updateSorted={this.props.listUpdateSorted}
             />
           </TabPanel>
           <TabPanel>
-            <ReactTable
-              {...TRANSLATIONS}
-              data={filteredData}
-              defaultPageSize={10}
-              className="-striped -highlight cur_pointer"
-              noDataText="Aucun traitement pour cet onglet"
-              columns={COLUMNS}
+            <ModernTable
+              operations={filteredData}
+              onRowClick={(o) => {
+                this.props.history.push(`/actions/${o.id_dp_operation}`);
+              }}
               page={page}
-              onPageChange={this.props.listUpdatePage}
               pageSize={pageSize}
+              onPageChange={this.props.listUpdatePage}
               onPageSizeChange={this.props.listUpdatePageSize}
+              search={search}
+              onSearchChange={this.props.listUpdateSearch}
               sorted={sorted}
-              onSortedChange={this.props.listUpdateSorted}
-              getTdProps={this.onRowClick}
-              getTrProps={this.getTrProps}
+              updateSorted={this.props.listUpdateSorted}
             />
           </TabPanel>
         </Tabs>
