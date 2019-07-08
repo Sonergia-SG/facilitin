@@ -155,13 +155,6 @@ class Actions extends Component<Props> {
             <Loading show={loading} type="ThreeDots" />
           </div>
         </div>
-        <input
-          className="input search-table"
-          style={{ width: 'auto' }}
-          placeholder="N° Action"
-          defaultValue={search}
-          onChange={e => this.props.listUpdateSearch(e.target.value)}
-        />
         <Tabs defaultIndex={selectedTab} onSelect={(index: TabType) => this.handleData(index)}>
           <TabList>
             <Tab>{userFonction === 'instructeur_initial' ? 'A traiter' : 'Incomplet'}</Tab>
@@ -177,42 +170,11 @@ class Actions extends Component<Props> {
                 this.props.history.push(`/actions/${o.id_dp_operation}`);
               }}
               page={page}
-              pageSize={10}
-              onPageChange={this.props.listUpdatePage}
-            />
-            {/* <ReactTable
-              {...TRANSLATIONS}
-              data={filteredData}
-              defaultPageSize={10}
-              className="-striped -highlight cur_pointer"
-              noDataText="Aucun traitement pour cet onglet"
-              columns={COLUMNS}
-              page={page}
-              onPageChange={this.props.listUpdatePage}
               pageSize={pageSize}
-              onPageSizeChange={this.props.listUpdatePageSize}
-              sorted={sorted}
-              onSortedChange={this.props.listUpdateSorted}
-              getTdProps={this.onRowClick}
-              getTrProps={this.getTrProps}
-            /> */}
-          </TabPanel>
-          <TabPanel>
-            <ReactTable
-              {...TRANSLATIONS}
-              data={filteredData}
-              defaultPageSize={10}
-              className="-striped -highlight cur_pointer"
-              noDataText="Aucun traitement pour cet onglet"
-              columns={COLUMNS}
-              page={page}
               onPageChange={this.props.listUpdatePage}
-              pageSize={pageSize}
               onPageSizeChange={this.props.listUpdatePageSize}
-              sorted={sorted}
-              onSortedChange={this.props.listUpdateSorted}
-              getTdProps={this.onRowClick}
-              getTrProps={this.getTrProps}
+              search={search}
+              onSearchChange={this.props.listUpdateSearch}
             />
           </TabPanel>
           <TabPanel>
@@ -222,25 +184,26 @@ class Actions extends Component<Props> {
                 this.props.history.push(`/actions/${o.id_dp_operation}`);
               }}
               page={page}
-              pageSize={10}
-              onPageChange={this.props.listUpdatePage}
-            />
-            {/* <ReactTable
-              {...TRANSLATIONS}
-              data={filteredData}
-              defaultPageSize={10}
-              className="-striped -highlight cur_pointer"
-              noDataText="Aucun traitement pour cet onglet"
-              columns={COLUMNS}
-              page={page}
-              onPageChange={this.props.listUpdatePage}
               pageSize={pageSize}
+              onPageChange={this.props.listUpdatePage}
               onPageSizeChange={this.props.listUpdatePageSize}
-              sorted={sorted}
-              onSortedChange={this.props.listUpdateSorted}
-              getTdProps={this.onRowClick}
-              getTrProps={this.getTrProps}
-            /> */}
+              search={search}
+              onSearchChange={this.props.listUpdateSearch}
+            />
+          </TabPanel>
+          <TabPanel>
+            <ModernTable
+              operations={filteredData}
+              onRowClick={(o) => {
+                this.props.history.push(`/actions/${o.id_dp_operation}`);
+              }}
+              page={page}
+              pageSize={pageSize}
+              onPageChange={this.props.listUpdatePage}
+              onPageSizeChange={this.props.listUpdatePageSize}
+              search={search}
+              onSearchChange={this.props.listUpdateSearch}
+            />
           </TabPanel>
           <TabPanel>
             <ReactTable
