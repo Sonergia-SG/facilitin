@@ -39,7 +39,7 @@
 }
 
 .uikit-modernTable > tbody > tr:hover {
-  background-color: #dadada;
+  background-color: #fff;
 }
 
 @media only screen and (max-width: 800px) {

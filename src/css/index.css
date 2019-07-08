@@ -231,3 +231,7 @@ button.togglesonergia {
   -ms-animation: anim 2.5s infinite ease-in;
   animation: anim 2.5s infinite ease-in;
 }
+
+.react-tabs__tab--selected {
+  background-color: #f1f2f7 !important;
+}
