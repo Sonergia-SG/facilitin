@@ -14,7 +14,7 @@ import {
 } from '../../../types';
 
 const initialState = {
-  selectedTab: 2,
+  selectedTab: 0,
   pageSize: 10,
   search: '',
   tab: {
