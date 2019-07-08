@@ -10,8 +10,14 @@ import {
 } from '../../../store/actions/views/list';
 import { OperationFull } from '../../../store/reducer/entities/types';
 
-import { Sorted, SortedId } from '../../../store/reducer/views/list/type';
+import { Sorted } from '../../../store/reducer/views/list/type';
 import './ModernTAble.css';
+
+import getValue from './tools/getValue';
+import sort from './tools/sort';
+import updateSortGenerator from './tools/updateSortGenerator';
+
+import SortArrow from './SortArrow';
 
 interface Props {
   operations: Array<OperationFull>;
@@ -25,27 +31,6 @@ interface Props {
   sorted: Array<Sorted>;
   updateSorted: typeof listUpdateSorted;
 }
-
-const SortArrow = ({ sorted }: { sorted?: Sorted }) => (
-  <div style={{ float: 'right' }}>
-    <div
-      style={{
-        color: sorted && sorted.desc === false ? '#1fb5ad' : undefined,
-        marginTop: -3,
-      }}
-    >
-      <i className="fas fa-caret-up" />
-    </div>
-    <div
-      style={{
-        color: sorted && sorted.desc === true ? '#1fb5ad' : undefined,
-        marginTop: -12,
-      }}
-    >
-      <i className="fas fa-caret-down" />
-    </div>
-  </div>
-);
 
 const ModernTable = ({
   operations,
@@ -70,69 +55,9 @@ const ModernTable = ({
     .slice(0, 5)
     .map((v, i) => firstVisiblePage + i);
 
-  const internalSort = (id: SortedId) => () => {
-    const existAtIndex = sorted.findIndex(s => s.id === id);
+  const internalSort = updateSortGenerator(sorted, updateSorted);
 
-    // if user use shift key, keep old values
-    const useArray: Array<Sorted> = [];
-
-    if (existAtIndex !== -1) {
-      if (sorted[existAtIndex].desc) {
-        updateSorted([
-          ...useArray.slice(0, existAtIndex),
-          ...useArray.slice(existAtIndex + 1, useArray.length),
-        ]);
-      } else {
-        updateSorted([
-          ...useArray.slice(0, existAtIndex),
-          {
-            id,
-            desc: true,
-          },
-          ...useArray.slice(existAtIndex + 1, useArray.length),
-        ]);
-      }
-    } else {
-      updateSorted([
-        ...useArray.slice(0, existAtIndex),
-        {
-          id,
-          desc: false,
-        },
-        ...useArray.slice(existAtIndex + 1, useArray.length),
-      ]);
-    }
-  };
-
-  const getValue = (v: OperationFull, key: SortedId) => {
-    switch (key) {
-      case 'etat':
-        return v.statut ? v.statut.label_public || ' - ' : ' - ';
-      case 'moa':
-        return v.dossierprime
-          ? `${v.dossierprime.moa_nom} ${v.dossierprime.moa_prenom} ${
-            v.dossierprime.moa_denomination
-          }`
-          : ' - ';
-      case 'delai':
-        return v.moderemuneration.delai_instruction;
-      default:
-        return v[key];
-    }
-  };
-  const filteredOperations = sorted.length > 0
-    ? operations.sort((a, b) => {
-      const key = sorted[0].id;
-      const va = getValue(a, key);
-      const vb = getValue(b, key);
-
-      if (va === vb) return 0;
-
-      if (sorted[0].desc) return va > vb ? -1 : 1;
-
-      return va > vb ? 1 : -1;
-    })
-    : operations;
+  const filteredOperations = sort(sorted, operations);
 
   return (
     <div className="ModernTable-container">
