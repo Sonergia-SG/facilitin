@@ -106,36 +106,17 @@ class Actions extends Component<Props> {
     this.props.loadList();
   }
 
-  /* eslint-disable no-underscore-dangle */
-  getTrProps = (state: any, rowInfo: any) => {
-    if (rowInfo) {
-      if (rowInfo.row._original.statut_operation === 13) {
-        return { style: { background: '#FF7878', color: 'white' } };
-      }
-      if (rowInfo.row._original.statut_operation === 0) {
-        if (rowInfo.row._original.is_avant_projet === 0) {
-          return { style: { background: '#16A0E0', color: 'white' } };
-        }
-      }
-    }
-    return {};
-  };
-  /* eslint-enable */
-
-  onRowClick = (state: any, rowInfo: any) => ({
-    onClick: () => {
-      if (rowInfo) {
-        this.props.history.push(`/actions/${rowInfo.original.id_dp_operation}`);
-      }
-    },
-  });
-
   handleData = async (tab: TabType) => {
     this.props.loadList(tab);
   };
 
   render() {
-    const { listState, entities, userFonction } = this.props;
+    const {
+      listState,
+      entities,
+      userFonction,
+      history,
+    } = this.props;
     const {
       selectedTab, tab, search, pageSize,
     } = listState;
@@ -167,7 +148,7 @@ class Actions extends Component<Props> {
             <ModernTable
               operations={filteredData}
               onRowClick={(o) => {
-                this.props.history.push(`/actions/${o.id_dp_operation}`);
+                history.push(`/actions/${o.id_dp_operation}`);
               }}
               page={page}
               pageSize={pageSize}
@@ -175,52 +156,56 @@ class Actions extends Component<Props> {
               onPageSizeChange={this.props.listUpdatePageSize}
               search={search}
               onSearchChange={this.props.listUpdateSearch}
-            />
-          </TabPanel>
-          <TabPanel>
-            <ModernTable
-              operations={filteredData}
-              onRowClick={(o) => {
-                this.props.history.push(`/actions/${o.id_dp_operation}`);
-              }}
-              page={page}
-              pageSize={pageSize}
-              onPageChange={this.props.listUpdatePage}
-              onPageSizeChange={this.props.listUpdatePageSize}
-              search={search}
-              onSearchChange={this.props.listUpdateSearch}
-            />
-          </TabPanel>
-          <TabPanel>
-            <ModernTable
-              operations={filteredData}
-              onRowClick={(o) => {
-                this.props.history.push(`/actions/${o.id_dp_operation}`);
-              }}
-              page={page}
-              pageSize={pageSize}
-              onPageChange={this.props.listUpdatePage}
-              onPageSizeChange={this.props.listUpdatePageSize}
-              search={search}
-              onSearchChange={this.props.listUpdateSearch}
-            />
-          </TabPanel>
-          <TabPanel>
-            <ReactTable
-              {...TRANSLATIONS}
-              data={filteredData}
-              defaultPageSize={10}
-              className="-striped -highlight cur_pointer"
-              noDataText="Aucun traitement pour cet onglet"
-              columns={COLUMNS}
-              page={page}
-              onPageChange={this.props.listUpdatePage}
-              pageSize={pageSize}
-              onPageSizeChange={this.props.listUpdatePageSize}
               sorted={sorted}
-              onSortedChange={this.props.listUpdateSorted}
-              getTdProps={this.onRowClick}
-              getTrProps={this.getTrProps}
+              updateSorted={this.props.listUpdateSorted}
+            />
+          </TabPanel>
+          <TabPanel>
+            <ModernTable
+              operations={filteredData}
+              onRowClick={(o) => {
+                this.props.history.push(`/actions/${o.id_dp_operation}`);
+              }}
+              page={page}
+              pageSize={pageSize}
+              onPageChange={this.props.listUpdatePage}
+              onPageSizeChange={this.props.listUpdatePageSize}
+              search={search}
+              onSearchChange={this.props.listUpdateSearch}
+              sorted={sorted}
+              updateSorted={this.props.listUpdateSorted}
+            />
+          </TabPanel>
+          <TabPanel>
+            <ModernTable
+              operations={filteredData}
+              onRowClick={(o) => {
+                this.props.history.push(`/actions/${o.id_dp_operation}`);
+              }}
+              page={page}
+              pageSize={pageSize}
+              onPageChange={this.props.listUpdatePage}
+              onPageSizeChange={this.props.listUpdatePageSize}
+              search={search}
+              onSearchChange={this.props.listUpdateSearch}
+              sorted={sorted}
+              updateSorted={this.props.listUpdateSorted}
+            />
+          </TabPanel>
+          <TabPanel>
+            <ModernTable
+              operations={filteredData}
+              onRowClick={(o) => {
+                this.props.history.push(`/actions/${o.id_dp_operation}`);
+              }}
+              page={page}
+              pageSize={pageSize}
+              onPageChange={this.props.listUpdatePage}
+              onPageSizeChange={this.props.listUpdatePageSize}
+              search={search}
+              onSearchChange={this.props.listUpdateSearch}
+              sorted={sorted}
+              updateSorted={this.props.listUpdateSorted}
             />
           </TabPanel>
         </Tabs>
