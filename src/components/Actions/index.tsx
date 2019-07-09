@@ -57,7 +57,9 @@ const Actions = ({
   userFonction,
   history,
 }: Props) => {
-  useEffect(() => load(), []);
+  useEffect(() => {
+    load();
+  }, []);
 
   const {
     selectedTab, tab, search, pageSize,
@@ -92,6 +94,10 @@ const Actions = ({
           <Tab>Rejet</Tab>
           <Tab>Validés</Tab>
         </TabList>
+        <TabPanel />
+        <TabPanel />
+        <TabPanel />
+        <TabPanel />
         <ModernTable
           operations={filteredData}
           onRowClick={(o) => {
