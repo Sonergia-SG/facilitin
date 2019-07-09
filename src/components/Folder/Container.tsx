@@ -36,14 +36,14 @@ const Container = ({
   const scrollView = useRef(null);
 
   return (
-    <div style={{ backgroundColor: '#fff', padding: '10px 20px' }}>
+    <div style={{ backgroundColor: '#f1f2f7', padding: '10px 20px', marginBottom: 30 }}>
       <div className="Folder-Header">
         <Link to="/actions">{"< Retour à la liste d'opérations"}</Link>
         <div style={{ position: 'relative' }}>
           <button
             onMouseEnter={() => updateHover(true)}
             onMouseLeave={() => updateHover(false)}
-            className="button is-medium"
+            className="button is-medium Folder-Header-Button-Icon"
             type="button"
             onClick={toggleComments}
             onKeyDown={toggleComments}

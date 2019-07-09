@@ -1,13 +1,10 @@
 /**
  * Created by stephane.mallaroni on 15/04/2019.
  */
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
-// @ts-ignore
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
 import {
   Tab,
   Tabs,
@@ -17,8 +14,9 @@ import {
 } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-import StatusCell from './StatusCell';
 import Loading from '../Loading';
+
+import ModernTable from './ModernTable';
 
 import {
   loadList,
@@ -32,219 +30,92 @@ import { operation } from '../../store/reducer/entities/schema';
 
 import { AppState } from '../../store';
 import { Entities, OperationFull } from '../../store/reducer/entities/types';
-import { ListState, Tab as TabType } from '../../store/reducer/views/list/type';
+import { ListState, Tab as TabType, ListSearch } from '../../store/reducer/views/list/type';
 import { UserFonction } from '../../store/reducer/user/types';
-
-const COLUMNS = [
-  {
-    Header: 'N° Dossier',
-    id: 'id_dossierprime',
-    accessor: (d: OperationFull) => d.id_dossierprime, // String-based value accessors!
-  },
-  {
-    Header: 'N° Action',
-    id: 'id_dp_operation',
-    accessor: (d: OperationFull) => d.id_dp_operation,
-    // Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-  },
-  {
-    Header: 'Etat',
-    id: 'label_public',
-    accessor: (d: OperationFull) => (d.statut ? d.statut.label_public : ' - '),
-  },
-  {
-    Header: 'Nb Jours res',
-    id: 'delai_instruction',
-    accessor: (d: OperationFull) => d.moderemuneration.delai_instruction,
-  },
-  {
-    Header: 'MOA',
-    id: 'moa_nom',
-    accessor: (d: OperationFull) => (d.dossierprime
-      ? `${d.dossierprime.moa_nom} ${d.dossierprime.moa_prenom} ${
-        d.dossierprime.moa_denomination
-      }`
-      : ' - '),
-  },
-  {
-    Header: 'FOST',
-    id: 'code_operation',
-    accessor: (d: OperationFull) => d.code_operation,
-  },
-  {
-    Header: ' ',
-    id: 'stats',
-    accessor: 'TODO',
-    Cell: StatusCell,
-  },
-];
-
-const TRANSLATIONS = {
-  previousText: 'Précédent',
-  nextText: 'Suivant',
-  loadingText: 'Chargement...',
-  ofText: 'sur',
-  rowsText: 'lignes',
-};
+import getValue from './ModernTable/tools/getValue';
 
 interface Props extends RouteComponentProps {
-  loadList: any;
-  listUpdateSearch: typeof listUpdateSearch;
-  listUpdatePage: typeof listUpdatePage;
-  listUpdatePageSize: typeof listUpdatePageSize;
-  listUpdateSorted: typeof listUpdateSorted;
+  load: any;
+  updateSearch: typeof listUpdateSearch;
+  updatePage: typeof listUpdatePage;
+  updatePageSize: typeof listUpdatePageSize;
+  updateSorted: typeof listUpdateSorted;
   apiKey: string | null;
   userFonction: UserFonction | null;
   entities: Entities;
   listState: ListState;
 }
 
-class Actions extends Component<Props> {
-  componentDidMount() {
-    this.props.loadList();
-  }
+const Actions = ({
+  load,
+  updateSearch,
+  updatePage,
+  updatePageSize,
+  updateSorted,
+  listState,
+  entities,
+  userFonction,
+  history,
+}: Props) => {
+  useEffect(() => {
+    load();
+  }, []);
 
-  /* eslint-disable no-underscore-dangle */
-  getTrProps = (state: any, rowInfo: any) => {
-    if (rowInfo) {
-      if (rowInfo.row._original.statut_operation === 13) {
-        return { style: { background: '#FF7878', color: 'white' } };
-      }
-      if (rowInfo.row._original.statut_operation === 0) {
-        if (rowInfo.row._original.is_avant_projet === 0) {
-          return { style: { background: '#16A0E0', color: 'white' } };
-        }
-      }
-    }
-    return {};
-  };
-  /* eslint-enable */
+  const {
+    selectedTab, tab, search, pageSize,
+  } = listState;
+  const {
+    loading, data, page, sorted,
+  } = tab[selectedTab];
 
-  onRowClick = (state: any, rowInfo: any) => ({
-    onClick: () => {
-      if (rowInfo) {
-        this.props.history.push(`/actions/${rowInfo.original.id_dp_operation}`);
-      }
-    },
-  });
+  const mappedData: [OperationFull] = denormalize(data, [operation], entities);
 
-  handleData = async (tab: TabType) => {
-    this.props.loadList(tab);
-  };
+  const mustFilter = Object.values(search).some(v => !!v);
+  const filteredData = mustFilter
+    ? mappedData.filter(row => (
+      Object.keys(search).every(key => (
+        String(getValue(row, (key as keyof ListSearch)))
+          .includes(search[(key as keyof ListSearch)])
+      ))
+    ))
+    : mappedData;
 
-  render() {
-    const { listState, entities, userFonction } = this.props;
-    const {
-      selectedTab, tab, search, pageSize,
-    } = listState;
-    const {
-      loading, data, page, sorted,
-    } = tab[selectedTab];
-
-    const mappedData: [OperationFull] = denormalize(data, [operation], entities);
-    const filteredData = search
-      ? mappedData.filter(row => String(row.id_dp_operation).includes(search))
-      : mappedData;
-
-    return (
-      <div style={{ backgroundColor: '#fff', padding: '10px 20px' }}>
-        <div className="has-text-centered content-loading">
-          <div id="loading_liste">
-            <Loading show={loading} type="ThreeDots" />
-          </div>
+  return (
+    <div style={{ backgroundColor: '#f1f2f7', padding: '10px 20px', marginBottom: 30 }}>
+      <div className="has-text-centered content-loading">
+        <div id="loading_liste">
+          <Loading show={loading} type="ThreeDots" />
         </div>
-        <input
-          className="input search-table"
-          style={{ width: 'auto' }}
-          placeholder="N° Action"
-          defaultValue={search}
-          onChange={e => this.props.listUpdateSearch(e.target.value)}
-        />
-        <Tabs defaultIndex={selectedTab} onSelect={(index: TabType) => this.handleData(index)}>
-          <TabList>
-            <Tab>{userFonction === 'instructeur_initial' ? 'A traiter' : 'Incomplet'}</Tab>
-            <Tab>{userFonction === 'instructeur_initial' ? 'Incomplet' : 'A traiter'}</Tab>
-            <Tab>Rejet</Tab>
-            <Tab>Validés</Tab>
-          </TabList>
-
-          <TabPanel>
-            <ReactTable
-              {...TRANSLATIONS}
-              data={filteredData}
-              defaultPageSize={10}
-              className="-striped -highlight cur_pointer"
-              noDataText="Aucun traitement pour cet onglet"
-              columns={COLUMNS}
-              page={page}
-              onPageChange={this.props.listUpdatePage}
-              pageSize={pageSize}
-              onPageSizeChange={this.props.listUpdatePageSize}
-              sorted={sorted}
-              onSortedChange={this.props.listUpdateSorted}
-              getTdProps={this.onRowClick}
-              getTrProps={this.getTrProps}
-            />
-          </TabPanel>
-          <TabPanel>
-            <ReactTable
-              {...TRANSLATIONS}
-              data={filteredData}
-              defaultPageSize={10}
-              className="-striped -highlight cur_pointer"
-              noDataText="Aucun traitement pour cet onglet"
-              columns={COLUMNS}
-              page={page}
-              onPageChange={this.props.listUpdatePage}
-              pageSize={pageSize}
-              onPageSizeChange={this.props.listUpdatePageSize}
-              sorted={sorted}
-              onSortedChange={this.props.listUpdateSorted}
-              getTdProps={this.onRowClick}
-              getTrProps={this.getTrProps}
-            />
-          </TabPanel>
-          <TabPanel>
-            <ReactTable
-              {...TRANSLATIONS}
-              data={filteredData}
-              defaultPageSize={10}
-              className="-striped -highlight cur_pointer"
-              noDataText="Aucun traitement pour cet onglet"
-              columns={COLUMNS}
-              page={page}
-              onPageChange={this.props.listUpdatePage}
-              pageSize={pageSize}
-              onPageSizeChange={this.props.listUpdatePageSize}
-              sorted={sorted}
-              onSortedChange={this.props.listUpdateSorted}
-              getTdProps={this.onRowClick}
-              getTrProps={this.getTrProps}
-            />
-          </TabPanel>
-          <TabPanel>
-            <ReactTable
-              {...TRANSLATIONS}
-              data={filteredData}
-              defaultPageSize={10}
-              className="-striped -highlight cur_pointer"
-              noDataText="Aucun traitement pour cet onglet"
-              columns={COLUMNS}
-              page={page}
-              onPageChange={this.props.listUpdatePage}
-              pageSize={pageSize}
-              onPageSizeChange={this.props.listUpdatePageSize}
-              sorted={sorted}
-              onSortedChange={this.props.listUpdateSorted}
-              getTdProps={this.onRowClick}
-              getTrProps={this.getTrProps}
-            />
-          </TabPanel>
-        </Tabs>
       </div>
-    );
-  }
-}
+      <Tabs defaultIndex={selectedTab} onSelect={(index: TabType) => load(index)}>
+        <TabList>
+          <Tab>{userFonction === 'instructeur_initial' ? 'A traiter' : 'Incomplet'}</Tab>
+          <Tab>{userFonction === 'instructeur_initial' ? 'Incomplet' : 'A traiter'}</Tab>
+          <Tab>Rejet</Tab>
+          <Tab>Validés</Tab>
+        </TabList>
+        <TabPanel />
+        <TabPanel />
+        <TabPanel />
+        <TabPanel />
+        <ModernTable
+          operations={filteredData}
+          onRowClick={(o) => {
+            history.push(`/actions/${o.id_dp_operation}`);
+          }}
+          page={page}
+          pageSize={pageSize}
+          onPageChange={updatePage}
+          onPageSizeChange={updatePageSize}
+          search={search}
+          onSearchChange={updateSearch}
+          sorted={sorted}
+          updateSorted={updateSorted}
+        />
+      </Tabs>
+    </div>
+  );
+};
 
 export default connect(
   (s: AppState) => ({
@@ -254,10 +125,10 @@ export default connect(
     userFonction: s.user.user && s.user.user.fonction,
   }),
   {
-    loadList,
-    listUpdateSearch,
-    listUpdatePage,
-    listUpdatePageSize,
-    listUpdateSorted,
+    load: loadList,
+    updateSearch: listUpdateSearch,
+    updatePage: listUpdatePage,
+    updatePageSize: listUpdatePageSize,
+    updateSorted: listUpdateSorted,
   },
 )(withRouter(Actions));

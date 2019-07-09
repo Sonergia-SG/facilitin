@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import rest from '../../../tools/rest';
 import { API_PATH } from '../../../variables';
 import { addMessageToQueue } from '../../Alert';
-import { BooleanNumber, SimpleFile } from '../../../store/reducer/entities/types';
+import {
+  BooleanNumber,
+  SimpleFile,
+} from '../../../store/reducer/entities/types';
 
 import downloadDataUri from '../../../tools/file/downloadDataUri';
 
 interface Props {
   file: SimpleFile;
 }
-
 
 class DownloadFile extends Component<Props> {
   downloadFile = async () => {
@@ -38,7 +40,9 @@ class DownloadFile extends Component<Props> {
         const json: JSON = await result.json();
 
         const file = json.file[0];
-        const b64 = `data:${file.mimetype};base64,${file.file_binary.binarycontent}`;
+        const b64 = `data:${file.mimetype};base64,${
+          file.file_binary.binarycontent
+        }`;
 
         downloadDataUri(b64, file.filename);
       } else {
@@ -56,7 +60,7 @@ class DownloadFile extends Component<Props> {
         message: 'Erreur pendant la récupération du fichier',
       });
     }
-  }
+  };
 
   render() {
     return (

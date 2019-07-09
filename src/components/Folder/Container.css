@@ -13,7 +13,7 @@
 
 .Folder-Header-NotigBadge {
   position: absolute;
-  right: 27px;
+  right: 29px;
   top: 10px;
   width: 10px;
   height: 10px;
@@ -23,17 +23,27 @@
 
 .Folder-Header-Button-Icon {
   padding: 4px 8px;
+  min-width: 50px;
   cursor: pointer;
   border-radius: 5px;
+  background-color: #fff0;
   transition: background-color, 0.2s ease;
+  border: none;
+  box-shadow: none !important;
 }
 
 .Folder-Header-Button-Icon:hover {
-  background-color: #efefef;
+  background-color: #fff9;
 }
 
 .Folder-Header-Button-Icon:active {
-  background-color: #cfcfcf;
+  background-color: #ffff;
+}
+
+.Folder-Header-Button-Icon:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
 }
 
 .Folder-Header-MessageOverlay {

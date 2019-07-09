@@ -24,6 +24,8 @@ import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 
 import useOpenModalAfterLoading from './useOpenModalAfterLoading';
 
+import MissingFile from './MissingFile';
+
 interface Props {
   file: SonergiaFile;
   checkPoints: Array<CheckPoint> | undefined;
@@ -87,58 +89,46 @@ const Accordion = ({
               {' '}
               {fileFolderDisplayType(file)}
             </div>
-            {/* <div className="floatlink">
-                <a href="https://www.google.fr" target="_blank" rel="noopener noreferrer">
-                  {file.name_file}
-                </a>
-              </div> */}
           </div>
         </div>
         <div className="accordion-body">
-          <div className="Accordion-Box">
-            <div className="Accordion-File-Header">
-              <ToggleViewer
-                toggle={toggleAndCroll}
-                viewerOpened={previewOppened}
-              />
-              {/* <DownloadFile file={file} /> */}
-              <DropZone file={file} idDpOperation={folderId} />
-              <h3 className="Accordion-File-name">FakeName.pdf</h3>
-            </div>
-            <div className="Accordion-Content">
-              {previewOppened && (
-                <div className="Accordion-Document-Viewer">
-                  <Preview file={file} />
-                </div>
-              )}
-              {/* <div className="Accordion-Files">
-                <div style={{ width: 190 }} className="notification has-text-centered tilebordered">
-                  <div className="content">
-                    <DropZone file={file} idDpOperation={folderId} />
+          {file.id_file ? (
+            <div className="Accordion-Box">
+              <div className="Accordion-File-Header">
+                <ToggleViewer toggle={toggleAndCroll} viewerOpened={previewOppened} />
+                {/* <DownloadFile file={file} /> */}
+                <DropZone file={file} idDpOperation={folderId} />
+                <h3 className="Accordion-File-name">FakeName.pdf</h3>
+              </div>
+              <div className="Accordion-Content">
+                {previewOppened && (
+                  <div className="Accordion-Document-Viewer">
+                    <Preview file={file} />
                   </div>
+                )}
+                <div className="Accordion-CheckPoints">
+                  <CheckPoints
+                    pending={pending}
+                    folderId={folderId}
+                    checkPoints={checkPoints}
+                    fileId={file.id_dp_file}
+                  />
                 </div>
-                <DownloadFile file={file} />
-              </div> */}
-              <div className="Accordion-CheckPoints">
-                <CheckPoints
-                  pending={pending}
+              </div>
+              <div className="Accordion-Button-Position">
+                <Validation
+                  file={file}
+                  goNext={goNext}
+                  loading={litigeLoading}
                   folderId={folderId}
                   checkPoints={checkPoints}
-                  fileId={file.id_dp_file}
+                  inLitige={inLitige}
                 />
               </div>
             </div>
-            <div className="Accordion-Button-Position">
-              <Validation
-                file={file}
-                goNext={goNext}
-                loading={litigeLoading}
-                folderId={folderId}
-                checkPoints={checkPoints}
-                inLitige={inLitige}
-              />
-            </div>
-          </div>
+          ) : (
+            <MissingFile file={file} loading={false} folderId={folderId} />
+          )}
         </div>
       </article>
       <div className={`modal ${isSelected && displayModal ? ' is-active' : ''}`}>
