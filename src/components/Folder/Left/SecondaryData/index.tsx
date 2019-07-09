@@ -33,9 +33,13 @@ const SecondaryData = ({ data }: Props) => {
     }
   };
 
-  const editMode = () => { setState({ ...state, edit: true }); };
+  const editMode = () => {
+    setState({ ...state, edit: true });
+  };
 
-  const cancel = () => { setState({ edit: false, selected: undefined }); };
+  const cancel = () => {
+    setState({ edit: false, selected: undefined });
+  };
 
   const clearSelected = () => {
     if (state.edit !== true) {
@@ -50,10 +54,7 @@ const SecondaryData = ({ data }: Props) => {
   const someoneSelected = !!edit;
 
   return (
-    <Card
-      onMouseLeave={clearSelected}
-      className="SecondaryData-Container"
-    >
+    <Card onMouseLeave={clearSelected} className="SecondaryData-Container">
       <div className="SecondaryData-Items">
         <div
           onMouseEnter={select('MOA')}
@@ -95,31 +96,37 @@ const SecondaryData = ({ data }: Props) => {
       <AnimatedHeight>
         <div>
           {moaSelected && (
-            <MOA
-              edit={edit}
-              dossierprime={data.dossierprime}
-              idDpOperation={data.id_dp_operation}
-              idDossierPrime={data.id_dossierprime}
-              cancel={cancel}
-            />
+            <div style={{ padding: '12px 8px 5px' }}>
+              <MOA
+                edit={edit}
+                dossierprime={data.dossierprime}
+                idDpOperation={data.id_dp_operation}
+                idDossierPrime={data.id_dossierprime}
+                cancel={cancel}
+              />
+            </div>
           )}
           {moeSelected && (
-            <MOE
-              edit={edit}
-              dossierprime={data.dossierprime}
-              idDpOperation={data.id_dp_operation}
-              idDossierPrime={data.id_dossierprime}
-              cancel={cancel}
-            />
+            <div style={{ padding: '12px 8px 5px' }}>
+              <MOE
+                edit={edit}
+                dossierprime={data.dossierprime}
+                idDpOperation={data.id_dp_operation}
+                idDossierPrime={data.id_dossierprime}
+                cancel={cancel}
+              />
+            </div>
           )}
           {siteSelected && (
-            <Site
-              edit={edit}
-              dossierprime={data.dossierprime}
-              idDpOperation={data.id_dp_operation}
-              idDossierPrime={data.id_dossierprime}
-              cancel={cancel}
-            />
+            <div style={{ padding: '12px 8px 5px' }}>
+              <Site
+                edit={edit}
+                dossierprime={data.dossierprime}
+                idDpOperation={data.id_dp_operation}
+                idDossierPrime={data.id_dossierprime}
+                cancel={cancel}
+              />
+            </div>
           )}
         </div>
       </AnimatedHeight>
