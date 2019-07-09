@@ -100,7 +100,7 @@ const Accordion = ({
             <div className="Accordion-Box">
               <div className="Accordion-File-Header">
                 <ToggleViewer toggle={toggleAndCroll} viewerOpened={previewOppened} />
-                {/* <DownloadFile file={file} /> */}
+                <DownloadFile file={file} />
                 <DropZone file={file} idDpOperation={folderId} />
                 <h3 className="Accordion-File-name">{file.filename}</h3>
               </div>
