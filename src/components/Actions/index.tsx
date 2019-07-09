@@ -30,8 +30,9 @@ import { operation } from '../../store/reducer/entities/schema';
 
 import { AppState } from '../../store';
 import { Entities, OperationFull } from '../../store/reducer/entities/types';
-import { ListState, Tab as TabType } from '../../store/reducer/views/list/type';
+import { ListState, Tab as TabType, ListSearch } from '../../store/reducer/views/list/type';
 import { UserFonction } from '../../store/reducer/user/types';
+import getValue from './ModernTable/tools/getValue';
 
 interface Props extends RouteComponentProps {
   load: any;
@@ -66,8 +67,15 @@ const Actions = ({
   } = tab[selectedTab];
 
   const mappedData: [OperationFull] = denormalize(data, [operation], entities);
-  const filteredData = search
-    ? mappedData.filter(row => String(row.id_dp_operation).includes(search))
+
+  const mustFilter = Object.values(search).some(v => !!v);
+  const filteredData = mustFilter
+    ? mappedData.filter(row => (
+      Object.keys(search).every(key => (
+        String(getValue(row, (key as keyof ListSearch)))
+          .includes(search[(key as keyof ListSearch)])
+      ))
+    ))
     : mappedData;
 
   return (

@@ -32,10 +32,20 @@ export interface TabState {
   loading: boolean;
 }
 
+
+export interface ListSearch {
+  id_dossierprime: string;
+  id_dp_operation: string;
+  etat: string;
+  delai: string;
+  moa: string;
+  code_operation: string;
+}
+
 export interface ListState {
   selectedTab: Tab;
   pageSize: Tab;
-  search: string;
+  search: ListSearch;
   tab: {
     0: TabState;
     1: TabState;
@@ -66,9 +76,18 @@ export interface ListListErrorAction {
   tab: Tab;
 }
 
+export interface ListSearchAction {
+  id_dossierprime?: string;
+  id_dp_operation?: string;
+  etat?: string;
+  delai?: string;
+  moa?: string;
+  code_operation?: string;
+}
+
 export interface ListListChangeSearchAction {
   type: typeof LIST_CHANGE_SEARCH;
-  search: string;
+  search: ListSearchAction;
 }
 
 export interface ListListChangeTabAction {
