@@ -3,17 +3,18 @@ import React from 'react';
 import { SimpleFile } from '../../../store/reducer/entities/types';
 
 import useDownloadPreview from './useDownloadPreview';
+import Empty from './Empty';
 
 interface Props {
   file: SimpleFile;
 }
 
 const Preview = ({ file }: Props) => {
-  const data = useDownloadPreview(file);
+  const { data, loading } = useDownloadPreview(file);
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
-      {data !== '' && (
+      {data !== '' ? (
         <iframe
           title="Fakedocument.pdf"
           src={data}
@@ -21,7 +22,7 @@ const Preview = ({ file }: Props) => {
         >
           <p>Your browser does not support iframes.</p>
         </iframe>
-      )}
+      ) : <Empty loading={loading} />}
     </div>
   );
 };

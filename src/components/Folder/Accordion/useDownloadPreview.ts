@@ -6,9 +6,10 @@ import { addMessageToQueue } from '../../Alert';
 import { SimpleFile, BooleanNumber } from '../../../store/reducer/entities/types';
 
 const useDownloadPreview = (file: SimpleFile) => {
-  const [data, updateData] = useState('');
+  const [state, updateData] = useState({ data: '', loading: false });
   const downloadFile = async () => {
     try {
+      updateData({ data: state.data, loading: true });
       const result = await rest(`${API_PATH}files/${file.id_file}`);
 
       if (result.status === 200) {
@@ -37,9 +38,10 @@ const useDownloadPreview = (file: SimpleFile) => {
           fileWithData.file_binary.binarycontent
         }`;
 
-        updateData(b64);
+        updateData({ data: b64, loading: false });
         // downloadDataUri(b64, fileWithData.filename);
       } else {
+        updateData({ data: state.data, loading: false });
         addMessageToQueue({
           duration: 4000,
           type: 'error',
@@ -48,6 +50,7 @@ const useDownloadPreview = (file: SimpleFile) => {
       }
     } catch (error) {
       console.error(error);
+      updateData({ data: state.data, loading: false });
       addMessageToQueue({
         duration: 4000,
         type: 'error',
@@ -58,7 +61,7 @@ const useDownloadPreview = (file: SimpleFile) => {
 
   useEffect(() => { downloadFile(); }, []);
 
-  return data;
+  return state;
 };
 
 export default useDownloadPreview;

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Loading from '../../Loading';
-import Error from '../../Error';
+import Loading from '../../../Loading';
+import Error from '../../../Error';
 
 interface Props {
   loading: boolean;
@@ -12,13 +12,14 @@ const Empty = ({ loading, msg }: Props) => (
   <div
     style={{
       display: 'flex',
+      alignItems: 'center',
       justifyContent: 'center',
-      height: 'calc(100% - 80px)',
+      height: '100%',
     }}
   >
     {loading
       ? <Loading show />
-      : <Error msg={msg || 'Une erreur est survenue pendant le chargement du dossier'} />
+      : <Error msg={msg || 'Une erreur est survenue pendant le chargement du fichier'} />
     }
   </div>
 );
