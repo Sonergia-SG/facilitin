@@ -682,8 +682,12 @@ export const uploadFile: UploadFile = (
     if (result.status === 200) {
       const j: { status: 'success' | 'fail' } = await result.json();
 
-      if (j.status === 'success') dispatch(folderUpdateFileLoaded(idDpOpearation, idFile));
-      else dispatchError();
+      if (j.status === 'success') {
+        dispatch(folderUpdateFileLoaded(idDpOpearation, idFile));
+        dispatch(fetchFolder(idDpOpearation));
+      } else {
+        dispatchError();
+      }
     } else {
       dispatchError();
     }

@@ -126,7 +126,6 @@ class DropZone extends Component<Props, State> {
             }}
           </Dropzone>
         )}
-        {file && <div className="notification is-primary notif-file">{file.name}</div>}
       </div>
     );
   }
