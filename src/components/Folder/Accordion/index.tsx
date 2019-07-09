@@ -1,7 +1,7 @@
 /**
  * Created by stephane.mallaroni on 15/04/2019.
  */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import idx from 'idx';
 
@@ -58,6 +58,10 @@ const Accordion = ({
 
   const [previewOppened, togglePreview] = useState(false);
 
+  useEffect(() => {
+    if (isSelected) togglePreview(true);
+  }, [isSelected]);
+
   const toggleAndCroll = () => {
     togglePreview(!previewOppened);
 
@@ -98,7 +102,7 @@ const Accordion = ({
                 <ToggleViewer toggle={toggleAndCroll} viewerOpened={previewOppened} />
                 {/* <DownloadFile file={file} /> */}
                 <DropZone file={file} idDpOperation={folderId} />
-                <h3 className="Accordion-File-name">FakeName.pdf</h3>
+                <h3 className="Accordion-File-name">{file.filename}</h3>
               </div>
               <div className="Accordion-Content">
                 {previewOppened && (
