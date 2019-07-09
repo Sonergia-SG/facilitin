@@ -1,7 +1,7 @@
 /**
  * Created by stephane.mallaroni on 15/04/2019.
  */
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import idx from 'idx';
 
@@ -10,6 +10,8 @@ import DropZone from '../../DropZone';
 import CheckPoints from './CheckPoints';
 import DownloadFile from './DownloadFile';
 import Validation from './Validation';
+import ToggleViewer from './ToggleViewer';
+import Preview from './Preview';
 
 import { folderFileInLitige, folderEnding } from '../../../store/actions/views/folder';
 
@@ -49,13 +51,29 @@ const Accordion = ({
   inLitige,
 }: Props) => {
   const color = StateToColor(file);
+  const selfRef = useRef(null);
 
   const litigeLoading = idx(pending, _ => _.litige[file.id_dp_file].loading) || false;
-
   const [displayModal, toggleModal] = useOpenModalAfterLoading(litigeLoading);
 
+  const [previewOppened, togglePreview] = useState(false);
+
+  useEffect(() => {
+    if (isSelected) togglePreview(true);
+  }, [isSelected]);
+
+  const toggleAndCroll = () => {
+    togglePreview(!previewOppened);
+
+    setTimeout(() => {
+      if (selfRef !== null && selfRef.current) {
+        idx(selfRef, (_: any) => _.current.scrollIntoView());
+      }
+    }, 10);
+  };
+
   return (
-    <div className="divAccordion">
+    <div ref={selfRef} className="divAccordion">
       <article className={`accordion ${isSelected ? 'is-active' : ''}`}>
         <div className={`accordion-header ${color}`}>
           <div
@@ -75,31 +93,31 @@ const Accordion = ({
               {' '}
               {fileFolderDisplayType(file)}
             </div>
-            {/* <div className="floatlink">
-                <a href="https://www.google.fr" target="_blank" rel="noopener noreferrer">
-                  {file.name_file}
-                </a>
-              </div> */}
           </div>
         </div>
         <div className="accordion-body">
           {file.id_file ? (
             <div className="Accordion-Box">
-              <div className="Accordion-Files">
-                <div style={{ width: 190 }} className="notification has-text-centered tilebordered">
-                  <div className="content">
-                    <DropZone file={file} idDpOperation={folderId} />
-                  </div>
-                </div>
+              <div className="Accordion-File-Header">
+                <ToggleViewer toggle={toggleAndCroll} viewerOpened={previewOppened} />
                 <DownloadFile file={file} />
+                <DropZone file={file} idDpOperation={folderId} />
+                <h3 className="Accordion-File-name">{file.filename}</h3>
               </div>
-              <div className="Accordion-CheckPoints">
-                <CheckPoints
-                  pending={pending}
-                  folderId={folderId}
-                  checkPoints={checkPoints}
-                  fileId={file.id_dp_file}
-                />
+              <div className="Accordion-Content">
+                {previewOppened && (
+                  <div className="Accordion-Document-Viewer">
+                    <Preview file={file} />
+                  </div>
+                )}
+                <div className="Accordion-CheckPoints">
+                  <CheckPoints
+                    pending={pending}
+                    folderId={folderId}
+                    checkPoints={checkPoints}
+                    fileId={file.id_dp_file}
+                  />
+                </div>
               </div>
               <div className="Accordion-Button-Position">
                 <Validation
