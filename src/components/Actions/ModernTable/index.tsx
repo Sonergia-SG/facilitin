@@ -10,7 +10,7 @@ import {
 } from '../../../store/actions/views/list';
 import { OperationFull } from '../../../store/reducer/entities/types';
 
-import { Sorted } from '../../../store/reducer/views/list/type';
+import { Sorted, ListSearch } from '../../../store/reducer/views/list/type';
 import './ModernTAble.css';
 
 import getValue from './tools/getValue';
@@ -27,7 +27,7 @@ interface Props {
   onPageChange: typeof listUpdatePage;
   onPageSizeChange: typeof listUpdatePageSize;
   onSearchChange: typeof listUpdateSearch;
-  search: string;
+  search: ListSearch;
   sorted: Array<Sorted>;
   updateSorted: typeof listUpdateSorted;
 }
@@ -84,16 +84,6 @@ const ModernTable = ({
           </select>
           Opérations par page
         </label>
-        <label className="ModernTable-search-label" htmlFor="actions-table-select">
-          <input
-            className="input search-table is-small"
-            style={{ width: 'auto' }}
-            placeholder="N° Action"
-            defaultValue={search}
-            onChange={e => onSearchChange(e.target.value)}
-          />
-          Recherche
-        </label>
       </div>
       <div style={{ minHeight: 270 }}>
         <table className="uikit-modernTable">
@@ -127,6 +117,69 @@ const ModernTable = ({
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td>
+                <input
+                  type="text"
+                  placeholder="Filtrer"
+                  className="input is-small"
+                  style={{ width: '100%' }}
+                  defaultValue={search.id_dossierprime}
+                  onChange={e => onSearchChange({ id_dossierprime: e.target.value })}
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  placeholder="Filtrer"
+                  className="input is-small"
+                  style={{ width: '100%' }}
+                  defaultValue={search.id_dp_operation}
+                  onChange={e => onSearchChange({ id_dp_operation: e.target.value })}
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  placeholder="Filtrer"
+                  className="input is-small"
+                  style={{ width: '100%' }}
+                  defaultValue={search.etat}
+                  onChange={e => onSearchChange({ etat: e.target.value })}
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  placeholder="Filtrer"
+                  className="input is-small"
+                  style={{ width: '100%' }}
+                  defaultValue={search.delai}
+                  onChange={e => onSearchChange({ delai: e.target.value })}
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  placeholder="Filtrer"
+                  className="input is-small"
+                  style={{ width: '100%' }}
+                  defaultValue={search.moa}
+                  onChange={e => onSearchChange({ moa: e.target.value })}
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  placeholder="Filtrer"
+                  className="input is-small"
+                  style={{ width: '100%' }}
+                  defaultValue={search.code_operation}
+                  onChange={e => onSearchChange({ code_operation: e.target.value })}
+                />
+              </td>
+              <td />
+            </tr>
             {filteredOperations.slice(start, end).map(o => (
               <tr onClick={() => onRowClick(o)} key={o.id_dp_operation}>
                 <td style={{ width: '13%' }}>{getValue(o, 'id_dossierprime')}</td>

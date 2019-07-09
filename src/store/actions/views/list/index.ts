@@ -31,6 +31,7 @@ import {
   ListListPageSizeAction,
   ListListSortedAction,
   Sorted,
+  ListSearchAction,
 } from '../../../reducer/views/list/type';
 import { Normalized, Entities } from '../../../reducer/entities/types';
 import rest from '../../../../tools/rest';
@@ -59,7 +60,7 @@ export const listError = (tab: Tab): ListListErrorAction => ({
   tab,
 });
 
-export const listUpdateSearch = (search: string): ListListChangeSearchAction => ({
+export const listUpdateSearch = (search: ListSearchAction): ListListChangeSearchAction => ({
   type: LIST_CHANGE_SEARCH,
   search,
 });

@@ -121,6 +121,10 @@
   border: #57c8f1 1px solid;
 }
 
+.ModernTable-select:disabled {
+  opacity: 0.6;
+}
+
 .ModernTable-select-label {
   font-size: 13px;
   color: #444;
