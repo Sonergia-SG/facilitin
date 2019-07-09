@@ -84,71 +84,20 @@ const Actions = ({
           <Tab>Rejet</Tab>
           <Tab>Validés</Tab>
         </TabList>
-
-        <TabPanel>
-          <ModernTable
-            operations={filteredData}
-            onRowClick={(o) => {
-              history.push(`/actions/${o.id_dp_operation}`);
-            }}
-            page={page}
-            pageSize={pageSize}
-            onPageChange={updatePage}
-            onPageSizeChange={updatePageSize}
-            search={search}
-            onSearchChange={updateSearch}
-            sorted={sorted}
-            updateSorted={updateSorted}
-          />
-        </TabPanel>
-        <TabPanel>
-          <ModernTable
-            operations={filteredData}
-            onRowClick={(o) => {
-              history.push(`/actions/${o.id_dp_operation}`);
-            }}
-            page={page}
-            pageSize={pageSize}
-            onPageChange={updatePage}
-            onPageSizeChange={updatePageSize}
-            search={search}
-            onSearchChange={updateSearch}
-            sorted={sorted}
-            updateSorted={updateSorted}
-          />
-        </TabPanel>
-        <TabPanel>
-          <ModernTable
-            operations={filteredData}
-            onRowClick={(o) => {
-              history.push(`/actions/${o.id_dp_operation}`);
-            }}
-            page={page}
-            pageSize={pageSize}
-            onPageChange={updatePage}
-            onPageSizeChange={updatePageSize}
-            search={search}
-            onSearchChange={updateSearch}
-            sorted={sorted}
-            updateSorted={updateSorted}
-          />
-        </TabPanel>
-        <TabPanel>
-          <ModernTable
-            operations={filteredData}
-            onRowClick={(o) => {
-              history.push(`/actions/${o.id_dp_operation}`);
-            }}
-            page={page}
-            pageSize={pageSize}
-            onPageChange={updatePage}
-            onPageSizeChange={updatePageSize}
-            search={search}
-            onSearchChange={updateSearch}
-            sorted={sorted}
-            updateSorted={updateSorted}
-          />
-        </TabPanel>
+        <ModernTable
+          operations={filteredData}
+          onRowClick={(o) => {
+            history.push(`/actions/${o.id_dp_operation}`);
+          }}
+          page={page}
+          pageSize={pageSize}
+          onPageChange={updatePage}
+          onPageSizeChange={updatePageSize}
+          search={search}
+          onSearchChange={updateSearch}
+          sorted={sorted}
+          updateSorted={updateSorted}
+        />
       </Tabs>
     </div>
   );
