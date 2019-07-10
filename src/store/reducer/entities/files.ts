@@ -5,7 +5,10 @@ import idx from 'idx';
 import { Files, FilesActions } from './types';
 
 import {
-  LOGOUT, FOLDER_LOADED, FOLDER_UPDATE_CHECK_POINT_LOADED, FOLDER_FILE_LITIGE_LOADED,
+  LOGOUT,
+  FOLDER_LOADED,
+  FOLDER_UPDATE_CHECK_POINT_LOADED,
+  FOLDER_FILE_LITIGE_LOADED,
 } from '../../types';
 
 const files = (state: Files = {}, action: FilesActions): Files => {
