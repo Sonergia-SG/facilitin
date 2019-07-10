@@ -22,8 +22,8 @@ interface State {
 
 const SecondaryData = ({ data }: Props) => {
   const [state, setState] = useState<State>({
-    selected: undefined,
-    edit: false,
+    selected: 'MOA',
+    edit: true,
   });
   const { selected, edit } = state;
 

@@ -10,6 +10,8 @@ import Collapsed from './Collapsed';
 import Empty from './Empty';
 import Left from './Left';
 
+import './Edit.css';
+
 import { operation as operationSchema } from '../../store/reducer/entities/schema';
 import { Entities, OperationFull } from '../../store/reducer/entities/types';
 import { FolderState } from '../../store/reducer/views/folder/types';
@@ -42,7 +44,7 @@ const Edit = ({
   const title = `Dossier N° ${data.id_dossierprime}`;
 
   return (
-    <div className="tile is-ancestor">
+    <div className="Folder-Edit-container">
       <Left
         pending={folderPending}
         selectedAccordion={selectedAccordion}
@@ -51,18 +53,16 @@ const Edit = ({
         title={title}
         data={data}
       />
-      <div className="tile is-parent">
-        <div className="tile is-child" style={{ marginTop: 0 }}>
-          <Collapsed
-            files={data.dossierprimefile}
-            checkPoints={data.point_controles}
-            selectedAccordion={selectedAccordion}
-            handleAccordionClick={handleAccordionClick}
-            loading={loading}
-            folderId={folderId}
-            pending={folderPending}
-          />
-        </div>
+      <div className="Folder-Edit-documents">
+        <Collapsed
+          files={data.dossierprimefile}
+          checkPoints={data.point_controles}
+          selectedAccordion={selectedAccordion}
+          handleAccordionClick={handleAccordionClick}
+          loading={loading}
+          folderId={folderId}
+          pending={folderPending}
+        />
       </div>
     </div>
   );

@@ -1,0 +1,6 @@
+.Left-container {
+  height: 100%;
+  min-width: 320px;
+  overflow: auto;
+  padding: 0 10px;
+}
