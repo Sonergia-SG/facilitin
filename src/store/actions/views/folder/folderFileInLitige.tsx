@@ -18,7 +18,7 @@ import {
   FolderFolderLitigeLoaded,
   FolderFolderLitigeError,
 } from '../../../reducer/views/folder/types';
-import { FileLitigeLoaded } from '../../../reducer/entities/types';
+import { FileLitigeLoaded, FileStatus } from '../../../reducer/entities/types';
 import rest from '../../../../tools/rest';
 
 export const folderFileLitigeLoading = (
@@ -32,7 +32,7 @@ export const folderFileLitigeLoading = (
 
 export const folderFileLitigeLoaded = (
   idDpOperation: number,
-  statusCode: number,
+  statusCode: FileStatus,
   idDpFile: number,
 ): FolderFolderLitigeLoaded & FileLitigeLoaded => ({
   type: FOLDER_FILE_LITIGE_LOADED,

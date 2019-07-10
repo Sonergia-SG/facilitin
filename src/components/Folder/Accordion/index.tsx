@@ -5,7 +5,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import idx from 'idx';
 
-import StateToColor from '../../StateToColor';
 import DropZone from '../../DropZone';
 import CheckPoints from './CheckPoints';
 import DownloadFile from './DownloadFile';
@@ -25,6 +24,8 @@ import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 import useOpenModalAfterLoading from './useOpenModalAfterLoading';
 
 import MissingFile from './MissingFile';
+
+import statusColor from './tools/statusColor';
 
 interface Props {
   file: SonergiaFile;
@@ -50,7 +51,6 @@ const Accordion = ({
   ending,
   inLitige,
 }: Props) => {
-  const color = StateToColor(file);
   const selfRef = useRef(null);
 
   const litigeLoading = idx(pending, _ => _.litige[file.id_dp_file].loading) || false;
@@ -75,7 +75,10 @@ const Accordion = ({
   return (
     <div ref={selfRef} className="divAccordion">
       <article className={`accordion ${isSelected ? 'is-active' : ''}`}>
-        <div className={`accordion-header ${color}`}>
+        <div
+          style={{ backgroundColor: statusColor(file) }}
+          className="accordion-header"
+        >
           <div
             onClick={handleClick}
             onKeyPress={handleClick}

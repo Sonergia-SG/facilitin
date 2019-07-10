@@ -44,6 +44,9 @@ export interface Comments {
 
 export type BooleanNumber = 0 | 1;
 
+
+export type FileStatus = -1 | 0 | 5 | 10 | 15;
+
 export interface SimpleFile {
   id_dp_file: number;
   id_file: number | null;
@@ -68,7 +71,7 @@ export interface SimpleFile {
   is_ah: BooleanNumber;
   is_horodatage: BooleanNumber;
   is_subrogation: BooleanNumber;
-  statut: number;
+  statut: FileStatus;
   litige?: BooleanNumber;
 }
 
@@ -268,13 +271,13 @@ export interface FilesFolderLoadedAction {
 export interface FilesFolcerCheckPointLoaded {
   type: typeof FOLDER_UPDATE_CHECK_POINT_LOADED;
   idDpFile: number;
-  statusCode: number | null;
+  statusCode: FileStatus | null;
 }
 
 export interface FileLitigeLoaded {
   type: typeof FOLDER_FILE_LITIGE_LOADED;
   idDpFile: number;
-  statusCode: number | null;
+  statusCode: FileStatus | null;
 }
 
 export interface FilesLogoutAction {

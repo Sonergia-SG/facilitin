@@ -49,10 +49,10 @@ class Folder extends Component<Props, State> {
 
         if (el) {
           el.scrollIntoView({
-            behavior: 'smooth',
+            behavior: 'auto',
           });
         }
-      }, 200);
+      }, 250);
     }
   };
 

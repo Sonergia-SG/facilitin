@@ -82,6 +82,7 @@ import {
   OperationsFolderEndingLoaded,
   FoldersUpdateMoeLoaded,
   FoldersUpdateSiteLoaded,
+  FileStatus,
 } from '../../../reducer/entities/types';
 import rest from '../../../../tools/rest';
 
@@ -109,7 +110,7 @@ CheckPointsFolderUpdateCheckpointLoadingAction => ({
 interface FolderUpdateCheckPointLoadedParams {
   folderId: number;
   checkPointId: number;
-  statusCode: number | null;
+  statusCode: FileStatus | null;
   idDpFile: number;
 }
 

@@ -91,31 +91,27 @@ button.togglesonergia {
   background-color: inherit !important;
 }
 .accordions .accordion.is-active .accordion-header {
-  background-color: #16a0e0 !important;
+  opacity: 1;
 }
-.accordion_bad_controle {
-  background-color: #ff7878 !important;
-}
-.accordion_litige {
-  background-color: #f28b24 !important;
-}
-.accordion_empty {
-  background-color: #b2adad !important;
-}
-.accordion_ok {
-  background-color: #2ba048 !important;
-}
+
 .accordions .accordion .accordion-header {
   border-radius: 4px !important;
 }
+
 .accordion-header {
-  transition: background-color 0.2s ease;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
 }
+
+.accordion-header > div {
+  outline: none;
+}
+
 .divAccordion {
   margin-top: 0;
 }
 .left-active {
-  color: #16a0e0 !important;
+  color: #57c8f1 !important;
 }
 .item_menu_gauche {
   padding: 3px;
