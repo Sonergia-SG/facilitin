@@ -74,7 +74,7 @@ class Folder extends Component<Props, State> {
         toggleComments={this.toggleComments}
         folderId={folderId}
       >
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', height: '100%' }}>
           <div style={{ width: 'calc(100% - 12px)' }}>
             <Edit
               selectedAccordion={selectedAccordion}
