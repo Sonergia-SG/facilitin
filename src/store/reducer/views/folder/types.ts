@@ -12,9 +12,6 @@ import {
   FOLDER_UPDATE_MOA_ERROR,
   FOLDER_UPDATE_MOA_LOADED,
   FOLDER_UPDATE_MOA_LOADING,
-  FOLDER_FILE_LITIGE_LOADING,
-  FOLDER_FILE_LITIGE_ERROR,
-  FOLDER_FILE_LITIGE_LOADED,
   FOLDER_ENDING_LOADING,
   FOLDER_ENDING_LOADED,
   FOLDER_ENDING_ERROR,
@@ -201,24 +198,6 @@ export interface FolderFolderUpdateSiteLoaded {
   idDpOperation: number;
 }
 
-export interface FolderFolderLitigeLoading {
-  type: typeof FOLDER_FILE_LITIGE_LOADING;
-  idDpOperation: number;
-  idDpFile: number;
-}
-
-export interface FolderFolderLitigeError {
-  type: typeof FOLDER_FILE_LITIGE_ERROR;
-  idDpOperation: number;
-  idDpFile: number;
-}
-
-export interface FolderFolderLitigeLoaded {
-  type: typeof FOLDER_FILE_LITIGE_LOADED;
-  idDpOperation: number;
-  idDpFile: number;
-}
-
 export interface FolderFolderEndingLoading {
   type: typeof FOLDER_ENDING_LOADING;
   idDpOperation: number;
@@ -292,9 +271,6 @@ export type FolderAction = | FolderFolderLoadingAction
 | FolderFolderUpdateSiteLoading
 | FolderFolderUpdateSiteLoaded
 | FolderFolderUpdateSiteError
-| FolderFolderLitigeLoading
-| FolderFolderLitigeLoaded
-| FolderFolderLitigeError
 | FolderFolderEndingLoading
 | FolderFolderEndingLoaded
 | FolderFolderEndingError

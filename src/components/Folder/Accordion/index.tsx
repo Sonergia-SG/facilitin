@@ -12,7 +12,7 @@ import Validation from './Validation';
 import ToggleViewer from './ToggleViewer';
 import Preview from './Preview';
 
-import { folderFileInLitige, folderEnding } from '../../../store/actions/views/folder';
+import { folderEnding } from '../../../store/actions/views/folder';
 
 import { FileFull as SonergiaFile, CheckPoint } from '../../../store/reducer/entities/types';
 
@@ -35,7 +35,6 @@ interface Props {
   handleClick: () => void;
   goNext: () => void;
   folderId: number;
-  inLitige: any;
   ending: any;
   pending: FolderPendingItem | undefined;
 }
@@ -49,7 +48,6 @@ const Accordion = ({
   pending,
   goNext,
   ending,
-  inLitige,
 }: Props) => {
   const selfRef = useRef(null);
 
@@ -125,11 +123,9 @@ const Accordion = ({
               <div className="Accordion-Button-Position">
                 <Validation
                   file={file}
-                  goNext={goNext}
                   loading={litigeLoading}
                   folderId={folderId}
                   checkPoints={checkPoints}
-                  inLitige={inLitige}
                 />
               </div>
             </div>
@@ -179,5 +175,5 @@ const Accordion = ({
 
 export default connect(
   null,
-  { inLitige: folderFileInLitige, ending: folderEnding },
+  { ending: folderEnding },
 )(Accordion);

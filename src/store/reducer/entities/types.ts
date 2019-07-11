@@ -7,7 +7,6 @@ import {
   FOLDER_UPDATE_CHECK_POINT_LOADED,
   FOLDER_UPDATE_CHECK_POINT_ERROR,
   COMMENTS_LIST_LOADED,
-  FOLDER_FILE_LITIGE_LOADED,
   FOLDER_ENDING_LOADED,
   FOLDER_UPDATE_MOE_LOADED,
   FOLDER_UPDATE_SITE_LOADED,
@@ -275,12 +274,6 @@ export interface FilesFolcerCheckPointLoaded {
   statusCode: FileStatus | null;
 }
 
-export interface FileLitigeLoaded {
-  type: typeof FOLDER_FILE_LITIGE_LOADED;
-  idDpFile: number;
-  statusCode: FileStatus | null;
-}
-
 export interface FileEndingLoaded {
   type: typeof FOLDER_FILE_ENDING_LOADED;
   idDpFile: number;
@@ -294,7 +287,6 @@ export interface FilesLogoutAction {
 export type FilesActions =
   | FilesFolderLoadedAction
   | FilesFolcerCheckPointLoaded
-  | FileLitigeLoaded
   | FilesLogoutAction
   | FileEndingLoaded;
 

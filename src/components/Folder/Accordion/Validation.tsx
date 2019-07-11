@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { folderFileEnding } from '../../../store/actions/views/folder/folderFileEnding';
 
 import { CheckPoint } from '../../../store/reducer/entities/types';
-import { addMessageToQueue } from '../../Alert';
 
 import isLitige from '../Left/helpers/checkPointInLitige';
 import isRejected from '../Left/helpers/checkPointRejected';
@@ -12,8 +11,6 @@ import isRejected from '../Left/helpers/checkPointRejected';
 interface Props {
   file: { statut: number; id_dp_file: number };
   folderId: number;
-  inLitige: any;
-  goNext: () => void;
   ending: any;
   loading: boolean;
   checkPoints: Array<CheckPoint> | undefined;
@@ -53,7 +50,7 @@ const getConfig = (checkPoints: Array<CheckPoint>) => {
 };
 
 const Litige = ({
-  file, ending, folderId, loading, checkPoints, goNext,
+  file, ending, folderId, loading, checkPoints,
 }: Props) => {
   const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === file.id_dp_file);
 

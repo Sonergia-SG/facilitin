@@ -18,18 +18,6 @@ export type FolderEndingResponse = | {
   ];
 };
 
-export type FolderFileLitigeResponse = | {
-  status: 'fail';
-}
-| {
-  status: 'success';
-  statut_file: Array<{
-    code_statut: 10 | 15;
-    label_public: string;
-    code_couleur: string;
-  }>;
-};
-
 export type FolderFileEndingResponse = | {
   status: 'fail';
 }

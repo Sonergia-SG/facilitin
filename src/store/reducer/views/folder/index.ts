@@ -16,9 +16,6 @@ import {
   FOLDER_UPDATE_MOA_LOADING,
   FOLDER_UPDATE_MOA_LOADED,
   FOLDER_UPDATE_MOA_ERROR,
-  FOLDER_FILE_LITIGE_LOADING,
-  FOLDER_FILE_LITIGE_LOADED,
-  FOLDER_FILE_LITIGE_ERROR,
   FOLDER_ENDING_LOADING,
   FOLDER_ENDING_LOADED,
   FOLDER_ENDING_ERROR,
@@ -261,45 +258,6 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
           },
         },
       };
-    case FOLDER_FILE_LITIGE_LOADING: {
-      const { idDpFile, idDpOperation } = action;
-      return {
-        ...state,
-        pending: {
-          ...state.pending,
-          [idDpOperation]: {
-            ...idx(state, _ => _.pending[idDpOperation]),
-            litige: {
-              ...idx(state, _ => _.pending[idDpOperation].litige),
-              [idDpFile]: {
-                ...idx(state, _ => _.pending[idDpOperation].litige[idDpFile]),
-                loading: true,
-              },
-            },
-          },
-        },
-      };
-    }
-    case FOLDER_FILE_LITIGE_LOADED:
-    case FOLDER_FILE_LITIGE_ERROR: {
-      const { idDpFile, idDpOperation } = action;
-      return {
-        ...state,
-        pending: {
-          ...state.pending,
-          [idDpOperation]: {
-            ...idx(state, _ => _.pending[idDpOperation]),
-            litige: {
-              ...idx(state, _ => _.pending[idDpOperation].litige),
-              [idDpFile]: {
-                ...idx(state, _ => _.pending[idDpOperation].litige[idDpFile]),
-                loading: false,
-              },
-            },
-          },
-        },
-      };
-    }
     case FOLDER_CLEAN_MOA_VALUE:
       return {
         ...state,
