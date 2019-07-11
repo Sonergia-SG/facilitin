@@ -699,3 +699,4 @@ export const uploadFile: UploadFile = (
 };
 
 export * from './folderFileInLitige';
+export * from './folderFileEnding';

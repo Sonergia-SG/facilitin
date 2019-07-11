@@ -11,6 +11,7 @@ import {
   FOLDER_ENDING_LOADED,
   FOLDER_UPDATE_MOE_LOADED,
   FOLDER_UPDATE_SITE_LOADED,
+  FOLDER_FILE_ENDING_LOADED,
 } from '../../types';
 
 export interface User {
@@ -280,6 +281,12 @@ export interface FileLitigeLoaded {
   statusCode: FileStatus | null;
 }
 
+export interface FileEndingLoaded {
+  type: typeof FOLDER_FILE_ENDING_LOADED;
+  idDpFile: number;
+  statusCode: FileStatus | null;
+}
+
 export interface FilesLogoutAction {
   type: typeof LOGOUT;
 }
@@ -288,7 +295,8 @@ export type FilesActions =
   | FilesFolderLoadedAction
   | FilesFolcerCheckPointLoaded
   | FileLitigeLoaded
-  | FilesLogoutAction;
+  | FilesLogoutAction
+  | FileEndingLoaded;
 
 export interface FoldersFolderLoadedAction {
   type: typeof FOLDER_LOADED;
