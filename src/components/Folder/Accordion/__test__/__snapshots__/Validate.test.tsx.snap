@@ -19,23 +19,6 @@ exports[`Litige button render in progress 1`] = `
 
 exports[`Litige button render litige 1`] = `
 <button
-  className="button is-warning is-pulled-right"
-  disabled={false}
-  id="button-litige"
-  onClick={[Function]}
-  style={
-    Object {
-      "transition": "background-color 0.4s ease",
-    }
-  }
-  type="button"
->
-  Litige
-</button>
-`;
-
-exports[`Litige button render rejected 1`] = `
-<button
   className="button is-danger is-pulled-right"
   disabled={false}
   id="button-litige"
@@ -48,6 +31,23 @@ exports[`Litige button render rejected 1`] = `
   type="button"
 >
   Rejeter
+</button>
+`;
+
+exports[`Litige button render rejected 1`] = `
+<button
+  className="button is-warning is-pulled-right"
+  disabled={false}
+  id="button-litige"
+  onClick={[Function]}
+  style={
+    Object {
+      "transition": "background-color 0.4s ease",
+    }
+  }
+  type="button"
+>
+  Litige
 </button>
 `;
 
