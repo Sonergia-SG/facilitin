@@ -3,6 +3,8 @@ import React from 'react';
 import { OperationFull, CheckPoint } from '../../../store/reducer/entities/types';
 
 import fileFolderDisplayType from '../helper/fileFolderDisplayType';
+import isRejected from './helpers/checkPointRejected';
+import isLitige from './helpers/checkPointInLitige';
 
 import Card from '../../../Common/UIKIT/Card';
 import Picto from './Picto';
@@ -32,12 +34,8 @@ const CheckPointsSummary = ({
             );
             const unTraited = currentCheckPoints.filter(c => c.pivot.valide === -1);
             const validCheckPoints = currentCheckPoints.filter(c => c.pivot.valide === 1);
-            const litigeCheckPoints = currentCheckPoints.filter(
-              c => c.pivot.valide === 0 && c.id_penalite === 1,
-            );
-            const rejectedCheckPoints = currentCheckPoints.filter(
-              c => c.pivot.valide === 0 && c.id_penalite === 2,
-            );
+            const litigeCheckPoints = currentCheckPoints.filter(c => isLitige(c));
+            const rejectedCheckPoints = currentCheckPoints.filter(c => isRejected(c));
 
             const active = selectedAccordion === index;
 

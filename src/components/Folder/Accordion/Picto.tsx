@@ -1,13 +1,15 @@
 import React from 'react';
 
 import { CheckPoint } from '../../../store/reducer/entities/types';
+import isLitige from '../Left/helpers/checkPointInLitige';
+import isRejected from '../Left/helpers/checkPointRejected';
 
 interface Props {
   checkPoint: CheckPoint;
 }
 
 const resolveIco = (c: CheckPoint) => {
-  if (c.id_penalite === 2 && c.pivot.valide === 0) {
+  if (isRejected(c)) {
     return {
       key: 'error',
       name: 'fa-exclamation-triangle',
@@ -15,7 +17,7 @@ const resolveIco = (c: CheckPoint) => {
     };
   }
 
-  if (c.id_penalite === 1 && c.pivot.valide === 0) {
+  if (isLitige(c)) {
     return {
       key: 'warning',
       name: 'fa-exclamation-triangle',
