@@ -2,6 +2,7 @@
  * Created by stephane.mallaroni on 15/04/2019.
  */
 import React, { Component } from 'react';
+import { motion } from 'framer-motion';
 // @ts-ignore
 import bulmaAccordion from 'bulma-accordion/dist/js/bulma-accordion';
 import 'bulma-accordion/dist/css/bulma-accordion.min.css';
@@ -30,7 +31,13 @@ class Collapsed extends Component<Props> {
 
   render() {
     const {
-      files, checkPoints, loading, selectedAccordion, handleAccordionClick, folderId, pending,
+      files,
+      checkPoints,
+      loading,
+      selectedAccordion,
+      handleAccordionClick,
+      folderId,
+      pending,
     } = this.props;
 
     if (!files || files.length === 0) {
@@ -44,7 +51,11 @@ class Collapsed extends Component<Props> {
     const safeSelected = selectedAccordion || 0;
 
     return (
-      <div>
+      <motion.div
+        style={{ opacity: 0.5 }}
+        animate={{ opacity: [0.5, 1], x: [400, 0] }}
+        transition={{ duration: 0.4, ease: 'easeIn' }}
+      >
         <section className="accordions">
           {files.map((file, index) => (
             <Accordion
@@ -66,7 +77,7 @@ class Collapsed extends Component<Props> {
             />
           ))}
         </section>
-      </div>
+      </motion.div>
     );
   }
 }
