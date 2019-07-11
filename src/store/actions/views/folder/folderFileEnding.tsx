@@ -62,10 +62,10 @@ export const folderFileEnding = (
 
     if (result.status === 200) {
       const json: FolderFileEndingResponse = await result.json();
-      if (json.status === 'success') {
+      if (json.status !== 'fail') {
         const statutFile = idx(json, _ => _.statut.code);
 
-        if (statutFile) {
+        if (typeof statutFile === 'number') {
           dispatch(folderFileEndingLoaded(idDpOperation, statutFile, idDpFile));
         } else {
           dispatchError();

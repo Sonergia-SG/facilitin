@@ -54,7 +54,7 @@ const Accordion = ({
   const selfRef = useRef(null);
 
   const litigeLoading = idx(pending, _ => _.litige[file.id_dp_file].loading) || false;
-  const [displayModal, toggleModal] = useOpenModalAfterLoading(litigeLoading);
+  const [displayModal, toggleModal] = useOpenModalAfterLoading(litigeLoading, file.statut, goNext);
 
   const [previewOppened, togglePreview] = useState(false);
 
@@ -160,7 +160,14 @@ const Accordion = ({
             >
               {"Terminer l'instruction"}
             </button>
-            <button className="button" type="button" onClick={() => toggleModal(false)}>
+            <button
+              className="button"
+              type="button"
+              onClick={() => {
+                toggleModal(false);
+                goNext();
+              }}
+            >
               {"Continuer l'instruction"}
             </button>
           </footer>

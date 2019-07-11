@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import { folderFileEnding } from '../../../store/actions/views/folder/folderFileEnding';
 
 import { CheckPoint } from '../../../store/reducer/entities/types';
 import { addMessageToQueue } from '../../Alert';
@@ -11,6 +14,7 @@ interface Props {
   folderId: number;
   inLitige: any;
   goNext: () => void;
+  ending: any;
   loading: boolean;
   checkPoints: Array<CheckPoint> | undefined;
 }
@@ -49,7 +53,7 @@ const getConfig = (checkPoints: Array<CheckPoint>) => {
 };
 
 const Litige = ({
-  file, inLitige, folderId, loading, checkPoints, goNext,
+  file, ending, folderId, loading, checkPoints, goNext,
 }: Props) => {
   const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === file.id_dp_file);
 
@@ -64,13 +68,8 @@ const Litige = ({
       }`}
       disabled={config.disabled}
       id="button-litige"
-      onClick={() => {
-        addMessageToQueue({
-          duration: 3000,
-          message: 'fake action',
-          type: 'warning',
-        });
-        goNext();
+      onClick={async () => {
+        await ending(folderId, file.id_dp_file);
       }}
     >
       {config.title}
@@ -78,4 +77,4 @@ const Litige = ({
   );
 };
 
-export default Litige;
+export default connect(null, { ending: folderFileEnding })(Litige);
