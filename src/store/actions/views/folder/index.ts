@@ -272,7 +272,7 @@ export const updateFolderCheckPoint = ({
   const filename = idx(getState(), _ => _.entities.files[idDpFile].filename) || '';
   const prevValue = checkPoint ? checkPoint.pivot.valide : 0;
 
-  const sendUpdate = checkPoint.id_penalite === 2 && newValue === 0
+  const sendUpdate = checkPoint.id_penalite === 1 && newValue === 0
     ? window.confirm(
       `La non validation de ce point de controle entraine un rejet du document ${filename}, êtes vous certain de vouloir continuer ?`,
     )
@@ -698,4 +698,4 @@ export const uploadFile: UploadFile = (
   }
 };
 
-export * from './folderFileInLitige';
+export * from './folderFileEnding';

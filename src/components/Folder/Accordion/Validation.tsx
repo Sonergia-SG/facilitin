@@ -1,13 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import { folderFileEnding } from '../../../store/actions/views/folder/folderFileEnding';
 
 import { CheckPoint } from '../../../store/reducer/entities/types';
-import { addMessageToQueue } from '../../Alert';
+
+import isLitige from '../Left/helpers/checkPointInLitige';
+import isRejected from '../Left/helpers/checkPointRejected';
 
 interface Props {
   file: { statut: number; id_dp_file: number };
   folderId: number;
-  inLitige: any;
-  goNext: () => void;
+  ending: any;
   loading: boolean;
   checkPoints: Array<CheckPoint> | undefined;
 }
@@ -22,7 +26,7 @@ const getConfig = (checkPoints: Array<CheckPoint>) => {
   }
 
 
-  if (checkPoints.some(f => f.pivot.valide === 0 && f.id_penalite === 2)) {
+  if (checkPoints.some(f => isRejected(f))) {
     return {
       title: 'Rejeter',
       type: 'is-danger',
@@ -30,7 +34,7 @@ const getConfig = (checkPoints: Array<CheckPoint>) => {
     };
   }
 
-  if (checkPoints.some(f => f.pivot.valide === 0 && f.id_penalite === 1)) {
+  if (checkPoints.some(f => isLitige(f))) {
     return {
       title: 'Litige',
       type: 'is-warning',
@@ -45,8 +49,8 @@ const getConfig = (checkPoints: Array<CheckPoint>) => {
   };
 };
 
-const Litige = ({
-  file, inLitige, folderId, loading, checkPoints, goNext,
+export const ValidationComponent = ({
+  file, ending, folderId, loading, checkPoints,
 }: Props) => {
   const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === file.id_dp_file);
 
@@ -61,13 +65,8 @@ const Litige = ({
       }`}
       disabled={config.disabled}
       id="button-litige"
-      onClick={() => {
-        addMessageToQueue({
-          duration: 3000,
-          message: 'fake action',
-          type: 'warning',
-        });
-        goNext();
+      onClick={async () => {
+        await ending(folderId, file.id_dp_file);
       }}
     >
       {config.title}
@@ -75,4 +74,4 @@ const Litige = ({
   );
 };
 
-export default Litige;
+export default connect(null, { ending: folderFileEnding })(ValidationComponent);

@@ -12,7 +12,7 @@ import Validation from './Validation';
 import ToggleViewer from './ToggleViewer';
 import Preview from './Preview';
 
-import { folderFileInLitige, folderEnding } from '../../../store/actions/views/folder';
+import { folderEnding } from '../../../store/actions/views/folder';
 
 import { FileFull as SonergiaFile, CheckPoint } from '../../../store/reducer/entities/types';
 
@@ -35,7 +35,6 @@ interface Props {
   handleClick: () => void;
   goNext: () => void;
   folderId: number;
-  inLitige: any;
   ending: any;
   pending: FolderPendingItem | undefined;
 }
@@ -49,17 +48,18 @@ const Accordion = ({
   pending,
   goNext,
   ending,
-  inLitige,
 }: Props) => {
   const selfRef = useRef(null);
 
   const litigeLoading = idx(pending, _ => _.litige[file.id_dp_file].loading) || false;
-  const [displayModal, toggleModal] = useOpenModalAfterLoading(litigeLoading);
+  const [displayModal, toggleModal] = useOpenModalAfterLoading(litigeLoading, file.statut, goNext);
 
   const [previewOppened, togglePreview] = useState(false);
 
+  const lockedByStatus = !(file.statut === -1 || file.statut === 0);
+
   useEffect(() => {
-    if (isSelected) togglePreview(true);
+    if (isSelected && !lockedByStatus) togglePreview(true);
   }, [isSelected]);
 
   const toggleAndCroll = () => {
@@ -72,13 +72,11 @@ const Accordion = ({
     }, 10);
   };
 
+
   return (
     <div ref={selfRef} className="divAccordion">
       <article className={`accordion ${isSelected ? 'is-active' : ''}`}>
-        <div
-          style={{ backgroundColor: statusColor(file) }}
-          className="accordion-header"
-        >
+        <div style={{ backgroundColor: statusColor(file) }} className="accordion-header">
           <div
             onClick={handleClick}
             onKeyPress={handleClick}
@@ -119,18 +117,19 @@ const Accordion = ({
                     folderId={folderId}
                     checkPoints={checkPoints}
                     fileId={file.id_dp_file}
+                    lockedByStatus={lockedByStatus}
                   />
                 </div>
               </div>
               <div className="Accordion-Button-Position">
-                <Validation
-                  file={file}
-                  goNext={goNext}
-                  loading={litigeLoading}
-                  folderId={folderId}
-                  checkPoints={checkPoints}
-                  inLitige={inLitige}
-                />
+                {!lockedByStatus && (
+                  <Validation
+                    file={file}
+                    loading={litigeLoading}
+                    folderId={folderId}
+                    checkPoints={checkPoints}
+                  />
+                )}
               </div>
             </div>
           ) : (
@@ -160,7 +159,14 @@ const Accordion = ({
             >
               {"Terminer l'instruction"}
             </button>
-            <button className="button" type="button" onClick={() => toggleModal(false)}>
+            <button
+              className="button"
+              type="button"
+              onClick={() => {
+                toggleModal(false);
+                goNext();
+              }}
+            >
               {"Continuer l'instruction"}
             </button>
           </footer>
@@ -172,5 +178,5 @@ const Accordion = ({
 
 export default connect(
   null,
-  { inLitige: folderFileInLitige, ending: folderEnding },
+  { ending: folderEnding },
 )(Accordion);

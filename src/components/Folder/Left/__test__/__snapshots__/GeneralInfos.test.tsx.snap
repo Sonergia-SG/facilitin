@@ -130,7 +130,7 @@ exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
         }
       />
       <p>
-        0/5
+        1/5
       </p>
     </div>
     <div
@@ -145,7 +145,7 @@ exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
         }
       />
       <p>
-        1/5
+        0/5
       </p>
     </div>
     <div
@@ -221,7 +221,7 @@ exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
         }
       />
       <p>
-        1/5
+        0/5
       </p>
     </div>
     <div
@@ -236,7 +236,7 @@ exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
         }
       />
       <p>
-        0/5
+        1/5
       </p>
     </div>
     <div

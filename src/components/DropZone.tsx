@@ -75,7 +75,9 @@ class DropZone extends Component<Props, State> {
   render() {
     const maxSize = 5242880;
     const { file } = this.state;
-    const { loading } = this.props;
+    const { loading, file: dpFile } = this.props;
+
+    const disabled = !(dpFile.statut === -1 || dpFile.statut === 0 || dpFile.statut === 5);
 
     return (
       <div className="text-center mt-5">
@@ -97,6 +99,7 @@ class DropZone extends Component<Props, State> {
             minSize={0}
             maxSize={maxSize}
             multiple={false}
+            disabled={disabled}
           >
             {({
               getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles,
@@ -111,7 +114,12 @@ class DropZone extends Component<Props, State> {
                     {...getInputProps()}
                   />
                   <i
-                    style={{ fontSize: 24, cursor: 'pointer', margin: '0 3px' }}
+                    style={{
+                      fontSize: 24,
+                      cursor: 'pointer',
+                      margin: '0 3px',
+                      opacity: disabled ? 0.6 : 1,
+                    }}
                     className="fas fa-file-upload"
                   />
                   {/* {isDragActive && !isDragReject ? 'Déposez votre fichier ici !' : ''}
@@ -138,8 +146,7 @@ export default connect(
     const { pending } = s.views.folder;
     const fileId = p.file.id_file;
     return {
-      loading:
-        idx(pending, _ => _[p.idDpOperation].file[fileId].loading) || false,
+      loading: idx(pending, _ => _[p.idDpOperation].file[fileId].loading) || false,
     };
   },
   { upload: uploadFile },

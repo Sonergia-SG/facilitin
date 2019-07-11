@@ -7,10 +7,10 @@ import {
   FOLDER_UPDATE_CHECK_POINT_LOADED,
   FOLDER_UPDATE_CHECK_POINT_ERROR,
   COMMENTS_LIST_LOADED,
-  FOLDER_FILE_LITIGE_LOADED,
   FOLDER_ENDING_LOADED,
   FOLDER_UPDATE_MOE_LOADED,
   FOLDER_UPDATE_SITE_LOADED,
+  FOLDER_FILE_ENDING_LOADED,
 } from '../../types';
 
 export interface User {
@@ -44,8 +44,16 @@ export interface Comments {
 
 export type BooleanNumber = 0 | 1;
 
-
-export type FileStatus = -1 | 0 | 5 | 10 | 15;
+export type MISSING_FILE = -1;
+export type DOCUMENT_INPROGRESS = 0;
+export type DOCUMENT_INCOMPLET = 5;
+export type DOCUMENT_REJECTED = 10;
+export type DOCUMENT_VALIDATED = 15;
+export type FileStatus = | MISSING_FILE
+| DOCUMENT_INPROGRESS
+| DOCUMENT_INCOMPLET
+| DOCUMENT_REJECTED
+| DOCUMENT_VALIDATED;
 
 export interface SimpleFile {
   id_dp_file: number;
@@ -154,10 +162,7 @@ export interface FolderSiteString {
   date_fin_travaux: string | null;
 }
 
-export interface SimpleFolder
-  extends FolderMOAString,
-  FolderMOEString,
-  FolderSiteString {
+export interface SimpleFolder extends FolderMOAString, FolderMOEString, FolderSiteString {
   id_dp_operation: number;
   id_dossierprime: number;
   code_operation: string;
@@ -274,8 +279,8 @@ export interface FilesFolcerCheckPointLoaded {
   statusCode: FileStatus | null;
 }
 
-export interface FileLitigeLoaded {
-  type: typeof FOLDER_FILE_LITIGE_LOADED;
+export interface FileEndingLoaded {
+  type: typeof FOLDER_FILE_ENDING_LOADED;
   idDpFile: number;
   statusCode: FileStatus | null;
 }
@@ -284,11 +289,10 @@ export interface FilesLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type FilesActions =
-  | FilesFolderLoadedAction
-  | FilesFolcerCheckPointLoaded
-  | FileLitigeLoaded
-  | FilesLogoutAction;
+export type FilesActions = | FilesFolderLoadedAction
+| FilesFolcerCheckPointLoaded
+| FilesLogoutAction
+| FileEndingLoaded;
 
 export interface FoldersFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -322,13 +326,12 @@ export interface FoldersUpdateSiteLoaded {
   values: { [index: string]: string | null };
 }
 
-export type FoldersActions =
-  | FoldersFolderLoadedAction
-  | FoldersLogoutAction
-  | FoldersUpdateMoaLoaded
-  | FoldersUpdateMoeLoaded
-  | FoldersUpdateSiteLoaded
-  | FoldersListLoadedAction;
+export type FoldersActions = | FoldersFolderLoadedAction
+| FoldersLogoutAction
+| FoldersUpdateMoaLoaded
+| FoldersUpdateMoeLoaded
+| FoldersUpdateSiteLoaded
+| FoldersListLoadedAction;
 
 export interface CheckPointsFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -362,13 +365,12 @@ export interface CheckPointsFolderUpdateCheckpointErrorAction {
   preValue: BooleanNumber;
 }
 
-export type CheckPointsActions =
-  | CheckPointsFolderUpdateCheckpointLoadingAction
-  | CheckPointsFolderUpdateChekpointLoadedAction
-  | CheckPointsFolderUpdateCheckpointErrorAction
-  | CheckPointsFolderLoadedAction
-  | CheckPointsListLoadedAction
-  | CheckPointsLogoutAction;
+export type CheckPointsActions = | CheckPointsFolderUpdateCheckpointLoadingAction
+| CheckPointsFolderUpdateChekpointLoadedAction
+| CheckPointsFolderUpdateCheckpointErrorAction
+| CheckPointsFolderLoadedAction
+| CheckPointsListLoadedAction
+| CheckPointsLogoutAction;
 
 export interface CheckPointCategoriesFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -379,9 +381,8 @@ export interface CheckPointCategoriesLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type CheckPointCategoriesActions =
-  | CheckPointCategoriesFolderLoadedAction
-  | CheckPointCategoriesLogoutAction;
+export type CheckPointCategoriesActions = | CheckPointCategoriesFolderLoadedAction
+| CheckPointCategoriesLogoutAction;
 
 export interface OperationsFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -402,11 +403,10 @@ export interface OperationsLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type OperationsActions =
-  | OperationsFolderLoadedAction
-  | OperationsListLoadedAction
-  | OperationsFolderEndingLoaded
-  | OperationsLogoutAction;
+export type OperationsActions = | OperationsFolderLoadedAction
+| OperationsListLoadedAction
+| OperationsFolderEndingLoaded
+| OperationsLogoutAction;
 
 export interface UsersCommentsListLoadedAction {
   type: typeof COMMENTS_LIST_LOADED;

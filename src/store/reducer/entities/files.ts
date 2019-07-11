@@ -8,7 +8,7 @@ import {
   LOGOUT,
   FOLDER_LOADED,
   FOLDER_UPDATE_CHECK_POINT_LOADED,
-  FOLDER_FILE_LITIGE_LOADED,
+  FOLDER_FILE_ENDING_LOADED,
 } from '../../types';
 
 const files = (state: Files = {}, action: FilesActions): Files => {
@@ -17,7 +17,7 @@ const files = (state: Files = {}, action: FilesActions): Files => {
       const { files: f } = action.normalized.entities;
       return merge({}, state, f);
     }
-    case FOLDER_FILE_LITIGE_LOADED:
+    case FOLDER_FILE_ENDING_LOADED:
     case FOLDER_UPDATE_CHECK_POINT_LOADED: {
       const statut = action.statusCode;
       if (!idx(state, _ => _[action.idDpFile]) || statut === null) return state;
