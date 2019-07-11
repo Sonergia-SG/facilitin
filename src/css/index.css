@@ -128,7 +128,7 @@ button.togglesonergia {
   margin-bottom: 40px;
 }
 #button-litige {
-  width: 106px;
+  margin-top: 5px;
 }
 
 @-webkit-keyframes anim {
