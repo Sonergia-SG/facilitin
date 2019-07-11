@@ -70,13 +70,12 @@ const Accordion = ({
     }, 10);
   };
 
+  const lockedByStatus = !(file.statut === -1 || file.statut === 0);
+
   return (
     <div ref={selfRef} className="divAccordion">
       <article className={`accordion ${isSelected ? 'is-active' : ''}`}>
-        <div
-          style={{ backgroundColor: statusColor(file) }}
-          className="accordion-header"
-        >
+        <div style={{ backgroundColor: statusColor(file) }} className="accordion-header">
           <div
             onClick={handleClick}
             onKeyPress={handleClick}
@@ -117,16 +116,19 @@ const Accordion = ({
                     folderId={folderId}
                     checkPoints={checkPoints}
                     fileId={file.id_dp_file}
+                    lockedByStatus={lockedByStatus}
                   />
                 </div>
               </div>
               <div className="Accordion-Button-Position">
-                <Validation
-                  file={file}
-                  loading={litigeLoading}
-                  folderId={folderId}
-                  checkPoints={checkPoints}
-                />
+                {!lockedByStatus && (
+                  <Validation
+                    file={file}
+                    loading={litigeLoading}
+                    folderId={folderId}
+                    checkPoints={checkPoints}
+                  />
+                )}
               </div>
             </div>
           ) : (

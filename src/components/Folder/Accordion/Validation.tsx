@@ -49,7 +49,7 @@ const getConfig = (checkPoints: Array<CheckPoint>) => {
   };
 };
 
-const Litige = ({
+const Validation = ({
   file, ending, folderId, loading, checkPoints,
 }: Props) => {
   const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === file.id_dp_file);
@@ -74,4 +74,4 @@ const Litige = ({
   );
 };
 
-export default connect(null, { ending: folderFileEnding })(Litige);
+export default connect(null, { ending: folderFileEnding })(Validation);
