@@ -56,8 +56,10 @@ const Accordion = ({
 
   const [previewOppened, togglePreview] = useState(false);
 
+  const lockedByStatus = !(file.statut === -1 || file.statut === 0);
+
   useEffect(() => {
-    if (isSelected) togglePreview(true);
+    if (isSelected && !lockedByStatus) togglePreview(true);
   }, [isSelected]);
 
   const toggleAndCroll = () => {
@@ -70,7 +72,6 @@ const Accordion = ({
     }, 10);
   };
 
-  const lockedByStatus = !(file.statut === -1 || file.statut === 0);
 
   return (
     <div ref={selfRef} className="divAccordion">
