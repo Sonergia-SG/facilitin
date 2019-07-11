@@ -49,7 +49,7 @@ const getConfig = (checkPoints: Array<CheckPoint>) => {
   };
 };
 
-const Validation = ({
+export const ValidationComponent = ({
   file, ending, folderId, loading, checkPoints,
 }: Props) => {
   const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === file.id_dp_file);
@@ -74,4 +74,4 @@ const Validation = ({
   );
 };
 
-export default connect(null, { ending: folderFileEnding })(Validation);
+export default connect(null, { ending: folderFileEnding })(ValidationComponent);
