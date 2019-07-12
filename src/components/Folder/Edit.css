@@ -9,3 +9,15 @@
   overflow: auto;
   height: 100%;
 }
+
+@media only screen and (max-width: 950px) {
+  .Folder-Edit-container {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .Folder-Edit-documents {
+    overflow: visible;
+    height: auto;
+  }
+}
