@@ -65,13 +65,15 @@ class Folder extends Component<Props, State> {
   };
 
   render() {
-    const { match, entities } = this.props;
+    const { match, entities, location } = this.props;
     const { commentsOpened, selectedAccordion } = this.state;
     const folderId = parseInt(match.params.folderId, 10);
     const action = entities.operations[folderId];
 
-    // ? Wait status from API : lock in case of action reject
-    const locked = !!idx(action, _ => _.statut.code_statut === 8);
+    // ! during dev process we can use this option to unlock action
+    const locked = location.search.includes('unlock')
+      ? false
+      : !!idx(action, _ => _.statut.code_statut === 8);
 
     return (
       <Container
