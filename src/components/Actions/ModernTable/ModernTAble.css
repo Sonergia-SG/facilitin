@@ -1,0 +1,143 @@
+.uikit-modernTable {
+  width: 100%;
+}
+
+.uikit-modernTable > thead > tr > th {
+  color: #767676;
+  padding: 10px;
+  border-bottom: #ddd 1px solid;
+  font-size: 13px;
+  user-select: none;
+}
+
+.th-with-sort {
+  cursor: pointer;
+}
+
+.uikit-modernTable > thead > tr > th:not(:last-child) {
+  border-right: #ddd 1px solid;
+}
+
+.uikit-modernTable > tbody > tr > td {
+  padding: 10px;
+  color: #767676;
+  cursor: pointer;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 150px;
+}
+
+.uikit-modernTable > tbody > tr {
+  border-bottom: #ddd 1px solid;
+  transition: background-color 0.2s ease;
+}
+
+.uikit-modernTable > tbody > tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.uikit-modernTable > tbody > tr:hover {
+  background-color: #fff;
+}
+
+@media only screen and (max-width: 800px) {
+  .uikit-modernTable > tbody > tr > td:nth-child(3) {
+    display: none;
+  }
+
+  .uikit-modernTable > thead > tr > th:nth-child(3) {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .uikit-modernTable > tbody > tr > td:nth-child(4) {
+    display: none;
+  }
+
+  .uikit-modernTable > thead > tr > th:nth-child(4) {
+    display: none;
+  }
+}
+
+.ModernTable-container {
+  width: 100%;
+}
+
+.ModernTable-container-counter {
+  color: #767676;
+  font-size: 13px;
+}
+
+.ModernTable-container-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0px;
+}
+
+.ModernTable-container-bottom > div > button {
+  background-color: #fff;
+  color: #797979;
+  box-shadow: none;
+  border: #ddd 1px solid;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin: 2px;
+}
+
+.ModernTable-container-bottom > div > button:not(:disabled) {
+  cursor: pointer;
+}
+
+.ModernTable-container-bottom > div > button:not(:disabled):hover {
+  background-color: #eee;
+}
+
+.ModernTable-container-bottom > div > button:disabled {
+  opacity: 0.7;
+}
+
+.ModernTable-container-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 0px 15px;
+}
+
+.ModernTable-select {
+  background-color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: #bbb 1px solid;
+  color: #444;
+  outline: none;
+  margin-right: 10px;
+}
+
+.ModernTable-select:focus {
+  border: #57c8f1 1px solid;
+}
+
+.ModernTable-select:disabled {
+  opacity: 0.6;
+}
+
+.ModernTable-select-label {
+  font-size: 13px;
+  color: #444;
+}
+
+.ModernTable-search-label {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  font-size: 13px;
+  color: #444;
+}
+
+.ModernTable-search-label > input {
+  margin-left: 5px;
+}

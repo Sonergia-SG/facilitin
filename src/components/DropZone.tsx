@@ -47,46 +47,50 @@ class DropZone extends Component<Props, State> {
   } */
 
   onDrop = (acceptedFiles: Array<File>) => {
-    const reader = new FileReader();
     const file = acceptedFiles[0];
 
-    const { upload, idDpOperation, file: originalFile } = this.props;
+    if (file) {
+      const reader = new FileReader();
 
-    const handleLoad = () => {
-      if (typeof reader.result === 'string') {
-        this.setState({
-          file,
-        });
+      const { upload, idDpOperation, file: originalFile } = this.props;
 
-        upload(idDpOperation, originalFile.id_file, file, reader.result);
-      }
+      const handleLoad = () => {
+        if (typeof reader.result === 'string') {
+          this.setState({
+            file,
+          });
 
-      reader.removeEventListener('load', handleLoad);
-    };
+          upload(idDpOperation, originalFile.id_file, file, reader.result);
+        }
 
-    reader.addEventListener('load', handleLoad);
+        reader.removeEventListener('load', handleLoad);
+      };
 
-    reader.readAsDataURL(file);
+      reader.addEventListener('load', handleLoad);
+
+      reader.readAsDataURL(file);
+    }
   };
 
   render() {
     const maxSize = 5242880;
     const { file } = this.state;
-    const { loading } = this.props;
+    const { loading, file: dpFile } = this.props;
+
+    const disabled = !(dpFile.statut === -1 || dpFile.statut === 0 || dpFile.statut === 5);
 
     return (
       <div className="text-center mt-5">
         {loading ? (
           <div
             style={{
-              width: 125,
-              height: 105,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              margin: '0 3px',
             }}
           >
-            <Loading show heigth="80" width="80" />
+            <Loading show heigth="20" width="20" />
           </div>
         ) : (
           <Dropzone
@@ -95,6 +99,7 @@ class DropZone extends Component<Props, State> {
             minSize={0}
             maxSize={maxSize}
             multiple={false}
+            disabled={disabled}
           >
             {({
               getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles,
@@ -108,32 +113,41 @@ class DropZone extends Component<Props, State> {
                     }}
                     {...getInputProps()}
                   />
-                  <span className="bigplus">
-                    <i className="fas fa-file-upload fa-2x" />
-                  </span>
-                  <br />
-                  {isDragActive && !isDragReject ? 'Déposez votre fichier ici !' : ''}
+                  <i
+                    style={{
+                      fontSize: 24,
+                      cursor: 'pointer',
+                      margin: '0 3px',
+                      opacity: disabled ? 0.6 : 1,
+                    }}
+                    className="fas fa-file-upload"
+                  />
+                  {/* {isDragActive && !isDragReject ? 'Déposez votre fichier ici !' : ''}
                   {isDragReject && 'Type de fichier non accepté !'}
                   {isFileTooLarge && (
                     <div className="text-danger mt-2">
                       Le fichier est trop volumineux (5Mb Max).
                     </div>
-                  )}
+                  )} */}
                 </div>
               );
             }}
           </Dropzone>
         )}
-        {file && <div className="notification is-primary notif-file">{file.name}</div>}
       </div>
     );
   }
 }
 
 export default connect(
-  (s: AppState, p: ConnectProps) => ({
-    loading:
-      idx(s, _ => _.views.folder.pending[p.idDpOperation].file[p.file.id_file].loading) || false,
-  }),
+  (s: AppState, p: ConnectProps) => {
+    if (p.file.id_file === null) return { loading: false };
+
+    const { pending } = s.views.folder;
+    const fileId = p.file.id_file;
+    return {
+      loading: idx(pending, _ => _[p.idDpOperation].file[fileId].loading) || false,
+    };
+  },
   { upload: uploadFile },
 )(DropZone);

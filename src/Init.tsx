@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
-import 'bulma/css/bulma.css';
+// import 'bulma/css/bulma.css';
+import './Init.scss';
 import './css/index.css';
 
 import Router from './components/Router';
 
 import storeCreator, { getStore } from './store';
 import Alert from './components/Alert';
+import Layout from './Layout';
 
 class Init extends Component {
   state = {
@@ -29,7 +31,9 @@ class Init extends Component {
     if (displayApp) {
       return (
         <Provider store={getStore()}>
-          <Router />
+          <Layout>
+            <Router />
+          </Layout>
           <Alert />
         </Provider>
       );

@@ -5,20 +5,20 @@ import Error from '../../Error';
 
 interface Props {
   loading: boolean;
+  msg?: string;
 }
 
-const Empty = ({ loading }: Props) => (
+const Empty = ({ loading, msg }: Props) => (
   <div
     style={{
       display: 'flex',
-      alignItems: 'center',
       justifyContent: 'center',
-      height: 'calc(100% - 120px)',
+      height: 'calc(100% - 80px)',
     }}
   >
     {loading
       ? <Loading show />
-      : <Error msg="Une erreur est survenue pendant le chargement du dosiser" />
+      : <Error msg={msg || 'Une erreur est survenue pendant le chargement du dossier'} />
     }
   </div>
 );

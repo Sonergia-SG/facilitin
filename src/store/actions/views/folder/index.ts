@@ -82,6 +82,7 @@ import {
   OperationsFolderEndingLoaded,
   FoldersUpdateMoeLoaded,
   FoldersUpdateSiteLoaded,
+  FileStatus,
 } from '../../../reducer/entities/types';
 import rest from '../../../../tools/rest';
 
@@ -109,7 +110,7 @@ CheckPointsFolderUpdateCheckpointLoadingAction => ({
 interface FolderUpdateCheckPointLoadedParams {
   folderId: number;
   checkPointId: number;
-  statusCode: number | null;
+  statusCode: FileStatus | null;
   idDpFile: number;
 }
 
@@ -146,7 +147,9 @@ export const folderUpdateCheckPointError = ({
   prevValue,
 });
 
-export const folderUpdateLoading = (idDpOperation: number): FolderFolderLoadingAction => ({
+export const folderUpdateLoading = (
+  idDpOperation: number,
+): FolderFolderLoadingAction => ({
   type: FOLDER_LOADING,
   idDpOperation,
 });
@@ -160,7 +163,9 @@ export const folderUpdateLoaded = (
   normalized,
 });
 
-export const folderUpdateError = (idDpOperation: number): FolderFolderErrorAction => ({
+export const folderUpdateError = (
+  idDpOperation: number,
+): FolderFolderErrorAction => ({
   type: FOLDER_ERROR,
   idDpOperation,
 });
@@ -198,22 +203,30 @@ export const folderUpdateSiteValue = (
   value,
 });
 
-export const folderCleanMoaValue = (idDpOperation: number): FolderFoldercleanMoaValue => ({
+export const folderCleanMoaValue = (
+  idDpOperation: number,
+): FolderFoldercleanMoaValue => ({
   type: FOLDER_CLEAN_MOA_VALUE,
   idDpOperation,
 });
 
-export const folderCleanMoeValue = (idDpOperation: number): FolderFoldercleanMoeValue => ({
+export const folderCleanMoeValue = (
+  idDpOperation: number,
+): FolderFoldercleanMoeValue => ({
   type: FOLDER_CLEAN_MOE_VALUE,
   idDpOperation,
 });
 
-export const folderCleanSiteValue = (idDpOperation: number): FolderFoldercleanSiteValue => ({
+export const folderCleanSiteValue = (
+  idDpOperation: number,
+): FolderFoldercleanSiteValue => ({
   type: FOLDER_CLEAN_SITE_VALUE,
   idDpOperation,
 });
 
-export const fetchFolder = (idDpOperation: number): ThunkAction => async (dispatch) => {
+export const fetchFolder = (
+  idDpOperation: number,
+): ThunkAction => async (dispatch) => {
   dispatch(folderUpdateLoading(idDpOperation));
 
   try {
@@ -228,7 +241,8 @@ export const fetchFolder = (idDpOperation: number): ThunkAction => async (dispat
       addMessageToQueue({
         duration: 2500,
         type: 'error',
-        message: "Erreur pendant la récupération des informations de l'opération",
+        message:
+          "Erreur pendant la récupération des informations de l'opération",
       });
       dispatch(folderUpdateError(idDpOperation));
     }
@@ -255,10 +269,13 @@ export const updateFolderCheckPoint = ({
   newValue: 0 | 1;
 }): ThunkAction => async (dispatch, getState) => {
   const checkPoint = getState().entities.checkPoints[checkPointId];
+  const filename = idx(getState(), _ => _.entities.files[idDpFile].filename) || '';
   const prevValue = checkPoint ? checkPoint.pivot.valide : 0;
 
-  const sendUpdate = checkPoint.id_penalite === 2 && newValue === 0
-    ? window.confirm('La non validation de ce point de controle entraine un rejet du document, êtes vous certain de vouloir continuer ?')
+  const sendUpdate = checkPoint.id_penalite === 1 && newValue === 0
+    ? window.confirm(
+      `La non validation de ce point de controle entraine un rejet du document ${filename}, êtes vous certain de vouloir continuer ?`,
+    )
     : true;
 
   if (sendUpdate) {
@@ -268,21 +285,31 @@ export const updateFolderCheckPoint = ({
         type: 'error',
         message: 'Erreur pendant la mise à jout du point de controle',
       });
-      dispatch(folderUpdateCheckPointError({ folderId, checkPointId, prevValue }));
+      dispatch(
+        folderUpdateCheckPointError({ folderId, checkPointId, prevValue }),
+      );
     };
 
-    dispatch(folderUpdateCheckPointLoading({
-      folderId, checkPointId, prevValue, newValue,
-    }));
+    dispatch(
+      folderUpdateCheckPointLoading({
+        folderId,
+        checkPointId,
+        prevValue,
+        newValue,
+      }),
+    );
 
     try {
-      const result = await rest(`${API_PATH}actions/${folderId}/controles/${checkPointId}`, {
-        method: 'put',
-        body: JSON.stringify({
-          valide: prevValue === 1 ? 0 : 1,
-          id_dp_file: idDpFile,
-        }),
-      });
+      const result = await rest(
+        `${API_PATH}actions/${folderId}/controles/${checkPointId}`,
+        {
+          method: 'put',
+          body: JSON.stringify({
+            valide: prevValue === 1 ? 0 : 1,
+            id_dp_file: idDpFile,
+          }),
+        },
+      );
 
       if (result.status === 200) {
         const json: FolderUpdateCheckPointResponse = await result.json();
@@ -311,7 +338,9 @@ export const updateFolderCheckPoint = ({
   }
 };
 
-export const folderUpdateMoaLoading = (idDpOperation: number): FolderFolderUpdateMoaLoading => ({
+export const folderUpdateMoaLoading = (
+  idDpOperation: number,
+): FolderFolderUpdateMoaLoading => ({
   type: FOLDER_UPDATE_MOA_LOADING,
   idDpOperation,
 });
@@ -327,7 +356,9 @@ export const folderUpdateMoaLoaded = (
   values,
 });
 
-export const folderUpdateMoaError = (idDpOperation: number): FolderFolderUpdateMoaError => ({
+export const folderUpdateMoaError = (
+  idDpOperation: number,
+): FolderFolderUpdateMoaError => ({
   type: FOLDER_UPDATE_MOA_ERROR,
   idDpOperation,
 });
@@ -374,7 +405,9 @@ export const updateMoaValues = (
   }
 };
 
-export const folderUpdateMoeLoading = (idDpOperation: number): FolderFolderUpdateMoeLoading => ({
+export const folderUpdateMoeLoading = (
+  idDpOperation: number,
+): FolderFolderUpdateMoeLoading => ({
   type: FOLDER_UPDATE_MOE_LOADING,
   idDpOperation,
 });
@@ -390,7 +423,9 @@ export const folderUpdateMoeLoaded = (
   values,
 });
 
-export const folderUpdateMoeError = (idDpOperation: number): FolderFolderUpdateMoeError => ({
+export const folderUpdateMoeError = (
+  idDpOperation: number,
+): FolderFolderUpdateMoeError => ({
   type: FOLDER_UPDATE_MOE_ERROR,
   idDpOperation,
 });
@@ -437,7 +472,9 @@ export const updateMoeValues = (
   }
 };
 
-export const folderUpdateSiteLoading = (idDpOperation: number): FolderFolderUpdateSiteLoading => ({
+export const folderUpdateSiteLoading = (
+  idDpOperation: number,
+): FolderFolderUpdateSiteLoading => ({
   type: FOLDER_UPDATE_SITE_LOADING,
   idDpOperation,
 });
@@ -453,7 +490,9 @@ export const folderUpdateSiteLoaded = (
   values,
 });
 
-export const folderUpdateSiteError = (idDpOperation: number): FolderFolderUpdateSiteError => ({
+export const folderUpdateSiteError = (
+  idDpOperation: number,
+): FolderFolderUpdateSiteError => ({
   type: FOLDER_UPDATE_SITE_ERROR,
   idDpOperation,
 });
@@ -540,9 +579,12 @@ export const folderEnding: FolderEnding = idDpOperation => async (dispatch) => {
   try {
     dispatch(folderEndingLoading(idDpOperation));
 
-    const result = await rest(`${API_PATH}actions/${idDpOperation}/terminerinstruction`, {
-      method: 'put',
-    });
+    const result = await rest(
+      `${API_PATH}actions/${idDpOperation}/terminerinstruction`,
+      {
+        method: 'put',
+      },
+    );
 
     if (result.status === 200) {
       const json: FolderEndingResponse = await result.json();
@@ -567,7 +609,10 @@ type FolderUpdateFileLoading = (
   idFile: number
 ) => FolderFolderUpdateFileLoading;
 
-export const folderUpdateFileLoading: FolderUpdateFileLoading = (idDpOperation, idFile) => ({
+export const folderUpdateFileLoading: FolderUpdateFileLoading = (
+  idDpOperation,
+  idFile,
+) => ({
   type: FOLDER_FILE_UPDATE_LOADING,
   idDpOperation,
   idFile,
@@ -578,15 +623,24 @@ type FolderUpdateFileLoaded = (
   idFile: number
 ) => FolderFolderUpdateFileLoaded;
 
-export const folderUpdateFileLoaded: FolderUpdateFileLoaded = (idDpOperation, idFile) => ({
+export const folderUpdateFileLoaded: FolderUpdateFileLoaded = (
+  idDpOperation,
+  idFile,
+) => ({
   type: FOLDER_FILE_UPDATE_LOADED,
   idDpOperation,
   idFile,
 });
 
-type FolderUpdateFileError = (idDpOperation: number, idFile: number) => FolderFolderUpdateFileError;
+type FolderUpdateFileError = (
+  idDpOperation: number,
+  idFile: number
+) => FolderFolderUpdateFileError;
 
-export const folderUpdateFileError: FolderUpdateFileError = (idDpOperation, idFile) => ({
+export const folderUpdateFileError: FolderUpdateFileError = (
+  idDpOperation,
+  idFile,
+) => ({
   type: FOLDER_FILE_UPDATE_ERROR,
   idDpOperation,
   idFile,
@@ -599,43 +653,49 @@ type UploadFile = (
   base64: string
 ) => ThunkAction;
 
-export const uploadFile: UploadFile = (idDpOpearation, idFile, file, base64) => (
-  async (dispatch) => {
-    const dispatchError = () => {
-      addMessageToQueue({
-        duration: 3000,
-        message: 'Erreur pendant la mise à jour du fichier',
-        type: 'error',
-      });
-      dispatch(folderUpdateFileError(idDpOpearation, idFile));
-    };
+export const uploadFile: UploadFile = (
+  idDpOpearation,
+  idFile,
+  file,
+  base64,
+) => async (dispatch) => {
+  const dispatchError = () => {
+    addMessageToQueue({
+      duration: 3000,
+      message: 'Erreur pendant la mise à jour du fichier',
+      type: 'error',
+    });
+    dispatch(folderUpdateFileError(idDpOpearation, idFile));
+  };
 
-    try {
-      dispatch(folderUpdateFileLoading(idDpOpearation, idFile));
+  try {
+    dispatch(folderUpdateFileLoading(idDpOpearation, idFile));
 
-      const result = await rest(`${API_PATH}files/${idFile}`, {
-        method: 'put',
-        body: JSON.stringify({
-          mimetype: file.type,
-          filename: file.name,
-          binaycontent: base64,
-        }),
-      });
+    const result = await rest(`${API_PATH}files/${idFile}`, {
+      method: 'put',
+      body: JSON.stringify({
+        mimetype: file.type,
+        filename: file.name,
+        binaycontent: base64,
+      }),
+    });
 
-      if (result.status === 200) {
-        const j: { status: 'success' | 'fail' } = await result.json();
+    if (result.status === 200) {
+      const j: { status: 'success' | 'fail' } = await result.json();
 
-        if (j.status === 'success') dispatch(folderUpdateFileLoaded(idDpOpearation, idFile));
-        else dispatchError();
+      if (j.status === 'success') {
+        dispatch(folderUpdateFileLoaded(idDpOpearation, idFile));
+        dispatch(fetchFolder(idDpOpearation));
       } else {
         dispatchError();
       }
-    } catch (error) {
-      captureException(error);
+    } else {
       dispatchError();
     }
+  } catch (error) {
+    captureException(error);
+    dispatchError();
   }
-);
+};
 
-
-export * from './folderFileInLitige';
+export * from './folderFileEnding';

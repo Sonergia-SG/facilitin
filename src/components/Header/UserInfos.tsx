@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import 'bulma-tooltip/dist/css/bulma-tooltip.min.css';
+
 import { UserInfos as UserType, UserFonction } from '../../store/reducer/user/types';
 import { AppState } from '../../store';
 
@@ -26,13 +28,13 @@ const resolveType = (type: UserFonction) => {
 };
 
 const UserInfos = ({ user }: Props) => user && (
-  <div className="Header-UserInfos-Container">
+  <div
+    className="Header-UserInfos-Container tooltip is-tooltip-left"
+    data-tooltip={resolveType(user.fonction)}
+  >
     <p className="Header-UserInfos-Value">
-      {user.nom}
-      {' '}
-      {user.prenom}
+      {`${user.nom} ${user.prenom}`}
     </p>
-    <p className="Header-UserInfos-Value">{resolveType(user.fonction)}</p>
   </div>
 );
 

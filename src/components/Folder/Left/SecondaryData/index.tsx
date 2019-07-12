@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './SecondataData.css';
 
 import { OperationFull } from '../../../../store/reducer/entities/types';
 
+import Card from '../../../../Common/UIKIT/Card';
 import MOA from './MOA';
 import MOE from './MOE';
 import Site from './Site';
+import AnimatedHeight from './AnimateHeight';
 
 interface Props {
   data: OperationFull;
@@ -15,124 +17,125 @@ interface Props {
 type Selected = 'MOA' | 'MOE' | 'SITE';
 
 interface State {
-  selected?: Selected;
+  selected?: Selected | undefined;
   edit: boolean;
 }
 
-class SecondaryData extends Component<Props, State> {
-  state = {
+const SecondaryData = ({ data, locked }: Props) => {
+  const [state, setState] = useState<State>({
     selected: undefined,
     edit: false,
-  };
+  });
+  const { selected, edit } = state;
 
-  select = (selected: Selected) => () => {
-    if (this.state.edit !== true) {
-      this.setState({ selected });
+  const select = (s: Selected) => () => {
+    if (state.edit !== true) {
+      setState({ ...state, selected: s });
     }
   };
 
-  editMode = () => {
-    this.setState({ edit: true });
+  const editMode = () => {
+    setState({ ...state, edit: true });
   };
 
-  cancel = () => {
-    this.setState({ edit: false, selected: undefined });
+  const cancel = () => {
+    setState({ edit: false, selected: undefined });
   };
 
-  clearSelected = () => {
-    if (this.state.edit !== true) {
-      this.setState({ selected: undefined, edit: false });
+  const clearSelected = () => {
+    if (state.edit !== true) {
+      setState({ selected: undefined, edit: false });
     }
   };
 
-  render() {
-    const { data, locked } = this.props;
-    const { selected, edit } = this.state;
+  const moaSelected = selected === 'MOA';
+  const moeSelected = selected === 'MOE';
+  const siteSelected = selected === 'SITE';
 
-    const moaSelected = selected === 'MOA';
-    const moeSelected = selected === 'MOE';
-    const siteSelected = selected === 'SITE';
+  const someoneSelected = !!edit;
 
-    const someoneSelected = !!edit;
-
-    return (
-      <div
-        onMouseLeave={this.clearSelected}
-        className="tile is-child notification SecondaryData-Container"
-      >
-        <div className="SecondaryData-Items">
-          <div
-            onMouseEnter={this.select('MOA')}
-            onClick={this.editMode}
-            onKeyPress={this.editMode}
-            className={`SecondaryData-Item${someoneSelected ? '' : ' SecondaryDataSelectable'}${
-              moaSelected ? ' SecondaryData-Item-Selected' : ''
-            }`}
-            role="button"
-            tabIndex={0}
-          >
-            {'MOA'}
-          </div>
-          <div
-            onMouseEnter={this.select('MOE')}
-            onClick={this.editMode}
-            onKeyPress={this.editMode}
-            className={`SecondaryData-Item${someoneSelected ? '' : ' SecondaryDataSelectable'}${
-              moeSelected ? ' SecondaryData-Item-Selected' : ''
-            }`}
-            role="button"
-            tabIndex={0}
-          >
-            {'Installateur'}
-          </div>
-          <div
-            onMouseEnter={this.select('SITE')}
-            onClick={this.editMode}
-            onKeyPress={this.editMode}
-            className={`SecondaryData-Item${someoneSelected ? '' : ' SecondaryDataSelectable'}${
-              siteSelected ? ' SecondaryData-Item-Selected' : ''
-            }`}
-            role="button"
-            tabIndex={0}
-          >
-            {'Travaux'}
-          </div>
+  return (
+    <Card onMouseLeave={clearSelected} className="SecondaryData-Container">
+      <div className="SecondaryData-Items">
+        <div
+          onMouseEnter={select('MOA')}
+          onClick={editMode}
+          onKeyPress={editMode}
+          className={`SecondaryData-Item${someoneSelected ? '' : ' SecondaryDataSelectable'}${
+            moaSelected ? ' SecondaryData-Item-Selected' : ''
+          }`}
+          role="button"
+          tabIndex={0}
+        >
+          {'MOA'}
         </div>
-        <div>
-          {moaSelected && (
-            <MOA
-              edit={edit}
-              dossierprime={data.dossierprime}
-              idDpOperation={data.id_dp_operation}
-              idDossierPrime={data.id_dossierprime}
-              cancel={this.cancel}
-              locked={locked}
-            />
-          )}
-          {moeSelected && (
-            <MOE
-              edit={edit}
-              dossierprime={data.dossierprime}
-              idDpOperation={data.id_dp_operation}
-              idDossierPrime={data.id_dossierprime}
-              cancel={this.cancel}
-              locked={locked}
-            />
-          )}
-          {siteSelected && (
-            <Site
-              edit={edit}
-              dossierprime={data.dossierprime}
-              idDpOperation={data.id_dp_operation}
-              idDossierPrime={data.id_dossierprime}
-              cancel={this.cancel}
-              locked={locked}
-            />
-          )}
+        <div
+          onMouseEnter={select('MOE')}
+          onClick={editMode}
+          onKeyPress={editMode}
+          className={`SecondaryData-Item${someoneSelected ? '' : ' SecondaryDataSelectable'}${
+            moeSelected ? ' SecondaryData-Item-Selected' : ''
+          }`}
+          role="button"
+          tabIndex={0}
+        >
+          {'Installateur'}
+        </div>
+        <div
+          onMouseEnter={select('SITE')}
+          onClick={editMode}
+          onKeyPress={editMode}
+          className={`SecondaryData-Item${someoneSelected ? '' : ' SecondaryDataSelectable'}${
+            siteSelected ? ' SecondaryData-Item-Selected' : ''
+          }`}
+          role="button"
+          tabIndex={0}
+        >
+          {'Travaux'}
         </div>
       </div>
-    );
-  }
-}
+      <AnimatedHeight>
+        <div>
+          {moaSelected && (
+            <div style={{ padding: '12px 8px 5px' }}>
+              <MOA
+                edit={edit}
+                dossierprime={data.dossierprime}
+                idDpOperation={data.id_dp_operation}
+                idDossierPrime={data.id_dossierprime}
+                cancel={cancel}
+                locked={locked}
+              />
+            </div>
+          )}
+          {moeSelected && (
+            <div style={{ padding: '12px 8px 5px' }}>
+              <MOE
+                edit={edit}
+                dossierprime={data.dossierprime}
+                idDpOperation={data.id_dp_operation}
+                idDossierPrime={data.id_dossierprime}
+                cancel={cancel}
+                locked={locked}
+              />
+            </div>
+          )}
+          {siteSelected && (
+            <div style={{ padding: '12px 8px 5px' }}>
+              <Site
+                edit={edit}
+                dossierprime={data.dossierprime}
+                idDpOperation={data.id_dp_operation}
+                idDossierPrime={data.id_dossierprime}
+                cancel={cancel}
+                locked={locked}
+              />
+            </div>
+          )}
+        </div>
+      </AnimatedHeight>
+    </Card>
+  );
+};
 
 export default SecondaryData;

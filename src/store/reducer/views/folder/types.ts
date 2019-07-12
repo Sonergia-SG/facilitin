@@ -12,9 +12,6 @@ import {
   FOLDER_UPDATE_MOA_ERROR,
   FOLDER_UPDATE_MOA_LOADED,
   FOLDER_UPDATE_MOA_LOADING,
-  FOLDER_FILE_LITIGE_LOADING,
-  FOLDER_FILE_LITIGE_ERROR,
-  FOLDER_FILE_LITIGE_LOADED,
   FOLDER_ENDING_LOADING,
   FOLDER_ENDING_LOADED,
   FOLDER_ENDING_ERROR,
@@ -30,6 +27,9 @@ import {
   FOLDER_UPDATE_SITE_LOADING,
   FOLDER_UPDATE_SITE_ERROR,
   FOLDER_UPDATE_SITE_LOADED,
+  FOLDER_FILE_ENDING_LOADING,
+  FOLDER_FILE_ENDING_LOADED,
+  FOLDER_FILE_ENDING_ERROR,
 } from '../../../types';
 
 export type FolderCheckPointStatus = 'SENDING' | 'ERROR';
@@ -198,24 +198,6 @@ export interface FolderFolderUpdateSiteLoaded {
   idDpOperation: number;
 }
 
-export interface FolderFolderLitigeLoading {
-  type: typeof FOLDER_FILE_LITIGE_LOADING;
-  idDpOperation: number;
-  idDpFile: number;
-}
-
-export interface FolderFolderLitigeError {
-  type: typeof FOLDER_FILE_LITIGE_ERROR;
-  idDpOperation: number;
-  idDpFile: number;
-}
-
-export interface FolderFolderLitigeLoaded {
-  type: typeof FOLDER_FILE_LITIGE_LOADED;
-  idDpOperation: number;
-  idDpFile: number;
-}
-
 export interface FolderFolderEndingLoading {
   type: typeof FOLDER_ENDING_LOADING;
   idDpOperation: number;
@@ -249,6 +231,25 @@ export interface FolderFolderUpdateFileError {
   idFile: number;
 }
 
+export interface FolderFolderFileEndingLoading {
+  type: typeof FOLDER_FILE_ENDING_LOADING;
+  idDpOperation: number;
+  idDpFile: number;
+}
+
+export interface FolderFolderFileEndingLoaded {
+  type: typeof FOLDER_FILE_ENDING_LOADED;
+  idDpOperation: number;
+  idDpFile: number;
+}
+
+
+export interface FolderFolderFileEndingError {
+  type: typeof FOLDER_FILE_ENDING_ERROR;
+  idDpOperation: number;
+  idDpFile: number;
+}
+
 export type FolderAction = | FolderFolderLoadingAction
 | FolderFolderErrorAction
 | FolderFolderLoadedAction
@@ -270,13 +271,13 @@ export type FolderAction = | FolderFolderLoadingAction
 | FolderFolderUpdateSiteLoading
 | FolderFolderUpdateSiteLoaded
 | FolderFolderUpdateSiteError
-| FolderFolderLitigeLoading
-| FolderFolderLitigeLoaded
-| FolderFolderLitigeError
 | FolderFolderEndingLoading
 | FolderFolderEndingLoaded
 | FolderFolderEndingError
 | FolderFolderUpdateFileLoading
 | FolderFolderUpdateFileLoaded
 | FolderFolderUpdateFileError
-| FolderLogoutAction;
+| FolderLogoutAction
+| FolderFolderFileEndingLoading
+| FolderFolderFileEndingLoaded
+| FolderFolderFileEndingError;
