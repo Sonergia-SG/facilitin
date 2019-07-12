@@ -1,4 +1,7 @@
 import React from 'react';
+import { HandleThunkActionCreator } from 'react-redux';
+
+import { folderFileEnding } from '../../../../store/actions/views/folder';
 
 import { SimpleFile } from '../../../../store/reducer/entities/types';
 import DropZone from '../../../DropZone';
@@ -9,9 +12,15 @@ interface Props {
   file: SimpleFile;
   loading: boolean;
   folderId: number;
+  fileEnding: HandleThunkActionCreator<typeof folderFileEnding>;
 }
 
-const MissingFile = ({ file, loading, folderId }: Props) => (
+const MissingFile = ({
+  file,
+  loading,
+  folderId,
+  fileEnding,
+}: Props) => (
   <div className="MissingFile-container">
     <div style={{ width: 190 }} className="notification has-text-centered tilebordered">
       <div className="content">
@@ -27,6 +36,9 @@ const MissingFile = ({ file, loading, folderId }: Props) => (
           className={`button is-danger ${
             loading ? ' is-loading' : ''
           }`}
+          onClick={() => {
+            fileEnding(folderId, file.id_dp_file, 10);
+          }}
         >
           Rejeter
         </button>
@@ -36,6 +48,9 @@ const MissingFile = ({ file, loading, folderId }: Props) => (
           className={`button is-warning ${
             loading ? ' is-loading' : ''
           }`}
+          onClick={() => {
+            fileEnding(folderId, file.id_dp_file, 5);
+          }}
         >
           Incomplet
         </button>

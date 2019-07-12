@@ -2,7 +2,7 @@
  * Created by stephane.mallaroni on 15/04/2019.
  */
 import React, { useState, useRef, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, HandleThunkActionCreator } from 'react-redux';
 import idx from 'idx';
 
 import DropZone from '../../DropZone';
@@ -12,7 +12,7 @@ import Validation from './Validation';
 import ToggleViewer from './ToggleViewer';
 import Preview from './Preview';
 
-import { folderEnding } from '../../../store/actions/views/folder';
+import { folderEnding, folderFileEnding } from '../../../store/actions/views/folder';
 
 import { FileFull as SonergiaFile, CheckPoint } from '../../../store/reducer/entities/types';
 
@@ -35,7 +35,8 @@ interface Props {
   handleClick: () => void;
   goNext: () => void;
   folderId: number;
-  ending: any;
+  ending: HandleThunkActionCreator<typeof folderEnding>;
+  fileEnding: HandleThunkActionCreator<typeof folderFileEnding>;
   pending: FolderPendingItem | undefined;
   locked: boolean;
 }
@@ -49,6 +50,7 @@ const Accordion = ({
   pending,
   goNext,
   ending,
+  fileEnding,
   locked,
 }: Props) => {
   const selfRef = useRef(null);
@@ -137,7 +139,12 @@ const Accordion = ({
               </div>
             </div>
           ) : (
-            <MissingFile file={file} loading={false} folderId={folderId} />
+            <MissingFile
+              file={file}
+              loading={false}
+              folderId={folderId}
+              fileEnding={fileEnding}
+            />
           )}
         </div>
       </article>
@@ -182,5 +189,5 @@ const Accordion = ({
 
 export default connect(
   null,
-  { ending: folderEnding },
+  { ending: folderEnding, fileEnding: folderFileEnding },
 )(Accordion);

@@ -42,9 +42,12 @@ export const folderFileEndingError = (
   idDpFile,
 });
 
+type allowedForcedStatus = 5 | 10
+
 export const folderFileEnding = (
   idDpOperation: number,
   idDpFile: number,
+  forceStatus?: allowedForcedStatus,
 ): ThunkAction => async (dispatch) => {
   const dispatchError = () => {
     addMessageToQueue({
@@ -58,7 +61,11 @@ export const folderFileEnding = (
   try {
     dispatch(folderFileEndingLoading(idDpOperation, idDpFile));
 
-    const result = await rest(`${API_PATH}files/${idDpFile}/terminer`, { method: 'put' });
+    const status = typeof forceStatus === 'number' ? forceStatus : '';
+    const result = await rest(
+      `${API_PATH}files/${idDpFile}/terminer${status}`,
+      { method: 'put' },
+    );
 
     if (result.status === 200) {
       const json: FolderFileEndingResponse = await result.json();
