@@ -17,6 +17,7 @@ interface Props {
   selectedAccordion: number | undefined;
   pending: FolderPendingItem | undefined;
   handleAccordionClick: (index: number) => () => void;
+  locked: boolean;
 }
 
 const Left = ({
@@ -26,17 +27,18 @@ const Left = ({
   selectedAccordion,
   handleAccordionClick,
   pending,
+  locked,
 }: Props) => (
   <div className="Left-container">
     <GeneralInfos loading={loading} title={title} data={data} checkPoints={data.point_controles} />
-    <SecondaryData data={data} />
+    <SecondaryData data={data} locked={locked} />
     <CheckPointsSummary
       checkPoints={data.point_controles}
       handleAccordionClick={handleAccordionClick}
       selectedAccordion={selectedAccordion}
       data={data}
     />
-    <EndButton pending={pending} data={data} />
+    <EndButton pending={pending} data={data} locked={locked} />
   </div>
 );
 

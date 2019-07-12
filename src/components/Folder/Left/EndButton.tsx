@@ -10,9 +10,12 @@ interface Props {
   data: OperationFull;
   pending: FolderPendingItem | undefined;
   ending: any;
+  locked: boolean;
 }
 
-export const EndButtonComponent = ({ data, ending, pending }: Props) => {
+export const EndButtonComponent = ({
+  data, ending, pending, locked,
+}: Props) => {
   const displayButton = data.dossierprimefile
     ? data.dossierprimefile.some(f => f.statut === 10)
       || data.dossierprimefile.every(f => f.statut === 15 || f.statut === 10)
@@ -30,7 +33,7 @@ export const EndButtonComponent = ({ data, ending, pending }: Props) => {
           <button
             onClick={handleClick}
             type="button"
-            disabled={!inProgress}
+            disabled={!inProgress || locked}
             style={{ transition: 'opacity .2s ease' }}
             className={`button is-primary${loading ? ' is-loading' : ''} is-outlined is-medium`}
           >

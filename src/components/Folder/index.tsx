@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
+import idx from 'idx';
 
 import Container from './Container';
 import Edit from './Edit';
@@ -34,7 +35,8 @@ class Folder extends Component<Props, State> {
   };
 
   componentWillMount() {
-    this.props.fetchFolder(parseInt(this.props.match.params.folderId, 0));
+    const { fetchFolder: fetch, match } = this.props;
+    fetch(parseInt(match.params.folderId, 0));
   }
 
   handleAccordionClick = (index: number) => () => {
@@ -68,6 +70,9 @@ class Folder extends Component<Props, State> {
     const folderId = parseInt(match.params.folderId, 10);
     const action = entities.operations[folderId];
 
+    // ? Wait status from API : lock in case of action reject
+    const locked = !!idx(action, _ => _.statut.code_statut === 8);
+
     return (
       <Container
         commentsOpened={commentsOpened}
@@ -79,6 +84,7 @@ class Folder extends Component<Props, State> {
             <Edit
               selectedAccordion={selectedAccordion}
               handleAccordionClick={this.handleAccordionClick}
+              locked={locked}
             />
           </div>
           {action && <Comments action={action} commentsOpened={commentsOpened} />}

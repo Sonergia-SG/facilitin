@@ -11,6 +11,7 @@ import AnimatedHeight from './AnimateHeight';
 
 interface Props {
   data: OperationFull;
+  locked: boolean;
 }
 
 type Selected = 'MOA' | 'MOE' | 'SITE';
@@ -20,7 +21,7 @@ interface State {
   edit: boolean;
 }
 
-const SecondaryData = ({ data }: Props) => {
+const SecondaryData = ({ data, locked }: Props) => {
   const [state, setState] = useState<State>({
     selected: undefined,
     edit: false,
@@ -103,6 +104,7 @@ const SecondaryData = ({ data }: Props) => {
                 idDpOperation={data.id_dp_operation}
                 idDossierPrime={data.id_dossierprime}
                 cancel={cancel}
+                locked={locked}
               />
             </div>
           )}
@@ -114,6 +116,7 @@ const SecondaryData = ({ data }: Props) => {
                 idDpOperation={data.id_dp_operation}
                 idDossierPrime={data.id_dossierprime}
                 cancel={cancel}
+                locked={locked}
               />
             </div>
           )}
@@ -125,6 +128,7 @@ const SecondaryData = ({ data }: Props) => {
                 idDpOperation={data.id_dp_operation}
                 idDossierPrime={data.id_dossierprime}
                 cancel={cancel}
+                locked={locked}
               />
             </div>
           )}

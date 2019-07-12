@@ -14,6 +14,7 @@ interface Props {
   ending: any;
   loading: boolean;
   checkPoints: Array<CheckPoint> | undefined;
+  locked: boolean;
 }
 
 const getConfig = (checkPoints: Array<CheckPoint>) => {
@@ -50,7 +51,7 @@ const getConfig = (checkPoints: Array<CheckPoint>) => {
 };
 
 export const ValidationComponent = ({
-  file, ending, folderId, loading, checkPoints,
+  file, ending, folderId, loading, checkPoints, locked,
 }: Props) => {
   const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === file.id_dp_file);
 
@@ -63,7 +64,7 @@ export const ValidationComponent = ({
       className={`button ${config.type} is-pulled-right${
         loading ? ' is-loading' : ''
       }`}
-      disabled={config.disabled}
+      disabled={config.disabled || locked}
       id="button-litige"
       onClick={async () => {
         await ending(folderId, file.id_dp_file);

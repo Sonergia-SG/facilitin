@@ -19,6 +19,7 @@ interface Props {
   handleAccordionClick: (index: number) => () => void;
   folderId: number;
   pending: FolderPendingItem | undefined;
+  locked: boolean;
 }
 
 class Collapsed extends Component<Props> {
@@ -30,7 +31,14 @@ class Collapsed extends Component<Props> {
 
   render() {
     const {
-      files, checkPoints, loading, selectedAccordion, handleAccordionClick, folderId, pending,
+      files,
+      checkPoints,
+      loading,
+      selectedAccordion,
+      handleAccordionClick,
+      folderId,
+      pending,
+      locked,
     } = this.props;
 
     if (!files || files.length === 0) {
@@ -50,6 +58,7 @@ class Collapsed extends Component<Props> {
             <Accordion
               file={file}
               checkPoints={checkPoints}
+              locked={locked}
               goNext={() => {
                 if (safeSelected + 1 < files.length) {
                   handleAccordionClick(safeSelected + 1)();
