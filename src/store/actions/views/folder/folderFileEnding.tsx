@@ -63,7 +63,7 @@ export const folderFileEnding = (
 
     const status = typeof forceStatus === 'number' ? forceStatus : '';
     const result = await rest(
-      `${API_PATH}files/${idDpFile}/terminer${status}`,
+      `${API_PATH}files/${idDpFile}/terminerdocument${status}`,
       { method: 'put' },
     );
 
