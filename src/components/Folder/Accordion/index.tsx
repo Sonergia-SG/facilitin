@@ -18,6 +18,7 @@ import { folderEnding, folderFileEnding } from '../../../store/actions/views/fol
 import { FileFull as SonergiaFile, CheckPoint } from '../../../store/reducer/entities/types';
 
 import fileFolderDisplayType from '../helper/fileFolderDisplayType';
+import lockedByStatus from './tools/lockedByStatus';
 
 import './Accordion.css';
 import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
@@ -42,7 +43,7 @@ interface Props {
   locked: boolean;
 }
 
-const Accordion = ({
+export const AccordionComponent = ({
   file,
   isSelected,
   checkPoints,
@@ -61,10 +62,10 @@ const Accordion = ({
 
   const [previewOppened, togglePreview] = useState(false);
 
-  const lockedByStatus = !(file.statut === -1 || file.statut === 0);
+  const isLockedByStatus = lockedByStatus(file);
 
   useEffect(() => {
-    if (isSelected && !lockedByStatus) togglePreview(true);
+    if (isSelected && !isLockedByStatus) togglePreview(true);
   }, [isSelected]);
 
   const toggleAndCroll = () => {
@@ -123,13 +124,13 @@ const Accordion = ({
                       folderId={folderId}
                       checkPoints={checkPoints}
                       fileId={file.id_dp_file}
-                      lockedByStatus={lockedByStatus}
+                      lockedByStatus={isLockedByStatus}
                       locked={locked}
                     />
                   </div>
                 </div>
                 <div className="Accordion-Button-Position">
-                  {!lockedByStatus && (
+                  {!isLockedByStatus && (
                     <Validation
                       file={file}
                       loading={litigeLoading}
@@ -193,4 +194,4 @@ const Accordion = ({
 export default connect(
   null,
   { ending: folderEnding, fileEnding: folderFileEnding },
-)(Accordion);
+)(AccordionComponent);

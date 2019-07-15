@@ -24,7 +24,7 @@ interface Props extends ConnectProps {
   children: ReactNode;
 }
 
-const DropZone = ({
+export const DropZoneComponent = ({
   loading, file: dpFile, upload, idDpOperation, children,
 }: Props) => {
   const input = useRef<HTMLInputElement>(null);
@@ -36,14 +36,12 @@ const DropZone = ({
     if (dragCounter.current > 0) {
       setDisplayDrop(true);
     }
-    console.log('incrementDragCount', dragCounter.current);
   };
   const decrementDragCount = () => {
     dragCounter.current -= 1;
     if (dragCounter.current <= 0) {
       setDisplayDrop(false);
     }
-    console.log('decrementDragCount', dragCounter.current);
   };
 
   const handleDrop = (acceptedFiles: Array<File>) => {
@@ -54,8 +52,6 @@ const DropZone = ({
 
       const handleLoad = () => {
         if (typeof reader.result === 'string') {
-          dragCounter.current = 0;
-          setDisplayDrop(false);
           upload(idDpOperation, dpFile.id_file, file, reader.result);
         }
 
@@ -66,6 +62,9 @@ const DropZone = ({
 
       reader.readAsDataURL(file);
     }
+
+    dragCounter.current = 0;
+    setDisplayDrop(false);
   };
 
   const maxSize = 5242880;
@@ -105,4 +104,4 @@ export default connect(
     };
   },
   { upload: uploadFile },
-)(DropZone);
+)(DropZoneComponent);

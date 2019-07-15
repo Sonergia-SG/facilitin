@@ -23,7 +23,7 @@ interface Props extends ConnectProps {
   loading: boolean;
 }
 
-const UploadButton = ({
+export const UploadButtonComponent = ({
   loading, file: dpFile, upload, idDpOperation,
 }: Props) => {
   const input = useRef(null);
@@ -117,4 +117,4 @@ export default connect(
     };
   },
   { upload: uploadFile },
-)(UploadButton);
+)(UploadButtonComponent);
