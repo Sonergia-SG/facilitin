@@ -1,9 +1,15 @@
 import { FileStatus } from '../../../reducer/entities/types';
 
-export type FolderEndingResponse = | {
+export interface FolderEndingErrorResponse {
   status: 'error';
-  error: string;
+  error: {
+    code: number;
+    message: string;
+  };
+  data: any;
 }
+
+export type FolderEndingResponse = | FolderEndingErrorResponse
 | {
   status: 'fail';
 }

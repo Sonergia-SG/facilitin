@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import ReactDropzone from 'react-dropzone';
 
-import { DropZoneComponent as DropZone } from '../DropZone';
-import { FileFull } from '../../store/reducer/entities/types';
+import { UploadButtonComponent as Uploadbutton } from '../UploadButton';
+import { FileFull } from '../../../../store/reducer/entities/types';
 
 const file: FileFull = {
   id_dp_file: 38580,
@@ -35,7 +35,7 @@ const file: FileFull = {
 describe('DropZone', () => {
   it('not disabled for file status -1', () => {
     const wrapper = shallow(
-      <DropZone
+      <Uploadbutton
         file={{ ...file, statut: -1 }}
         idDpOperation={90184}
         upload={() => {}}
@@ -48,7 +48,7 @@ describe('DropZone', () => {
 
   it('not disabled for file status 0', () => {
     const wrapper = shallow(
-      <DropZone
+      <Uploadbutton
         file={{ ...file, statut: 0 }}
         idDpOperation={90184}
         upload={() => {}}
@@ -61,7 +61,7 @@ describe('DropZone', () => {
 
   it('not disabled for file status 5', () => {
     const wrapper = shallow(
-      <DropZone
+      <Uploadbutton
         file={{ ...file, statut: 5 }}
         idDpOperation={90184}
         upload={() => {}}
@@ -74,7 +74,7 @@ describe('DropZone', () => {
 
   it('Disabled for file status 10', () => {
     const wrapper = shallow(
-      <DropZone
+      <Uploadbutton
         file={{ ...file, statut: 10 }}
         idDpOperation={90184}
         upload={() => {}}
@@ -87,7 +87,7 @@ describe('DropZone', () => {
 
   it('Disabled for file status 15', () => {
     const wrapper = shallow(
-      <DropZone
+      <Uploadbutton
         file={{ ...file, statut: 15 }}
         idDpOperation={90184}
         upload={() => {}}

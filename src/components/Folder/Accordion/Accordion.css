@@ -12,7 +12,7 @@
 .Accordion-File-Header {
   display: flex;
   align-items: center;
-  margin: 6px 4px;
+  padding: 6px 4px;
 }
 
 .Accordion-CheckPoints {
