@@ -16,13 +16,13 @@ const operations = (state: Operations = {}, action: OperationsActions): Operatio
     case FOLDER_ENDING_LOADED: {
       if (!state[action.idDpOperation]) return state;
 
+      // ? remove ?
       return {
         ...state,
         [action.idDpOperation]: {
           ...state[action.idDpOperation],
           statut: {
             ...state[action.idDpOperation].statut,
-            ...action.status,
           },
         },
       };

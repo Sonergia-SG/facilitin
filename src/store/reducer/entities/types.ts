@@ -395,7 +395,6 @@ export interface OperationsListLoadedAction {
 
 export interface OperationsFolderEndingLoaded {
   type: typeof FOLDER_ENDING_LOADED;
-  status: OperationStatus;
   idDpOperation: number;
 }
 
