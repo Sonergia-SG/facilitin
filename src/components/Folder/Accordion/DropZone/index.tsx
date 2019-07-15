@@ -52,8 +52,6 @@ export const DropZoneComponent = ({
 
       const handleLoad = () => {
         if (typeof reader.result === 'string') {
-          dragCounter.current = 0;
-          setDisplayDrop(false);
           upload(idDpOperation, dpFile.id_file, file, reader.result);
         }
 
@@ -64,6 +62,9 @@ export const DropZoneComponent = ({
 
       reader.readAsDataURL(file);
     }
+
+    dragCounter.current = 0;
+    setDisplayDrop(false);
   };
 
   const maxSize = 5242880;
