@@ -79,8 +79,6 @@ import {
   CheckPointsFolderUpdateChekpointLoadedAction,
   CheckPointsFolderUpdateCheckpointErrorAction,
   FilesFolcerCheckPointLoaded,
-  OperationStatus,
-  OperationsFolderEndingLoaded,
   FoldersUpdateMoeLoaded,
   FoldersUpdateSiteLoaded,
   FileStatus,
@@ -549,7 +547,7 @@ const folderEndingLoading: FolderEndingLoading = idDpOperation => ({
 
 type FolderEndingLoaded = (
   idDpOperation: number,
-) => FolderFolderEndingLoaded & OperationsFolderEndingLoaded;
+) => FolderFolderEndingLoaded;
 
 const folderEndingLoaded: FolderEndingLoaded = idDpOperation => ({
   type: FOLDER_ENDING_LOADED,

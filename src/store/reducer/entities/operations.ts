@@ -2,9 +2,7 @@
 import merge from 'lodash.merge';
 
 import { Operations, OperationsActions } from './types';
-import {
-  LOGOUT, FOLDER_LOADED, LIST_LOADED, FOLDER_ENDING_LOADED,
-} from '../../types';
+import { LOGOUT, FOLDER_LOADED, LIST_LOADED } from '../../types';
 
 const operations = (state: Operations = {}, action: OperationsActions): Operations => {
   switch (action.type) {
@@ -12,20 +10,6 @@ const operations = (state: Operations = {}, action: OperationsActions): Operatio
     case FOLDER_LOADED: {
       const { operations: o } = action.normalized.entities;
       return merge({}, state, o);
-    }
-    case FOLDER_ENDING_LOADED: {
-      if (!state[action.idDpOperation]) return state;
-
-      // ? remove ?
-      return {
-        ...state,
-        [action.idDpOperation]: {
-          ...state[action.idDpOperation],
-          statut: {
-            ...state[action.idDpOperation].statut,
-          },
-        },
-      };
     }
     case LOGOUT:
       return {};
