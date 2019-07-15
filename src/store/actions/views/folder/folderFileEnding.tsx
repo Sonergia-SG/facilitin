@@ -61,7 +61,7 @@ export const folderFileEnding = (
   try {
     dispatch(folderFileEndingLoading(idDpOperation, idDpFile));
 
-    const status = typeof forceStatus === 'number' ? forceStatus : '';
+    const status = typeof forceStatus === 'number' ? `/${forceStatus}` : '';
     const result = await rest(
       `${API_PATH}files/${idDpFile}/terminerdocument${status}`,
       { method: 'put' },
