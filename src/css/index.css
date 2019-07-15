@@ -18,6 +18,16 @@ code {
     monospace;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: 'Montserrat', sans-serif;
+}
+
 #root {
   margin: 10px 30px;
 }
@@ -52,9 +62,7 @@ code {
   left: calc(50% - 55px);
   z-index: 1000;
 }
-.navbar1 {
-  margin-bottom: 60px;
-}
+
 .footersonergia {
   width: 100%;
   margin-top: 80px;
@@ -83,31 +91,27 @@ button.togglesonergia {
   background-color: inherit !important;
 }
 .accordions .accordion.is-active .accordion-header {
-  background-color: #16a0e0 !important;
+  opacity: 1;
 }
-.accordion_bad_controle {
-  background-color: #ff7878 !important;
-}
-.accordion_litige {
-  background-color: #f28b24 !important;
-}
-.accordion_empty {
-  background-color: #b2adad !important;
-}
-.accordion_ok {
-  background-color: #2ba048 !important;
-}
+
 .accordions .accordion .accordion-header {
   border-radius: 4px !important;
 }
+
 .accordion-header {
-  transition: background-color 0.2s ease;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
 }
+
+.accordion-header > div {
+  outline: none;
+}
+
 .divAccordion {
   margin-top: 0;
 }
 .left-active {
-  color: #16a0e0 !important;
+  color: #57c8f1 !important;
 }
 .item_menu_gauche {
   padding: 3px;
@@ -124,7 +128,7 @@ button.togglesonergia {
   margin-bottom: 40px;
 }
 #button-litige {
-  width: 106px;
+  margin-top: 5px;
 }
 
 @-webkit-keyframes anim {
@@ -222,4 +226,8 @@ button.togglesonergia {
   -moz-animation: anim 2.5s infinite ease-in;
   -ms-animation: anim 2.5s infinite ease-in;
   animation: anim 2.5s infinite ease-in;
+}
+
+.react-tabs__tab--selected {
+  background-color: #f1f2f7 !important;
 }

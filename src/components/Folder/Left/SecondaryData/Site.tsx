@@ -21,6 +21,7 @@ interface ConnectProps {
   dossierprime?: FolderFull;
   cancel: () => void;
   def: GenericForms;
+  locked: boolean;
 }
 
 interface Props extends ConnectProps {
@@ -41,13 +42,14 @@ const Site = ({
   updateSite,
   clean,
   def,
+  locked,
 }: Props) => {
   if (!dossierprime) return <p>Unavailable</p>;
 
   const loading = !!pending && !!pending.siteLoading;
   const edited = !!pending && !!pending.site;
 
-  const disabledInput = !edit || loading;
+  const disabledInput = !edit || loading || locked;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>

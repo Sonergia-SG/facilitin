@@ -11,10 +11,10 @@ import {
   LOGOUT,
 } from '../../../types';
 
-import { Normalized } from '../../entities/types';
+export type SortedId = 'id_dp_operation' | 'id_dossierprime' | 'etat' | 'delai' | 'moa' | 'code_operation'
 
 export interface Sorted {
-  id: string;
+  id: SortedId;
   desc: boolean;
 }
 
@@ -32,10 +32,20 @@ export interface TabState {
   loading: boolean;
 }
 
+
+export interface ListSearch {
+  id_dossierprime: string;
+  id_dp_operation: string;
+  etat: string;
+  delai: string;
+  moa: string;
+  code_operation: string;
+}
+
 export interface ListState {
   selectedTab: Tab;
   pageSize: Tab;
-  search: string;
+  search: ListSearch;
   tab: {
     0: TabState;
     1: TabState;
@@ -66,9 +76,18 @@ export interface ListListErrorAction {
   tab: Tab;
 }
 
+export interface ListSearchAction {
+  id_dossierprime?: string;
+  id_dp_operation?: string;
+  etat?: string;
+  delai?: string;
+  moa?: string;
+  code_operation?: string;
+}
+
 export interface ListListChangeSearchAction {
   type: typeof LIST_CHANGE_SEARCH;
-  search: string;
+  search: ListSearchAction;
 }
 
 export interface ListListChangeTabAction {
@@ -88,7 +107,7 @@ export interface ListListPageSizeAction {
 
 export interface ListListSortedAction {
   type: typeof LIST_SORTED_UPDATE;
-  sorted: Sorted;
+  sorted: Array<Sorted>;
 }
 
 export interface ListLogoutAction {

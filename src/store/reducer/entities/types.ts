@@ -7,10 +7,10 @@ import {
   FOLDER_UPDATE_CHECK_POINT_LOADED,
   FOLDER_UPDATE_CHECK_POINT_ERROR,
   COMMENTS_LIST_LOADED,
-  FOLDER_FILE_LITIGE_LOADED,
   FOLDER_ENDING_LOADED,
   FOLDER_UPDATE_MOE_LOADED,
   FOLDER_UPDATE_SITE_LOADED,
+  FOLDER_FILE_ENDING_LOADED,
 } from '../../types';
 
 export interface User {
@@ -44,11 +44,24 @@ export interface Comments {
 
 export type BooleanNumber = 0 | 1;
 
+export type MISSING_FILE = -1;
+export type DOCUMENT_INPROGRESS = 0;
+export type DOCUMENT_INCOMPLET = 5;
+export type DOCUMENT_REJECTED = 10;
+export type DOCUMENT_VALIDATED = 15;
+export type FileStatus = | MISSING_FILE
+| DOCUMENT_INPROGRESS
+| DOCUMENT_INCOMPLET
+| DOCUMENT_REJECTED
+| DOCUMENT_VALIDATED;
+
 export interface SimpleFile {
   id_dp_file: number;
-  id_file: number;
+  id_file: number | null;
   id_dp_operation: number;
   id_dossierprime: number;
+  filename: string;
+  mimetype: string;
   is_devis: BooleanNumber;
   is_aat: BooleanNumber;
   is_facture: BooleanNumber;
@@ -66,7 +79,7 @@ export interface SimpleFile {
   is_ah: BooleanNumber;
   is_horodatage: BooleanNumber;
   is_subrogation: BooleanNumber;
-  statut: number;
+  statut: FileStatus;
   litige?: BooleanNumber;
 }
 
@@ -263,13 +276,13 @@ export interface FilesFolderLoadedAction {
 export interface FilesFolcerCheckPointLoaded {
   type: typeof FOLDER_UPDATE_CHECK_POINT_LOADED;
   idDpFile: number;
-  statusCode: number | null;
+  statusCode: FileStatus | null;
 }
 
-export interface FileLitigeLoaded {
-  type: typeof FOLDER_FILE_LITIGE_LOADED;
+export interface FileEndingLoaded {
+  type: typeof FOLDER_FILE_ENDING_LOADED;
   idDpFile: number;
-  statusCode: number | null;
+  statusCode: FileStatus | null;
 }
 
 export interface FilesLogoutAction {
@@ -278,8 +291,8 @@ export interface FilesLogoutAction {
 
 export type FilesActions = | FilesFolderLoadedAction
 | FilesFolcerCheckPointLoaded
-| FileLitigeLoaded
-| FilesLogoutAction;
+| FilesLogoutAction
+| FileEndingLoaded;
 
 export interface FoldersFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -380,19 +393,12 @@ export interface OperationsListLoadedAction {
   normalized: Normalized;
 }
 
-export interface OperationsFolderEndingLoaded {
-  type: typeof FOLDER_ENDING_LOADED;
-  status: OperationStatus;
-  idDpOperation: number;
-}
-
 export interface OperationsLogoutAction {
   type: typeof LOGOUT;
 }
 
 export type OperationsActions = | OperationsFolderLoadedAction
 | OperationsListLoadedAction
-| OperationsFolderEndingLoaded
 | OperationsLogoutAction;
 
 export interface UsersCommentsListLoadedAction {

@@ -1,0 +1,13 @@
+.Left-container {
+  height: 100%;
+  min-width: 320px;
+  overflow: auto;
+  padding: 0 10px;
+}
+
+@media only screen and (max-width: 950px) {
+  .Left-container {
+    height: auto;
+    overflow: visible;
+  }
+}

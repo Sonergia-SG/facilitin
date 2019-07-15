@@ -32,6 +32,21 @@ describe('CheckPoints', () => {
         fileId={0}
         folderId={0}
         updateCheckPoint={() => 'Hello'}
+        locked={false}
+        pending={{}}
+      />,
+    );
+
+    expect(wrapper).toMatchSnapshot();
+  });
+  it('render correctly when locked', () => {
+    const wrapper = shallow(
+      <CheckPoints
+        checkPoints={[defaultCheckPoint]}
+        fileId={0}
+        folderId={0}
+        updateCheckPoint={() => 'Hello'}
+        locked
         pending={{}}
       />,
     );
@@ -51,6 +66,7 @@ describe('CheckPoints', () => {
         fileId={0}
         folderId={0}
         updateCheckPoint={() => 'Hello'}
+        locked={false}
         pending={{}}
       />,
     );
@@ -70,6 +86,7 @@ describe('CheckPoints', () => {
         fileId={0}
         folderId={0}
         updateCheckPoint={() => 'Hello'}
+        locked={false}
         pending={{}}
       />,
     );
@@ -90,6 +107,7 @@ describe('CheckPoints', () => {
         fileId={0}
         folderId={0}
         updateCheckPoint={() => 'Hello'}
+        locked={false}
         pending={{
           checkPoint: {
             0: {
@@ -116,6 +134,7 @@ describe('CheckPoints', () => {
         fileId={0}
         folderId={0}
         updateCheckPoint={() => 'Hello'}
+        locked={false}
         pending={{
           loading: true,
         }}
@@ -135,6 +154,7 @@ describe('CheckPoints', () => {
         fileId={0}
         folderId={0}
         updateCheckPoint={() => 'Hello'}
+        locked={false}
         pending={{}}
       />,
     );

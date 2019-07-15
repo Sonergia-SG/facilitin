@@ -16,7 +16,14 @@ import {
 const initialState = {
   selectedTab: 0,
   pageSize: 10,
-  search: '',
+  search: {
+    id_dossierprime: '',
+    id_dp_operation: '',
+    etat: '',
+    delai: '',
+    moa: '',
+    code_operation: '',
+  },
   tab: {
     [Tab.TODO]: {
       page: 0,
@@ -50,7 +57,7 @@ const list = (state: ListState = initialState, action: ListAction): ListState =>
     case INIT:
       return {
         ...state,
-        search: '',
+        search: initialState.search,
       };
     case LIST_LOADING:
       return {
@@ -89,7 +96,10 @@ const list = (state: ListState = initialState, action: ListAction): ListState =>
     case LIST_CHANGE_SEARCH:
       return {
         ...state,
-        search: action.search,
+        search: {
+          ...state.search,
+          ...action.search,
+        },
       };
     case LIST_CHANGE_TAB:
       return {

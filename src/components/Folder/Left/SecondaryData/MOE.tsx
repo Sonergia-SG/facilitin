@@ -20,6 +20,7 @@ interface ConnectProps {
   edit: boolean;
   dossierprime?: FolderFull;
   cancel: () => void;
+  locked: boolean;
 }
 
 interface Props extends ConnectProps {
@@ -41,13 +42,14 @@ const MOE = ({
   updateMoe,
   clean,
   def,
+  locked,
 }: Props) => {
   if (!dossierprime) return <p>Unavailable</p>;
 
   const loading = !!pending && !!pending.moeLoading;
   const edited = !!pending && !!pending.moe;
 
-  const disabledInput = !edit || loading;
+  const disabledInput = !edit || loading || locked;
 
 
   return (

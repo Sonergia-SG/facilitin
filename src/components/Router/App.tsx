@@ -1,4 +1,4 @@
-import React, { Component, CSSProperties, ReactNode } from 'react';
+import React, { CSSProperties, useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useTransition, animated } from 'react-spring';
@@ -20,16 +20,6 @@ interface Props {
   getInfos: any;
 }
 
-class LoadOnMount extends Component<{ getInfos: any; children: ReactNode }> {
-  componentDidMount() {
-    this.props.getInfos();
-  }
-
-  render() {
-    return this.props.children;
-  }
-}
-
 const AppRouter = ({ userLoading, userInfos, getInfos }: Props) => {
   const displayApp = !userLoading && !!userInfos;
 
@@ -43,23 +33,31 @@ const AppRouter = ({ userLoading, userInfos, getInfos }: Props) => {
     },
   );
 
+  useEffect(() => {
+    getInfos();
+  }, []);
+
   return (
-    <LoadOnMount getInfos={getInfos}>
+    <>
       {transitions.map(({ item, props, key }) => (item ? (
         <animated.div key={key} style={props} className="Router-App-Container">
           <Header />
-          <Switch>
-            <Route path="/actions/:folderId" component={Folder} />
-            <Route path="/actions" component={Actions} />
-            <Redirect to="/actions" />
-          </Switch>
+          <div className="Router-background">
+            <div className="Router-content-centered">
+              <Switch>
+                <Route path="/actions/:folderId" component={Folder} />
+                <Route path="/actions" component={Actions} />
+                <Redirect to="/actions" />
+              </Switch>
+            </div>
+          </div>
         </animated.div>
       ) : (
         <animated.div key={key} style={props} className="Router-App-Loading-Container">
           <Loading show />
         </animated.div>
       )))}
-    </LoadOnMount>
+    </>
   );
 };
 

@@ -6,7 +6,7 @@ import { EndButtonComponent as EndButton } from '../EndButton';
 describe('EndButton', () => {
   it('not render EndButton if dossierprimefile is missing', () => {
     const data = {};
-    const wrapper = shallow(<EndButton data={data} />);
+    const wrapper = shallow(<EndButton data={data} locked={false} />);
 
     expect(wrapper).toMatchSnapshot();
   });
@@ -22,7 +22,7 @@ describe('EndButton', () => {
         },
       ],
     };
-    const wrapper = shallow(<EndButton data={data} />);
+    const wrapper = shallow(<EndButton data={data} locked={false} />);
 
     expect(wrapper).toMatchSnapshot();
   });
@@ -38,7 +38,7 @@ describe('EndButton', () => {
         },
       ],
     };
-    const wrapper = shallow(<EndButton data={data} />);
+    const wrapper = shallow(<EndButton data={data} locked={false} />);
 
     expect(wrapper).toMatchSnapshot();
   });
@@ -54,7 +54,7 @@ describe('EndButton', () => {
         },
       ],
     };
-    const wrapper = shallow(<EndButton data={data} />);
+    const wrapper = shallow(<EndButton data={data} locked={false} />);
 
     expect(wrapper).toMatchSnapshot();
   });
@@ -73,7 +73,7 @@ describe('EndButton', () => {
         },
       ],
     };
-    const wrapper = shallow(<EndButton data={data} />);
+    const wrapper = shallow(<EndButton data={data} locked={false} />);
 
     expect(wrapper).toMatchSnapshot();
   });
@@ -92,7 +92,7 @@ describe('EndButton', () => {
         },
       ],
     };
-    const wrapper = shallow(<EndButton data={data} />);
+    const wrapper = shallow(<EndButton data={data} locked={false} />);
 
     expect(wrapper).toMatchSnapshot();
   });
@@ -109,7 +109,7 @@ describe('EndButton', () => {
         },
       ],
     };
-    const wrapper = shallow(<EndButton data={data} />);
+    const wrapper = shallow(<EndButton data={data} locked={false} />);
 
     expect(wrapper).toMatchSnapshot();
   });
@@ -151,11 +151,28 @@ describe('EndButton', () => {
     const wrapper = shallow(
       <EndButton
         data={data}
+        locked={false}
         pending={{
           endingLoading: false,
         }}
       />,
     );
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('render EndButton locked', () => {
+    const data = {
+      dossierprimefile: [
+        {
+          statut: 15,
+        },
+        {
+          statut: 15,
+        },
+      ],
+    };
+    const wrapper = shallow(<EndButton data={data} locked />);
 
     expect(wrapper).toMatchSnapshot();
   });

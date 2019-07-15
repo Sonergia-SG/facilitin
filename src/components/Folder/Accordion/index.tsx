@@ -1,26 +1,33 @@
 /**
  * Created by stephane.mallaroni on 15/04/2019.
  */
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useRef, useEffect } from 'react';
+import { connect, HandleThunkActionCreator } from 'react-redux';
 import idx from 'idx';
 
-import StateToColor from '../../StateToColor';
-import DropZone from '../../DropZone';
+import UploadButton from './UploadButton';
 import CheckPoints from './CheckPoints';
 import DownloadFile from './DownloadFile';
 import Validation from './Validation';
+import ToggleViewer from './ToggleViewer';
+import Preview from './Preview';
+import DropZone from './DropZone';
 
-import { folderFileInLitige, folderEnding } from '../../../store/actions/views/folder';
+import { folderEnding, folderFileEnding } from '../../../store/actions/views/folder';
 
 import { FileFull as SonergiaFile, CheckPoint } from '../../../store/reducer/entities/types';
 
 import fileFolderDisplayType from '../helper/fileFolderDisplayType';
+import lockedByStatus from './tools/lockedByStatus';
 
 import './Accordion.css';
 import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 
 import useOpenModalAfterLoading from './useOpenModalAfterLoading';
+
+import MissingFile from './MissingFile';
+
+import statusColor from './tools/statusColor';
 
 interface Props {
   file: SonergiaFile;
@@ -30,12 +37,13 @@ interface Props {
   handleClick: () => void;
   goNext: () => void;
   folderId: number;
-  inLitige: any;
-  ending: any;
+  ending: HandleThunkActionCreator<typeof folderEnding>;
+  fileEnding: HandleThunkActionCreator<typeof folderFileEnding>;
   pending: FolderPendingItem | undefined;
+  locked: boolean;
 }
 
-const Accordion = ({
+export const AccordionComponent = ({
   file,
   isSelected,
   checkPoints,
@@ -44,18 +52,37 @@ const Accordion = ({
   pending,
   goNext,
   ending,
-  inLitige,
+  fileEnding,
+  locked,
 }: Props) => {
-  const color = StateToColor(file);
+  const selfRef = useRef(null);
 
   const litigeLoading = idx(pending, _ => _.litige[file.id_dp_file].loading) || false;
+  const [displayModal, toggleModal] = useOpenModalAfterLoading(litigeLoading, file.statut, goNext);
 
-  const [displayModal, toggleModal] = useOpenModalAfterLoading(litigeLoading);
+  const [previewOppened, togglePreview] = useState(false);
+
+  const isLockedByStatus = lockedByStatus(file);
+
+  useEffect(() => {
+    if (isSelected && !isLockedByStatus) togglePreview(true);
+  }, [isSelected]);
+
+  const toggleAndCroll = () => {
+    togglePreview(!previewOppened);
+
+    setTimeout(() => {
+      if (selfRef !== null && selfRef.current) {
+        idx(selfRef, (_: any) => _.current.scrollIntoView());
+      }
+    }, 10);
+  };
+
 
   return (
-    <div className="divAccordion">
+    <div ref={selfRef} className="divAccordion">
       <article className={`accordion ${isSelected ? 'is-active' : ''}`}>
-        <div className={`accordion-header ${color}`}>
+        <div style={{ backgroundColor: statusColor(file) }} className="accordion-header">
           <div
             onClick={handleClick}
             onKeyPress={handleClick}
@@ -73,42 +100,56 @@ const Accordion = ({
               {' '}
               {fileFolderDisplayType(file)}
             </div>
-            {/* <div className="floatlink">
-                <a href="https://www.google.fr" target="_blank" rel="noopener noreferrer">
-                  {file.name_file}
-                </a>
-              </div> */}
           </div>
         </div>
         <div className="accordion-body">
-          <div className="Accordion-Box">
-            <div className="Accordion-Files">
-              <div style={{ width: 190 }} className="notification has-text-centered tilebordered">
-                <div className="content">
-                  <DropZone file={file} idDpOperation={folderId} />
+          <DropZone file={file} idDpOperation={folderId}>
+            {file.id_file ? (
+              <div className="Accordion-Box">
+                <div className="Accordion-File-Header">
+                  <ToggleViewer toggle={toggleAndCroll} viewerOpened={previewOppened} />
+                  <DownloadFile file={file} />
+                  <UploadButton file={file} idDpOperation={folderId} />
+                  <h3 className="Accordion-File-name">{file.filename}</h3>
+                </div>
+                <div className="Accordion-Content">
+                  {previewOppened && (
+                    <div className="Accordion-Document-Viewer">
+                      <Preview file={file} />
+                    </div>
+                  )}
+                  <div className="Accordion-CheckPoints">
+                    <CheckPoints
+                      pending={pending}
+                      folderId={folderId}
+                      checkPoints={checkPoints}
+                      fileId={file.id_dp_file}
+                      lockedByStatus={isLockedByStatus}
+                      locked={locked}
+                    />
+                  </div>
+                </div>
+                <div className="Accordion-Button-Position">
+                  {!isLockedByStatus && (
+                    <Validation
+                      file={file}
+                      loading={litigeLoading}
+                      folderId={folderId}
+                      checkPoints={checkPoints}
+                      locked={locked}
+                    />
+                  )}
                 </div>
               </div>
-              <DownloadFile file={file} />
-            </div>
-            <div className="Accordion-CheckPoints">
-              <CheckPoints
-                pending={pending}
-                folderId={folderId}
-                checkPoints={checkPoints}
-                fileId={file.id_dp_file}
-              />
-            </div>
-            <div className="Accordion-Button-Position">
-              <Validation
+            ) : (
+              <MissingFile
                 file={file}
-                goNext={goNext}
-                loading={litigeLoading}
+                loading={false}
                 folderId={folderId}
-                checkPoints={checkPoints}
-                inLitige={inLitige}
+                fileEnding={fileEnding}
               />
-            </div>
-          </div>
+            )}
+          </DropZone>
         </div>
       </article>
       <div className={`modal ${isSelected && displayModal ? ' is-active' : ''}`}>
@@ -133,7 +174,14 @@ const Accordion = ({
             >
               {"Terminer l'instruction"}
             </button>
-            <button className="button" type="button" onClick={() => toggleModal(false)}>
+            <button
+              className="button"
+              type="button"
+              onClick={() => {
+                toggleModal(false);
+                goNext();
+              }}
+            >
               {"Continuer l'instruction"}
             </button>
           </footer>
@@ -145,5 +193,5 @@ const Accordion = ({
 
 export default connect(
   null,
-  { inLitige: folderFileInLitige, ending: folderEnding },
-)(Accordion);
+  { ending: folderEnding, fileEnding: folderFileEnding },
+)(AccordionComponent);

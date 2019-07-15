@@ -10,6 +10,8 @@ import Collapsed from './Collapsed';
 import Empty from './Empty';
 import Left from './Left';
 
+import './Edit.css';
+
 import { operation as operationSchema } from '../../store/reducer/entities/schema';
 import { Entities, OperationFull } from '../../store/reducer/entities/types';
 import { FolderState } from '../../store/reducer/views/folder/types';
@@ -24,10 +26,11 @@ interface Props extends RouteComponentProps<Params> {
   folderState: FolderState;
   selectedAccordion: number | undefined;
   handleAccordionClick: (index: number) => () => void;
+  locked: boolean;
 }
 
 const Edit = ({
-  entities, match, folderState, selectedAccordion, handleAccordionClick,
+  entities, match, folderState, selectedAccordion, handleAccordionClick, locked,
 }: Props) => {
   const folderId = parseInt(match.params.folderId, 10);
   const operation = entities.operations[folderId];
@@ -42,7 +45,7 @@ const Edit = ({
   const title = `Dossier N° ${data.id_dossierprime}`;
 
   return (
-    <div className="tile is-ancestor">
+    <div className="Folder-Edit-container">
       <Left
         pending={folderPending}
         selectedAccordion={selectedAccordion}
@@ -50,19 +53,19 @@ const Edit = ({
         loading={loading}
         title={title}
         data={data}
+        locked={locked}
       />
-      <div className="tile is-parent">
-        <div className="tile is-child" style={{ marginTop: 0 }}>
-          <Collapsed
-            files={data.dossierprimefile}
-            checkPoints={data.point_controles}
-            selectedAccordion={selectedAccordion}
-            handleAccordionClick={handleAccordionClick}
-            loading={loading}
-            folderId={folderId}
-            pending={folderPending}
-          />
-        </div>
+      <div className="Folder-Edit-documents">
+        <Collapsed
+          files={data.dossierprimefile}
+          checkPoints={data.point_controles}
+          selectedAccordion={selectedAccordion}
+          handleAccordionClick={handleAccordionClick}
+          loading={loading}
+          folderId={folderId}
+          pending={folderPending}
+          locked={locked}
+        />
       </div>
     </div>
   );

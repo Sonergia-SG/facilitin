@@ -21,6 +21,7 @@ interface ConnectProps {
   edit: boolean;
   dossierprime?: FolderFull;
   cancel: () => void;
+  locked: boolean;
 }
 
 interface Props extends ConnectProps {
@@ -42,13 +43,14 @@ const MOA = ({
   updateMoa,
   clean,
   def,
+  locked,
 }: Props) => {
   if (!dossierprime) return <p>Unavailable</p>;
 
   const loading = !!pending && !!pending.moaLoading;
   const edited = !!pending && !!pending.moa;
 
-  const disabledInput = !edit || loading;
+  const disabledInput = !edit || loading || locked;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>

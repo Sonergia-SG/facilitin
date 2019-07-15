@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
+import idx from 'idx';
 
 import Container from './Container';
 import Edit from './Edit';
@@ -34,7 +35,8 @@ class Folder extends Component<Props, State> {
   };
 
   componentWillMount() {
-    this.props.fetchFolder(parseInt(this.props.match.params.folderId, 0));
+    const { fetchFolder: fetch, match } = this.props;
+    fetch(parseInt(match.params.folderId, 0));
   }
 
   handleAccordionClick = (index: number) => () => {
@@ -43,6 +45,16 @@ class Folder extends Component<Props, State> {
       this.setState({ selectedAccordion: undefined });
     } else {
       this.setState({ selectedAccordion: index });
+
+      setTimeout(() => {
+        const el = document.querySelector(`.divAccordion:nth-child(${index + 1})`);
+
+        if (el) {
+          el.scrollIntoView({
+            behavior: 'auto',
+          });
+        }
+      }, 250);
     }
   };
 
@@ -53,10 +65,15 @@ class Folder extends Component<Props, State> {
   };
 
   render() {
-    const { match, entities } = this.props;
+    const { match, entities, location } = this.props;
     const { commentsOpened, selectedAccordion } = this.state;
     const folderId = parseInt(match.params.folderId, 10);
     const action = entities.operations[folderId];
+
+    // ! during dev process we can use this option to unlock action
+    const locked = location.search.includes('unlock')
+      ? false
+      : !!idx(action, _ => _.statut.code_statut === 8);
 
     return (
       <Container
@@ -64,11 +81,12 @@ class Folder extends Component<Props, State> {
         toggleComments={this.toggleComments}
         folderId={folderId}
       >
-        <div style={{ display: 'flex' }}>
-          <div style={{ flex: 1 }}>
+        <div style={{ display: 'flex', height: '100%' }}>
+          <div style={{ width: 'calc(100% - 12px)' }}>
             <Edit
               selectedAccordion={selectedAccordion}
               handleAccordionClick={this.handleAccordionClick}
+              locked={locked}
             />
           </div>
           {action && <Comments action={action} commentsOpened={commentsOpened} />}

@@ -8,6 +8,8 @@ import EndButton from './EndButton';
 import SecondaryData from './SecondaryData';
 import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 
+import './Left.css';
+
 interface Props {
   title: string;
   data: OperationFull;
@@ -15,28 +17,28 @@ interface Props {
   selectedAccordion: number | undefined;
   pending: FolderPendingItem | undefined;
   handleAccordionClick: (index: number) => () => void;
+  locked: boolean;
 }
 
 const Left = ({
-  title, data, loading, selectedAccordion, handleAccordionClick, pending,
+  title,
+  data,
+  loading,
+  selectedAccordion,
+  handleAccordionClick,
+  pending,
+  locked,
 }: Props) => (
-  <div style={{ minWidth: 320 }} className="tile is-vertical is-3">
-    <div className="tile is-parent is-vertical">
-      <GeneralInfos
-        loading={loading}
-        title={title}
-        data={data}
-        checkPoints={data.point_controles}
-      />
-      <SecondaryData data={data} />
-      <CheckPointsSummary
-        checkPoints={data.point_controles}
-        handleAccordionClick={handleAccordionClick}
-        selectedAccordion={selectedAccordion}
-        data={data}
-      />
-      <EndButton pending={pending} data={data} />
-    </div>
+  <div className="Left-container">
+    <GeneralInfos loading={loading} title={title} data={data} checkPoints={data.point_controles} />
+    <SecondaryData data={data} locked={locked} />
+    <CheckPointsSummary
+      checkPoints={data.point_controles}
+      handleAccordionClick={handleAccordionClick}
+      selectedAccordion={selectedAccordion}
+      data={data}
+    />
+    <EndButton pending={pending} data={data} locked={locked} />
   </div>
 );
 

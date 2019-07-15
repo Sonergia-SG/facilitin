@@ -3,7 +3,10 @@ import React from 'react';
 import { OperationFull, CheckPoint } from '../../../store/reducer/entities/types';
 
 import fileFolderDisplayType from '../helper/fileFolderDisplayType';
+import isRejected from './helpers/checkPointRejected';
+import isLitige from './helpers/checkPointInLitige';
 
+import Card from '../../../Common/UIKIT/Card';
 import Picto from './Picto';
 
 import './CheckPointSummary.css';
@@ -23,7 +26,7 @@ const CheckPointsSummary = ({
 }: Props) => {
   if (data.dossierprimefile && data.dossierprimefile.length > 0) {
     return (
-      <div style={{ flexGrow: 0 }} className="tile is-child notification ">
+      <Card style={{ flexGrow: 0 }}>
         <div className="content">
           {data.dossierprimefile.map((file, index) => {
             const currentCheckPoints = checkPoints.filter(
@@ -31,12 +34,8 @@ const CheckPointsSummary = ({
             );
             const unTraited = currentCheckPoints.filter(c => c.pivot.valide === -1);
             const validCheckPoints = currentCheckPoints.filter(c => c.pivot.valide === 1);
-            const litigeCheckPoints = currentCheckPoints.filter(
-              c => c.pivot.valide === 0 && c.id_penalite === 1,
-            );
-            const rejectedCheckPoints = currentCheckPoints.filter(
-              c => c.pivot.valide === 0 && c.id_penalite === 2,
-            );
+            const litigeCheckPoints = currentCheckPoints.filter(c => isLitige(c));
+            const rejectedCheckPoints = currentCheckPoints.filter(c => isRejected(c));
 
             const active = selectedAccordion === index;
 
@@ -59,7 +58,6 @@ const CheckPointsSummary = ({
                     rejected={rejectedCheckPoints.length}
                   />
                   <h4
-                    style={{ margin: 0 }}
                     className={`item_menu_gauche ${active ? 'left-active' : ''}`}
                     id={`${index}pp`}
                   >
@@ -67,7 +65,7 @@ const CheckPointsSummary = ({
                   </h4>
                 </div>
                 <p
-                  style={{ color: active ? '#16a0e0' : 'black', fontWeight: 500 }}
+                  style={{ color: active ? '#16a0e0' : 'black' }}
                   className="Actions-Left-CheckPointSummary-File-Count"
                 >
                   {validCheckPoints.length}
@@ -78,7 +76,7 @@ const CheckPointsSummary = ({
             );
           })}
         </div>
-      </div>
+      </Card>
     );
   }
   return null;

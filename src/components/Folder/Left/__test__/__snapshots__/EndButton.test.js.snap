@@ -133,7 +133,30 @@ exports[`EndButton render EndButton loading for pending endingLoading "true" 1`]
   >
     <button
       className="button is-primary is-loading is-outlined is-medium"
-      disabled={false}
+      onClick={[Function]}
+      style={
+        Object {
+          "transition": "opacity .2s ease",
+        }
+      }
+      type="button"
+    >
+      Terminer
+    </button>
+  </div>
+</div>
+`;
+
+exports[`EndButton render EndButton locked 1`] = `
+<div
+  className="tile is-child"
+>
+  <div
+    className="content has-text-centered"
+  >
+    <button
+      className="button is-primary is-outlined is-medium"
+      disabled={true}
       onClick={[Function]}
       style={
         Object {

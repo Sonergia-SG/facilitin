@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Validation from '../Validation';
+import { ValidationComponent as Validation } from '../Validation';
 import { CheckPoint } from '../../../../store/reducer/entities/types';
 
 const defaultCheckPoint: CheckPoint = {
@@ -30,9 +30,9 @@ describe('Litige button', () => {
       <Validation
         file={{ statut: 0, id_dp_file: 0 }}
         folderId={0}
-        inLitige={() => 'Hello'}
+        ending={() => 'Hello'}
         checkPoints={[defaultCheckPoint]}
-        goNext={() => ''}
+        locked={false}
         loading={false}
       />,
     );
@@ -45,12 +45,30 @@ describe('Litige button', () => {
       <Validation
         file={{ statut: 0, id_dp_file: 0 }}
         folderId={0}
-        inLitige={() => 'Hello'}
+        ending={() => 'Hello'}
         checkPoints={[{
           ...defaultCheckPoint,
           pivot: { ...defaultCheckPoint.pivot, valide: 1 },
         }]}
-        goNext={() => ''}
+        locked={false}
+        loading={false}
+      />,
+    );
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('render locked', () => {
+    const wrapper = shallow(
+      <Validation
+        file={{ statut: 0, id_dp_file: 0 }}
+        folderId={0}
+        ending={() => 'Hello'}
+        checkPoints={[{
+          ...defaultCheckPoint,
+          pivot: { ...defaultCheckPoint.pivot, valide: 1 },
+        }]}
+        locked
         loading={false}
       />,
     );
@@ -63,12 +81,12 @@ describe('Litige button', () => {
       <Validation
         file={{ statut: 0, id_dp_file: 0 }}
         folderId={0}
-        inLitige={() => 'Hello'}
+        ending={() => 'Hello'}
         checkPoints={[{
           ...defaultCheckPoint,
           pivot: { ...defaultCheckPoint.pivot, valide: 0 },
         }]}
-        goNext={() => ''}
+        locked={false}
         loading={false}
       />,
     );
@@ -81,13 +99,13 @@ describe('Litige button', () => {
       <Validation
         file={{ statut: 0, id_dp_file: 0 }}
         folderId={0}
-        inLitige={() => 'Hello'}
+        ending={() => 'Hello'}
         checkPoints={[{
           ...defaultCheckPoint,
           id_penalite: 2,
           pivot: { ...defaultCheckPoint.pivot, valide: 0 },
         }]}
-        goNext={() => ''}
+        locked={false}
         loading={false}
       />,
     );

@@ -1,24 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GeneralInfos render correctly with all checkpoints valid 1`] = `
-<div
-  className="tile is-child notification has-text-centered"
+<Card
   style={
     Object {
       "flexGrow": 0,
+      "marginTop": 0,
+      "position": "relative",
     }
   }
 >
-  <p
-    className="Left-GeneralInfos-Title title"
-  >
-    Dossier N°
-  </p>
-  <p
-    className="subtitle"
-  >
-    BAR-TH-113
-  </p>
+  <DarkHeader>
+    <h1
+      className="Left-GeneralInfos-Title"
+    >
+      Dossier N°
+    </h1>
+    <h2>
+      BAR-TH-113
+    </h2>
+  </DarkHeader>
   <Status />
   <div
     className="content"
@@ -87,28 +88,29 @@ exports[`GeneralInfos render correctly with all checkpoints valid 1`] = `
       </p>
     </div>
   </div>
-</div>
+</Card>
 `;
 
 exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
-<div
-  className="tile is-child notification has-text-centered"
+<Card
   style={
     Object {
       "flexGrow": 0,
+      "marginTop": 0,
+      "position": "relative",
     }
   }
 >
-  <p
-    className="Left-GeneralInfos-Title title"
-  >
-    Dossier N°
-  </p>
-  <p
-    className="subtitle"
-  >
-    BAR-TH-113
-  </p>
+  <DarkHeader>
+    <h1
+      className="Left-GeneralInfos-Title"
+    >
+      Dossier N°
+    </h1>
+    <h2>
+      BAR-TH-113
+    </h2>
+  </DarkHeader>
   <Status />
   <div
     className="content"
@@ -128,7 +130,7 @@ exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
         }
       />
       <p>
-        0/5
+        1/5
       </p>
     </div>
     <div
@@ -143,7 +145,7 @@ exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
         }
       />
       <p>
-        1/5
+        0/5
       </p>
     </div>
     <div
@@ -177,28 +179,29 @@ exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
       </p>
     </div>
   </div>
-</div>
+</Card>
 `;
 
 exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
-<div
-  className="tile is-child notification has-text-centered"
+<Card
   style={
     Object {
       "flexGrow": 0,
+      "marginTop": 0,
+      "position": "relative",
     }
   }
 >
-  <p
-    className="Left-GeneralInfos-Title title"
-  >
-    Dossier N°
-  </p>
-  <p
-    className="subtitle"
-  >
-    BAR-TH-113
-  </p>
+  <DarkHeader>
+    <h1
+      className="Left-GeneralInfos-Title"
+    >
+      Dossier N°
+    </h1>
+    <h2>
+      BAR-TH-113
+    </h2>
+  </DarkHeader>
   <Status />
   <div
     className="content"
@@ -218,7 +221,7 @@ exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
         }
       />
       <p>
-        1/5
+        0/5
       </p>
     </div>
     <div
@@ -233,7 +236,7 @@ exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
         }
       />
       <p>
-        0/5
+        1/5
       </p>
     </div>
     <div
@@ -267,28 +270,29 @@ exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
       </p>
     </div>
   </div>
-</div>
+</Card>
 `;
 
 exports[`GeneralInfos render correctly with untraited checkpoints 1`] = `
-<div
-  className="tile is-child notification has-text-centered"
+<Card
   style={
     Object {
       "flexGrow": 0,
+      "marginTop": 0,
+      "position": "relative",
     }
   }
 >
-  <p
-    className="Left-GeneralInfos-Title title"
-  >
-    Dossier N°
-  </p>
-  <p
-    className="subtitle"
-  >
-    BAR-TH-113
-  </p>
+  <DarkHeader>
+    <h1
+      className="Left-GeneralInfos-Title"
+    >
+      Dossier N°
+    </h1>
+    <h2>
+      BAR-TH-113
+    </h2>
+  </DarkHeader>
   <Status />
   <div
     className="content"
@@ -357,5 +361,5 @@ exports[`GeneralInfos render correctly with untraited checkpoints 1`] = `
       </p>
     </div>
   </div>
-</div>
+</Card>
 `;
