@@ -9,6 +9,7 @@ import { API_PATH } from '../../../../variables';
 import {
   FolderEndingResponse,
   FolderUpdateCheckPointResponse,
+  FolderEndingErrorResponse,
 } from './apiTypes';
 import {
   FOLDER_UPDATE_CHECK_POINT_LOADING,
@@ -78,8 +79,6 @@ import {
   CheckPointsFolderUpdateChekpointLoadedAction,
   CheckPointsFolderUpdateCheckpointErrorAction,
   FilesFolcerCheckPointLoaded,
-  OperationStatus,
-  OperationsFolderEndingLoaded,
   FoldersUpdateMoeLoaded,
   FoldersUpdateSiteLoaded,
   FileStatus,
@@ -548,13 +547,11 @@ const folderEndingLoading: FolderEndingLoading = idDpOperation => ({
 
 type FolderEndingLoaded = (
   idDpOperation: number,
-  status: OperationStatus
-) => FolderFolderEndingLoaded & OperationsFolderEndingLoaded;
+) => FolderFolderEndingLoaded;
 
-const folderEndingLoaded: FolderEndingLoaded = (idDpOperation, status) => ({
+const folderEndingLoaded: FolderEndingLoaded = idDpOperation => ({
   type: FOLDER_ENDING_LOADED,
   idDpOperation,
-  status,
 });
 
 type FolderEndingError = (idDpOperation: number) => FolderFolderEndingError;
@@ -567,12 +564,37 @@ const folderEndingError: FolderEndingError = idDpOperation => ({
 type FolderEnding = (idDpOperation: number) => ThunkAction;
 
 export const folderEnding: FolderEnding = idDpOperation => async (dispatch) => {
-  const dispatchError = () => {
-    addMessageToQueue({
-      duration: 3000,
-      message: "Erreur pendant le traitement de validation de l'opération",
-      type: 'error',
-    });
+  const dispatchError = (code?: number | null) => {
+    switch (code) {
+      case 1:
+        addMessageToQueue({
+          duration: 5000,
+          message: "Catégories de documents manquants ,l'instruction ne peut être terminée",
+          type: 'error',
+        });
+        break;
+      case 2:
+        addMessageToQueue({
+          duration: 5000,
+          message: "Fichiers manquants, l'instruction ne peut être terminée",
+          type: 'error',
+        });
+        break;
+      case 3:
+        addMessageToQueue({
+          duration: 5000,
+          message: "L'action est en cours d'instruction et ne peut être terminée",
+          type: 'error',
+        });
+        break;
+      default:
+        addMessageToQueue({
+          duration: 3000,
+          message: "Erreur pendant le traitement de validation de l'opération",
+          type: 'error',
+        });
+        break;
+    }
     dispatch(folderEndingError(idDpOperation));
   };
 
@@ -586,17 +608,26 @@ export const folderEnding: FolderEnding = idDpOperation => async (dispatch) => {
       },
     );
 
-    if (result.status === 200) {
-      const json: FolderEndingResponse = await result.json();
+    switch (result.status) {
+      case 200: {
+        const json: FolderEndingResponse = await result.json();
 
-      if (json.status === 'success') {
-        const [status] = json.statut_action;
-        dispatch(folderEndingLoaded(idDpOperation, status));
-      } else {
-        dispatchError();
+        if (json.status === 'success') {
+          dispatch(folderEndingLoaded(idDpOperation));
+          dispatch(fetchFolder(idDpOperation));
+        } else {
+          dispatchError();
+        }
       }
-    } else {
-      dispatchError();
+        break;
+      case 400: {
+        const json: FolderEndingErrorResponse = await result.json();
+        dispatchError(idx(json, _ => _.error.code));
+        break;
+      }
+      default:
+        dispatchError();
+        break;
     }
   } catch (error) {
     captureException(error);

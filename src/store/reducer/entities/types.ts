@@ -393,19 +393,12 @@ export interface OperationsListLoadedAction {
   normalized: Normalized;
 }
 
-export interface OperationsFolderEndingLoaded {
-  type: typeof FOLDER_ENDING_LOADED;
-  status: OperationStatus;
-  idDpOperation: number;
-}
-
 export interface OperationsLogoutAction {
   type: typeof LOGOUT;
 }
 
 export type OperationsActions = | OperationsFolderLoadedAction
 | OperationsListLoadedAction
-| OperationsFolderEndingLoaded
 | OperationsLogoutAction;
 
 export interface UsersCommentsListLoadedAction {
