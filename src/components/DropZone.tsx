@@ -27,24 +27,10 @@ interface State {
   file: File | undefined;
 }
 
-class DropZone extends Component<Props, State> {
-  state: Readonly<State> = {
-    file: undefined,
-  };
-
+export class DropZoneComponent extends Component<Props, State> {
   reader = new FileReader();
 
   input: HTMLInputElement | undefined = undefined;
-
-  /* componentDidMount() {
-    if (this.input && this.reader) {
-      this.reader.addEventListener('load', () => {
-        console.log(this.reader.result);
-      });
-
-      this.reader.readAsDataURL(this.input);
-    }
-  } */
 
   onDrop = (acceptedFiles: Array<File>) => {
     const file = acceptedFiles[0];
@@ -56,10 +42,6 @@ class DropZone extends Component<Props, State> {
 
       const handleLoad = () => {
         if (typeof reader.result === 'string') {
-          this.setState({
-            file,
-          });
-
           upload(idDpOperation, originalFile.id_file, file, reader.result);
         }
 
@@ -74,7 +56,6 @@ class DropZone extends Component<Props, State> {
 
   render() {
     const maxSize = 5242880;
-    const { file } = this.state;
     const { loading, file: dpFile } = this.props;
 
     const disabled = !(dpFile.statut === -1 || dpFile.statut === 0 || dpFile.statut === 5);
@@ -150,4 +131,4 @@ export default connect(
     };
   },
   { upload: uploadFile },
-)(DropZone);
+)(DropZoneComponent);
