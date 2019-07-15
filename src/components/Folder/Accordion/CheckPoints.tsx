@@ -39,7 +39,7 @@ export const CheckPointsComponent = ({
     );
   }
 
-  const loading = pending ? !!pending.loading : true;
+  const loading = pending ? !!pending.loading : false;
 
   return (
     <div className="CheckPoints-CheckPoint-Container">
