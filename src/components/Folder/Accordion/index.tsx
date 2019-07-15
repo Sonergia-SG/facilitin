@@ -5,12 +5,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { connect, HandleThunkActionCreator } from 'react-redux';
 import idx from 'idx';
 
-import DropZone from '../../DropZone';
+import UploadButton from './UploadButton';
 import CheckPoints from './CheckPoints';
 import DownloadFile from './DownloadFile';
 import Validation from './Validation';
 import ToggleViewer from './ToggleViewer';
 import Preview from './Preview';
+import DropZone from './DropZone';
 
 import { folderEnding, folderFileEnding } from '../../../store/actions/views/folder';
 
@@ -101,51 +102,53 @@ const Accordion = ({
           </div>
         </div>
         <div className="accordion-body">
-          {file.id_file ? (
-            <div className="Accordion-Box">
-              <div className="Accordion-File-Header">
-                <ToggleViewer toggle={toggleAndCroll} viewerOpened={previewOppened} />
-                <DownloadFile file={file} />
-                <DropZone file={file} idDpOperation={folderId} />
-                <h3 className="Accordion-File-name">{file.filename}</h3>
-              </div>
-              <div className="Accordion-Content">
-                {previewOppened && (
-                  <div className="Accordion-Document-Viewer">
-                    <Preview file={file} />
+          <DropZone file={file} idDpOperation={folderId}>
+            {file.id_file ? (
+              <div className="Accordion-Box">
+                <div className="Accordion-File-Header">
+                  <ToggleViewer toggle={toggleAndCroll} viewerOpened={previewOppened} />
+                  <DownloadFile file={file} />
+                  <UploadButton file={file} idDpOperation={folderId} />
+                  <h3 className="Accordion-File-name">{file.filename}</h3>
+                </div>
+                <div className="Accordion-Content">
+                  {previewOppened && (
+                    <div className="Accordion-Document-Viewer">
+                      <Preview file={file} />
+                    </div>
+                  )}
+                  <div className="Accordion-CheckPoints">
+                    <CheckPoints
+                      pending={pending}
+                      folderId={folderId}
+                      checkPoints={checkPoints}
+                      fileId={file.id_dp_file}
+                      lockedByStatus={lockedByStatus}
+                      locked={locked}
+                    />
                   </div>
-                )}
-                <div className="Accordion-CheckPoints">
-                  <CheckPoints
-                    pending={pending}
-                    folderId={folderId}
-                    checkPoints={checkPoints}
-                    fileId={file.id_dp_file}
-                    lockedByStatus={lockedByStatus}
-                    locked={locked}
-                  />
+                </div>
+                <div className="Accordion-Button-Position">
+                  {!lockedByStatus && (
+                    <Validation
+                      file={file}
+                      loading={litigeLoading}
+                      folderId={folderId}
+                      checkPoints={checkPoints}
+                      locked={locked}
+                    />
+                  )}
                 </div>
               </div>
-              <div className="Accordion-Button-Position">
-                {!lockedByStatus && (
-                  <Validation
-                    file={file}
-                    loading={litigeLoading}
-                    folderId={folderId}
-                    checkPoints={checkPoints}
-                    locked={locked}
-                  />
-                )}
-              </div>
-            </div>
-          ) : (
-            <MissingFile
-              file={file}
-              loading={false}
-              folderId={folderId}
-              fileEnding={fileEnding}
-            />
-          )}
+            ) : (
+              <MissingFile
+                file={file}
+                loading={false}
+                folderId={folderId}
+                fileEnding={fileEnding}
+              />
+            )}
+          </DropZone>
         </div>
       </article>
       <div className={`modal ${isSelected && displayModal ? ' is-active' : ''}`}>

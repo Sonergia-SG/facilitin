@@ -4,7 +4,7 @@ import { HandleThunkActionCreator } from 'react-redux';
 import { folderFileEnding } from '../../../../store/actions/views/folder';
 
 import { SimpleFile } from '../../../../store/reducer/entities/types';
-import DropZone from '../../../DropZone';
+import UploadButton from '../UploadButton';
 
 import './MissingFile.css';
 
@@ -24,7 +24,7 @@ const MissingFile = ({
   <div className="MissingFile-container">
     <div style={{ width: 190 }} className="notification has-text-centered tilebordered">
       <div className="content">
-        <DropZone file={file} idDpOperation={folderId} />
+        <UploadButton file={file} idDpOperation={folderId} />
       </div>
     </div>
     <div className="MissingFile-infos">
