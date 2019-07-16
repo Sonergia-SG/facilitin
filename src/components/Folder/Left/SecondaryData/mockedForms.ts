@@ -20,6 +20,18 @@ const formsData: Forms = {
       key: 'moa_fonction',
       type: 'text',
     },
+    {
+      label: 'Nom MOA',
+      type: 'section',
+      fields: [
+        {
+          label: 'Nom MOA',
+          value: 'ESCHALIER',
+          key: 'moa_nom',
+          type: 'text',
+        },
+      ],
+    },
   ],
   moe: [
     {
@@ -39,6 +51,78 @@ const formsData: Forms = {
       value: '063214',
       key: 'moe_tel',
       type: 'text',
+    },
+    {
+      label: 'Commentaire',
+      value: '',
+      key: 'moe_commentaire',
+      type: 'text',
+    },
+    {
+      label: 'BIC',
+      value: '',
+      key: 'moe_bic',
+      type: 'text',
+    },
+    {
+      label: 'Iban',
+      value: '',
+      key: 'moe_iban',
+      type: 'text',
+    },
+    {
+      label: 'Addresse',
+      type: 'section',
+      fields: [
+        {
+          label: 'Rue',
+          value: '1100 RUE GUSTAVE EIFFEL',
+          key: 'moe_rue',
+          type: 'text',
+        },
+        {
+          label: 'Code Postal',
+          value: '73200',
+          key: 'moe_cp',
+          type: 'text',
+        },
+        {
+          label: 'ville',
+          value: 'GILLY SUR ISERE',
+          key: 'moe_ville',
+          type: 'text',
+        },
+      ],
+    },
+    {
+      label: 'Contact',
+      type: 'section',
+      fields: [
+        {
+          label: 'Contact',
+          value: 'Sylvain PUITS',
+          key: 'moe_contact',
+          type: 'text',
+        },
+        {
+          label: 'Contact prenom',
+          value: '',
+          key: 'moe_contact_prenom',
+          type: 'text',
+        },
+        {
+          label: 'Contact mobile',
+          value: '',
+          key: 'moe_contact_mobile',
+          type: 'text',
+        },
+        {
+          label: 'Contact fonction',
+          value: '',
+          key: 'moe_contact_fonction',
+          type: 'text',
+        },
+      ],
     },
   ],
   site: [

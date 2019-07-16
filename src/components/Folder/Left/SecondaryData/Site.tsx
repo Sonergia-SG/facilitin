@@ -11,8 +11,8 @@ import { FolderFull } from '../../../../store/reducer/entities/types';
 import { FolderPendingItem } from '../../../../store/reducer/views/folder/types';
 import { AppState } from '../../../../store';
 
-import Input from './Input';
 import { GenericForms } from './types';
+import Form from './Form';
 
 interface ConnectProps {
   idDpOperation: number;
@@ -49,25 +49,19 @@ const Site = ({
   const loading = !!pending && !!pending.siteLoading;
   const edited = !!pending && !!pending.site;
 
-  const disabledInput = !edit || loading || locked;
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      {def.map(d => (
-        <Input
-          key={d.key}
-          label={`${d.label} :`}
-          valueKey={d.key}
-          value={d.value}
-          type={d.type}
-          idDpOperation={idDpOperation}
-          disabled={disabledInput}
-          dossierprime={dossierprime}
-          pending={pending}
-          pendingKey="site"
-          update={updateSite}
-        />
-      ))}
+      <Form
+        def={def}
+        idDpOperation={idDpOperation}
+        formKey="site"
+        dossierprime={dossierprime}
+        pending={pending}
+        edit={edit}
+        locked={locked}
+        loading={loading}
+        updater={updateSite}
+      />
       <div
         style={{
           display: 'flex',

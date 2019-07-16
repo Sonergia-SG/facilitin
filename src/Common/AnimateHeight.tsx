@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+  useState, useEffect, useRef, ReactNode,
+} from 'react';
 
 interface Props {
-  children: JSX.Element;
+  children: ReactNode;
 }
 
 const AnimatedHeight = ({ children }: Props) => {

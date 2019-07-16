@@ -11,7 +11,7 @@ import { FolderFull } from '../../../../store/reducer/entities/types';
 import { FolderPendingItem } from '../../../../store/reducer/views/folder/types';
 import { AppState } from '../../../../store';
 
-import Input from './Input';
+import Form from './Form';
 
 import { GenericForms } from './types';
 
@@ -50,25 +50,19 @@ const MOA = ({
   const loading = !!pending && !!pending.moaLoading;
   const edited = !!pending && !!pending.moa;
 
-  const disabledInput = !edit || loading || locked;
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      {def.map(d => (
-        <Input
-          key={d.key}
-          label={`${d.label} :`}
-          valueKey={d.key}
-          value={d.value}
-          type={d.type}
-          idDpOperation={idDpOperation}
-          disabled={disabledInput}
-          dossierprime={dossierprime}
-          pending={pending}
-          pendingKey="moa"
-          update={updateMoa}
-        />
-      ))}
+      <Form
+        def={def}
+        idDpOperation={idDpOperation}
+        formKey="moa"
+        dossierprime={dossierprime}
+        pending={pending}
+        edit={edit}
+        locked={locked}
+        loading={loading}
+        updater={updateMoa}
+      />
       <div
         style={{
           display: 'flex',
