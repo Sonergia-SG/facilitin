@@ -40,7 +40,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:dev": "sh -ac 'REACT_APP_API_PATH=https://api-public-dev.sonergia.fr/ && yarn start'",
+    "build:dev": "sh -ac 'REACT_APP_API_PATH=https://api-public-dev.sonergia.fr/ && yarn build'",
+    "build:test": "sh -ac 'REACT_APP_API_PATH=https://api-public-test.sonergia.fr/ && yarn build'",
+    "build:prod": "sh -ac 'REACT_APP_API_PATH=https://api-public.sonergia.fr/ && yarn build'",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,ts,tsx}"
