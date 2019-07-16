@@ -30,6 +30,26 @@ const formsData: Forms = {
           key: 'moa_nom',
           type: 'text',
         },
+        {
+          label: 'Genre',
+          value: null,
+          values: [
+            {
+              key: 'male',
+              label: 'Masculin',
+            },
+            {
+              key: 'female',
+              label: 'Féminin',
+            },
+            {
+              key: 'other',
+              label: 'Autre',
+            },
+          ],
+          key: 'moa_civilite',
+          type: 'list',
+        },
       ],
     },
   ],

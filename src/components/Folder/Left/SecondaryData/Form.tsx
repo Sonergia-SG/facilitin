@@ -11,6 +11,7 @@ import {
   folderUpdateMoeValue,
   folderUpdateSiteValue,
 } from '../../../../store/actions';
+import Select from './Select';
 
 interface Props {
   def: GenericForms;
@@ -29,46 +30,65 @@ const Form = ({
 }: Props) => (
   <>
     {def.map((d) => {
-      if (d.type === 'section') {
-        return (
-          <Section key={`${formKey}_section_${d.label}`} title={d.label} style={{ maxWidth: 250 }}>
-            <Form
-              def={d.fields}
-              dossierprime={dossierprime}
-              edit={edit}
-              formKey={formKey}
+      switch (d.type) {
+        case 'section':
+          return (
+            <Section key={`${formKey}_section_${d.label}`} title={d.label} style={{ maxWidth: 250 }}>
+              <Form
+                def={d.fields}
+                dossierprime={dossierprime}
+                edit={edit}
+                formKey={formKey}
+                idDpOperation={idDpOperation}
+                loading={loading}
+                locked={locked}
+                pending={pending}
+                updater={updater}
+              />
+            </Section>
+          );
+        case 'date':
+        case 'text': {
+          const disabledInput = !edit || loading || locked;
+
+          return (
+            <Input
+              key={d.key}
+              label={`${d.label} :`}
+              valueKey={d.key}
+              value={d.value}
+              type={d.type}
               idDpOperation={idDpOperation}
-              loading={loading}
-              locked={locked}
+              disabled={disabledInput}
+              dossierprime={dossierprime}
               pending={pending}
-              updater={updater}
+              pendingKey={formKey}
+              update={updater}
             />
-          </Section>
-        );
+          );
+        }
+        case 'list': {
+          const disabledInput = !edit || loading || locked;
+
+          return (
+            <Select
+              key={d.key}
+              label={`${d.label} :`}
+              valueKey={d.key}
+              value={d.value}
+              values={d.values}
+              idDpOperation={idDpOperation}
+              disabled={disabledInput}
+              dossierprime={dossierprime}
+              pending={pending}
+              pendingKey={formKey}
+              update={updater}
+            />
+          );
+        }
+        default:
+          return <div />;
       }
-
-      const disabledInput = !edit || loading || locked;
-
-
-      if (d.type === 'text' || d.type === 'date') {
-        return (
-          <Input
-            key={d.key}
-            label={`${d.label} :`}
-            valueKey={d.key}
-            value={d.value}
-            type={d.type}
-            idDpOperation={idDpOperation}
-            disabled={disabledInput}
-            dossierprime={dossierprime}
-            pending={pending}
-            pendingKey={formKey}
-            update={updater}
-          />
-        );
-      }
-
-      return <div />;
     })}
   </>
 );
