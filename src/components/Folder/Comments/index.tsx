@@ -26,6 +26,7 @@ interface Props {
   loadComments: any;
   postComment: any;
   updateNewCommentMessage: typeof updateNewCommentMessage;
+  toggleComments: () => void;
   commentState?: CommentsByFolders;
   entities: Entities;
 }
@@ -38,7 +39,7 @@ class Comments extends Component<Props> {
 
   render() {
     const {
-      commentsOpened, commentState, entities, action,
+      commentsOpened, commentState, entities, action, toggleComments,
     } = this.props;
 
     const loading = commentState ? commentState.pending.loading : true;
@@ -74,6 +75,15 @@ class Comments extends Component<Props> {
             message={commentState.pending.newMessage}
             loading={commentState.pending.postLoading}
           />
+          <div
+            className="Comments-closebutton"
+            onClick={toggleComments}
+            onKeyPress={toggleComments}
+            role="button"
+            tabIndex={0}
+          >
+            <i className="fa fa-times fa-lg" />
+          </div>
         </div>
       </div>
     );
