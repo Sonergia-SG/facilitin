@@ -39,10 +39,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "yarn && eact-scripts build",
-    "build:dev": "sh -ac 'REACT_APP_API_PATH=https://api-public-dev.sonergia.fr/ && yarn build'",
-    "build:test": "sh -ac 'REACT_APP_API_PATH=https://api-public-test.sonergia.fr/ && yarn build'",
-    "build:prod": "sh -ac 'REACT_APP_API_PATH=https://api-public.sonergia.fr/ && yarn build'",
+    "build": "yarn && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,ts,tsx}"
@@ -59,6 +56,7 @@
     "@typescript-eslint/eslint-plugin": "^1.10.2",
     "@typescript-eslint/parser": "^1.10.2",
     "babel-eslint": "^9.0.0",
+    "cross-env": "^5.2.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "enzyme-to-json": "^3.3.5",
