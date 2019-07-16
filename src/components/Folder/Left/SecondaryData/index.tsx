@@ -96,47 +96,49 @@ const SecondaryData = ({ data, locked }: Props) => {
           {'Travaux'}
         </div>
       </div>
-      <div>
-        {moaSelected && (
-          <div style={{ padding: '12px 8px 5px' }}>
-            <MOA
-              edit={edit}
-              dossierprime={data.dossierprime}
-              idDpOperation={data.id_dp_operation}
-              idDossierPrime={data.id_dossierprime}
-              cancel={cancel}
-              locked={locked}
-              def={forms.moa}
-            />
-          </div>
-        )}
-        {moeSelected && (
-          <div style={{ padding: '12px 8px 5px' }}>
-            <MOE
-              edit={edit}
-              dossierprime={data.dossierprime}
-              idDpOperation={data.id_dp_operation}
-              idDossierPrime={data.id_dossierprime}
-              cancel={cancel}
-              locked={locked}
-              def={forms.moe}
-            />
-          </div>
-        )}
-        {siteSelected && (
-          <div style={{ padding: '12px 8px 5px' }}>
-            <Site
-              edit={edit}
-              dossierprime={data.dossierprime}
-              idDpOperation={data.id_dp_operation}
-              idDossierPrime={data.id_dossierprime}
-              cancel={cancel}
-              locked={locked}
-              def={forms.site}
-            />
-          </div>
-        )}
-      </div>
+      <AnimatedHeight>
+        <div>
+          {moaSelected && (
+            <div style={{ padding: '12px 8px 5px' }}>
+              <MOA
+                edit={edit}
+                dossierprime={data.dossierprime}
+                idDpOperation={data.id_dp_operation}
+                idDossierPrime={data.id_dossierprime}
+                cancel={cancel}
+                locked={locked}
+                def={forms.moa}
+              />
+            </div>
+          )}
+          {moeSelected && (
+            <div style={{ padding: '12px 8px 5px' }}>
+              <MOE
+                edit={edit}
+                dossierprime={data.dossierprime}
+                idDpOperation={data.id_dp_operation}
+                idDossierPrime={data.id_dossierprime}
+                cancel={cancel}
+                locked={locked}
+                def={forms.moe}
+              />
+            </div>
+          )}
+          {siteSelected && (
+            <div style={{ padding: '12px 8px 5px' }}>
+              <Site
+                edit={edit}
+                dossierprime={data.dossierprime}
+                idDpOperation={data.id_dp_operation}
+                idDossierPrime={data.id_dossierprime}
+                cancel={cancel}
+                locked={locked}
+                def={forms.site}
+              />
+            </div>
+          )}
+        </div>
+      </AnimatedHeight>
     </Card>
   );
 };

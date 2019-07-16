@@ -1,6 +1,9 @@
 import React, { ReactNode, useState } from 'react';
+import { useTransition, animated } from 'react-spring';
 
 import './Section.css';
+
+import AnimateHeight from '../AnimateHeight';
 
 interface Props {
   children: ReactNode;
@@ -10,6 +13,12 @@ interface Props {
 
 const Section = ({ children, title, style }: Props) => {
   const [opened, setOpened] = useState(false);
+
+  const transitions = useTransition(opened, null, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  });
 
   return (
     <div className="Section-container">
@@ -28,7 +37,18 @@ const Section = ({ children, title, style }: Props) => {
           <i className="fas fa-chevron-down" />
         </div>
       </div>
-      {opened && <div style={{ marginLeft: 15, ...style }}>{children}</div>}
+      {transitions.map(({ item, key, props }) => (
+        item && (
+          <animated.div
+            key={key}
+            style={{ marginLeft: 15, ...props, ...style }}
+          >
+            <AnimateHeight>
+              {children}
+            </AnimateHeight>
+          </animated.div>
+        )
+      ))}
     </div>
   );
 };
