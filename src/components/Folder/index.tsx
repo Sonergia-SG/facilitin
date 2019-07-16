@@ -89,7 +89,13 @@ class Folder extends Component<Props, State> {
               locked={locked}
             />
           </div>
-          {action && <Comments action={action} commentsOpened={commentsOpened} />}
+          {action && (
+            <Comments
+              action={action}
+              commentsOpened={commentsOpened}
+              toggleComments={this.toggleComments}
+            />
+          )}
         </div>
       </Container>
     );
