@@ -215,7 +215,7 @@ export interface CheckPoint {
 }
 
 export interface CheckPoints {
-  [index: number]: CheckPoint;
+  [index: string]: CheckPoint;
 }
 
 export interface OperationStatus {

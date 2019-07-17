@@ -1,4 +1,5 @@
 import { schema } from 'normalizr';
+import { CheckPoint } from '../types';
 
 export const checkPointCategory = new schema.Entity(
   'checkPointCategories',
@@ -11,7 +12,7 @@ export const checkPoint = new schema.Entity(
   {
     pointcontrolcategories: checkPointCategory,
   },
-  { idAttribute: 'id_point_controle' },
+  { idAttribute: (value: CheckPoint) => `${value.id_point_controle}_${value.pivot.id_dp_file}` },
 );
 
 export const file = new schema.Entity('files', {}, { idAttribute: 'id_dp_file' });
