@@ -15,8 +15,8 @@ const StatusCell = ({ original }: Props) => {
   const cleanCheckPoints = original.point_controles.filter(c => c.pivot.id_dp_file !== null);
 
   const totalCheckPoints = cleanCheckPoints.length;
-  const validCheckPoints = cleanCheckPoints.filter(c => c.pivot.valide).length;
-  const invalidCheckPoints = cleanCheckPoints.filter(c => c.automatique && !c.pivot.valide).length;
+  const validCheckPoints = cleanCheckPoints.filter(c => c.pivot.valide === 1).length;
+  const invalidCheckPoints = cleanCheckPoints.filter(c => c.pivot.valide === 0).length;
 
   return (
     <div style={{ display: 'flex' }}>
