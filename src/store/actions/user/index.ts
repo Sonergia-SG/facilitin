@@ -43,8 +43,8 @@ export const userInfosError = (): UserInfosError => ({
 
 export const getUserInfos = (): ThunkAction => async (dispatch) => {
   const dispatchError = () => {
-    dispatch(userInfosError());
     dispatch(logout());
+    dispatch(userInfosError());
     Sentry.configureScope((scope) => {
       scope.setUser(null);
     });

@@ -267,7 +267,7 @@ export const updateFolderCheckPoint = ({
   idDpFile: number;
   newValue: 0 | 1;
 }): ThunkAction => async (dispatch, getState) => {
-  const checkPoint = getState().entities.checkPoints[checkPointId];
+  const checkPoint = getState().entities.checkPoints[`${checkPointId}_${idDpFile}`];
   const filename = idx(getState(), _ => _.entities.files[idDpFile].filename) || '';
   const prevValue = checkPoint ? checkPoint.pivot.valide : 0;
 
