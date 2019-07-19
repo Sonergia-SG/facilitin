@@ -50,7 +50,13 @@ const Radio = ({
     <div
       role="button"
       tabIndex={0}
-      style={{ outline: 'none', position: 'relative', cursor: disabled ? 'auto' : 'pointer' }}
+      style={{
+        width: 20,
+        height: 10,
+        outline: 'none',
+        position: 'relative',
+        cursor: disabled ? 'auto' : 'pointer',
+      }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >

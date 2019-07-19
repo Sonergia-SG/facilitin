@@ -8,8 +8,6 @@ import { updateFolderCheckPoint } from '../../../store/actions/views/folder';
 import './CheckPoints.css';
 import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 
-import Picto from './Picto';
-
 import Radio from '../../../Common/UIKIT/Form/Radio';
 import isRejected from '../Left/helpers/checkPointRejected';
 
@@ -49,7 +47,6 @@ export const CheckPointsComponent = ({
       <table className="CheckPoints-Table">
         <thead>
           <tr>
-            <th />
             <th>Oui</th>
             <th>Non</th>
             <th />
@@ -66,9 +63,6 @@ export const CheckPointsComponent = ({
 
             return (
               <tr key={value.id_point_controle}>
-                <td className="CheckPoints-Table-Center">
-                  <Picto checkPoint={value} />
-                </td>
                 <td className="CheckPoints-Table-Center">
                   <Radio
                     id={`${value.is_controle_file}_yes`}
