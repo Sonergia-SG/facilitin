@@ -10,6 +10,8 @@ import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 
 import Picto from './Picto';
 
+import Radio from '../../../Common/UIKIT/Form/Radio';
+
 interface Props {
   checkPoints: Array<CheckPoint> | undefined;
   fileId: number;
@@ -67,8 +69,7 @@ export const CheckPointsComponent = ({
                   <Picto checkPoint={value} />
                 </td>
                 <td className="CheckPoints-Table-Center">
-                  <input
-                    type="radio"
+                  <Radio
                     id={`${value.is_controle_file}_yes`}
                     name={`${value.id_point_controle}`}
                     checked={value.pivot.valide === 1}
@@ -85,8 +86,7 @@ export const CheckPointsComponent = ({
                   />
                 </td>
                 <td className="CheckPoints-Table-Center">
-                  <input
-                    type="radio"
+                  <Radio
                     id={`${value.is_controle_file}_no`}
                     name={`${value.id_point_controle}`}
                     checked={value.pivot.valide === 0}
