@@ -29,7 +29,18 @@ export interface FormFieldText {
   type: 'text';
 }
 
-export type FormFieldDef = FormFieldDate | FormFieldText | FormFieldList;
+export interface FormFieldNumber {
+  label: string;
+  value: string | null;
+  key: keyof FolderMOAString | keyof FolderMOEString | keyof FolderSiteString;
+  type: 'number';
+}
+
+export type FormFieldDef =
+  | FormFieldDate
+  | FormFieldText
+  | FormFieldNumber
+  | FormFieldList;
 
 export interface FormSectionDef {
   label: string;

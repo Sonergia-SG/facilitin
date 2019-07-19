@@ -22,18 +22,33 @@ interface Props {
   edit: boolean;
   locked: boolean;
   loading: boolean;
-  updater: typeof folderUpdateMoaValue | typeof folderUpdateMoeValue | typeof folderUpdateSiteValue;
+  updater:
+  | typeof folderUpdateMoaValue
+  | typeof folderUpdateMoeValue
+  | typeof folderUpdateSiteValue;
 }
 
 const Form = ({
-  def, idDpOperation, dossierprime, pending, updater, formKey, edit, locked, loading,
+  def,
+  idDpOperation,
+  dossierprime,
+  pending,
+  updater,
+  formKey,
+  edit,
+  locked,
+  loading,
 }: Props) => (
   <>
     {def.map((d) => {
       switch (d.type) {
         case 'section':
           return (
-            <Section key={`${formKey}_section_${d.label}`} title={d.label} style={{ maxWidth: 250 }}>
+            <Section
+              key={`${formKey}_section_${d.label}`}
+              title={d.label}
+              style={{ maxWidth: 250 }}
+            >
               <Form
                 def={d.fields}
                 dossierprime={dossierprime}
@@ -48,6 +63,7 @@ const Form = ({
             </Section>
           );
         case 'date':
+        case 'number':
         case 'text': {
           const disabledInput = !edit || loading || locked;
 
