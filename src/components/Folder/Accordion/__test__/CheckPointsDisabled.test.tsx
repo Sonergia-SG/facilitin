@@ -1,7 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+
 import { CheckPointsComponent as CheckPoints } from '../CheckPoints';
 import { CheckPoint } from '../../../../store/reducer/entities/types';
+
+import Radio from '../../../../Common/UIKIT/Form/Radio';
 
 const checkPoints: Array<CheckPoint> = [
   {
@@ -39,7 +42,7 @@ describe('CheckPoints disabled rules', () => {
       />,
     );
 
-    const radios = wrapper.find('[type="radio"]');
+    const radios = wrapper.find(Radio);
 
     expect(radios).toHaveLength(2);
     expect(radios.get(0).props.disabled).toBe(true);
@@ -59,7 +62,7 @@ describe('CheckPoints disabled rules', () => {
       />,
     );
 
-    const radios = wrapper.find('[type="radio"]');
+    const radios = wrapper.find(Radio);
 
     expect(radios).toHaveLength(2);
     expect(radios.get(0).props.disabled).toBe(true);
@@ -79,7 +82,7 @@ describe('CheckPoints disabled rules', () => {
       />,
     );
 
-    const radios = wrapper.find('[type="radio"]');
+    const radios = wrapper.find(Radio);
 
     expect(radios).toHaveLength(2);
     expect(radios.get(0).props.disabled).toBe(true);
@@ -99,7 +102,7 @@ describe('CheckPoints disabled rules', () => {
       />,
     );
 
-    const radios = wrapper.find('[type="radio"]');
+    const radios = wrapper.find(Radio);
 
     expect(radios).toHaveLength(2);
     expect(radios.get(0).props.disabled).toBe(true);
@@ -119,7 +122,7 @@ describe('CheckPoints disabled rules', () => {
       />,
     );
 
-    const radios = wrapper.find('[type="radio"]');
+    const radios = wrapper.find(Radio);
 
     expect(radios).toHaveLength(2);
     expect(radios.get(0).props.disabled).toBe(true);
@@ -139,7 +142,7 @@ describe('CheckPoints disabled rules', () => {
       />,
     );
 
-    const radios = wrapper.find('[type="radio"]');
+    const radios = wrapper.find(Radio);
 
     expect(radios).toHaveLength(2);
     expect(radios.get(0).props.disabled).toBe(false);
@@ -159,7 +162,7 @@ describe('CheckPoints disabled rules', () => {
       />,
     );
 
-    const radios = wrapper.find('[type="radio"]');
+    const radios = wrapper.find(Radio);
 
     expect(radios).toHaveLength(2);
     expect(radios.get(0).props.disabled).toBe(false);
