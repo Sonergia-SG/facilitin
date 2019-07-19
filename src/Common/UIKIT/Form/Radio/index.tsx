@@ -6,19 +6,21 @@ interface Props {
   checked: boolean;
   disabled?: boolean;
   value: string;
+  customColor?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 type ComputeStrokeColor = (
   disabled: boolean | undefined,
   checked: boolean,
-  hover: boolean
+  hover: boolean,
+  color: string
 ) => string;
 
-const computeStrokeColor: ComputeStrokeColor = (disabled, checked, hover) => {
-  if (disabled) return checked ? '#57c8f1' : 'grey';
+const computeStrokeColor: ComputeStrokeColor = (disabled, checked, hover, color) => {
+  if (disabled) return checked ? color : 'grey';
 
-  return checked || hover ? '#57c8f1' : 'grey';
+  return checked || hover ? color : 'grey';
 };
 
 type ComputeOpacity = (
@@ -34,12 +36,13 @@ const computeOpacity: ComputeOpacity = (disabled, hover, trigerChange) => {
 };
 
 const Radio = ({
-  checked, disabled, onChange, value, id, name,
+  checked, disabled, onChange, value, id, name, customColor,
 }: Props) => {
   const [hover, setHover] = useState(false);
 
-  const fillColor = checked ? '#57c8f1' : 'grey';
-  const strokeColor = computeStrokeColor(disabled, checked, hover);
+  const color = customColor || '#1fb5ad';
+  const fillColor = checked ? color : 'grey';
+  const strokeColor = computeStrokeColor(disabled, checked, hover, color);
 
   const trigerChange = !checked && !disabled;
 
@@ -67,7 +70,10 @@ const Radio = ({
       </svg>
       <input
         style={{
-          width: 20, height: 20, position: 'absolute', opacity: 0,
+          width: 20,
+          height: 20,
+          position: 'absolute',
+          opacity: 0,
         }}
         type="radio"
         id={id}

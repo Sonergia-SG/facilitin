@@ -11,6 +11,7 @@ import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 import Picto from './Picto';
 
 import Radio from '../../../Common/UIKIT/Form/Radio';
+import isRejected from '../Left/helpers/checkPointRejected';
 
 interface Props {
   checkPoints: Array<CheckPoint> | undefined;
@@ -92,6 +93,7 @@ export const CheckPointsComponent = ({
                     checked={value.pivot.valide === 0}
                     value="no"
                     disabled={disabled}
+                    customColor={isRejected(value) ? '#F61616' : '#FBD44A'}
                     onChange={() => {
                       updateCheckPoint({
                         folderId,
