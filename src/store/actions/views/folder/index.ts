@@ -606,7 +606,7 @@ export const uploadFile: UploadFile = (idDpOpearation, idFile, file, base64) => 
         body: JSON.stringify({
           mimetype: file.type,
           filename: file.name,
-          binaycontent: base64,
+          binarycontent: base64,
         }),
       });
 
