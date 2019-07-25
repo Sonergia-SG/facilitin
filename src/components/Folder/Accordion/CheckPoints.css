@@ -4,12 +4,15 @@
 
 .CheckPoints-Table th {
   padding: 0 5px;
-  font-size: 14px;
+  font-size: 12px;
 }
+
 .CheckPoints-Table .CheckPoints-Table-Center {
   text-align: center;
 }
 
 .CheckPoints-CheckPoint-Label {
-  margin-left: 9px;
+  margin-left: 5px;
+  font-size: 11px;
+  line-height: 0%;
 }

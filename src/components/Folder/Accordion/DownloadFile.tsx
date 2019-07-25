@@ -63,13 +63,27 @@ class DownloadFile extends Component<Props> {
   };
 
   render() {
+    // @ts-ignore
+    if (this.props.file.id_file > 0) {
+      return (
+        <div style={{ width: 20, margin: '0 3px' }}>
+          <div
+            onClick={this.downloadFile}
+            onKeyPress={this.downloadFile}
+            style={{ cursor: 'pointer' }}
+            role="button"
+            tabIndex={0}
+          >
+            <i style={{ fontSize: 24 }} className="fas fa-file-download" />
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div style={{ width: 20, margin: '0 3px' }}>
+    // @ts-ignore
+      <div style={{ width: 20, margin: '0 3px', opacity: '0.6' }}>
         <div
-          onClick={this.downloadFile}
-          onKeyPress={this.downloadFile}
-          style={{ cursor: 'pointer' }}
-          role="button"
           tabIndex={0}
         >
           <i style={{ fontSize: 24 }} className="fas fa-file-download" />

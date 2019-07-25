@@ -3,6 +3,7 @@ import { File } from '../../../store/reducer/entities/types';
 const findDisplayType = (file: File) => {
   if (file.is_devis) return 'Devis';
   if (file.is_aat) return 'AAT';
+  if (file.is_ah) return 'AH';
   if (file.is_facture) return 'Facture';
   if (file.is_lettre_engagement) return "Lettre d'engagement";
   if (file.is_justif_preca) return 'Justificatif de précarité';

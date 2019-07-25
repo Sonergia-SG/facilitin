@@ -705,9 +705,10 @@ export const uploadFile: UploadFile = (
     const result = await rest(`${API_PATH}files/${idFile}`, {
       method: 'put',
       body: JSON.stringify({
+        idDpOperation: idDpOpearation,
         mimetype: file.type,
         filename: file.name,
-        binaycontent: base64,
+        binarycontent: base64,
       }),
     });
 
