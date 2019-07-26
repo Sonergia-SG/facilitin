@@ -13,19 +13,24 @@ interface Props {
   file: SimpleFile;
 }
 
+
+
+
 class DeleteFile extends Component<Props> {
   delete = async () => {
     try {
-      const result = await rest(`${API_PATH}files/${this.props.file.id_file}`, {method: 'DELETE'});
 
-      if (result.status === 200) {
-        window.location.reload();
-      } else {
-        addMessageToQueue({
-          duration: 4000,
-          type: 'error',
-          message: 'Erreur pendant la suppression du fichier',
-        });
+      if(confirm('Êtes-vous sûr de vouloir supprimer ?')){
+        const result = await rest(`${API_PATH}files/${this.props.file.id_file}`, {method: 'DELETE'});
+        if ( result.status === 200) {
+          window.location.reload();
+        } else {
+          addMessageToQueue({
+            duration: 4000,
+            type: 'error',
+            message: 'Erreur pendant la suppression du fichier',
+          });
+        }
       }
     } catch (error) {
       console.error(error);
