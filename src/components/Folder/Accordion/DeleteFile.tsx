@@ -43,8 +43,6 @@ class DeleteFile extends Component<Props> {
   };
 
   render() {
-    // @ts-ignore
-    if (this.props.file.id_file > 0) {
       return (
         <div style={{ width: 20, margin: '0 3px' }}>
           <div
@@ -58,18 +56,6 @@ class DeleteFile extends Component<Props> {
           </div>
         </div>
       );
-    }
-
-    return (
-    // @ts-ignore
-      <div style={{ width: 20, margin: '0 3px', opacity: '0.6' }}>
-        <div
-          tabIndex={0}
-        >
-          <i style={{ fontSize: 24 }} className="fas fa-file-download" />
-        </div>
-      </div>
-    );
   }
 }
 
