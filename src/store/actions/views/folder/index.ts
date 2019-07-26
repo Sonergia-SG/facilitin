@@ -282,7 +282,7 @@ export const updateFolderCheckPoint = ({
       addMessageToQueue({
         duration: 2500,
         type: 'error',
-        message: 'Erreur pendant la mise à jout du point de controle',
+        message: 'Erreur pendant la mise à jour du point de contrôle',
       });
       dispatch(
         folderUpdateCheckPointError({ folderId, checkPointId, prevValue }),
