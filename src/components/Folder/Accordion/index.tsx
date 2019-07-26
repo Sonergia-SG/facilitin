@@ -28,6 +28,7 @@ import useOpenModalAfterLoading from './useOpenModalAfterLoading';
 import MissingFile from './MissingFile';
 
 import statusColor from './tools/statusColor';
+import DeleteFile from "./DeleteFile";
 
 interface Props {
   file: SonergiaFile;
@@ -110,8 +111,9 @@ export const AccordionComponent = ({
                 <div className="Accordion-Box">
                   <div className="Accordion-File-Header">
                     <ToggleViewer toggle={toggleAndCroll} viewerOpened={previewOppened} />
-                    <DownloadFile file={file} />
                     <UploadButton file={file} idDpOperation={folderId} />
+                    <DownloadFile file={file} />
+                    <DeleteFile file={file} />
                     <h3 className="Accordion-File-name">{file.filename}</h3>
                   </div>
                   <div className="Accordion-Content">
