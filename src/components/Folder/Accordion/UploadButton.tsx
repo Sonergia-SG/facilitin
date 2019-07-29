@@ -37,7 +37,6 @@ export const UploadButtonComponent = ({
       const handleLoad = () => {
         if (typeof reader.result === 'string') {
           upload(idDpOperation, dpFile.id_file, file, reader.result);
-          window.location.reload();
         }
 
         reader.removeEventListener('load', handleLoad);
