@@ -110,14 +110,14 @@ export const AccordionComponent = ({
               {file.id_file ? (
                 <div className="Accordion-Box">
                   <div className="Accordion-File-Header">
-                    <ToggleViewer toggle={toggleAndCroll} viewerOpened={previewOppened} />
+                    <ToggleViewer toggle={toggleAndCroll} viewerOpened={!previewOppened} />
                     <DownloadFile file={file} />
                     <UploadButton file={file} idDpOperation={folderId} />
                     <DeleteFile file={file} />
                     <h3 className="Accordion-File-name">{file.filename}</h3>
                   </div>
                   <div className="Accordion-Content">
-                    {previewOppened && (
+                    {!previewOppened && (
                       <div className="Accordion-Document-Viewer">
                         <Preview file={file} />
                       </div>
