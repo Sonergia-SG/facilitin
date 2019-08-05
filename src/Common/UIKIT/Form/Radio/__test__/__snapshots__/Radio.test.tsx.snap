@@ -8,7 +8,7 @@ exports[`Radio render checked and disabled correctly 1`] = `
   style={
     Object {
       "cursor": "auto",
-      "height": 10,
+      "height": 20,
       "outline": "none",
       "position": "relative",
       "width": 20,
@@ -72,7 +72,7 @@ exports[`Radio render checked and hover correctly 1`] = `
   style={
     Object {
       "cursor": "pointer",
-      "height": 10,
+      "height": 20,
       "outline": "none",
       "position": "relative",
       "width": 20,
@@ -135,7 +135,7 @@ exports[`Radio render checked correctly 1`] = `
   style={
     Object {
       "cursor": "pointer",
-      "height": 10,
+      "height": 20,
       "outline": "none",
       "position": "relative",
       "width": 20,
@@ -198,7 +198,7 @@ exports[`Radio render checked, disabled and hover correctly 1`] = `
   style={
     Object {
       "cursor": "auto",
-      "height": 10,
+      "height": 20,
       "outline": "none",
       "position": "relative",
       "width": 20,
@@ -262,7 +262,7 @@ exports[`Radio render not checked and disabled correctly 1`] = `
   style={
     Object {
       "cursor": "auto",
-      "height": 10,
+      "height": 20,
       "outline": "none",
       "position": "relative",
       "width": 20,
@@ -320,7 +320,7 @@ exports[`Radio render not checked and hover correctly 1`] = `
   style={
     Object {
       "cursor": "pointer",
-      "height": 10,
+      "height": 20,
       "outline": "none",
       "position": "relative",
       "width": 20,
@@ -377,7 +377,7 @@ exports[`Radio render not checked correctly 1`] = `
   style={
     Object {
       "cursor": "pointer",
-      "height": 10,
+      "height": 20,
       "outline": "none",
       "position": "relative",
       "width": 20,
@@ -434,7 +434,7 @@ exports[`Radio render not checked, disabled and hover correctly 1`] = `
   style={
     Object {
       "cursor": "auto",
-      "height": 10,
+      "height": 20,
       "outline": "none",
       "position": "relative",
       "width": 20,

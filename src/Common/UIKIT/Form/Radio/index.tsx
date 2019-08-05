@@ -52,7 +52,7 @@ const Radio = ({
       tabIndex={0}
       style={{
         width: 20,
-        height: 10,
+        height: 20,
         outline: 'none',
         position: 'relative',
         cursor: disabled ? 'auto' : 'pointer',
