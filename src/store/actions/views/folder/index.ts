@@ -88,6 +88,7 @@ import rest from '../../../../tools/rest';
 interface FolderUpdateCheckPointLoadingParams {
   folderId: number;
   checkPointId: number;
+  idDpFile: number;
   prevValue: 0 | 1 | -1;
   newValue: 0 | 1;
 }
@@ -97,6 +98,7 @@ export const folderUpdateCheckPointLoading = ({
   checkPointId,
   prevValue,
   newValue,
+  idDpFile,
 }: FolderUpdateCheckPointLoadingParams): FolderFolderUpdateCheckpointLoadingAction &
 CheckPointsFolderUpdateCheckpointLoadingAction => ({
   type: FOLDER_UPDATE_CHECK_POINT_LOADING,
@@ -104,6 +106,7 @@ CheckPointsFolderUpdateCheckpointLoadingAction => ({
   checkPointId,
   prevValue,
   newValue,
+  idDpFile,
 });
 
 interface FolderUpdateCheckPointLoadedParams {
@@ -130,6 +133,7 @@ FilesFolcerCheckPointLoaded => ({
 interface FolderUpdateCheckPointErrorParams {
   folderId: number;
   checkPointId: number;
+  idDpFile: number;
   prevValue: 0 | 1 | -1;
 }
 
@@ -137,12 +141,14 @@ export const folderUpdateCheckPointError = ({
   folderId,
   checkPointId,
   prevValue,
+  idDpFile,
 }: FolderUpdateCheckPointErrorParams):
 | FolderFolderUpdateCheckpointErrorAction
 | CheckPointsFolderUpdateCheckpointErrorAction => ({
   type: FOLDER_UPDATE_CHECK_POINT_ERROR,
   folderId,
   checkPointId,
+  idDpFile,
   prevValue,
 });
 
@@ -285,13 +291,16 @@ export const updateFolderCheckPoint = ({
         message: 'Erreur pendant la mise à jout du point de controle',
       });
       dispatch(
-        folderUpdateCheckPointError({ folderId, checkPointId, prevValue }),
+        folderUpdateCheckPointError({
+          folderId, idDpFile, checkPointId, prevValue,
+        }),
       );
     };
 
     dispatch(
       folderUpdateCheckPointLoading({
         folderId,
+        idDpFile,
         checkPointId,
         prevValue,
         newValue,
