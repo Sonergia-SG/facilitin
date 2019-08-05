@@ -1,11 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import rest from '../../../tools/rest';
 import { API_PATH } from '../../../variables';
 import { addMessageToQueue } from '../../Alert';
 import { SimpleFile, BooleanNumber } from '../../../store/reducer/entities/types';
 
-const useDownloadPreview = (file: SimpleFile) => {
+const afterLoading = (l: boolean, toTrigger: () => any) => {
+  const lRef = useRef(l);
+
+  useEffect(() => {
+    if (lRef.current === true && l === false) {
+      toTrigger();
+    }
+
+    lRef.current = l;
+  }, [l]);
+};
+
+const useDownloadPreview = (file: SimpleFile, uploadLoading: boolean) => {
   const [state, updateData] = useState({ data: '', loading: false });
   const downloadFile = async () => {
     try {
@@ -59,7 +71,11 @@ const useDownloadPreview = (file: SimpleFile) => {
     }
   };
 
-  useEffect(() => { downloadFile(); }, []);
+  useEffect(() => {
+    downloadFile();
+  }, []);
+
+  afterLoading(uploadLoading, downloadFile);
 
   return state;
 };
