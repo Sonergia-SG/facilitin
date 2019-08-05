@@ -43,34 +43,34 @@ class Alert extends Component<{}, State> {
 
   addMessage = (message: PublicMessage) => {
     const { messages } = this.state;
+
+    const key = uuidv4();
+
     this.setState(
       {
-        messages: [...messages, { key: uuidv4(), ...message }],
+        messages: [...messages, { key, ...message }],
       },
       () => {
-        if (this.state.messages.length === 1) this.listenMessages();
+        setTimeout(() => {
+          this.removeMessage(key);
+        }, message.duration);
       },
     );
   };
 
-  listenMessages = () => {
-    const current = this.state.messages[0];
-
-    if (current) {
-      setTimeout(() => {
-        this.removeMessage();
-
-        const next = this.state.messages[0];
-        if (next) this.listenMessages();
-      }, current.duration);
-    }
-  };
-
-  removeMessage = () => {
+  removeMessage = (key: string) => {
     const { messages } = this.state;
-    this.setState({
-      messages: messages.slice(1),
-    });
+
+    const index = messages.findIndex(m => m.key === key);
+
+    if (index !== -1) {
+      this.setState({
+        messages: [
+          ...messages.slice(0, index),
+          ...messages.slice(index + 1, messages.length),
+        ],
+      });
+    }
   };
 
   render() {
@@ -78,13 +78,19 @@ class Alert extends Component<{}, State> {
 
     return (
       <div className="Alert-Container">
-        <Toasts messages={messages} />
+        <Toasts messages={messages} remove={this.removeMessage} />
       </div>
     );
   }
 }
 
-const Toasts = ({ messages }: { messages: Array<Message> }) => {
+const Toasts = ({
+  messages,
+  remove,
+}: {
+  messages: Array<Message>;
+  remove: (key: string) => void;
+}) => {
   const transitions = useTransition(messages, m => m.key, {
     from: () => ({
       transform: 'translate3d(450px,0,0)',
@@ -103,8 +109,15 @@ const Toasts = ({ messages }: { messages: Array<Message> }) => {
   return (
     <div>
       {transitions.map(({ item, key, props }) => (
-        <animated.div key={key} style={props} className={`Alert-Toast${optToastClass(item)}`}>
+        <animated.div
+          key={key}
+          style={props}
+          className={`Alert-Toast${optToastClass(item)}`}
+        >
           <p className="Alert-Message">{item.message}</p>
+          <button onClick={() => remove(item.key)} type="button">
+            <i className="fa fa-times" />
+          </button>
         </animated.div>
       ))}
     </div>
