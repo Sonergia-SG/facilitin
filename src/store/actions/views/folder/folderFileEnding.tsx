@@ -47,6 +47,7 @@ type allowedForcedStatus = 5 | 10
 export const folderFileEnding = (
   idDpOperation: number,
   idDpFile: number,
+  idFile: number,
   forceStatus?: allowedForcedStatus,
 ): ThunkAction => async (dispatch) => {
   const dispatchError = () => {
@@ -63,7 +64,7 @@ export const folderFileEnding = (
 
     const status = typeof forceStatus === 'number' ? `/${forceStatus}` : '';
     const result = await rest(
-      `${API_PATH}files/${idDpFile}/terminerdocument${status}`,
+      `${API_PATH}files/${idFile}/terminerdocument${status}`,
       { method: 'put' },
     );
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, HandleThunkActionCreator } from 'react-redux';
 
 import { folderFileEnding } from '../../../store/actions/views/folder/folderFileEnding';
 
@@ -9,9 +9,9 @@ import isLitige from '../Left/helpers/checkPointInLitige';
 import isRejected from '../Left/helpers/checkPointRejected';
 
 interface Props {
-  file: { statut: number; id_dp_file: number };
+  file: { statut: number; id_dp_file: number; id_file: number | null };
   folderId: number;
-  ending: any;
+  ending: HandleThunkActionCreator<typeof folderFileEnding>;
   loading: boolean;
   checkPoints: Array<CheckPoint> | undefined;
   locked: boolean;
@@ -67,7 +67,9 @@ export const ValidationComponent = ({
       disabled={config.disabled || locked}
       id="button-litige"
       onClick={async () => {
-        await ending(folderId, file.id_dp_file);
+        if (file.id_file !== null) {
+          await ending(folderId, file.id_dp_file, file.id_file);
+        }
       }}
     >
       {config.title}

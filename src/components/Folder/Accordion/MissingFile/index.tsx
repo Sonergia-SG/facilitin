@@ -37,7 +37,7 @@ const MissingFile = ({
             loading ? ' is-loading' : ''
           }`}
           onClick={() => {
-            fileEnding(folderId, file.id_dp_file, 10);
+            if (file.id_file !== null) fileEnding(folderId, file.id_dp_file, file.id_file, 10);
           }}
         >
           Rejeter
@@ -49,7 +49,7 @@ const MissingFile = ({
             loading ? ' is-loading' : ''
           }`}
           onClick={() => {
-            fileEnding(folderId, file.id_dp_file, 5);
+            if (file.id_file !== null) fileEnding(folderId, file.id_dp_file, file.id_file, 5);
           }}
         >
           Incomplet
