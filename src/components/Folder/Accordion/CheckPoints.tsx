@@ -8,7 +8,8 @@ import { updateFolderCheckPoint } from '../../../store/actions/views/folder';
 import './CheckPoints.css';
 import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 
-import Picto from './Picto';
+import Radio from '../../../Common/UIKIT/Form/Radio';
+import isRejected from '../Left/helpers/checkPointRejected';
 
 interface Props {
   checkPoints: Array<CheckPoint> | undefined;
@@ -46,7 +47,6 @@ export const CheckPointsComponent = ({
       <table className="CheckPoints-Table">
         <thead>
           <tr>
-            <th />
             <th>Oui</th>
             <th>Non</th>
             <th />
@@ -64,11 +64,7 @@ export const CheckPointsComponent = ({
             return (
               <tr key={value.id_point_controle}>
                 <td className="CheckPoints-Table-Center">
-                  <Picto checkPoint={value} />
-                </td>
-                <td className="CheckPoints-Table-Center">
-                  <input
-                    type="radio"
+                  <Radio
                     id={`${value.is_controle_file}_yes`}
                     name={`${value.id_point_controle}`}
                     checked={value.pivot.valide === 1}
@@ -85,13 +81,13 @@ export const CheckPointsComponent = ({
                   />
                 </td>
                 <td className="CheckPoints-Table-Center">
-                  <input
-                    type="radio"
+                  <Radio
                     id={`${value.is_controle_file}_no`}
                     name={`${value.id_point_controle}`}
                     checked={value.pivot.valide === 0}
                     value="no"
                     disabled={disabled}
+                    customColor={isRejected(value) ? '#F61616' : '#FBD44A'}
                     onChange={() => {
                       updateCheckPoint({
                         folderId,
