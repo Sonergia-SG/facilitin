@@ -20,28 +20,32 @@ const checkPoints = (state: CheckPoints = {}, action: CheckPointsActions): Check
       return merge({}, state, c);
     }
     case FOLDER_UPDATE_CHECK_POINT_LOADING: {
-      if (!idx(state, _ => _[action.checkPointId].pivot)) return state;
+      const id = `${action.checkPointId}_${action.idDpFile}`;
+
+      if (!idx(state, _ => _[id].pivot)) return state;
 
       return {
         ...state,
-        [action.checkPointId]: {
-          ...state[action.checkPointId],
+        [id]: {
+          ...state[id],
           pivot: {
-            ...state[action.checkPointId].pivot,
+            ...state[id].pivot,
             valide: action.newValue,
           },
         },
       };
     }
     case FOLDER_UPDATE_CHECK_POINT_ERROR: {
-      if (!idx(state, _ => _[action.checkPointId].pivot)) return state;
+      const id = `${action.checkPointId}_${action.idDpFile}`;
+
+      if (!idx(state, _ => _[id].pivot)) return state;
 
       return {
         ...state,
-        [action.checkPointId]: {
-          ...state[action.checkPointId],
+        [id]: {
+          ...state[id],
           pivot: {
-            ...state[action.checkPointId].pivot,
+            ...state[id].pivot,
             valide: action.preValue,
           },
         },
