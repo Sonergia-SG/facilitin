@@ -38,7 +38,13 @@ exports[`GeneralInfos render correctly with all checkpoints valid 1`] = `
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         0/4
       </p>
     </div>
@@ -53,7 +59,13 @@ exports[`GeneralInfos render correctly with all checkpoints valid 1`] = `
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         0/4
       </p>
     </div>
@@ -64,11 +76,17 @@ exports[`GeneralInfos render correctly with all checkpoints valid 1`] = `
         className="fas fa-circle"
         style={
           Object {
-            "color": "#444",
+            "color": "#bcb3aa",
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         0/4
       </p>
     </div>
@@ -83,7 +101,13 @@ exports[`GeneralInfos render correctly with all checkpoints valid 1`] = `
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         4/4
       </p>
     </div>
@@ -129,7 +153,13 @@ exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         1/5
       </p>
     </div>
@@ -144,7 +174,13 @@ exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         0/5
       </p>
     </div>
@@ -155,11 +191,17 @@ exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
         className="fas fa-circle"
         style={
           Object {
-            "color": "#444",
+            "color": "#bcb3aa",
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         0/5
       </p>
     </div>
@@ -174,7 +216,13 @@ exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         4/5
       </p>
     </div>
@@ -220,7 +268,13 @@ exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         0/5
       </p>
     </div>
@@ -235,7 +289,13 @@ exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         1/5
       </p>
     </div>
@@ -246,11 +306,17 @@ exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
         className="fas fa-circle"
         style={
           Object {
-            "color": "#444",
+            "color": "#bcb3aa",
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         0/5
       </p>
     </div>
@@ -265,7 +331,13 @@ exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         4/5
       </p>
     </div>
@@ -311,7 +383,13 @@ exports[`GeneralInfos render correctly with untraited checkpoints 1`] = `
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         0/5
       </p>
     </div>
@@ -326,7 +404,13 @@ exports[`GeneralInfos render correctly with untraited checkpoints 1`] = `
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         0/5
       </p>
     </div>
@@ -337,11 +421,17 @@ exports[`GeneralInfos render correctly with untraited checkpoints 1`] = `
         className="fas fa-circle"
         style={
           Object {
-            "color": "#444",
+            "color": "#bcb3aa",
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         1/5
       </p>
     </div>
@@ -356,7 +446,13 @@ exports[`GeneralInfos render correctly with untraited checkpoints 1`] = `
           }
         }
       />
-      <p>
+      <p
+        style={
+          Object {
+            "color": "#89817f",
+          }
+        }
+      >
         4/5
       </p>
     </div>
