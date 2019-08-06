@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import rest from '../../../tools/rest';
 import { API_PATH } from '../../../variables';
 import { addMessageToQueue } from '../../Alert';
-import {
-  BooleanNumber,
-  SimpleFile,
-} from '../../../store/reducer/entities/types';
+import { BooleanNumber, SimpleFile } from '../../../store/reducer/entities/types';
 
 import downloadDataUri from '../../../tools/file/downloadDataUri';
 
@@ -60,8 +57,9 @@ class DownloadFile extends Component<Props> {
   };
 
   render() {
-    // @ts-ignore
-    if (this.props.file.id_file > 0) {
+    const { file } = this.props;
+
+    if (file.id_file !== null && file.id_file > 0) {
       return (
         <div style={{ width: 20, margin: '0 3px' }}>
           <div
@@ -78,11 +76,8 @@ class DownloadFile extends Component<Props> {
     }
 
     return (
-    // @ts-ignore
-      <div style={{ width: 20, margin: '0 3px', opacity: '0.6' }}>
-        <div
-          tabIndex={0}
-        >
+      <div style={{ width: 20, margin: '0 3px', opacity: 0.6 }}>
+        <div>
           <i style={{ fontSize: 24 }} className="fas fa-file-download" />
         </div>
       </div>
