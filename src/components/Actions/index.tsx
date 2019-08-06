@@ -9,8 +9,6 @@ import { denormalize } from 'normalizr';
 import Tabs from './TabModule/Tabs';
 import Tab from './TabModule/Tab';
 
-import 'react-tabs/style/react-tabs.css';
-
 import Loading from '../Loading';
 
 import ModernTable from './ModernTable';
