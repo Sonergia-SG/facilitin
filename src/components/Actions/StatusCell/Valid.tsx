@@ -7,7 +7,7 @@ interface Props {
 
 const Invalid = ({ count, total }: Props) => (total ? (
   <div>
-    <i className="fas fa-check-circle" style={{ color: '#2BA048', marginRight: 3 }} />
+    <i className="fas fa-check-circle" style={{ color: '#A9D86E', marginRight: 3 }} />
     {`${count}/${total}`}
   </div>
 ) : null);

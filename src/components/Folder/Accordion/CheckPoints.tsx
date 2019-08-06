@@ -87,7 +87,7 @@ export const CheckPointsComponent = ({
                     checked={value.pivot.valide === 0}
                     value="no"
                     disabled={disabled}
-                    customColor={isRejected(value) ? '#F61616' : '#FBD44A'}
+                    customColor={isRejected(value) ? '#FF6C60' : '#FCB322'}
                     onChange={() => {
                       updateCheckPoint({
                         folderId,

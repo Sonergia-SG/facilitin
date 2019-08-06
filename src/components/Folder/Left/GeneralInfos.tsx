@@ -46,20 +46,20 @@ const GeneralInfos = ({
       <div className="content" />
       <div className="Left-GeneralInfos-Pictos">
         <div className="Left-GeneralInfos-Picto">
-          <i className="fas fa-exclamation-triangle" style={{ color: '#F61616' }} />
-          <p>{`${rejectedCheckPoints.length}/${allCheckPoints.length}`}</p>
+          <i className="fas fa-exclamation-triangle" style={{ color: '#FF6C60' }} />
+          <p style={{ color: '#89817f' }}>{`${rejectedCheckPoints.length}/${allCheckPoints.length}`}</p>
         </div>
         <div className="Left-GeneralInfos-Picto">
-          <i className="fas fa-exclamation-triangle" style={{ color: '#FBD44A' }} />
-          <p>{`${litigeCheckPoints.length}/${allCheckPoints.length}`}</p>
+          <i className="fas fa-exclamation-triangle" style={{ color: '#FCB322' }} />
+          <p style={{ color: '#89817f' }}>{`${litigeCheckPoints.length}/${allCheckPoints.length}`}</p>
         </div>
         <div className="Left-GeneralInfos-Picto">
-          <i className="fas fa-circle" style={{ color: '#444' }} />
-          <p>{`${untraitedCheckPoints.length}/${allCheckPoints.length}`}</p>
+          <i className="fas fa-circle" style={{ color: '#bcb3aa' }} />
+          <p style={{ color: '#89817f' }}>{`${untraitedCheckPoints.length}/${allCheckPoints.length}`}</p>
         </div>
         <div className="Left-GeneralInfos-Picto">
-          <i className="fas fa-check-circle" style={{ color: '#2BA048' }} />
-          <p>{`${validCheckPoints.length}/${allCheckPoints.length}`}</p>
+          <i className="fas fa-check-circle" style={{ color: '#A9D86E' }} />
+          <p style={{ color: '#89817f' }}>{`${validCheckPoints.length}/${allCheckPoints.length}`}</p>
         </div>
       </div>
     </Card>

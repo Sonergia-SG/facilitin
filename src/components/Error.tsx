@@ -6,7 +6,7 @@ interface Props {
 
 const Error = ({ msg }: Props) => (
   <div>
-    <p style={{ color: '#F61616' }}>{msg}</p>
+    <p style={{ color: '#FF6C60' }}>{msg}</p>
   </div>
 );
 

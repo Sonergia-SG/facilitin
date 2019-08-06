@@ -39,7 +39,7 @@ exports[`CheckPoints can't update checkpoint if it's an automatic checkpoint 1`]
         >
           <Radio
             checked={true}
-            customColor="#F61616"
+            customColor="#FF6C60"
             disabled={true}
             id="0_no"
             name="0"
@@ -100,7 +100,7 @@ exports[`CheckPoints render correctly during folder loading 1`] = `
         >
           <Radio
             checked={false}
-            customColor="#FBD44A"
+            customColor="#FCB322"
             disabled={true}
             id="0_no"
             name="0"
@@ -161,7 +161,7 @@ exports[`CheckPoints render correctly when locked 1`] = `
         >
           <Radio
             checked={true}
-            customColor="#F61616"
+            customColor="#FF6C60"
             disabled={true}
             id="0_no"
             name="0"
@@ -222,7 +222,7 @@ exports[`CheckPoints render correctly with checkpoint no traited 1`] = `
         >
           <Radio
             checked={false}
-            customColor="#FBD44A"
+            customColor="#FCB322"
             disabled={false}
             id="0_no"
             name="0"
@@ -283,7 +283,7 @@ exports[`CheckPoints render correctly with checkpoint sending 1`] = `
         >
           <Radio
             checked={false}
-            customColor="#FBD44A"
+            customColor="#FCB322"
             disabled={true}
             id="0_no"
             name="0"
@@ -344,7 +344,7 @@ exports[`CheckPoints render correctly with checkpoint valid 1`] = `
         >
           <Radio
             checked={false}
-            customColor="#FBD44A"
+            customColor="#FCB322"
             disabled={false}
             id="0_no"
             name="0"
@@ -405,7 +405,7 @@ exports[`CheckPoints render correctly with default checkpoint 1`] = `
         >
           <Radio
             checked={true}
-            customColor="#F61616"
+            customColor="#FF6C60"
             disabled={false}
             id="0_no"
             name="0"
