@@ -5,13 +5,10 @@ import React, { useEffect } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { denormalize } from 'normalizr';
-import {
-  Tab,
-  Tabs,
-  TabList,
-  TabPanel,
-  // @ts-ignore
-} from 'react-tabs';
+
+import Tabs from './TabModule/Tabs';
+import Tab from './TabModule/Tab';
+
 import 'react-tabs/style/react-tabs.css';
 
 import Loading from '../Loading';
@@ -81,23 +78,25 @@ const Actions = ({
     : mappedData;
 
   return (
-    <div style={{ backgroundColor: '#f1f2f7', padding: '10px 20px', marginBottom: 30 }}>
+    <div style={{
+      backgroundColor: '#f1f2f7',
+      marginBottom: 30,
+      borderRadius: 2,
+      overflow: 'hidden',
+    }}
+    >
       <div className="has-text-centered content-loading">
         <div id="loading_liste">
           <Loading show={loading} type="ThreeDots" />
         </div>
       </div>
-      <Tabs defaultIndex={selectedTab} onSelect={(index: TabType) => load(index)}>
-        <TabList>
-          <Tab>{userFonction === 'instructeur_initial' ? 'A traiter' : 'Incomplet'}</Tab>
-          <Tab>{userFonction === 'instructeur_initial' ? 'Incomplet' : 'A traiter'}</Tab>
-          <Tab>Rejet</Tab>
-          <Tab>Validés</Tab>
-        </TabList>
-        <TabPanel />
-        <TabPanel />
-        <TabPanel />
-        <TabPanel />
+      <Tabs>
+        <Tab selected={selectedTab} index={0} onClick={load}>{userFonction === 'instructeur_initial' ? 'A traiter' : 'Incomplet'}</Tab>
+        <Tab selected={selectedTab} index={1} onClick={load}>{userFonction === 'instructeur_initial' ? 'Incomplet' : 'A traiter'}</Tab>
+        <Tab selected={selectedTab} index={2} onClick={load}>Rejet</Tab>
+        <Tab selected={selectedTab} index={3} onClick={load}>Validés</Tab>
+      </Tabs>
+      <div style={{ backgroundColor: '#fff', padding: 10 }}>
         <ModernTable
           operations={filteredData}
           onRowClick={(o) => {
@@ -112,7 +111,15 @@ const Actions = ({
           sorted={sorted}
           updateSorted={updateSorted}
         />
-      </Tabs>
+      </div>
+      {/* <Tabs defaultIndex={selectedTab} onSelect={(index: TabType) => load(index)}>
+        <TabList>
+          <Tab>{userFonction === 'instructeur_initial' ? 'A traiter' : 'Incomplet'}</Tab>
+          <Tab>{userFonction === 'instructeur_initial' ? 'Incomplet' : 'A traiter'}</Tab>
+          <Tab>Rejet</Tab>
+          <Tab>Validés</Tab>
+        </TabList>
+      </Tabs> */}
     </div>
   );
 };
