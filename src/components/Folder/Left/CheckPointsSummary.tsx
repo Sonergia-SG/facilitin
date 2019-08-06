@@ -65,7 +65,7 @@ const CheckPointsSummary = ({
                   </h4>
                 </div>
                 <p
-                  style={{ color: active ? '#16a0e0' : 'black' }}
+                  style={{ color: active ? '#16a0e0' : '#7d7d7d' }}
                   className="Actions-Left-CheckPointSummary-File-Count"
                 >
                   {validCheckPoints.length}

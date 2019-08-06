@@ -14,9 +14,11 @@
 
 .Actions-Left-CheckPointSummary-Left > h4 {
   margin: 0 0 0 5px;
+  color: #7d7d7d;
   font-size: 1.15em;
 }
 
 .Actions-Left-CheckPointSummary-File-Count {
   font-weight: 500;
+  color: #7d7d7d;
 }
