@@ -82,23 +82,25 @@ export const AccordionComponent = ({
   return (
     <div ref={selfRef} className="divAccordion">
       <article className={`accordion ${isSelected ? 'is-active' : ''}`}>
-        <div style={{ backgroundColor: statusColor(file) }} className="accordion-header">
+        <div
+          style={{
+            backgroundColor: statusColor(file),
+          }}
+          className={`accordion-header${isSelected ? ' accordion-header-is-active' : ' '}`}
+        >
           <div
+            className="AccordionHeader-Button"
             onClick={handleClick}
             onKeyPress={handleClick}
-            style={{ cursor: 'pointer', width: '100%' }}
             role="button"
             tabIndex={0}
           >
-            <div>
-              <button
-                type="button"
-                className="toggle togglesonergia"
-                aria-label="toggle"
-                onClick={handleClick}
-              />
-              {' '}
-              {fileFolderDisplayType(file)}
+            <div>{fileFolderDisplayType(file)}</div>
+            <div
+              className="AccordionHeader-Ico"
+              style={{ transform: `rotateX(${isSelected ? '180deg' : '0deg'})` }}
+            >
+              <i className="fa fa-chevron-up" />
             </div>
           </div>
         </div>
