@@ -77,7 +77,6 @@ export const CheckPointsComponent = ({
                         idDpFile: value.pivot.id_dp_file,
                         newValue: 1,
                       });
-                      value.pivot.valide = 1;
                     }}
                   />
                 </td>
