@@ -7,6 +7,16 @@
   transition: border-bottom 0.2s ease;
 }
 
+.Folder-Header > a {
+  color: #32323a;
+  font-size: 14px;
+  margin-left: 12px;
+}
+
+.Folder-Header > a:hover {
+  opacity: 0.8;
+}
+
 .Folder-Header-border {
   border-bottom: 1px solid #cfcfcf;
 }

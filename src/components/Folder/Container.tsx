@@ -38,7 +38,10 @@ const Container = ({
   return (
     <div style={{ backgroundColor: '#f1f2f7', padding: '10px 20px' }}>
       <div className="Folder-Header">
-        <Link to="/actions">{"< Retour à la liste d'opérations"}</Link>
+        <Link to="/actions">
+          <i className="fa fa-chevron-left" />
+          {" Retour à la liste d'opérations"}
+        </Link>
         <div style={{ position: 'relative' }}>
           <button
             onMouseEnter={() => updateHover(true)}
