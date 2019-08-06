@@ -57,6 +57,7 @@ export const AccordionComponent = ({
   locked,
 }: Props) => {
   const selfRef = useRef(null);
+  const selectedRef = useRef(isSelected);
 
   const litigeLoading = idx(pending, _ => _.litige[file.id_dp_file].loading) || false;
   const [displayModal, toggleModal] = useOpenModalAfterLoading(litigeLoading, file.statut, goNext);
@@ -67,6 +68,11 @@ export const AccordionComponent = ({
 
   useEffect(() => {
     if (isSelected && !isLockedByStatus) togglePreview(true);
+
+    if (selectedRef.current === true && isSelected === false) {
+      togglePreview(false);
+    }
+    selectedRef.current = isSelected;
   }, [isSelected]);
 
   const toggleAndCroll = () => {

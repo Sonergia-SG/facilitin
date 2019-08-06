@@ -6,7 +6,7 @@
 
 .Folder-Edit-documents {
   flex: 1;
-  overflow: scroll;
+  overflow-y: scroll;
   height: 100%;
 }
 
