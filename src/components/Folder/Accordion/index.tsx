@@ -110,7 +110,6 @@ export const AccordionComponent = ({
                   <ToggleViewer toggle={toggleAndCroll} viewerOpened={previewOppened} />
                   <DownloadFile file={file} />
                   <UploadButton file={file} idDpOperation={folderId} />
-                  +
                   {' '}
                   <DeleteFile file={file} />
                   <h3 className="Accordion-File-name">{file.filename}</h3>
