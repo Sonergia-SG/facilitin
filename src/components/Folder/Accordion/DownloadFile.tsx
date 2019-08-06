@@ -40,11 +40,8 @@ class DownloadFile extends Component<Props> {
         const json: JSON = await result.json();
 
         const file = json.file[0];
-        const b64 = `data:${file.mimetype};base64,${
-          file.file_binary.binarycontent
-        }`;
 
-        downloadDataUri(b64, file.filename);
+        downloadDataUri(file.file_binary.binarycontent, file.filename, file.mimetype);
       } else {
         addMessageToQueue({
           duration: 4000,

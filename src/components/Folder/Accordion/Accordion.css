@@ -18,7 +18,8 @@
 .Accordion-CheckPoints {
   flex: 1;
   min-width: 240px;
-  margin: 20px 10px 20px 0px;
+  overflow-y: auto;
+  height: calc(100vh - 44px - 39px - 54px - 80px - 130px);
 }
 
 .Accordion-File-name {

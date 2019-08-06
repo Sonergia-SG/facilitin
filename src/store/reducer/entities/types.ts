@@ -7,7 +7,6 @@ import {
   FOLDER_UPDATE_CHECK_POINT_LOADED,
   FOLDER_UPDATE_CHECK_POINT_ERROR,
   COMMENTS_LIST_LOADED,
-  FOLDER_ENDING_LOADED,
   FOLDER_UPDATE_MOE_LOADED,
   FOLDER_UPDATE_SITE_LOADED,
   FOLDER_FILE_ENDING_LOADED,
@@ -350,6 +349,7 @@ export interface CheckPointsLogoutAction {
 export interface CheckPointsFolderUpdateCheckpointLoadingAction {
   type: typeof FOLDER_UPDATE_CHECK_POINT_LOADING;
   checkPointId: number;
+  idDpFile: number;
   newValue: 0 | 1;
 }
 
@@ -362,6 +362,7 @@ export interface CheckPointsFolderUpdateChekpointLoadedAction {
 export interface CheckPointsFolderUpdateCheckpointErrorAction {
   type: typeof FOLDER_UPDATE_CHECK_POINT_ERROR;
   checkPointId: number;
+  idDpFile: number;
   preValue: BooleanNumber;
 }
 
