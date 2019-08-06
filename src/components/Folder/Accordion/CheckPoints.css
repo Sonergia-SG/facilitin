@@ -8,7 +8,7 @@
 
 .CheckPoints-Table th {
   padding: 0 5px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .CheckPoints-Table .CheckPoints-Table-Center {
@@ -16,6 +16,7 @@
 }
 
 .CheckPoints-CheckPoint-Label {
+  font-size: 12px;
 }
 
 .CheckPoints-Table > tbody > tr > td {

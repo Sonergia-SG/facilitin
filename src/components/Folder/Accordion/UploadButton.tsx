@@ -50,7 +50,8 @@ export const UploadButtonComponent = ({
 
   const maxSize = 5242880;
 
-  const disabled = !(dpFile.statut === -1 || dpFile.statut === 0 || dpFile.statut === 5);
+  const wrongStatus = !(dpFile.statut === -1 || dpFile.statut === 0 || dpFile.statut === 5);
+  const disabled = wrongStatus && dpFile.id_dp_file > 0;
 
   return (
     <div className="text-center mt-5">

@@ -28,6 +28,7 @@ import useOpenModalAfterLoading from './useOpenModalAfterLoading';
 import MissingFile from './MissingFile';
 
 import statusColor from './tools/statusColor';
+import DeleteFile from './DeleteFile';
 
 interface Props {
   file: SonergiaFile;
@@ -78,7 +79,6 @@ export const AccordionComponent = ({
     }, 10);
   };
 
-
   return (
     <div ref={selfRef} className="divAccordion">
       <article className={`accordion ${isSelected ? 'is-active' : ''}`}>
@@ -110,6 +110,8 @@ export const AccordionComponent = ({
                   <ToggleViewer toggle={toggleAndCroll} viewerOpened={previewOppened} />
                   <DownloadFile file={file} />
                   <UploadButton file={file} idDpOperation={folderId} />
+                  {' '}
+                  <DeleteFile file={file} />
                   <h3 className="Accordion-File-name">{file.filename}</h3>
                 </div>
                 <div className="Accordion-Content">
