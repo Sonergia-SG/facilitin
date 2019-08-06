@@ -79,122 +79,6 @@ export const AccordionComponent = ({
     }, 10);
   };
 
-
-  // @ts-ignore
-  if (file.id_file > 0) {
-    return (
-      <div ref={selfRef} className="divAccordion">
-        <article className={`accordion ${isSelected ? 'is-active' : ''}`}>
-          <div style={{ backgroundColor: statusColor(file) }} className="accordion-header">
-            <div
-              onClick={handleClick}
-              onKeyPress={handleClick}
-              style={{ cursor: 'pointer', width: '100%' }}
-              role="button"
-              tabIndex={0}
-            >
-              <div>
-                <button
-                  type="button"
-                  className="toggle togglesonergia"
-                  aria-label="toggle"
-                  onClick={handleClick}
-                />
-                {' '}
-                {fileFolderDisplayType(file)}
-              </div>
-            </div>
-          </div>
-          <div className="accordion-body">
-            <DropZone file={file} idDpOperation={folderId}>
-              {file.id_file ? (
-                <div className="Accordion-Box">
-                  <div className="Accordion-File-Header">
-                    <ToggleViewer toggle={toggleAndCroll} viewerOpened={!previewOppened} />
-                    <DownloadFile file={file} />
-                    <UploadButton file={file} idDpOperation={folderId} />
-                    <DeleteFile file={file} />
-                    <h3 className="Accordion-File-name">{file.filename}</h3>
-                  </div>
-                  <div className="Accordion-Content">
-                    {!previewOppened && (
-                      <div className="Accordion-Document-Viewer">
-                        <Preview file={file} />
-                      </div>
-                    )}
-                    <div className="Accordion-CheckPoints">
-                      <CheckPoints
-                        pending={pending}
-                        folderId={folderId}
-                        checkPoints={checkPoints}
-                        fileId={file.id_dp_file}
-                        lockedByStatus={isLockedByStatus}
-                        locked={locked}
-                      />
-                    </div>
-                  </div>
-                  <div className="Accordion-Button-Position">
-                    {!isLockedByStatus && (
-                      <Validation
-                        file={file}
-                        loading={litigeLoading}
-                        folderId={folderId}
-                        checkPoints={checkPoints}
-                        locked={locked}
-                      />
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <MissingFile
-                  file={file}
-                  loading={false}
-                  folderId={folderId}
-                  fileEnding={fileEnding}
-                />
-              )}
-            </DropZone>
-          </div>
-        </article>
-        <div className={`modal ${isSelected && displayModal ? ' is-active' : ''}`}>
-          <div className="modal-background" />
-          <div className="modal-card">
-            <header className="modal-card-head">
-              <p className="modal-card-title">
-                {"Terminer l'instruction"}
-              </p>
-            </header>
-            <section className="modal-card-body">
-              {"Le document est en rejet. Voulez vous terminer l'instruction ?"}
-            </section>
-            <footer className="modal-card-foot">
-              <button
-                className="button is-success"
-                type="button"
-                onClick={() => {
-                  ending(folderId);
-                  toggleModal(false);
-                }}
-              >
-                {"Terminer l'instruction"}
-              </button>
-              <button
-                className="button"
-                type="button"
-                onClick={() => {
-                  toggleModal(false);
-                  goNext();
-                }}
-              >
-                {"Continuer l'instruction"}
-              </button>
-            </footer>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div ref={selfRef} className="divAccordion">
       <article className={`accordion ${isSelected ? 'is-active' : ''}`}>
@@ -223,8 +107,12 @@ export const AccordionComponent = ({
             {file.id_file ? (
               <div className="Accordion-Box">
                 <div className="Accordion-File-Header">
+                  <ToggleViewer toggle={toggleAndCroll} viewerOpened={previewOppened} />
                   <DownloadFile file={file} />
                   <UploadButton file={file} idDpOperation={folderId} />
+                  +
+                  {' '}
+                  <DeleteFile file={file} />
                   <h3 className="Accordion-File-name">{file.filename}</h3>
                 </div>
                 <div className="Accordion-Content">
