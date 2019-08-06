@@ -18,10 +18,13 @@ const StatusCell = ({ original }: Props) => {
   const validCheckPoints = cleanCheckPoints.filter(c => c.pivot.valide === 1).length;
   const invalidCheckPoints = cleanCheckPoints.filter(c => c.pivot.valide === 0).length;
 
+  const noData = totalCheckPoints === 0;
+
   return (
     <div style={{ display: 'flex' }}>
       <Invalid count={invalidCheckPoints} />
       <Valid count={validCheckPoints} total={totalCheckPoints} />
+      {noData && <div>-</div>}
     </div>
   );
 };
