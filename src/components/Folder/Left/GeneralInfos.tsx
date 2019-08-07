@@ -1,5 +1,7 @@
 import React from 'react';
 
+import 'bulma-tooltip/dist/css/bulma-tooltip.min.css';
+
 import './GeneralInfos.css';
 
 import { CheckPoint, OperationStatus, FileFull } from '../../../store/reducer/entities/types';
@@ -45,21 +47,29 @@ const GeneralInfos = ({
       <Status status={data.statut} />
       <div className="content" />
       <div className="Left-GeneralInfos-Pictos">
-        <div className="Left-GeneralInfos-Picto">
+        <div className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom" data-tooltip="Rejets">
           <i className="fas fa-exclamation-triangle" style={{ color: '#FF6C60' }} />
-          <p style={{ color: '#89817f' }}>{`${rejectedCheckPoints.length}/${allCheckPoints.length}`}</p>
+          <p style={{ color: '#89817f' }}>
+            {`${rejectedCheckPoints.length}/${allCheckPoints.length}`}
+          </p>
         </div>
-        <div className="Left-GeneralInfos-Picto">
+        <div className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom" data-tooltip="Litiges">
           <i className="fas fa-exclamation-triangle" style={{ color: '#FCB322' }} />
-          <p style={{ color: '#89817f' }}>{`${litigeCheckPoints.length}/${allCheckPoints.length}`}</p>
+          <p style={{ color: '#89817f' }}>
+            {`${litigeCheckPoints.length}/${allCheckPoints.length}`}
+          </p>
         </div>
-        <div className="Left-GeneralInfos-Picto">
+        <div className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom" data-tooltip="Non traités">
           <i className="fas fa-circle" style={{ color: '#bcb3aa' }} />
-          <p style={{ color: '#89817f' }}>{`${untraitedCheckPoints.length}/${allCheckPoints.length}`}</p>
+          <p style={{ color: '#89817f' }}>
+            {`${untraitedCheckPoints.length}/${allCheckPoints.length}`}
+          </p>
         </div>
-        <div className="Left-GeneralInfos-Picto">
+        <div className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom" data-tooltip="Validés">
           <i className="fas fa-check-circle" style={{ color: '#A9D86E' }} />
-          <p style={{ color: '#89817f' }}>{`${validCheckPoints.length}/${allCheckPoints.length}`}</p>
+          <p style={{ color: '#89817f' }}>
+            {`${validCheckPoints.length}/${allCheckPoints.length}`}
+          </p>
         </div>
       </div>
     </Card>
