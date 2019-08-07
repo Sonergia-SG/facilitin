@@ -185,7 +185,21 @@ const ModernTable = ({
                 <td style={{ width: '13%' }}>{getValue(o, 'id_dossierprime')}</td>
                 <td style={{ width: '13%' }}>{getValue(o, 'id_dp_operation')}</td>
                 <td style={{ width: '10%' }}>{getValue(o, 'etat')}</td>
-                <td style={{ width: '10%' }}>{getValue(o, 'delai')}</td>
+                <td style={{ width: '10%' }}>
+                  {getValue(o, 'delai') !== ' - ' && (
+                    <div
+                      style={{
+                        backgroundColor: '#fa8564',
+                        borderRadius: 5,
+                        textAlign: 'center',
+                        color: '#fff',
+                        padding: '3px 2px',
+                      }}
+                    >
+                      {getValue(o, 'delai')}
+                    </div>
+                  )}
+                </td>
                 <td style={{ width: '34%' }}>{getValue(o, 'moa')}</td>
                 <td style={{ width: '12%' }}>{getValue(o, 'code_operation')}</td>
                 <td style={{ width: '8%' }}>

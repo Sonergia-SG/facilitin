@@ -1,5 +1,6 @@
 .uikit-modernTable {
   width: 100%;
+  border: 1px #ddd solid;
 }
 
 .uikit-modernTable > thead > tr > th {
@@ -27,6 +28,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 150px;
+  border-right: 1px #ddd solid;
 }
 
 .uikit-modernTable > tbody > tr {

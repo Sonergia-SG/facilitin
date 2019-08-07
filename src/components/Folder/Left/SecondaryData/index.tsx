@@ -67,7 +67,7 @@ const SecondaryData = ({ data, locked }: Props) => {
           role="button"
           tabIndex={0}
         >
-          {'MOA'}
+          {'Bénéficiaire'}
         </div>
         <div
           onMouseEnter={select('MOE')}
