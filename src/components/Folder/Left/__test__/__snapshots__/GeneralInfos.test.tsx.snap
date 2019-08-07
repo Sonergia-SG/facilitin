@@ -28,7 +28,8 @@ exports[`GeneralInfos render correctly with all checkpoints valid 1`] = `
     className="Left-GeneralInfos-Pictos"
   >
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Rejets"
     >
       <i
         className="fas fa-exclamation-triangle"
@@ -49,7 +50,8 @@ exports[`GeneralInfos render correctly with all checkpoints valid 1`] = `
       </p>
     </div>
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Litiges"
     >
       <i
         className="fas fa-exclamation-triangle"
@@ -70,7 +72,8 @@ exports[`GeneralInfos render correctly with all checkpoints valid 1`] = `
       </p>
     </div>
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Non traités"
     >
       <i
         className="fas fa-circle"
@@ -91,7 +94,8 @@ exports[`GeneralInfos render correctly with all checkpoints valid 1`] = `
       </p>
     </div>
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Validés"
     >
       <i
         className="fas fa-check-circle"
@@ -143,7 +147,8 @@ exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
     className="Left-GeneralInfos-Pictos"
   >
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Rejets"
     >
       <i
         className="fas fa-exclamation-triangle"
@@ -164,7 +169,8 @@ exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
       </p>
     </div>
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Litiges"
     >
       <i
         className="fas fa-exclamation-triangle"
@@ -185,7 +191,8 @@ exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
       </p>
     </div>
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Non traités"
     >
       <i
         className="fas fa-circle"
@@ -206,7 +213,8 @@ exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
       </p>
     </div>
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Validés"
     >
       <i
         className="fas fa-check-circle"
@@ -258,7 +266,8 @@ exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
     className="Left-GeneralInfos-Pictos"
   >
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Rejets"
     >
       <i
         className="fas fa-exclamation-triangle"
@@ -279,7 +288,8 @@ exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
       </p>
     </div>
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Litiges"
     >
       <i
         className="fas fa-exclamation-triangle"
@@ -300,7 +310,8 @@ exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
       </p>
     </div>
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Non traités"
     >
       <i
         className="fas fa-circle"
@@ -321,7 +332,8 @@ exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
       </p>
     </div>
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Validés"
     >
       <i
         className="fas fa-check-circle"
@@ -373,7 +385,8 @@ exports[`GeneralInfos render correctly with untraited checkpoints 1`] = `
     className="Left-GeneralInfos-Pictos"
   >
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Rejets"
     >
       <i
         className="fas fa-exclamation-triangle"
@@ -394,7 +407,8 @@ exports[`GeneralInfos render correctly with untraited checkpoints 1`] = `
       </p>
     </div>
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Litiges"
     >
       <i
         className="fas fa-exclamation-triangle"
@@ -415,7 +429,8 @@ exports[`GeneralInfos render correctly with untraited checkpoints 1`] = `
       </p>
     </div>
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Non traités"
     >
       <i
         className="fas fa-circle"
@@ -436,7 +451,8 @@ exports[`GeneralInfos render correctly with untraited checkpoints 1`] = `
       </p>
     </div>
     <div
-      className="Left-GeneralInfos-Picto"
+      className="Left-GeneralInfos-Picto tooltip is-tooltip-bottom"
+      data-tooltip="Validés"
     >
       <i
         className="fas fa-check-circle"
