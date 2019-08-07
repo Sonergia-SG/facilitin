@@ -128,7 +128,10 @@ export const AccordionComponent = ({
                       <Preview file={file} />
                     </div>
                   )}
-                  <div className="Accordion-CheckPoints">
+                  <div
+                    className="Accordion-CheckPoints"
+                    style={{ height: previewOppened ? undefined : 'auto' }}
+                  >
                     <CheckPoints
                       pending={pending}
                       folderId={folderId}
