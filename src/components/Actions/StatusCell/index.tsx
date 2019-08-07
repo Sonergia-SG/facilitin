@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { CheckPoint } from '../../../store/reducer/entities/types';
+import ProgressBar from '../../../Common/ProgressBar';
 
-import Valid from './Valid';
-import Invalid from './Invalid';
+import isRejected from '../../Folder/Left/helpers/checkPointRejected';
+import isLitige from '../../Folder/Left/helpers/checkPointInLitige';
 
 interface Props {
   original: {
@@ -16,12 +17,19 @@ const StatusCell = ({ original }: Props) => {
 
   const totalCheckPoints = cleanCheckPoints.length;
   const validCheckPoints = cleanCheckPoints.filter(c => c.pivot.valide === 1).length;
-  const invalidCheckPoints = cleanCheckPoints.filter(c => c.pivot.valide === 0).length;
+  const invalidCheckPoints = cleanCheckPoints.filter(c => isRejected(c)).length;
+  const litigeCheckPoints = cleanCheckPoints.filter(c => isLitige(c)).length;
 
   return (
-    <div style={{ display: 'flex' }}>
-      <Invalid count={invalidCheckPoints} />
-      <Valid count={validCheckPoints} total={totalCheckPoints} />
+    <div style={{ width: 100 }}>
+      <ProgressBar
+        values={{
+          '#5cb85c': validCheckPoints,
+          '#f0ad4e': litigeCheckPoints,
+          '#d9534f': invalidCheckPoints,
+          '#f0f2f7': totalCheckPoints - validCheckPoints - litigeCheckPoints - invalidCheckPoints,
+        }}
+      />
     </div>
   );
 };

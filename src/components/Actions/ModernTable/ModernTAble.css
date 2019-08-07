@@ -29,6 +29,11 @@
   white-space: nowrap;
   max-width: 150px;
   border-right: 1px #ddd solid;
+  vertical-align: middle;
+}
+
+.uikit-modernTable > tbody > tr:nth-child(1) {
+  background-color: #f9f9f9;
 }
 
 .uikit-modernTable > tbody > tr {
@@ -36,12 +41,8 @@
   transition: background-color 0.2s ease;
 }
 
-.uikit-modernTable > tbody > tr:nth-child(odd) {
-  background-color: #f9f9f9;
-}
-
 .uikit-modernTable > tbody > tr:hover {
-  background-color: #fff;
+  background-color: #f9f9f9;
 }
 
 @media only screen and (max-width: 800px) {
