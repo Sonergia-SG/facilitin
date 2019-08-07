@@ -4,8 +4,29 @@ $family-sans-serif: 'Montserrat', BlinkMacSystemFont, -apple-system, 'Segoe UI',
 
 $green: #95b75d;
 $turquoise: #1fb5ad;
-$yellow: #e4ba00;
-$orange: #ec6459;
+$yellow: #f3c022;
+$orange: #fa8564;
+$red: #fa8564;
 $cyan: #57c8f1;
 
 @import '~bulma/bulma.sass';
+
+.button.is-warning {
+  color: #fff;
+}
+
+.button.is-warning:hover {
+  color: #fff;
+}
+
+.button {
+  transition: filter 0.2s ease;
+}
+
+.button:hover {
+  filter: brightness(0.92);
+}
+
+.button:active {
+  filter: brightness(0.87);
+}

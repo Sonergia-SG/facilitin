@@ -11,7 +11,7 @@ const getValue = (v: OperationFull, key: SortedId) => {
         ? `${v.dossierprime.moa_nom} ${v.dossierprime.moa_prenom} ${
           v.dossierprime.moa_denomination
         }`
-        : ' - ';
+        : '';
     case 'delai':
       return v.moderemuneration.delai_instruction;
     default:

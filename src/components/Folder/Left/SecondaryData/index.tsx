@@ -67,8 +67,9 @@ const SecondaryData = ({ data, locked }: Props) => {
           role="button"
           tabIndex={0}
         >
-          {'MOA'}
+          {'Bénéficiaire'}
         </div>
+        <div className="SecondaryData-Separator" />
         <div
           onMouseEnter={select('MOE')}
           onClick={editMode}
@@ -81,6 +82,7 @@ const SecondaryData = ({ data, locked }: Props) => {
         >
           {'Installateur'}
         </div>
+        <div className="SecondaryData-Separator" />
         <div
           onMouseEnter={select('SITE')}
           onClick={editMode}

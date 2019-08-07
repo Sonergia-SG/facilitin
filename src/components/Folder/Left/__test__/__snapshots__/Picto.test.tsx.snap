@@ -23,7 +23,7 @@ exports[`Picto make checked less priority 1`] = `
     className="fas fa-check-circle"
     style={
       Object {
-        "color": "#2BA048",
+        "color": "#A9D86E",
       }
     }
   />
@@ -38,7 +38,7 @@ exports[`Picto make error more priority 1`] = `
     className="fas fa-exclamation-triangle"
     style={
       Object {
-        "color": "#F61616",
+        "color": "#FF6C60",
       }
     }
   />
@@ -68,7 +68,7 @@ exports[`Picto make warning more priority 1`] = `
     className="fas fa-exclamation-triangle"
     style={
       Object {
-        "color": "#FBD44A",
+        "color": "#FCB322",
       }
     }
   />
@@ -83,7 +83,7 @@ exports[`Picto render error for rejected 1`] = `
     className="fas fa-exclamation-triangle"
     style={
       Object {
-        "color": "#F61616",
+        "color": "#FF6C60",
       }
     }
   />
@@ -98,7 +98,7 @@ exports[`Picto render success if total === valid 1`] = `
     className="fas fa-check-circle"
     style={
       Object {
-        "color": "#2BA048",
+        "color": "#A9D86E",
       }
     }
   />
@@ -128,7 +128,7 @@ exports[`Picto render warning for litige 1`] = `
     className="fas fa-exclamation-triangle"
     style={
       Object {
-        "color": "#FBD44A",
+        "color": "#FCB322",
       }
     }
   />

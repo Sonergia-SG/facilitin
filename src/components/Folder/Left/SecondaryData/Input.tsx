@@ -1,6 +1,8 @@
 import React, { ChangeEvent, Fragment } from 'react';
 import idx from 'idx';
 
+import './Input.css';
+
 import {
   folderUpdateMoaValue,
   folderUpdateMoeValue,
@@ -55,12 +57,12 @@ const Input = ({
 
   return (
     <Fragment>
-      <label htmlFor={valueKey}>{label}</label>
+      <label className="Input-Label" htmlFor={valueKey}>{label}</label>
       <input
         type={type || 'text'}
         name={valueKey}
         placeholder={label}
-        className={`input${isEdited ? ' is-info' : ''}`}
+        className={`Input input${isEdited ? ' is-info' : ''}`}
         disabled={disabled}
         value={typeof value === 'string' ? value : cleanOriginalValue}
         onChange={handleChange}

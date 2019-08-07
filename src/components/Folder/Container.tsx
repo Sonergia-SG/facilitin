@@ -38,7 +38,10 @@ const Container = ({
   return (
     <div style={{ backgroundColor: '#f1f2f7', padding: '10px 20px' }}>
       <div className="Folder-Header">
-        <Link to="/actions">{"< Retour à la liste d'opérations"}</Link>
+        <Link to="/actions">
+          <i className="fa fa-chevron-left" />
+          {" Retour à la liste d'opérations"}
+        </Link>
         <div style={{ position: 'relative' }}>
           <button
             onMouseEnter={() => updateHover(true)}
@@ -48,13 +51,24 @@ const Container = ({
             onClick={toggleComments}
             onKeyDown={toggleComments}
           >
-            <span className="icon is-medium">
-              <i style={{ color: 'black' }} className="fas fa-envelope" />
-            </span>
+            <i style={{ color: '#767676' }} className="far fa-envelope" />
           </button>
           {displayLastMessage && <div className="Folder-Header-NotigBadge" />}
           {!commentsOpened && displayLastMessage && hover && (
-            <p className="Folder-Header-MessageOverlay">{idx(lastComment, _ => _.message)}</p>
+            <div className="Folder-Header-MessageOverlay">
+              <p>Dernier commentaire</p>
+              <div>
+                <div>
+                  <h2>
+                    {idx(lastComment, _ => _.user.nom)}
+                    {' '}
+                    {idx(lastComment, _ => _.user.prenom)}
+                  </h2>
+                  <h3>{idx(lastComment, _ => _.date_log)}</h3>
+                </div>
+                <p>{idx(lastComment, _ => _.message)}</p>
+              </div>
+            </div>
           )}
         </div>
       </div>

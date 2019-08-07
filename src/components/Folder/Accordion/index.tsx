@@ -57,6 +57,7 @@ export const AccordionComponent = ({
   locked,
 }: Props) => {
   const selfRef = useRef(null);
+  const selectedRef = useRef(isSelected);
 
   const litigeLoading = idx(pending, _ => _.litige[file.id_dp_file].loading) || false;
   const [displayModal, toggleModal] = useOpenModalAfterLoading(litigeLoading, file.statut, goNext);
@@ -67,6 +68,11 @@ export const AccordionComponent = ({
 
   useEffect(() => {
     if (isSelected && !isLockedByStatus) togglePreview(true);
+
+    if (selectedRef.current === true && isSelected === false) {
+      togglePreview(false);
+    }
+    selectedRef.current = isSelected;
   }, [isSelected]);
 
   const toggleAndCroll = () => {
@@ -82,23 +88,25 @@ export const AccordionComponent = ({
   return (
     <div ref={selfRef} className="divAccordion">
       <article className={`accordion ${isSelected ? 'is-active' : ''}`}>
-        <div style={{ backgroundColor: statusColor(file) }} className="accordion-header">
+        <div
+          style={{
+            backgroundColor: statusColor(file),
+          }}
+          className={`accordion-header${isSelected ? ' accordion-header-is-active' : ' '}`}
+        >
           <div
+            className="AccordionHeader-Button"
             onClick={handleClick}
             onKeyPress={handleClick}
-            style={{ cursor: 'pointer', width: '100%' }}
             role="button"
             tabIndex={0}
           >
-            <div>
-              <button
-                type="button"
-                className="toggle togglesonergia"
-                aria-label="toggle"
-                onClick={handleClick}
-              />
-              {' '}
-              {fileFolderDisplayType(file)}
+            <div>{fileFolderDisplayType(file)}</div>
+            <div
+              className="AccordionHeader-Ico"
+              style={{ transform: `rotateX(${isSelected ? '180deg' : '0deg'})` }}
+            >
+              <i className="fa fa-chevron-up" />
             </div>
           </div>
         </div>
@@ -120,7 +128,10 @@ export const AccordionComponent = ({
                       <Preview file={file} />
                     </div>
                   )}
-                  <div className="Accordion-CheckPoints">
+                  <div
+                    className="Accordion-CheckPoints"
+                    style={{ height: previewOppened ? undefined : 'auto' }}
+                  >
                     <CheckPoints
                       pending={pending}
                       folderId={folderId}
