@@ -21,7 +21,7 @@ export const EndButtonComponent = ({
       || data.dossierprimefile.every(f => f.statut === 15 || f.statut === 10)
     : false;
 
-  if (displayButton) {
+  if (true || displayButton) {
     const handleClick = () => ending(data.id_dp_operation);
 
     const loading = pending ? pending.endingLoading : false;
@@ -35,7 +35,7 @@ export const EndButtonComponent = ({
             type="button"
             disabled={!inProgress || locked}
             style={{ transition: 'opacity .2s ease' }}
-            className={`button is-primary${loading ? ' is-loading' : ''} is-outlined is-medium`}
+            className={`button is-success${loading ? ' is-loading' : ''} is-medium`}
           >
             {'Terminer'}
           </button>
