@@ -6,6 +6,12 @@
 .Left-GeneralInfos-Picto {
   display: flex;
   align-items: center;
+  border-radius: 4px;
+  padding: 3px 5px;
+}
+
+.Left-GeneralInfos-Picto:hover {
+  background-color: #f8f7f5;
 }
 
 .Left-GeneralInfos-Title {
@@ -26,4 +32,5 @@
 .Left-GeneralInfos-Picto > p {
   margin-left: 6px;
   font-weight: 500;
+  user-select: none;
 }

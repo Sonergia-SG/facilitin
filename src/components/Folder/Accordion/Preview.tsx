@@ -19,6 +19,8 @@ interface Props extends ConnectProps {
 const Preview = ({ file, uploadLoading }: Props) => {
   const { data, loading } = useDownloadPreview(file, !!uploadLoading);
 
+  if (loading === 0) return null;
+
   return (
     <div style={{ width: '100%', height: '100%' }}>
       {data !== '' ? (
@@ -26,7 +28,7 @@ const Preview = ({ file, uploadLoading }: Props) => {
           <p>Your browser does not support iframes.</p>
         </iframe>
       ) : (
-        <Empty loading={loading} />
+        <Empty loading={loading === 1} />
       )}
     </div>
   );

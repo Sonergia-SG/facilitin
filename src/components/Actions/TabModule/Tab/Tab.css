@@ -1,0 +1,23 @@
+.TabModule-Tab {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+  color: #555;
+  padding: 20px 15px;
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-right: 1px;
+}
+
+.TabModule-Tab:hover {
+  background-color: #fff;
+  color: #1fb5ad;
+}
+
+.TabModule-Tab-selected {
+  background-color: #fff;
+  color: #1fb5ad;
+}

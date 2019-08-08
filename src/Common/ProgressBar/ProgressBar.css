@@ -1,0 +1,10 @@
+.ProgressBar {
+  width: 100%;
+  display: flex;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.ProgressBar-Bar {
+  height: 10px;
+}

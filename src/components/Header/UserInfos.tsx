@@ -20,10 +20,10 @@ const resolveType = (type: UserFonction) => {
     case 'instructeur_suivi':
       return 'Instructeur de suivi';
     case '':
-      return '';
+      return 'Fonction inconnue';
     default:
       captureException(new Error(`Misssing type : ${type}`));
-      return '';
+      return 'Fonction inconnue';
   }
 };
 

@@ -3,8 +3,14 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  margin: 6px 0;
+  padding: 10px 15px;
   outline: none !important;
+  border-bottom: 1px #ebeae6 solid;
+  transition: background-color 0.3s ease;
+}
+
+.Actions-Left-CheckPointSummary-File:hover {
+  background-color: #f8f7f5;
 }
 
 .Actions-Left-CheckPointSummary-Left {
@@ -14,9 +20,17 @@
 
 .Actions-Left-CheckPointSummary-Left > h4 {
   margin: 0 0 0 5px;
-  font-size: 1.15em;
+  font-size: 16px;
+  margin-left: 10px;
+  color: #7d7d7d;
 }
 
 .Actions-Left-CheckPointSummary-File-Count {
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 14px;
+  color: #fff;
+  background-color: red;
+  border-radius: 10px;
+  padding: 3px 7px;
 }

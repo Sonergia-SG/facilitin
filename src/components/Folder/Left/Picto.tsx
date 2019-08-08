@@ -19,7 +19,7 @@ const resolveIco = (
     return {
       key: 'error',
       name: 'fa-exclamation-triangle',
-      color: '#F61616',
+      color: '#FF6C60',
     };
   }
 
@@ -27,7 +27,7 @@ const resolveIco = (
     return {
       key: 'warning',
       name: 'fa-exclamation-triangle',
-      color: '#FBD44A',
+      color: '#FCB322',
     };
   }
 
@@ -43,7 +43,7 @@ const resolveIco = (
     return {
       key: 'ok',
       name: 'fa-check-circle',
-      color: '#2BA048',
+      color: '#A9D86E',
     };
   }
 

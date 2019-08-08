@@ -94,13 +94,13 @@ button.togglesonergia {
   opacity: 1;
 }
 
-.accordions .accordion .accordion-header {
-  border-radius: 4px !important;
-}
-
 .accordion-header {
   opacity: 0.7;
   transition: opacity 0.2s ease;
+}
+
+.accordion-header-is-active {
+  border-radius: 4px 4px 0px 0px;
 }
 
 .accordion-header > div {
