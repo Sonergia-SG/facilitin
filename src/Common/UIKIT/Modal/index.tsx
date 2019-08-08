@@ -1,20 +1,12 @@
 import React from 'react';
 
-interface WarningActions {
-  type: 'dialog';
-  cancel: {
-    title: string;
-    handle: () => any;
-  };
-  confirm: {
-    title: string;
-    handle: () => any;
-  };
-}
+import Footer, { Actions } from './Footer';
+import Header from './Header';
+import Content from './Content';
 
 interface Props {
   displayModal: boolean;
-  actions: WarningActions;
+  actions: Actions;
   title: string;
   message: string;
 }
@@ -25,18 +17,9 @@ const Modal = ({
   <div className={`modal ${displayModal ? ' is-active' : ''}`}>
     <div className="modal-background" />
     <div className="modal-card">
-      <header className="modal-card-head">
-        <p className="modal-card-title">{title}</p>
-      </header>
-      <section className="modal-card-body">{message}</section>
-      <footer className="modal-card-foot">
-        <button className="button is-success" type="button" onClick={actions.confirm.handle}>
-          {actions.confirm.title}
-        </button>
-        <button className="button" type="button" onClick={actions.cancel.handle}>
-          {actions.cancel.title}
-        </button>
-      </footer>
+      <Header title={title} />
+      <Content message={message} />
+      <Footer actions={actions} />
     </div>
   </div>
 );

@@ -37,7 +37,7 @@ const DeleteFile = ({ file, deleteF }: Props) => {
         title="Suppression du fichier"
         message="Supprimer un fichier est irréversible, souhaitez-vous poursuivre ?"
         actions={{
-          type: 'dialog',
+          type: 'confirm',
           cancel: {
             handle: () => {
               setDpModal(false);

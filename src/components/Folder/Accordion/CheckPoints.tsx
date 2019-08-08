@@ -121,7 +121,7 @@ export const CheckPointsComponent = ({
                   title="Point de contrôle non conforme"
                   message={`La non-validation de ce point de contrôle entraine un rejet du document ${filename}, êtes-vous certain de vouloir continuer ?`}
                   actions={{
-                    type: 'dialog',
+                    type: 'confirm',
                     cancel: {
                       handle: () => {
                         setDpModal(false);
