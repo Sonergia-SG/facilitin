@@ -22,6 +22,7 @@
   border-bottom: 2px transparent solid;
   user-select: none;
   cursor: not-allowed;
+  outline: none;
 }
 
 .SecondaryDataSelectable {
