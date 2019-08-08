@@ -139,6 +139,7 @@ export const AccordionComponent = ({
                       folderId={folderId}
                       checkPoints={checkPoints}
                       fileId={file.id_dp_file}
+                      filename={file.filename}
                       lockedByStatus={isLockedByStatus}
                       locked={locked}
                     />

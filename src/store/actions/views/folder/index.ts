@@ -261,75 +261,66 @@ export const updateFolderCheckPoint = ({
   newValue: 0 | 1;
 }): ThunkAction => async (dispatch, getState) => {
   const checkPoint = getState().entities.checkPoints[`${checkPointId}_${idDpFile}`];
-  const filename = idx(getState(), _ => _.entities.files[idDpFile].filename) || '';
   const prevValue = checkPoint ? checkPoint.pivot.valide : 0;
 
-  const sendUpdate = checkPoint.id_penalite === 1 && newValue === 0
-    ? window.confirm(
-      `La non validation de ce point de controle entraine un rejet du document ${filename}, êtes vous certain de vouloir continuer ?`,
-    )
-    : true;
-
-  if (sendUpdate) {
-    const dispatchError = () => {
-      addMessageToQueue({
-        duration: 2500,
-        type: 'error',
-        message: 'Erreur pendant la mise à jour du point de contrôle',
-      });
-      dispatch(
-        folderUpdateCheckPointError({
-          folderId,
-          idDpFile,
-          checkPointId,
-          prevValue,
-        }),
-      );
-    };
-
+  const dispatchError = () => {
+    addMessageToQueue({
+      duration: 2500,
+      type: 'error',
+      message: 'Erreur pendant la mise à jour du point de contrôle',
+    });
     dispatch(
-      folderUpdateCheckPointLoading({
+      folderUpdateCheckPointError({
         folderId,
         idDpFile,
         checkPointId,
         prevValue,
-        newValue,
       }),
     );
+  };
 
-    try {
-      const result = await rest(`${API_PATH}actions/${folderId}/controles/${checkPointId}`, {
-        method: 'put',
-        body: JSON.stringify({
-          valide: prevValue === 1 ? 0 : 1,
-          id_dp_file: idDpFile,
-        }),
-      });
+  dispatch(
+    folderUpdateCheckPointLoading({
+      folderId,
+      idDpFile,
+      checkPointId,
+      prevValue,
+      newValue,
+    }),
+  );
 
-      if (result.status === 200) {
-        const json: FolderUpdateCheckPointResponse = await result.json();
+  try {
+    const result = await rest(`${API_PATH}actions/${folderId}/controles/${checkPointId}`, {
+      method: 'put',
+      body: JSON.stringify({
+        valide: prevValue === 1 ? 0 : 1,
+        id_dp_file: idDpFile,
+      }),
+    });
 
-        if (json.status === 'success') {
-          const jsonStatusCode = idx(json, _ => _.statut_actuel[0].code_statut);
-          const statusCode = typeof jsonStatusCode === 'number' ? jsonStatusCode : null;
-          dispatch(
-            folderUpdateCheckPointLoaded({
-              folderId,
-              checkPointId,
-              idDpFile,
-              statusCode,
-            }),
-          );
-        } else {
-          dispatchError();
-        }
+    if (result.status === 200) {
+      const json: FolderUpdateCheckPointResponse = await result.json();
+
+      if (json.status === 'success') {
+        const jsonStatusCode = idx(json, _ => _.statut_actuel[0].code_statut);
+        const statusCode = typeof jsonStatusCode === 'number' ? jsonStatusCode : null;
+        dispatch(
+          folderUpdateCheckPointLoaded({
+            folderId,
+            checkPointId,
+            idDpFile,
+            statusCode,
+          }),
+        );
       } else {
         dispatchError();
       }
-    } catch (error) {
-      captureException(error);
+    } else {
       dispatchError();
     }
+  } catch (error) {
+    captureException(error);
+    dispatchError();
   }
 };
 
