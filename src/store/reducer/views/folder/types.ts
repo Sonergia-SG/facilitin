@@ -216,19 +216,19 @@ export interface FolderFolderEndingError {
 export interface FolderFolderUpdateFileLoading {
   type: typeof FOLDER_FILE_UPDATE_LOADING;
   idDpOperation: number;
-  idFile: number;
+  idDpFile: number;
 }
 
 export interface FolderFolderUpdateFileLoaded {
   type: typeof FOLDER_FILE_UPDATE_LOADED;
   idDpOperation: number;
-  idFile: number;
+  idDpFile: number;
 }
 
 export interface FolderFolderUpdateFileError {
   type: typeof FOLDER_FILE_UPDATE_ERROR;
   idDpOperation: number;
-  idFile: number;
+  idDpFile: number;
 }
 
 export interface FolderFolderFileEndingLoading {

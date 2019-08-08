@@ -617,44 +617,47 @@ export const folderEnding: FolderEnding = idDpOperation => async (dispatch) => {
 
 type FolderUpdateFileLoading = (
   idDpOperation: number,
-  idFile: number
+  idDpFile: number
 ) => FolderFolderUpdateFileLoading;
 
-export const folderUpdateFileLoading: FolderUpdateFileLoading = (idDpOperation, idFile) => ({
+export const folderUpdateFileLoading: FolderUpdateFileLoading = (idDpOperation, idDpFile) => ({
   type: FOLDER_FILE_UPDATE_LOADING,
   idDpOperation,
-  idFile,
+  idDpFile,
 });
 
 type FolderUpdateFileLoaded = (
   idDpOperation: number,
-  idFile: number
+  idDpFile: number
 ) => FolderFolderUpdateFileLoaded;
 
-export const folderUpdateFileLoaded: FolderUpdateFileLoaded = (idDpOperation, idFile) => ({
+export const folderUpdateFileLoaded: FolderUpdateFileLoaded = (idDpOperation, idDpFile) => ({
   type: FOLDER_FILE_UPDATE_LOADED,
   idDpOperation,
-  idFile,
+  idDpFile,
 });
 
-type FolderUpdateFileError = (idDpOperation: number, idFile: number) => FolderFolderUpdateFileError;
+type FolderUpdateFileError = (
+  idDpOperation: number,
+  idDpFile: number,
+) => FolderFolderUpdateFileError;
 
-export const folderUpdateFileError: FolderUpdateFileError = (idDpOperation, idFile) => ({
+export const folderUpdateFileError: FolderUpdateFileError = (idDpOperation, idDpFile) => ({
   type: FOLDER_FILE_UPDATE_ERROR,
   idDpOperation,
-  idFile,
+  idDpFile,
 });
 
 type UploadFile = (
   idDpOperation: number,
-  idFile: number,
+  idDpFile: number,
   file: File,
   base64: string
 ) => ThunkAction;
 
 export const uploadFile: UploadFile = (
   idDpOperation,
-  idFile,
+  idDpFile,
   file,
   base64,
 ) => async (dispatch) => {
@@ -664,16 +667,16 @@ export const uploadFile: UploadFile = (
       message: 'Erreur pendant la mise à jour du fichier',
       type: 'error',
     });
-    dispatch(folderUpdateFileError(idDpOperation, idFile));
+    dispatch(folderUpdateFileError(idDpOperation, idDpFile));
   };
 
   try {
-    dispatch(folderUpdateFileLoading(idDpOperation, idFile));
+    dispatch(folderUpdateFileLoading(idDpOperation, idDpFile));
 
-    const result = await rest(`${API_PATH}files/${idFile}`, {
+    const result = await rest(`${API_PATH}uploadFile`, {
       method: 'put',
       body: JSON.stringify({
-        idDpOperation,
+        id_dp_file: idDpFile,
         mimetype: file.type,
         filename: file.name,
         binarycontent: base64,
@@ -684,7 +687,7 @@ export const uploadFile: UploadFile = (
       const j: { status: 'success' | 'fail' } = await result.json();
 
       if (j.status === 'success') {
-        dispatch(folderUpdateFileLoaded(idDpOperation, idFile));
+        dispatch(folderUpdateFileLoaded(idDpOperation, idDpFile));
         dispatch(fetchFolder(idDpOperation));
       } else {
         dispatchError();
