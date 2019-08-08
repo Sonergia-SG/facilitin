@@ -43,6 +43,11 @@ export const CheckPointsComponent = ({
     );
   }
 
+  const [modalState, setModalState] = useState<{
+    display: boolean;
+    data: { chekcpoint: CheckPoint | undefined };
+  }>({ display: false, data: { chekcpoint: undefined } });
+
   const loading = pending ? !!pending.loading : false;
 
   return (
@@ -67,8 +72,6 @@ export const CheckPointsComponent = ({
               || checkPointStatus === 'SENDING'
               || value.automatique === 1
               || locked;
-
-            const [displayModal, setDpModal] = useState(false);
 
             return (
               <tr key={value.id_point_controle}>
@@ -99,7 +102,7 @@ export const CheckPointsComponent = ({
                     customColor={isRejected(value) ? '#FF6C60' : '#FCB322'}
                     onChange={() => {
                       if (value.id_penalite === 1) {
-                        setDpModal(true);
+                        setModalState({ display: true, data: { chekcpoint: value } });
                       } else {
                         updateCheckPoint({
                           folderId,
@@ -116,37 +119,41 @@ export const CheckPointsComponent = ({
                     {value.nom}
                   </label>
                 </td>
-                <Modal
-                  displayModal={displayModal}
-                  title="Point de contrôle non conforme"
-                  message={`La non-validation de ce point de contrôle entraine un rejet du document ${filename}, êtes-vous certain de vouloir continuer ?`}
-                  actions={{
-                    type: 'confirm',
-                    cancel: {
-                      handle: () => {
-                        setDpModal(false);
-                      },
-                      title: 'Annuler',
-                    },
-                    confirm: {
-                      handle: () => {
-                        setDpModal(false);
-                        updateCheckPoint({
-                          folderId,
-                          checkPointId: value.id_point_controle,
-                          idDpFile: value.pivot.id_dp_file,
-                          newValue: 0,
-                        });
-                      },
-                      title: 'Rejet du document',
-                    },
-                  }}
-                />
               </tr>
             );
           })}
         </tbody>
       </table>
+      <Modal
+        displayModal={modalState.display}
+        title="Point de contrôle non conforme"
+        message={`La non-validation de ce point de contrôle entraine un rejet du document ${filename}, êtes-vous certain de vouloir continuer ?`}
+        actions={{
+          type: 'confirm',
+          cancel: {
+            handle: () => {
+              setModalState({ display: false, data: { chekcpoint: undefined } });
+            },
+            title: 'Annuler',
+          },
+          confirm: {
+            handle: () => {
+              setModalState({ display: false, data: { chekcpoint: undefined } });
+              const { chekcpoint } = modalState.data;
+
+              if (chekcpoint !== undefined) {
+                updateCheckPoint({
+                  folderId,
+                  checkPointId: chekcpoint.id_point_controle,
+                  idDpFile: chekcpoint.pivot.id_dp_file,
+                  newValue: 0,
+                });
+              }
+            },
+            title: 'Rejet du document',
+          },
+        }}
+      />
     </div>
   );
 };
