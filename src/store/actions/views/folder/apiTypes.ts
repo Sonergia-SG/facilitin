@@ -1,4 +1,5 @@
 import { FileStatus } from '../../../reducer/entities/types';
+import MissingFile from '../../../../components/Folder/Accordion/MissingFile';
 
 export interface FolderEndingErrorResponse {
   status: 'error';
@@ -24,13 +25,24 @@ export type FolderEndingResponse = | FolderEndingErrorResponse
   ];
 };
 
+type MISSING_FILE = -1;
+type DOCUMENT_INPROGRESS = 0;
+type DOCUMENT_INCOMPLET = 5;
+type DOCUMENT_REJECTED = 10;
+type DOCUMENT_VALIDATED = 15;
+type FileStatusString = | MISSING_FILE
+| DOCUMENT_INPROGRESS
+| DOCUMENT_INCOMPLET
+| DOCUMENT_REJECTED
+| DOCUMENT_VALIDATED;
+
 export type FolderFileEndingResponse = | {
   status: 'fail';
 }
 | {
   status: 'success';
   statut: {
-    code: FileStatus;
+    code: FileStatus | FileStatusString;
     label: string;
     color: string;
   };

@@ -13,6 +13,8 @@ import ToggleViewer from './ToggleViewer';
 import Preview from './Preview';
 import DropZone from './DropZone';
 
+import Modal from '../../../Common/UIKIT/Modal';
+
 import { folderEnding, folderFileEnding } from '../../../store/actions/views/folder';
 
 import { FileFull as SonergiaFile, CheckPoint } from '../../../store/reducer/entities/types';
@@ -137,6 +139,7 @@ export const AccordionComponent = ({
                       folderId={folderId}
                       checkPoints={checkPoints}
                       fileId={file.id_dp_file}
+                      filename={file.filename}
                       lockedByStatus={isLockedByStatus}
                       locked={locked}
                     />
@@ -165,41 +168,28 @@ export const AccordionComponent = ({
           </DropZone>
         </div>
       </article>
-      <div className={`modal ${isSelected && displayModal ? ' is-active' : ''}`}>
-        <div className="modal-background" />
-        <div className="modal-card">
-          <header className="modal-card-head">
-            <p className="modal-card-title">
-              {"Terminer l'instruction"}
-            </p>
-          </header>
-          <section className="modal-card-body">
-            {"Le document est en rejet. Voulez vous terminer l'instruction ?"}
-          </section>
-          <footer className="modal-card-foot">
-            <button
-              className="button is-success"
-              type="button"
-              onClick={() => {
-                ending(folderId);
-                toggleModal(false);
-              }}
-            >
-              {"Terminer l'instruction"}
-            </button>
-            <button
-              className="button"
-              type="button"
-              onClick={() => {
-                toggleModal(false);
-                goNext();
-              }}
-            >
-              {"Continuer l'instruction"}
-            </button>
-          </footer>
-        </div>
-      </div>
+      <Modal
+        displayModal={isSelected && displayModal}
+        title="Terminer l'instruction"
+        message="Le document est en rejet. Voulez vous terminer l'instruction ?"
+        actions={{
+          type: 'dialog',
+          cancel: {
+            handle: () => {
+              ending(folderId);
+              toggleModal(false);
+            },
+            title: "Terminer l'instruction",
+          },
+          confirm: {
+            handle: () => {
+              toggleModal(false);
+              goNext();
+            },
+            title: "Continuer l'instruction",
+          },
+        }}
+      />
     </div>
   );
 };

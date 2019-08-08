@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import idx from 'idx';
 
@@ -10,10 +10,12 @@ import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 
 import Radio from '../../../Common/UIKIT/Form/Radio';
 import isRejected from '../Left/helpers/checkPointRejected';
+import Modal from '../../../Common/UIKIT/Modal';
 
 interface Props {
   checkPoints: Array<CheckPoint> | undefined;
   fileId: number;
+  filename: string;
   folderId: number;
   updateCheckPoint: any;
   lockedByStatus: boolean;
@@ -24,6 +26,7 @@ interface Props {
 export const CheckPointsComponent = ({
   checkPoints,
   fileId,
+  filename,
   folderId,
   lockedByStatus,
   updateCheckPoint,
@@ -39,6 +42,11 @@ export const CheckPointsComponent = ({
       </div>
     );
   }
+
+  const [modalState, setModalState] = useState<{
+    display: boolean;
+    data: { chekcpoint: CheckPoint | undefined };
+  }>({ display: false, data: { chekcpoint: undefined } });
 
   const loading = pending ? !!pending.loading : false;
 
@@ -59,7 +67,11 @@ export const CheckPointsComponent = ({
               _ => _.checkPoint[value.id_point_controle].status,
             );
 
-            const disabled = lockedByStatus || loading || checkPointStatus === 'SENDING' || value.automatique === 1 || locked;
+            const disabled = lockedByStatus
+              || loading
+              || checkPointStatus === 'SENDING'
+              || value.automatique === 1
+              || locked;
 
             return (
               <tr key={value.id_point_controle}>
@@ -89,12 +101,16 @@ export const CheckPointsComponent = ({
                     disabled={disabled}
                     customColor={isRejected(value) ? '#FF6C60' : '#FCB322'}
                     onChange={() => {
-                      updateCheckPoint({
-                        folderId,
-                        checkPointId: value.id_point_controle,
-                        idDpFile: value.pivot.id_dp_file,
-                        newValue: 0,
-                      });
+                      if (value.id_penalite === 1) {
+                        setModalState({ display: true, data: { chekcpoint: value } });
+                      } else {
+                        updateCheckPoint({
+                          folderId,
+                          checkPointId: value.id_point_controle,
+                          idDpFile: value.pivot.id_dp_file,
+                          newValue: 0,
+                        });
+                      }
                     }}
                   />
                 </td>
@@ -108,6 +124,36 @@ export const CheckPointsComponent = ({
           })}
         </tbody>
       </table>
+      <Modal
+        displayModal={modalState.display}
+        title="Point de contrôle non conforme"
+        message={`La non-validation de ce point de contrôle entraine un rejet du document ${filename}, êtes-vous certain de vouloir continuer ?`}
+        actions={{
+          type: 'confirm',
+          cancel: {
+            handle: () => {
+              setModalState({ display: false, data: { chekcpoint: undefined } });
+            },
+            title: 'Annuler',
+          },
+          confirm: {
+            handle: () => {
+              setModalState({ display: false, data: { chekcpoint: undefined } });
+              const { chekcpoint } = modalState.data;
+
+              if (chekcpoint !== undefined) {
+                updateCheckPoint({
+                  folderId,
+                  checkPointId: chekcpoint.id_point_controle,
+                  idDpFile: chekcpoint.pivot.id_dp_file,
+                  newValue: 0,
+                });
+              }
+            },
+            title: 'Rejet du document',
+          },
+        }}
+      />
     </div>
   );
 };

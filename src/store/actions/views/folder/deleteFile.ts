@@ -1,4 +1,8 @@
-import { FOLDER_FILE_DELETE_LOADING, FOLDER_FILE_DELETE_LOADED, FOLDER_FILE_DELETE_ERROR } from '../../../types';
+import {
+  FOLDER_FILE_DELETE_LOADING,
+  FOLDER_FILE_DELETE_LOADED,
+  FOLDER_FILE_DELETE_ERROR,
+} from '../../../types';
 import { addMessageToQueue } from '../../../../components/Alert';
 import rest from '../../../../tools/rest';
 import { API_PATH } from '../../../../variables';
@@ -17,7 +21,7 @@ export const folderFileDeleteError = () => ({
   type: FOLDER_FILE_DELETE_ERROR,
 });
 
-type DeleteFile = (idFile: number, idDpOperation: number) => ThunkAction
+type DeleteFile = (idFile: number, idDpOperation: number) => ThunkAction;
 
 export const deleteFile: DeleteFile = (idFile, idDpOperation) => async (dispatch) => {
   const dispatchError = () => {
@@ -29,21 +33,19 @@ export const deleteFile: DeleteFile = (idFile, idDpOperation) => async (dispatch
     dispatch(folderFileDeleteError());
   };
 
-  if (window.confirm('Êtes-vous sûr de vouloir supprimer ?')) {
-    dispatch(folderFileDeleteLoading());
+  dispatch(folderFileDeleteLoading());
 
-    try {
-      const result = await rest(`${API_PATH}files/${idFile}`, {
-        method: 'DELETE',
-      });
+  try {
+    const result = await rest(`${API_PATH}files/${idFile}`, {
+      method: 'DELETE',
+    });
 
-      if (result.status === 200) {
-        dispatch(fetchFolder(idDpOperation));
-      } else {
-        dispatchError();
-      }
-    } catch (error) {
+    if (result.status === 200) {
+      dispatch(fetchFolder(idDpOperation));
+    } else {
       dispatchError();
     }
+  } catch (error) {
+    dispatchError();
   }
 };
