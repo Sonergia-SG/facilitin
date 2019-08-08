@@ -21,7 +21,7 @@ export const EndButtonComponent = ({
       || data.dossierprimefile.every(f => f.statut === 15 || f.statut === 10)
     : false;
 
-  if (true || displayButton) {
+  if (displayButton) {
     const handleClick = () => ending(data.id_dp_operation);
 
     const loading = pending ? pending.endingLoading : false;
