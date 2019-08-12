@@ -58,6 +58,24 @@ exports[`CheckPoints can't update checkpoint if it's an automatic checkpoint 1`]
       </tr>
     </tbody>
   </table>
+  <Modal
+    actions={
+      Object {
+        "cancel": Object {
+          "handle": [Function],
+          "title": "Annuler",
+        },
+        "confirm": Object {
+          "handle": [Function],
+          "title": "Rejet du document",
+        },
+        "type": "confirm",
+      }
+    }
+    displayModal={false}
+    message="La non-validation de ce point de contrôle entraine un rejet du document undefined, êtes-vous certain de vouloir continuer ?"
+    title="Point de contrôle non conforme"
+  />
 </div>
 `;
 
@@ -119,6 +137,24 @@ exports[`CheckPoints render correctly during folder loading 1`] = `
       </tr>
     </tbody>
   </table>
+  <Modal
+    actions={
+      Object {
+        "cancel": Object {
+          "handle": [Function],
+          "title": "Annuler",
+        },
+        "confirm": Object {
+          "handle": [Function],
+          "title": "Rejet du document",
+        },
+        "type": "confirm",
+      }
+    }
+    displayModal={false}
+    message="La non-validation de ce point de contrôle entraine un rejet du document undefined, êtes-vous certain de vouloir continuer ?"
+    title="Point de contrôle non conforme"
+  />
 </div>
 `;
 
@@ -180,6 +216,24 @@ exports[`CheckPoints render correctly when locked 1`] = `
       </tr>
     </tbody>
   </table>
+  <Modal
+    actions={
+      Object {
+        "cancel": Object {
+          "handle": [Function],
+          "title": "Annuler",
+        },
+        "confirm": Object {
+          "handle": [Function],
+          "title": "Rejet du document",
+        },
+        "type": "confirm",
+      }
+    }
+    displayModal={false}
+    message="La non-validation de ce point de contrôle entraine un rejet du document undefined, êtes-vous certain de vouloir continuer ?"
+    title="Point de contrôle non conforme"
+  />
 </div>
 `;
 
@@ -241,6 +295,24 @@ exports[`CheckPoints render correctly with checkpoint no traited 1`] = `
       </tr>
     </tbody>
   </table>
+  <Modal
+    actions={
+      Object {
+        "cancel": Object {
+          "handle": [Function],
+          "title": "Annuler",
+        },
+        "confirm": Object {
+          "handle": [Function],
+          "title": "Rejet du document",
+        },
+        "type": "confirm",
+      }
+    }
+    displayModal={false}
+    message="La non-validation de ce point de contrôle entraine un rejet du document undefined, êtes-vous certain de vouloir continuer ?"
+    title="Point de contrôle non conforme"
+  />
 </div>
 `;
 
@@ -302,6 +374,24 @@ exports[`CheckPoints render correctly with checkpoint sending 1`] = `
       </tr>
     </tbody>
   </table>
+  <Modal
+    actions={
+      Object {
+        "cancel": Object {
+          "handle": [Function],
+          "title": "Annuler",
+        },
+        "confirm": Object {
+          "handle": [Function],
+          "title": "Rejet du document",
+        },
+        "type": "confirm",
+      }
+    }
+    displayModal={false}
+    message="La non-validation de ce point de contrôle entraine un rejet du document undefined, êtes-vous certain de vouloir continuer ?"
+    title="Point de contrôle non conforme"
+  />
 </div>
 `;
 
@@ -363,6 +453,24 @@ exports[`CheckPoints render correctly with checkpoint valid 1`] = `
       </tr>
     </tbody>
   </table>
+  <Modal
+    actions={
+      Object {
+        "cancel": Object {
+          "handle": [Function],
+          "title": "Annuler",
+        },
+        "confirm": Object {
+          "handle": [Function],
+          "title": "Rejet du document",
+        },
+        "type": "confirm",
+      }
+    }
+    displayModal={false}
+    message="La non-validation de ce point de contrôle entraine un rejet du document undefined, êtes-vous certain de vouloir continuer ?"
+    title="Point de contrôle non conforme"
+  />
 </div>
 `;
 
@@ -424,5 +532,23 @@ exports[`CheckPoints render correctly with default checkpoint 1`] = `
       </tr>
     </tbody>
   </table>
+  <Modal
+    actions={
+      Object {
+        "cancel": Object {
+          "handle": [Function],
+          "title": "Annuler",
+        },
+        "confirm": Object {
+          "handle": [Function],
+          "title": "Rejet du document",
+        },
+        "type": "confirm",
+      }
+    }
+    displayModal={false}
+    message="La non-validation de ce point de contrôle entraine un rejet du document undefined, êtes-vous certain de vouloir continuer ?"
+    title="Point de contrôle non conforme"
+  />
 </div>
 `;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './SecondataData.css';
 
+import idx from 'idx';
 import { OperationFull } from '../../../../store/reducer/entities/types';
 
 import Card from '../../../../Common/UIKIT/Card';
@@ -8,10 +9,12 @@ import MOA from './MOA';
 import MOE from './MOE';
 import Site from './Site';
 import AnimatedHeight from './AnimateHeight';
+import { FolderPendingItem } from '../../../../store/reducer/views/folder/types';
 
 interface Props {
   data: OperationFull;
   locked: boolean;
+  pending: FolderPendingItem | undefined;
 }
 
 type Selected = 'MOA' | 'MOE' | 'SITE';
@@ -21,12 +24,16 @@ interface State {
   edit: boolean;
 }
 
-const SecondaryData = ({ data, locked }: Props) => {
+const SecondaryData = ({ data, locked, pending }: Props) => {
   const [state, setState] = useState<State>({
     selected: undefined,
     edit: false,
   });
   const { selected, edit } = state;
+
+  const cantChangeSection = idx(pending, _ => _.moa)
+    || idx(pending, _ => _.moe)
+    || idx(pending, _ => _.site);
 
   const select = (s: Selected) => () => {
     if (state.edit !== true) {
@@ -34,8 +41,10 @@ const SecondaryData = ({ data, locked }: Props) => {
     }
   };
 
-  const editMode = () => {
-    setState({ ...state, edit: true });
+  const editMode = (s: Selected) => () => {
+    if (!cantChangeSection) {
+      setState({ ...state, edit: true, selected: s });
+    }
   };
 
   const cancel = () => {
@@ -52,16 +61,14 @@ const SecondaryData = ({ data, locked }: Props) => {
   const moeSelected = selected === 'MOE';
   const siteSelected = selected === 'SITE';
 
-  const someoneSelected = !!edit;
-
   return (
     <Card onMouseLeave={clearSelected} className="SecondaryData-Container">
       <div className="SecondaryData-Items">
         <div
           onMouseEnter={select('MOA')}
-          onClick={editMode}
-          onKeyPress={editMode}
-          className={`SecondaryData-Item${someoneSelected ? '' : ' SecondaryDataSelectable'}${
+          onClick={editMode('MOA')}
+          onKeyPress={editMode('MOA')}
+          className={`SecondaryData-Item${cantChangeSection ? '' : ' SecondaryDataSelectable'}${
             moaSelected ? ' SecondaryData-Item-Selected' : ''
           }`}
           role="button"
@@ -72,9 +79,9 @@ const SecondaryData = ({ data, locked }: Props) => {
         <div className="SecondaryData-Separator" />
         <div
           onMouseEnter={select('MOE')}
-          onClick={editMode}
-          onKeyPress={editMode}
-          className={`SecondaryData-Item${someoneSelected ? '' : ' SecondaryDataSelectable'}${
+          onClick={editMode('MOE')}
+          onKeyPress={editMode('MOE')}
+          className={`SecondaryData-Item${cantChangeSection ? '' : ' SecondaryDataSelectable'}${
             moeSelected ? ' SecondaryData-Item-Selected' : ''
           }`}
           role="button"
@@ -85,9 +92,9 @@ const SecondaryData = ({ data, locked }: Props) => {
         <div className="SecondaryData-Separator" />
         <div
           onMouseEnter={select('SITE')}
-          onClick={editMode}
-          onKeyPress={editMode}
-          className={`SecondaryData-Item${someoneSelected ? '' : ' SecondaryDataSelectable'}${
+          onClick={editMode('SITE')}
+          onKeyPress={editMode('SITE')}
+          className={`SecondaryData-Item${cantChangeSection ? '' : ' SecondaryDataSelectable'}${
             siteSelected ? ' SecondaryData-Item-Selected' : ''
           }`}
           role="button"

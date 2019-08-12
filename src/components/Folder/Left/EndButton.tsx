@@ -35,7 +35,7 @@ export const EndButtonComponent = ({
             type="button"
             disabled={!inProgress || locked}
             style={{ transition: 'opacity .2s ease' }}
-            className={`button is-primary${loading ? ' is-loading' : ''} is-outlined is-medium`}
+            className={`button is-success${loading ? ' is-loading' : ''} is-medium`}
           >
             {'Terminer'}
           </button>
