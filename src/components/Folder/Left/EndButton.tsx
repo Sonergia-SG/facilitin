@@ -18,7 +18,7 @@ export const EndButtonComponent = ({
 }: Props) => {
   const displayButton = data.dossierprimefile
     ? data.dossierprimefile.some(f => f.statut === 10)
-      || data.dossierprimefile.every(f => f.statut === 15 || f.statut === 10)
+      || data.dossierprimefile.every(f => f.statut === 15 || f.statut === 5)
     : false;
 
   if (displayButton) {
