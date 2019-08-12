@@ -18,7 +18,7 @@ class DownloadFile extends Component<Props> {
       if (result.status === 200) {
         interface JSON {
           status: 'success' | 'fail';
-          file: Array<{
+          file: {
             id_file: number;
             datecreation: string;
             id_user: number;
@@ -32,11 +32,11 @@ class DownloadFile extends Component<Props> {
               id_file: number;
               binarycontent: string;
             };
-          }>;
+          };
         }
         const json: JSON = await result.json();
 
-        const file = json.file[0];
+        const { file } = json;
 
         downloadDataUri(file.file_binary.binarycontent, file.filename, file.mimetype);
       } else {
