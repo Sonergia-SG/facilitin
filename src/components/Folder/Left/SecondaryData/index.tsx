@@ -43,7 +43,12 @@ const SecondaryData = ({ data, locked, pending }: Props) => {
 
   const editMode = (s: Selected) => () => {
     if (!cantChangeSection) {
-      setState({ ...state, edit: true, selected: s });
+      const clear = state.selected === s && state.edit === true;
+      setState({
+        ...state,
+        edit: true,
+        selected: clear ? undefined : s,
+      });
     }
   };
 
