@@ -42,7 +42,7 @@ export const folderFileEndingError = (
   idDpFile,
 });
 
-type allowedForcedStatus = 5 | 10
+type allowedForcedStatus = 5 | 10 | 15
 
 export const folderFileEnding = (
   idDpOperation: number,
