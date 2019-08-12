@@ -13,6 +13,8 @@ import ToggleViewer from './ToggleViewer';
 import Preview from './Preview';
 import DropZone from './DropZone';
 
+import PDFReader from '../../../Common/PDFReader';
+
 import Modal from '../../../Common/UIKIT/Modal';
 
 import { folderEnding, folderFileEnding } from '../../../store/actions/views/folder';
@@ -139,6 +141,7 @@ export const AccordionComponent = ({
                   <h3 className="Accordion-File-name">{file.filename}</h3>
                 </div>
                 <div className="Accordion-Content">
+                  <PDFReader idFile={file.id_file} />
                   {previewOppened && supportPreview && (
                     <div className="Accordion-Document-Viewer">
                       <Preview file={file} />
