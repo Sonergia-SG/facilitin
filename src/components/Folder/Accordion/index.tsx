@@ -31,6 +31,8 @@ import MissingFile from './MissingFile';
 
 import statusColor from './tools/statusColor';
 import DeleteFile from './DeleteFile';
+import { addMessageToQueue } from '../../Alert';
+import { isMicrosoftBrowser, name } from '../../../tools/browser';
 
 interface Props {
   file: SonergiaFile;
@@ -77,14 +79,26 @@ export const AccordionComponent = ({
     selectedRef.current = isSelected;
   }, [isSelected]);
 
-  const toggleAndCroll = () => {
-    togglePreview(!previewOppened);
+  const supportPreview = isMicrosoftBrowser();
 
-    setTimeout(() => {
-      if (selfRef !== null && selfRef.current) {
-        idx(selfRef, (_: any) => _.current.scrollIntoView());
-      }
-    }, 10);
+  const toggleAndCroll = () => {
+    if (supportPreview) {
+      togglePreview(!previewOppened);
+
+      setTimeout(() => {
+        if (selfRef !== null && selfRef.current) {
+          idx(selfRef, (_: any) => _.current.scrollIntoView());
+        }
+      }, 10);
+    } else {
+      addMessageToQueue({
+        duration: 4000,
+        type: 'warning',
+        message: `La prévisualisation n'est actuellement pas disponible sur ${
+          name() === 'ie' ? 'internet explorer' : 'edge'
+        }`,
+      });
+    }
   };
 
   return (
@@ -125,7 +139,7 @@ export const AccordionComponent = ({
                   <h3 className="Accordion-File-name">{file.filename}</h3>
                 </div>
                 <div className="Accordion-Content">
-                  {previewOppened && (
+                  {previewOppened && supportPreview && (
                     <div className="Accordion-Document-Viewer">
                       <Preview file={file} />
                     </div>
