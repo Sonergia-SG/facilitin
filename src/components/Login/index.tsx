@@ -15,7 +15,6 @@ import {
 } from '../../store/actions/views/login';
 import { LoginState } from '../../store/reducer/views/login/types';
 import { AppState } from '../../store/index';
-import PDFReader from '../../Common/PDFReader';
 
 interface Props {
   login: any;
@@ -34,7 +33,88 @@ const Login = ({
     }
   }, []);
 
-  return <PDFReader idFile={70042} />;
+  return (
+    <div className="Login-container">
+      <div className="Login-header">
+        <img src={logo} alt="Sonergia logo" />
+      </div>
+      <div className="Login-content">
+        <div className="Login-panel">
+          <div className="Login-info">
+            <h1>Bienvenue dans votre espace</h1>
+            <p>SONERGIA</p>
+            <h4>
+              Entrez vos identifiants pour être orienté vers votre outils dédié
+            </h4>
+          </div>
+          <form
+            className="Login-form"
+            onSubmit={async (e) => {
+              e.preventDefault();
+              login();
+            }}
+          >
+            <div className="field">
+              <p className="control has-icons-left">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="login"
+                  className="input Login-form-input"
+                  value={loginState.email}
+                  onChange={e => updateEmail(e.target.value)}
+                  ref={emailRef}
+                  required
+                />
+                <span className="icon is-small is-left">
+                  <i className="far fa-user" />
+                </span>
+              </p>
+              {loginState.errors.email && (
+                <p style={{ color: 'red', textAlign: 'center' }}>
+                  {loginState.errors.email}
+                </p>
+              )}
+            </div>
+            <div className="field">
+              <p className="control has-icons-left">
+                <input
+                  type="password"
+                  id="mdp"
+                  name="mdp"
+                  placeholder="mot de passe"
+                  className="input Login-form-input"
+                  value={loginState.password}
+                  onChange={e => updatePassword(e.target.value)}
+                  required
+                />
+                <span className="icon is-small is-left">
+                  <i className="fas fa-lock" />
+                </span>
+              </p>
+              {loginState.errors.password && (
+                <p style={{ color: 'red' }}>{loginState.errors.password}</p>
+              )}
+            </div>
+            <button
+              type="submit"
+              className={`button Login-form-button${
+                loginState.loading ? ' is-loading' : ''
+              }`}
+            >
+              Connexion
+            </button>
+            {loginState.errors.formulaire && (
+              <p style={{ color: 'red', textAlign: 'center' }}>
+                {loginState.errors.formulaire}
+              </p>
+            )}
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default connect(

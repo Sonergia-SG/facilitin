@@ -10,7 +10,7 @@ interface Props {
 const Layout = ({ children }: Props) => (
   <div className="Layout-container">
     <div className="Layout-app">{children}</div>
-    {/* <Footer /> */}
+    <Footer />
   </div>
 );
 
