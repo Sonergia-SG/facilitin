@@ -21,39 +21,49 @@ pdfjs.GlobalWorkerOptions.workerSrc =
 // pdf.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 const PDFReader = ({ idFile }: { idFile: number }) => {
-  const canvas = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const pdfRef = useRef<any>(null);
   const [page, setPage] = useState(1);
   const [max, setMax] = useState(1);
   const [scale, setScale] = useState(1);
 
-  const renderPage = async (pageNumber: number) => {
+  const initScale = async (viewport: any) => {
+    if (containerRef.current) {
+      const container = containerRef.current;
+      setScale(container.clientWidth / viewport.width);
+    }
+  };
+
+  const renderPage = async (pageNumber: number, init?: boolean) => {
     if (
-      canvas.current &&
+      canvasRef.current &&
       pdfRef.current &&
       pdfRef.current.numPages >= pageNumber
     ) {
+      const canvas = canvasRef.current;
       const page = await pdfRef.current.getPage(pageNumber);
 
       const viewport = page.getViewport({ scale });
 
-      const context = canvas.current.getContext('2d');
+      const context = canvas.getContext('2d');
 
       if (context) {
-        canvas.current.height = viewport.height;
-        canvas.current.width = viewport.width;
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
 
         const renderContext = {
           canvasContext: context,
           viewport,
         };
 
-        context.clearRect(0, 0, canvas.current.width, canvas.current.height);
+        context.clearRect(0, 0, canvas.width, canvas.height);
         const renderTask = page.render(renderContext);
 
         await renderTask.promise;
 
         setPage(pageNumber);
+        if (init) initScale(viewport);
       }
     }
   };
@@ -63,7 +73,7 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
   }, [scale]);
 
   const dl = async () => {
-    if (idFile === 70042 && canvas.current) {
+    if (idFile === 70042) {
       /* const result = await rest(`${API_PATH}files/${idFile}`);
 
       if (result.status === 200) {
@@ -100,7 +110,7 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
 
       setMax(pdfRef.current.numPages);
 
-      renderPage(1);
+      renderPage(1, true);
     }
   };
 
@@ -109,9 +119,9 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
   }, []);
 
   return (
-    <div className="PDFReader-container">
+    <div className="PDFReader-container" ref={containerRef}>
       <div className="PDFReader-pdf-container">
-        <canvas ref={canvas} />
+        <canvas ref={canvasRef} />
       </div>
       <div>
         <div className="PDFReader-page-control">
