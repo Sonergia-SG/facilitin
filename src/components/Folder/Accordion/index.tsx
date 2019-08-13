@@ -15,9 +15,15 @@ import DropZone from './DropZone';
 
 import Modal from '../../../Common/UIKIT/Modal';
 
-import { folderEnding, folderFileEnding } from '../../../store/actions/views/folder';
+import {
+  folderEnding,
+  folderFileEnding,
+} from '../../../store/actions/views/folder';
 
-import { FileFull as SonergiaFile, CheckPoint } from '../../../store/reducer/entities/types';
+import {
+  FileFull as SonergiaFile,
+  CheckPoint,
+} from '../../../store/reducer/entities/types';
 
 import fileFolderDisplayType from '../helper/fileFolderDisplayType';
 import lockedByStatus from './tools/lockedByStatus';
@@ -64,7 +70,11 @@ export const AccordionComponent = ({
   const selectedRef = useRef(isSelected);
 
   const litigeLoading = idx(pending, _ => _.litige[file.id_dp_file].loading) || false;
-  const [displayModal, toggleModal] = useOpenModalAfterLoading(litigeLoading, file.statut, goNext);
+  const [displayModal, toggleModal] = useOpenModalAfterLoading(
+    litigeLoading,
+    file.statut,
+    goNext,
+  );
 
   const [previewOppened, togglePreview] = useState(false);
 
@@ -108,7 +118,9 @@ export const AccordionComponent = ({
           style={{
             backgroundColor: statusColor(file),
           }}
-          className={`accordion-header${isSelected ? ' accordion-header-is-active' : ' '}`}
+          className={`accordion-header${
+            isSelected ? ' accordion-header-is-active' : ' '
+          }`}
         >
           <div
             className="AccordionHeader-Button"
@@ -120,7 +132,9 @@ export const AccordionComponent = ({
             <div>{fileFolderDisplayType(file)}</div>
             <div
               className="AccordionHeader-Ico"
-              style={{ transform: `rotateX(${isSelected ? '180deg' : '0deg'})` }}
+              style={{
+                transform: `rotateX(${isSelected ? '180deg' : '0deg'})`,
+              }}
             >
               <i className="fa fa-chevron-up" />
             </div>
@@ -131,7 +145,10 @@ export const AccordionComponent = ({
             {file.id_file ? (
               <div className="Accordion-Box">
                 <div className="Accordion-File-Header">
-                  <ToggleViewer toggle={toggleAndCroll} viewerOpened={previewOppened} />
+                  <ToggleViewer
+                    toggle={toggleAndCroll}
+                    viewerOpened={previewOppened}
+                  />
                   <DownloadFile file={file} />
                   <UploadButton file={file} idDpOperation={folderId} />
                   {' '}
@@ -187,7 +204,7 @@ export const AccordionComponent = ({
         title="Terminer l'instruction"
         message="Le document est en rejet. Voulez vous terminer l'instruction ?"
         actions={{
-          type: 'dialog',
+          type: 'alert',
           cancel: {
             handle: () => {
               ending(folderId);
