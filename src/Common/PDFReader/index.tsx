@@ -12,7 +12,7 @@ import { onlyDataArray } from '../../tools/file/downloadDataUri';
 
 import './PDFReader.css';
 
-const url = 'VALENSOLE_CM.pdf';
+const url = '/VALENSOLE_CM.pdf';
 
 pdfjs.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.1.266/pdf.worker.js';
 
@@ -21,7 +21,6 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<any>(null);
   const initialViewportRef = useRef<any>(null);
-  const windowWidthRef = useRef(window.innerWidth);
   const pdfRef = useRef<any>(null);
   const [page, setPage] = useState(1);
   const [max, setMax] = useState(1);
@@ -120,6 +119,7 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
         const data = onlyDataArray(file.file_binary.binarycontent);
 
         console.log(pdf.getDocument); */
+      console.log(url);
       const task = pdfjs.getDocument(url);
 
       pdfRef.current = await task.promise;
