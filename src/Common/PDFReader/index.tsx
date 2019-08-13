@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 // @ts-ignore
 import pdfjs from 'pdfjs-dist';
 // @ts-ignore
-import pdfWorker from 'pdfjs-dist/build/pdf.worker';
-import idx from 'idx';
+// @ts-ignore
+import throttle from 'lodash.throttle';
+
 import rest from '../../tools/rest';
 import { API_PATH } from '../../variables';
 import { BooleanNumber } from '../../store/reducer/entities/types';
@@ -11,59 +12,59 @@ import { onlyDataArray } from '../../tools/file/downloadDataUri';
 
 import './PDFReader.css';
 
-// const url =
-//  'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf';
 const url = 'VALENSOLE_CM.pdf';
 
-// pdf.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
-pdfjs.GlobalWorkerOptions.workerSrc =
-  '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.1.266/pdf.worker.js';
-// pdf.GlobalWorkerOptions.workerSrc = pdfWorker;
+pdfjs.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.1.266/pdf.worker.js';
 
 const PDFReader = ({ idFile }: { idFile: number }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<any>(null);
+  const initialViewportRef = useRef<any>(null);
+  const windowWidthRef = useRef(window.innerWidth);
   const pdfRef = useRef<any>(null);
   const [page, setPage] = useState(1);
   const [max, setMax] = useState(1);
   const [scale, setScale] = useState(1);
 
-  const initScale = async (viewport: any) => {
-    if (containerRef.current) {
+  const updateScale = async () => {
+    if (containerRef.current && viewportRef.current) {
       const container = containerRef.current;
+      const viewport = initialViewportRef.current;
       setScale(container.clientWidth / viewport.width);
     }
   };
 
   const renderPage = async (pageNumber: number, init?: boolean) => {
     if (
-      canvasRef.current &&
-      pdfRef.current &&
-      pdfRef.current.numPages >= pageNumber
+      canvasRef.current
+      && pdfRef.current
+      && pdfRef.current.numPages >= pageNumber
     ) {
       const canvas = canvasRef.current;
-      const page = await pdfRef.current.getPage(pageNumber);
+      const pdfPage = await pdfRef.current.getPage(pageNumber);
 
-      const viewport = page.getViewport({ scale });
+      viewportRef.current = pdfPage.getViewport({ scale });
+      if (init) initialViewportRef.current = viewportRef.current;
 
       const context = canvas.getContext('2d');
 
       if (context) {
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
+        canvas.height = viewportRef.current.height;
+        canvas.width = viewportRef.current.width;
 
         const renderContext = {
           canvasContext: context,
-          viewport,
+          viewport: viewportRef.current,
         };
 
         context.clearRect(0, 0, canvas.width, canvas.height);
-        const renderTask = page.render(renderContext);
+        const renderTask = pdfPage.render(renderContext);
 
         await renderTask.promise;
 
         setPage(pageNumber);
-        if (init) initScale(viewport);
+        if (init) updateScale();
       }
     }
   };
@@ -71,6 +72,21 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
   useEffect(() => {
     renderPage(page);
   }, [scale]);
+
+  useEffect(() => {
+    const handleResize = throttle(
+      () => {
+        updateScale();
+      },
+      500,
+      { leading: false, trailing: true },
+    );
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 
   const dl = async () => {
     if (idFile === 70042) {
@@ -125,13 +141,24 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
       </div>
       <div>
         <div className="PDFReader-page-control">
-          <button disabled={page === 1} onClick={() => renderPage(page - 1)}>
+          <button
+            type="button"
+            disabled={page === 1}
+            onClick={() => renderPage(page - 1)}
+          >
             <i style={{ marginRight: 3 }} className="fas fa-caret-left fa-2x" />
           </button>
           <p>
-            page : {page} / {max}
+            page :
+            {' '}
+            {page}
+            {' '}
+/
+            {' '}
+            {max}
           </p>
           <button
+            type="button"
             disabled={max < page + 1}
             onClick={() => renderPage(page + 1)}
           >
@@ -140,13 +167,18 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
         </div>
         <div className="PDFReader-zoom-control">
           <button
+            type="button"
             style={{ marginBottom: 4 }}
             disabled={scale >= 3}
             onClick={() => setScale(scale + 0.2)}
           >
             <i style={{ marginRight: 0 }} className="fas fa-plus fa-2x" />
           </button>
-          <button disabled={scale <= 0.4} onClick={() => setScale(scale - 0.2)}>
+          <button
+            type="button"
+            disabled={scale <= 0.4}
+            onClick={() => setScale(scale - 0.2)}
+          >
             <i style={{ marginRight: 0 }} className="fas fa-minus fa-2x" />
           </button>
         </div>
