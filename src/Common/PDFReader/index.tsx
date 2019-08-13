@@ -3,11 +3,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import pdfjs from 'pdfjs-dist';
 // @ts-ignore
 import pdfWorker from 'pdfjs-dist/build/pdf.worker';
+import idx from 'idx';
 import rest from '../../tools/rest';
 import { API_PATH } from '../../variables';
 import { BooleanNumber } from '../../store/reducer/entities/types';
 import { onlyDataArray } from '../../tools/file/downloadDataUri';
-import idx from 'idx';
+
+import './PDFReader.css';
 
 // const url =
 //  'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf';
@@ -107,29 +109,38 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
   }, []);
 
   return (
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        overflow: 'auto',
-      }}
-    >
-      <canvas ref={canvas} />
-      <button disabled={page === 1} onClick={() => renderPage(page - 1)}>
-        Prev
-      </button>
-      <button disabled={max < page + 1} onClick={() => renderPage(page + 1)}>
-        Next
-      </button>
-      <p>
-        page : {page} / {max}
-      </p>
-      <button disabled={scale <= 0.2} onClick={() => setScale(scale - 0.2)}>
-        -
-      </button>
-      <button disabled={scale >= 3} onClick={() => setScale(scale + 0.2)}>
-        +
-      </button>
+    <div className="PDFReader-container">
+      <div className="PDFReader-pdf-container">
+        <canvas ref={canvas} />
+      </div>
+      <div>
+        <div className="PDFReader-page-control">
+          <button disabled={page === 1} onClick={() => renderPage(page - 1)}>
+            <i style={{ marginRight: 3 }} className="fas fa-caret-left fa-2x" />
+          </button>
+          <p>
+            page : {page} / {max}
+          </p>
+          <button
+            disabled={max < page + 1}
+            onClick={() => renderPage(page + 1)}
+          >
+            <i style={{ marginLeft: 3 }} className="fas fa-caret-right fa-2x" />
+          </button>
+        </div>
+        <div className="PDFReader-zoom-control">
+          <button
+            style={{ marginBottom: 4 }}
+            disabled={scale >= 3}
+            onClick={() => setScale(scale + 0.2)}
+          >
+            <i style={{ marginRight: 0 }} className="fas fa-plus fa-2x" />
+          </button>
+          <button disabled={scale <= 0.4} onClick={() => setScale(scale - 0.2)}>
+            <i style={{ marginRight: 0 }} className="fas fa-minus fa-2x" />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

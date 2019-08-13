@@ -24,7 +24,9 @@ interface Props {
   loginState: LoginState;
 }
 
-const Login = ({ loginState, updateEmail, updatePassword, login }: Props) => {
+const Login = ({
+  loginState, updateEmail, updatePassword, login,
+}: Props) => {
   const emailRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (emailRef.current) {
@@ -41,5 +43,5 @@ export default connect(
     login: loginRequest,
     updateEmail: loginUpdateEmail,
     updatePassword: loginUpdatePassword,
-  }
+  },
 )(Login);

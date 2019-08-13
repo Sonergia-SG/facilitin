@@ -1,0 +1,90 @@
+.PDFReader-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.PDFReader-pdf-container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.PDFReader-page-control {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  display: flex;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 10px 8px;
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+  border: 1px transparent solid;
+}
+
+.PDFReader-page-control:hover {
+  opacity: 1;
+  border: 1px #14b6ad52 solid;
+}
+
+.PDFReader-page-control > p {
+  padding: 5px;
+  color: #000;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.PDFReader-page-control > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  width: 32px;
+  height: 32px;
+  outline: none;
+  box-shadow: none;
+  background-color: #e8e4e6;
+  border: none;
+}
+
+.PDFReader-page-control > button:not([disabled]):hover {
+  color: #14b6ad;
+}
+
+.PDFReader-zoom-control {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 10px 8px;
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+  border: 1px transparent solid;
+}
+
+.PDFReader-zoom-control > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  width: 38px;
+  height: 38px;
+  outline: none;
+  box-shadow: none;
+  background-color: #e8e4e6;
+  border: none;
+}
+
+.PDFReader-zoom-control > button:not([disabled]):hover {
+  color: #14b6ad;
+}
+
+.PDFReader-zoom-control:hover {
+  opacity: 1;
+  border: 1px #14b6ad52 solid;
+}
