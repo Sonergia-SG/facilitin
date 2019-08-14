@@ -14,7 +14,10 @@ interface Props {
 }
 
 export const EndButtonComponent = ({
-  data, ending, pending, locked,
+  data,
+  ending,
+  pending,
+  locked,
 }: Props) => {
   const displayButton = data.dossierprimefile
     ? data.dossierprimefile.some(f => f.statut === 10)
@@ -27,6 +30,38 @@ export const EndButtonComponent = ({
     const loading = pending ? pending.endingLoading : false;
     const inProgress = data.statut ? data.statut.code_statut === 0 : true;
 
+    const docStatus = () => {
+      if (data.dossierprimefile !== undefined) {
+        if (data.dossierprimefile.some(f => f.statut === 10)) {
+          return {
+            title: 'Passer en rejet',
+            class: ' is-danger',
+          };
+        }
+
+        if (data.dossierprimefile.some(f => f.statut === 5)) {
+          return {
+            title: 'Passer en incomplet',
+            class: ' is-warning',
+          };
+        }
+
+        if (data.dossierprimefile.every(f => f.statut === 15)) {
+          return {
+            title: 'Passer en valider',
+            class: ' is-success',
+          };
+        }
+      }
+
+      return {
+        title: "En cours d'instruction",
+        class: '',
+      };
+    };
+
+    const status = docStatus();
+
     return (
       <div className="tile is-child">
         <div className="content has-text-centered">
@@ -34,10 +69,12 @@ export const EndButtonComponent = ({
             onClick={handleClick}
             type="button"
             disabled={!inProgress || locked}
-            style={{ transition: 'opacity .2s ease' }}
-            className={`button is-success${loading ? ' is-loading' : ''} is-medium`}
+            style={{ transition: 'opacity .2s ease', width: '98%' }}
+            className={`button${status.class}${
+              loading ? ' is-loading' : ''
+            } is-medium`}
           >
-            {'Terminer'}
+            {status.title}
           </button>
         </div>
       </div>

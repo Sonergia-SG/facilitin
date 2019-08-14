@@ -33,7 +33,9 @@ export const CheckPointsComponent = ({
   pending,
   locked,
 }: Props) => {
-  const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === fileId);
+  const fileCheckPoints = (checkPoints || []).filter(
+    c => c.pivot.id_dp_file === fileId,
+  );
 
   if (fileCheckPoints.length === 0) {
     return (
@@ -102,7 +104,10 @@ export const CheckPointsComponent = ({
                     customColor={isRejected(value) ? '#FF6C60' : '#FCB322'}
                     onChange={() => {
                       if (value.id_penalite === 1) {
-                        setModalState({ display: true, data: { chekcpoint: value } });
+                        setModalState({
+                          display: true,
+                          data: { chekcpoint: value },
+                        });
                       } else {
                         updateCheckPoint({
                           folderId,
@@ -115,7 +120,10 @@ export const CheckPointsComponent = ({
                   />
                 </td>
                 <td>
-                  <label className="CheckPoints-CheckPoint-Label" htmlFor={'{value.id_controle}'}>
+                  <label
+                    className="CheckPoints-CheckPoint-Label"
+                    htmlFor={'{value.id_controle}'}
+                  >
                     {value.nom}
                   </label>
                 </td>
@@ -129,16 +137,22 @@ export const CheckPointsComponent = ({
         title="Point de contrôle non conforme"
         message={`La non-validation de ce point de contrôle entraine un rejet du document ${filename}, êtes-vous certain de vouloir continuer ?`}
         actions={{
-          type: 'confirm',
+          type: 'alert',
           cancel: {
             handle: () => {
-              setModalState({ display: false, data: { chekcpoint: undefined } });
+              setModalState({
+                display: false,
+                data: { chekcpoint: undefined },
+              });
             },
             title: 'Annuler',
           },
           confirm: {
             handle: () => {
-              setModalState({ display: false, data: { chekcpoint: undefined } });
+              setModalState({
+                display: false,
+                data: { chekcpoint: undefined },
+              });
               const { chekcpoint } = modalState.data;
 
               if (chekcpoint !== undefined) {

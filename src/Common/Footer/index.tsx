@@ -37,7 +37,11 @@ const Footer = ({ canExpand }: Props) => {
             <p>
               {"Simplifie vos économies d'énergie & Donne de l'avenir à vos projets"}
             </p>
-            <button className="button is-small is-outline" type="button">
+            <button
+              style={{ opacity: 0, cursor: 'default' }}
+              className="button is-small is-outline"
+              type="button"
+            >
               Déclarer un bug
             </button>
           </div>

@@ -32,6 +32,10 @@ interface AlertActions {
     title: string;
     handle: () => any;
   };
+  cancel: {
+    title: string;
+    handle: () => any;
+  };
 }
 
 export type Actions = WarningActions | ConfirmActions | AlertActions;
@@ -41,7 +45,10 @@ interface Props {
 }
 
 const Footer = ({ actions }: Props) => (
-  <footer className="modal-card-foot" style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+  <footer
+    className="modal-card-foot"
+    style={{ display: 'flex', flexDirection: 'row-reverse' }}
+  >
     <button
       className={`button ${resolveColorByType(actions.type)}`}
       type="button"
