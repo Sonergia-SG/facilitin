@@ -4,6 +4,7 @@ import rest from '../../../tools/rest';
 import { API_PATH } from '../../../variables';
 import { addMessageToQueue } from '../../Alert';
 import { SimpleFile, BooleanNumber } from '../../../store/reducer/entities/types';
+import captureException from '../../../tools/errorReporting/captureException';
 
 const afterLoading = (l: boolean, toTrigger: () => any) => {
   const lRef = useRef(l);
@@ -62,7 +63,8 @@ const useDownloadPreview = (file: SimpleFile, uploadLoading: boolean) => {
           });
         }
       } catch (error) {
-        console.error(error);
+        captureException(error);
+
         updateData({ data: state.data, loading: -1 });
         addMessageToQueue({
           duration: 4000,

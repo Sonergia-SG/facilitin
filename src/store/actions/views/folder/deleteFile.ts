@@ -8,6 +8,7 @@ import rest from '../../../../tools/rest';
 import { API_PATH } from '../../../../variables';
 import { ThunkAction } from '../..';
 import { fetchFolder } from '.';
+import captureException from '../../../../tools/errorReporting/captureException';
 
 export const folderFileDeleteLoading = () => ({
   type: FOLDER_FILE_DELETE_LOADING,
@@ -46,6 +47,8 @@ export const deleteFile: DeleteFile = (idFile, idDpOperation) => async (dispatch
       dispatchError();
     }
   } catch (error) {
+    captureException(error);
+
     dispatchError();
   }
 };
