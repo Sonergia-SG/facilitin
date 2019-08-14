@@ -144,7 +144,7 @@ export const AccordionComponent = ({
         </div>
         <div className="accordion-body">
           <DropZone file={file} idDpOperation={folderId}>
-            {!file.id_file ? (
+            {file.id_file ? (
               <div className="Accordion-Box">
                 <div className="Accordion-File-Header">
                   <ToggleViewer

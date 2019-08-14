@@ -23,7 +23,7 @@ const Preview = ({ file, uploadLoading }: Props) => (
   <div style={{ width: '100%', height: '100%' }}>
     {/* {data !== '' ? ( */}
     {/* {file.id_file ? ( */}
-    <PDFReader idFile={70042} />
+    {file.id_file !== null && <PDFReader idFile={file.id_file} />}
     {/* ) : ( */}
     {/* <Empty loading={loading === 1} /> */}
     {/* )} */}
@@ -35,8 +35,6 @@ export default connect((s: AppState, p: ConnectProps) => {
   const { pending } = s.views.folder;
   const fileId = p.file.id_file;
   return {
-    uploadLoading:
-      idx(pending, _ => _[p.file.id_dp_operation].file[fileId].loading)
-      || false,
+    uploadLoading: idx(pending, _ => _[p.file.id_dp_operation].file[fileId].loading) || false,
   };
 })(Preview);

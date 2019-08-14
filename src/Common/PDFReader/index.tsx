@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 // @ts-ignore
 import pdfjs from 'pdfjs-dist';
 // @ts-ignore
-// @ts-ignore
 import throttle from 'lodash.throttle';
 
 import rest from '../../tools/rest';
@@ -11,8 +10,6 @@ import { BooleanNumber } from '../../store/reducer/entities/types';
 import { onlyDataArray } from '../../tools/file/downloadDataUri';
 
 import './PDFReader.css';
-
-const url = '/VALENSOLE_CM.pdf';
 
 pdfjs.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.1.266/pdf.worker.js';
 
@@ -35,11 +32,7 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
   };
 
   const renderPage = async (pageNumber: number, init?: boolean) => {
-    if (
-      canvasRef.current
-      && pdfRef.current
-      && pdfRef.current.numPages >= pageNumber
-    ) {
+    if (canvasRef.current && pdfRef.current && pdfRef.current.numPages >= pageNumber) {
       const canvas = canvasRef.current;
       const pdfPage = await pdfRef.current.getPage(pageNumber);
 
@@ -88,39 +81,32 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
   });
 
   const dl = async () => {
-    if (idFile === 70042) {
-      /* const result = await rest(`${API_PATH}files/${idFile}`);
+    const result = await rest(`${API_PATH}files/${idFile}`);
 
-      if (result.status === 200) {
-        interface JSON {
-          status: 'success' | 'fail';
-          file: {
+    if (result.status === 200) {
+      interface JSON {
+        status: 'success' | 'fail';
+        file: {
+          id_file: number;
+          datecreation: string;
+          id_user: number;
+          shorturl: string | null;
+          filename: string;
+          mimetype: string;
+          exported: BooleanNumber;
+          no_content: BooleanNumber;
+          deleted: BooleanNumber;
+          file_binary: {
             id_file: number;
-            datecreation: string;
-            id_user: number;
-            shorturl: string | null;
-            filename: string;
-            mimetype: string;
-            exported: BooleanNumber;
-            no_content: BooleanNumber;
-            deleted: BooleanNumber;
-            file_binary: {
-              id_file: number;
-              binarycontent: string;
-            };
+            binarycontent: string;
           };
-        }
-        const json: JSON = await result.json();
+        };
+      }
+      const json: JSON = await result.json();
 
-        const { file } = json;
-        console.log(idFile);
-        // console.log(file.file_binary);
-
-        const data = onlyDataArray(file.file_binary.binarycontent);
-
-        console.log(pdf.getDocument); */
-      console.log(url);
-      const task = pdfjs.getDocument(url);
+      const { file } = json;
+      const data = onlyDataArray(file.file_binary.binarycontent);
+      const task = pdfjs.getDocument(data);
 
       pdfRef.current = await task.promise;
 
@@ -141,11 +127,7 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
       </div>
       <div>
         <div className="PDFReader-page-control">
-          <button
-            type="button"
-            disabled={page === 1}
-            onClick={() => renderPage(page - 1)}
-          >
+          <button type="button" disabled={page === 1} onClick={() => renderPage(page - 1)}>
             <i style={{ marginRight: 3 }} className="fas fa-caret-left fa-2x" />
           </button>
           <p>
@@ -157,11 +139,7 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
             {' '}
             {max}
           </p>
-          <button
-            type="button"
-            disabled={max < page + 1}
-            onClick={() => renderPage(page + 1)}
-          >
+          <button type="button" disabled={max < page + 1} onClick={() => renderPage(page + 1)}>
             <i style={{ marginLeft: 3 }} className="fas fa-caret-right fa-2x" />
           </button>
         </div>
@@ -174,11 +152,7 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
           >
             <i style={{ marginRight: 0 }} className="fas fa-plus fa-2x" />
           </button>
-          <button
-            type="button"
-            disabled={scale <= 0.4}
-            onClick={() => setScale(scale - 0.2)}
-          >
+          <button type="button" disabled={scale <= 0.4} onClick={() => setScale(scale - 0.2)}>
             <i style={{ marginRight: 0 }} className="fas fa-minus fa-2x" />
           </button>
         </div>
