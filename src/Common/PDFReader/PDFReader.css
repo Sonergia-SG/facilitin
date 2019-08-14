@@ -13,20 +13,21 @@
 
 .PDFReader-page-control {
   position: absolute;
-  left: 10px;
-  bottom: 10px;
+  left: 20px;
+  bottom: 20px;
   display: flex;
   border-radius: 4px;
-  background-color: #fff;
+  background-color: #fffc;
   padding: 10px 8px;
-  opacity: 0.4;
-  transition: opacity 0.2s ease;
+  opacity: 1;
+  transition: transform 0.2s ease, border 0.2s ease, background-color 0.2s ease;
+  transform: translateX(-200px);
   border: 1px transparent solid;
 }
 
 .PDFReader-page-control:hover {
-  opacity: 1;
   border: 1px #14b6ad52 solid;
+  background-color: #fff;
 }
 
 .PDFReader-page-control > p {
@@ -55,16 +56,17 @@
 
 .PDFReader-zoom-control {
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 20px;
+  top: 20px;
   display: flex;
   flex-direction: column;
   border-radius: 4px;
-  background-color: #fff;
+  background-color: #fffc;
   padding: 10px 8px;
-  opacity: 0.4;
-  transition: opacity 0.2s ease;
+  transition: transform 0.2s ease, border 0.2s ease, background-color 0.2s ease;
+  transform: translateX(100px);
   border: 1px transparent solid;
+  opacity: 1;
 }
 
 .PDFReader-zoom-control > button {
@@ -85,6 +87,14 @@
 }
 
 .PDFReader-zoom-control:hover {
-  opacity: 1;
   border: 1px #14b6ad52 solid;
+  background-color: #fff;
+}
+
+.PDFReader-container:hover .PDFReader-zoom-control {
+  transform: translateX(0);
+}
+
+.PDFReader-container:hover .PDFReader-page-control {
+  transform: translateX(0);
 }
