@@ -29,7 +29,8 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
     if (containerRef.current && viewportRef.current) {
       const container = containerRef.current;
       const viewport = initialViewportRef.current;
-      setScale(container.clientWidth / viewport.width);
+      const fullScale = container.clientWidth / viewport.width;
+      setScale(fullScale * 0.97);
     }
   };
 
