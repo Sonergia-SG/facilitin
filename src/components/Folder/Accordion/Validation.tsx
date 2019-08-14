@@ -7,6 +7,7 @@ import { CheckPoint } from '../../../store/reducer/entities/types';
 
 import isLitige from '../Left/helpers/checkPointInLitige';
 import isRejected from '../Left/helpers/checkPointRejected';
+import isValidated from '../Left/helpers/checkPointValidated';
 
 interface Props {
   file: { statut: number; id_dp_file: number };
@@ -18,7 +19,7 @@ interface Props {
 }
 
 const getConfig = (checkPoints: Array<CheckPoint>) => {
-  if (checkPoints.every(f => f.pivot.valide === 1)) {
+  if (checkPoints.every(f => isValidated(f))) {
     return {
       title: 'Valider',
       type: 'is-success',
@@ -35,7 +36,7 @@ const getConfig = (checkPoints: Array<CheckPoint>) => {
     };
   }
 
-  if (checkPoints.some(f => isLitige(f))) {
+  if (checkPoints.every(f => isLitige(f) || isValidated(f))) {
     return {
       title: 'Litige',
       type: 'is-warning',

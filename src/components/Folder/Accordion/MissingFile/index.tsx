@@ -33,14 +33,14 @@ const MissingFile = ({
         <button
           type="button"
           style={{ transition: 'background-color 0.4s ease' }}
-          className={`button is-danger ${
+          className={`button is-success ${
             loading ? ' is-loading' : ''
           }`}
           onClick={() => {
-            fileEnding(folderId, file.id_dp_file, 10);
+            fileEnding(folderId, file.id_dp_file, 15);
           }}
         >
-          Rejeter
+          Valider
         </button>
         <button
           type="button"

@@ -28,7 +28,7 @@ const useDownloadPreview = (file: SimpleFile, uploadLoading: boolean) => {
         if (result.status === 200) {
           interface JSON {
             status: 'success' | 'fail';
-            file: Array<{
+            file: {
               id_file: number;
               datecreation: string;
               id_user: number;
@@ -42,11 +42,11 @@ const useDownloadPreview = (file: SimpleFile, uploadLoading: boolean) => {
                 id_file: number;
                 binarycontent: string;
               };
-            }>;
+            };
           }
           const json: JSON = await result.json();
 
-          const fileWithData = json.file[0];
+          const fileWithData = json.file;
           const b64 = `data:${fileWithData.mimetype};base64,${
             fileWithData.file_binary.binarycontent
           }`;

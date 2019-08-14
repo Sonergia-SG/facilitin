@@ -15,9 +15,15 @@ import DropZone from './DropZone';
 
 import Modal from '../../../Common/UIKIT/Modal';
 
-import { folderEnding, folderFileEnding } from '../../../store/actions/views/folder';
+import {
+  folderEnding,
+  folderFileEnding,
+} from '../../../store/actions/views/folder';
 
-import { FileFull as SonergiaFile, CheckPoint } from '../../../store/reducer/entities/types';
+import {
+  FileFull as SonergiaFile,
+  CheckPoint,
+} from '../../../store/reducer/entities/types';
 
 import fileFolderDisplayType from '../helper/fileFolderDisplayType';
 import lockedByStatus from './tools/lockedByStatus';
@@ -31,6 +37,8 @@ import MissingFile from './MissingFile';
 
 import statusColor from './tools/statusColor';
 import DeleteFile from './DeleteFile';
+import { addMessageToQueue } from '../../Alert';
+import { isMicrosoftBrowser, name } from '../../../tools/browser';
 
 interface Props {
   file: SonergiaFile;
@@ -62,7 +70,11 @@ export const AccordionComponent = ({
   const selectedRef = useRef(isSelected);
 
   const litigeLoading = idx(pending, _ => _.litige[file.id_dp_file].loading) || false;
-  const [displayModal, toggleModal] = useOpenModalAfterLoading(litigeLoading, file.statut, goNext);
+  const [displayModal, toggleModal] = useOpenModalAfterLoading(
+    litigeLoading,
+    file.statut,
+    goNext,
+  );
 
   const [previewOppened, togglePreview] = useState(false);
 
@@ -77,14 +89,26 @@ export const AccordionComponent = ({
     selectedRef.current = isSelected;
   }, [isSelected]);
 
-  const toggleAndCroll = () => {
-    togglePreview(!previewOppened);
+  const supportPreview = isMicrosoftBrowser();
 
-    setTimeout(() => {
-      if (selfRef !== null && selfRef.current) {
-        idx(selfRef, (_: any) => _.current.scrollIntoView());
-      }
-    }, 10);
+  const toggleAndCroll = () => {
+    if (supportPreview) {
+      togglePreview(!previewOppened);
+
+      setTimeout(() => {
+        if (selfRef !== null && selfRef.current) {
+          idx(selfRef, (_: any) => _.current.scrollIntoView());
+        }
+      }, 10);
+    } else {
+      addMessageToQueue({
+        duration: 4000,
+        type: 'warning',
+        message: `La prévisualisation n'est actuellement pas disponible sur ${
+          name() === 'ie' ? 'internet explorer' : 'edge'
+        }`,
+      });
+    }
   };
 
   return (
@@ -94,7 +118,9 @@ export const AccordionComponent = ({
           style={{
             backgroundColor: statusColor(file),
           }}
-          className={`accordion-header${isSelected ? ' accordion-header-is-active' : ' '}`}
+          className={`accordion-header${
+            isSelected ? ' accordion-header-is-active' : ' '
+          }`}
         >
           <div
             className="AccordionHeader-Button"
@@ -106,7 +132,9 @@ export const AccordionComponent = ({
             <div>{fileFolderDisplayType(file)}</div>
             <div
               className="AccordionHeader-Ico"
-              style={{ transform: `rotateX(${isSelected ? '180deg' : '0deg'})` }}
+              style={{
+                transform: `rotateX(${isSelected ? '180deg' : '0deg'})`,
+              }}
             >
               <i className="fa fa-chevron-up" />
             </div>
@@ -117,7 +145,10 @@ export const AccordionComponent = ({
             {file.id_file ? (
               <div className="Accordion-Box">
                 <div className="Accordion-File-Header">
-                  <ToggleViewer toggle={toggleAndCroll} viewerOpened={previewOppened} />
+                  <ToggleViewer
+                    toggle={toggleAndCroll}
+                    viewerOpened={previewOppened}
+                  />
                   <DownloadFile file={file} />
                   <UploadButton file={file} idDpOperation={folderId} />
                   {' '}
@@ -125,7 +156,7 @@ export const AccordionComponent = ({
                   <h3 className="Accordion-File-name">{file.filename}</h3>
                 </div>
                 <div className="Accordion-Content">
-                  {previewOppened && (
+                  {previewOppened && supportPreview && (
                     <div className="Accordion-Document-Viewer">
                       <Preview file={file} />
                     </div>
@@ -173,7 +204,7 @@ export const AccordionComponent = ({
         title="Terminer l'instruction"
         message="Le document est en rejet. Voulez vous terminer l'instruction ?"
         actions={{
-          type: 'dialog',
+          type: 'alert',
           cancel: {
             handle: () => {
               ending(folderId);

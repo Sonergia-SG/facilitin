@@ -52,7 +52,7 @@ export const DropZoneComponent = ({
 
       const handleLoad = () => {
         if (typeof reader.result === 'string') {
-          upload(idDpOperation, dpFile.id_file, file, reader.result);
+          upload(idDpOperation, dpFile.id_dp_file, file, reader.result);
         }
 
         reader.removeEventListener('load', handleLoad);

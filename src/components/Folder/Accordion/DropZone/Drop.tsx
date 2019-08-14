@@ -49,26 +49,33 @@ const Drop = ({
         disabled={disabled}
       >
         {({
-          getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles,
+          getRootProps,
+          getInputProps,
+          isDragActive,
+          isDragReject,
+          rejectedFiles,
         }) => {
           const isFileTooLarge = rejectedFiles.length > 0 && rejectedFiles[0].size > maxSize;
 
           const rootProps = getRootProps();
 
           return (
-            <div {...rootProps} className={`${rootProps.className} DropZone-overlay`}>
+            <div
+              {...rootProps}
+              className={`${rootProps.className} DropZone-overlay`}
+            >
               <input ref={inputRef} {...getInputProps()} />
-              <i
-                onDragEnter={incrementDragCount}
-                onDragLeave={decrementDragCount}
-                style={{
-                  fontSize: 52,
-                  cursor: 'pointer',
-                  margin: '0 3px',
-                  opacity: disabled ? 0.6 : 1,
-                }}
-                className="fas fa-file-upload"
-              />
+              <div className="DropZone-upload-icon">
+                <i
+                  onDragEnter={incrementDragCount}
+                  onDragLeave={decrementDragCount}
+                  style={{
+                    opacity: disabled ? 0.6 : 1,
+                  }}
+                  className="fas fa-file-upload"
+                />
+              </div>
+              <p>Déposer vos fichier pour les transférer</p>
             </div>
           );
         }}
