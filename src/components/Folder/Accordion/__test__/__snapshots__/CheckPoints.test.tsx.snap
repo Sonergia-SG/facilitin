@@ -69,7 +69,7 @@ exports[`CheckPoints can't update checkpoint if it's an automatic checkpoint 1`]
           "handle": [Function],
           "title": "Rejet du document",
         },
-        "type": "confirm",
+        "type": "alert",
       }
     }
     displayModal={false}
@@ -148,7 +148,7 @@ exports[`CheckPoints render correctly during folder loading 1`] = `
           "handle": [Function],
           "title": "Rejet du document",
         },
-        "type": "confirm",
+        "type": "alert",
       }
     }
     displayModal={false}
@@ -227,7 +227,7 @@ exports[`CheckPoints render correctly when locked 1`] = `
           "handle": [Function],
           "title": "Rejet du document",
         },
-        "type": "confirm",
+        "type": "alert",
       }
     }
     displayModal={false}
@@ -306,7 +306,7 @@ exports[`CheckPoints render correctly with checkpoint no traited 1`] = `
           "handle": [Function],
           "title": "Rejet du document",
         },
-        "type": "confirm",
+        "type": "alert",
       }
     }
     displayModal={false}
@@ -385,7 +385,7 @@ exports[`CheckPoints render correctly with checkpoint sending 1`] = `
           "handle": [Function],
           "title": "Rejet du document",
         },
-        "type": "confirm",
+        "type": "alert",
       }
     }
     displayModal={false}
@@ -464,7 +464,7 @@ exports[`CheckPoints render correctly with checkpoint valid 1`] = `
           "handle": [Function],
           "title": "Rejet du document",
         },
-        "type": "confirm",
+        "type": "alert",
       }
     }
     displayModal={false}
@@ -543,7 +543,7 @@ exports[`CheckPoints render correctly with default checkpoint 1`] = `
           "handle": [Function],
           "title": "Rejet du document",
         },
-        "type": "confirm",
+        "type": "alert",
       }
     }
     displayModal={false}
