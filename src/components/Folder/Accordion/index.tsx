@@ -13,8 +13,6 @@ import ToggleViewer from './ToggleViewer';
 import Preview from './Preview';
 import DropZone from './DropZone';
 
-import PDFReader from '../../../Common/PDFReader';
-
 import Modal from '../../../Common/UIKIT/Modal';
 
 import {
@@ -40,7 +38,6 @@ import MissingFile from './MissingFile';
 import statusColor from './tools/statusColor';
 import DeleteFile from './DeleteFile';
 import { addMessageToQueue } from '../../Alert';
-import { isMicrosoftBrowser, name } from '../../../tools/browser';
 
 interface Props {
   file: SonergiaFile;
@@ -91,7 +88,7 @@ export const AccordionComponent = ({
     selectedRef.current = isSelected;
   }, [isSelected]);
 
-  const supportPreview = isMicrosoftBrowser();
+  const supportPreview = file.mimetype === 'application/pdf';
 
   const toggleAndCroll = () => {
     if (supportPreview) {
@@ -106,9 +103,7 @@ export const AccordionComponent = ({
       addMessageToQueue({
         duration: 4000,
         type: 'warning',
-        message: `La prévisualisation n'est actuellement pas disponible sur ${
-          name() === 'ie' ? 'internet explorer' : 'edge'
-        }`,
+        message: 'La prévisualisation est actuellement disponible que pour les PDF',
       });
     }
   };
