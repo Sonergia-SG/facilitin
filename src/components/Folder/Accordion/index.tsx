@@ -91,15 +91,26 @@ export const AccordionComponent = ({
     selectedRef.current = isSelected;
   }, [isSelected]);
 
+  const supportPreview = isMicrosoftBrowser();
 
   const toggleAndCroll = () => {
-    togglePreview(!previewOppened);
+    if (supportPreview) {
+      togglePreview(!previewOppened);
 
-    setTimeout(() => {
-      if (selfRef !== null && selfRef.current) {
-        idx(selfRef, (_: any) => _.current.scrollIntoView());
-      }
-    }, 10);
+      setTimeout(() => {
+        if (selfRef !== null && selfRef.current) {
+          idx(selfRef, (_: any) => _.current.scrollIntoView());
+        }
+      }, 10);
+    } else {
+      addMessageToQueue({
+        duration: 4000,
+        type: 'warning',
+        message: `La prévisualisation n'est actuellement pas disponible sur ${
+          name() === 'ie' ? 'internet explorer' : 'edge'
+        }`,
+      });
+    }
   };
 
   return (
@@ -147,7 +158,7 @@ export const AccordionComponent = ({
                   <h3 className="Accordion-File-name">{file.filename}</h3>
                 </div>
                 <div className="Accordion-Content">
-                  {previewOppened && (
+                  {previewOppened && supportPreview && (
                     <div className="Accordion-Document-Viewer">
                       <Preview file={file} />
                     </div>
