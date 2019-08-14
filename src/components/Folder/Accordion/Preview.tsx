@@ -1,10 +1,11 @@
-import React, { lazy } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { connect } from 'react-redux';
 import idx from 'idx';
 
 import { SimpleFile } from '../../../store/reducer/entities/types';
 
 import { AppState } from '../../../store';
+import Loading from '../../Loading';
 
 const PDFReader = lazy(() => import('../../../Common/PDFReader'));
 
@@ -18,7 +19,11 @@ interface Props extends ConnectProps {
 
 const Preview = ({ file, uploadLoading }: Props) => (
   <div style={{ width: '100%', height: '100%' }}>
-    {file.id_file !== null && uploadLoading === false && <PDFReader idFile={file.id_file} />}
+    {file.id_file !== null && uploadLoading === false && (
+      <Suspense fallback={<Loading />}>
+        <PDFReader idFile={file.id_file} />
+      </Suspense>
+    )}
   </div>
 );
 export default connect((s: AppState, p: ConnectProps) => {
