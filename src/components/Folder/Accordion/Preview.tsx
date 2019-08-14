@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { connect } from 'react-redux';
 import idx from 'idx';
 
 import { SimpleFile } from '../../../store/reducer/entities/types';
 
 import { AppState } from '../../../store';
-import PDFReader from '../../../Common/PDFReader';
+
+const PDFReader = lazy(() => import('../../../Common/PDFReader'));
 
 interface ConnectProps {
   file: SimpleFile;
