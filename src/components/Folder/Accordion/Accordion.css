@@ -18,7 +18,8 @@
 .Accordion-CheckPoints {
   flex: 1;
   min-width: 240px;
-  margin: 20px 10px 20px 0px;
+  overflow-y: auto;
+  height: calc(100vh - 44px - 39px - 54px - 80px - 130px);
 }
 
 .Accordion-File-name {
@@ -44,4 +45,20 @@
   position: absolute;
   bottom: 10px;
   right: 20px;
+}
+
+.AccordionHeader-Button {
+  display: flex;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 6px 3px;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+  text-transform: uppercase;
+}
+
+.AccordionHeader-Button > .AccordionHeader-Ico {
+  transition: transform 0.2s ease;
 }

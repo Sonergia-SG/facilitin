@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import idx from 'idx';
 
@@ -8,11 +8,14 @@ import { updateFolderCheckPoint } from '../../../store/actions/views/folder';
 import './CheckPoints.css';
 import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 
-import Picto from './Picto';
+import Radio from '../../../Common/UIKIT/Form/Radio';
+import isRejected from '../Left/helpers/checkPointRejected';
+import Modal from '../../../Common/UIKIT/Modal';
 
 interface Props {
   checkPoints: Array<CheckPoint> | undefined;
   fileId: number;
+  filename: string;
   folderId: number;
   updateCheckPoint: any;
   lockedByStatus: boolean;
@@ -23,13 +26,16 @@ interface Props {
 export const CheckPointsComponent = ({
   checkPoints,
   fileId,
+  filename,
   folderId,
   lockedByStatus,
   updateCheckPoint,
   pending,
   locked,
 }: Props) => {
-  const fileCheckPoints = (checkPoints || []).filter(c => c.pivot.id_dp_file === fileId);
+  const fileCheckPoints = (checkPoints || []).filter(
+    c => c.pivot.id_dp_file === fileId,
+  );
 
   if (fileCheckPoints.length === 0) {
     return (
@@ -39,6 +45,11 @@ export const CheckPointsComponent = ({
     );
   }
 
+  const [modalState, setModalState] = useState<{
+    display: boolean;
+    data: { chekcpoint: CheckPoint | undefined };
+  }>({ display: false, data: { chekcpoint: undefined } });
+
   const loading = pending ? !!pending.loading : false;
 
   return (
@@ -46,7 +57,6 @@ export const CheckPointsComponent = ({
       <table className="CheckPoints-Table">
         <thead>
           <tr>
-            <th />
             <th>Oui</th>
             <th>Non</th>
             <th />
@@ -59,16 +69,16 @@ export const CheckPointsComponent = ({
               _ => _.checkPoint[value.id_point_controle].status,
             );
 
-            const disabled = lockedByStatus || loading || checkPointStatus === 'SENDING' || value.automatique === 1 || locked;
+            const disabled = lockedByStatus
+              || loading
+              || checkPointStatus === 'SENDING'
+              || value.automatique === 1
+              || locked;
 
             return (
               <tr key={value.id_point_controle}>
                 <td className="CheckPoints-Table-Center">
-                  <Picto checkPoint={value} />
-                </td>
-                <td className="CheckPoints-Table-Center">
-                  <input
-                    type="radio"
+                  <Radio
                     id={`${value.is_controle_file}_yes`}
                     name={`${value.id_point_controle}`}
                     checked={value.pivot.valide === 1}
@@ -85,25 +95,35 @@ export const CheckPointsComponent = ({
                   />
                 </td>
                 <td className="CheckPoints-Table-Center">
-                  <input
-                    type="radio"
+                  <Radio
                     id={`${value.is_controle_file}_no`}
                     name={`${value.id_point_controle}`}
                     checked={value.pivot.valide === 0}
                     value="no"
                     disabled={disabled}
+                    customColor={isRejected(value) ? '#FF6C60' : '#FCB322'}
                     onChange={() => {
-                      updateCheckPoint({
-                        folderId,
-                        checkPointId: value.id_point_controle,
-                        idDpFile: value.pivot.id_dp_file,
-                        newValue: 0,
-                      });
+                      if (value.id_penalite === 1) {
+                        setModalState({
+                          display: true,
+                          data: { chekcpoint: value },
+                        });
+                      } else {
+                        updateCheckPoint({
+                          folderId,
+                          checkPointId: value.id_point_controle,
+                          idDpFile: value.pivot.id_dp_file,
+                          newValue: 0,
+                        });
+                      }
                     }}
                   />
                 </td>
                 <td>
-                  <label className="CheckPoints-CheckPoint-Label" htmlFor={'{value.id_controle}'}>
+                  <label
+                    className="CheckPoints-CheckPoint-Label"
+                    htmlFor={'{value.id_controle}'}
+                  >
                     {value.nom}
                   </label>
                 </td>
@@ -112,6 +132,42 @@ export const CheckPointsComponent = ({
           })}
         </tbody>
       </table>
+      <Modal
+        displayModal={modalState.display}
+        title="Point de contrôle non conforme"
+        message={`La non-validation de ce point de contrôle entraine un rejet du document ${filename}, êtes-vous certain de vouloir continuer ?`}
+        actions={{
+          type: 'alert',
+          cancel: {
+            handle: () => {
+              setModalState({
+                display: false,
+                data: { chekcpoint: undefined },
+              });
+            },
+            title: 'Annuler',
+          },
+          confirm: {
+            handle: () => {
+              setModalState({
+                display: false,
+                data: { chekcpoint: undefined },
+              });
+              const { chekcpoint } = modalState.data;
+
+              if (chekcpoint !== undefined) {
+                updateCheckPoint({
+                  folderId,
+                  checkPointId: chekcpoint.id_point_controle,
+                  idDpFile: chekcpoint.pivot.id_dp_file,
+                  newValue: 0,
+                });
+              }
+            },
+            title: 'Rejet du document',
+          },
+        }}
+      />
     </div>
   );
 };

@@ -1,0 +1,24 @@
+.Input-Label {
+  margin-bottom: 5px;
+  margin-top: 15px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #767676;
+}
+
+.Input {
+  border: 1px solid #e2e2e4;
+  box-shadow: none;
+  outline: none;
+  color: #c2c2c2;
+  transition: bakground-color 0.2s ease;
+}
+
+.Input:focus {
+  border-color: #1fb5ad;
+  box-shadow: none;
+}
+
+.Input:disabled {
+  background-color: #eee;
+}

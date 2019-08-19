@@ -324,7 +324,7 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
           [action.idDpOperation]: {
             ...state.pending[action.idDpOperation],
             file: {
-              [action.idFile]: {
+              [action.idDpFile]: {
                 loading: true,
               },
             },
@@ -341,7 +341,7 @@ const folder = (state: FolderState = initialState, action: FolderAction): Folder
           [action.idDpOperation]: {
             ...state.pending[action.idDpOperation],
             file: {
-              [action.idFile]: {
+              [action.idDpFile]: {
                 loading: false,
               },
             },

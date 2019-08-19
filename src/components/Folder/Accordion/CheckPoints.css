@@ -2,14 +2,29 @@
   margin-left: 2px;
 }
 
+.CheckPoints-Table {
+  margin: 0px 5px;
+}
+
 .CheckPoints-Table th {
   padding: 0 5px;
-  font-size: 14px;
+  font-size: 12px;
 }
+
 .CheckPoints-Table .CheckPoints-Table-Center {
   text-align: center;
 }
 
 .CheckPoints-CheckPoint-Label {
-  margin-left: 9px;
+  font-size: 12px;
+}
+
+.CheckPoints-Table > tbody > tr > td {
+  vertical-align: middle;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.CheckPoints-Table > tbody > tr {
+  border-bottom: 1px #dddddd solid;
 }

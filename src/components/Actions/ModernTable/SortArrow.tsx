@@ -9,7 +9,8 @@ const SortArrow = ({ sorted }: Props) => (
   <div style={{ float: 'right' }}>
     <div
       style={{
-        color: sorted && sorted.desc === false ? '#1fb5ad' : undefined,
+        color: sorted && sorted.desc === false ? '#7969fb' : undefined,
+        opacity: sorted && sorted.desc === true ? 0.3 : 1,
         marginTop: -3,
       }}
     >
@@ -17,7 +18,8 @@ const SortArrow = ({ sorted }: Props) => (
     </div>
     <div
       style={{
-        color: sorted && sorted.desc === true ? '#1fb5ad' : undefined,
+        color: sorted && sorted.desc === true ? '#7969fb' : undefined,
+        opacity: sorted && sorted.desc === false ? 0.3 : 1,
         marginTop: -12,
       }}
     >

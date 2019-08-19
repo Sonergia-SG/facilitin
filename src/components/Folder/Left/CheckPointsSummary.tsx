@@ -10,6 +10,7 @@ import Card from '../../../Common/UIKIT/Card';
 import Picto from './Picto';
 
 import './CheckPointSummary.css';
+import statusColor from '../Accordion/tools/statusColor';
 
 interface Props {
   data: OperationFull;
@@ -26,7 +27,7 @@ const CheckPointsSummary = ({
 }: Props) => {
   if (data.dossierprimefile && data.dossierprimefile.length > 0) {
     return (
-      <Card style={{ flexGrow: 0 }}>
+      <Card style={{ flexGrow: 0, padding: 0 }}>
         <div className="content">
           {data.dossierprimefile.map((file, index) => {
             const currentCheckPoints = checkPoints.filter(
@@ -65,11 +66,11 @@ const CheckPointsSummary = ({
                   </h4>
                 </div>
                 <p
-                  style={{ color: active ? '#16a0e0' : 'black' }}
+                  style={{ backgroundColor: statusColor(file) }}
                   className="Actions-Left-CheckPointSummary-File-Count"
                 >
                   {validCheckPoints.length}
-                  {'/'}
+                  {' / '}
                   {currentCheckPoints.length}
                 </p>
               </div>

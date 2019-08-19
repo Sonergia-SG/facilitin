@@ -12,17 +12,18 @@ exports[`EndButton render EndButton disabled if operation status has code "15" 1
     className="content has-text-centered"
   >
     <button
-      className="button is-primary is-outlined is-medium"
+      className="button is-danger is-medium"
       disabled={true}
       onClick={[Function]}
       style={
         Object {
           "transition": "opacity .2s ease",
+          "width": "98%",
         }
       }
       type="button"
     >
-      Terminer
+      Passer en rejet
     </button>
   </div>
 </div>
@@ -36,17 +37,18 @@ exports[`EndButton render EndButton disabled if operation status missing "code_s
     className="content has-text-centered"
   >
     <button
-      className="button is-primary is-outlined is-medium"
+      className="button is-danger is-medium"
       disabled={true}
       onClick={[Function]}
       style={
         Object {
           "transition": "opacity .2s ease",
+          "width": "98%",
         }
       }
       type="button"
     >
-      Terminer
+      Passer en rejet
     </button>
   </div>
 </div>
@@ -60,17 +62,18 @@ exports[`EndButton render EndButton enabled if operation status has code "0" 1`]
     className="content has-text-centered"
   >
     <button
-      className="button is-primary is-outlined is-medium"
+      className="button is-danger is-medium"
       disabled={false}
       onClick={[Function]}
       style={
         Object {
           "transition": "opacity .2s ease",
+          "width": "98%",
         }
       }
       type="button"
     >
-      Terminer
+      Passer en rejet
     </button>
   </div>
 </div>
@@ -84,17 +87,18 @@ exports[`EndButton render EndButton if all dpfile is validated 1`] = `
     className="content has-text-centered"
   >
     <button
-      className="button is-primary is-outlined is-medium"
+      className="button is-success is-medium"
       disabled={false}
       onClick={[Function]}
       style={
         Object {
           "transition": "opacity .2s ease",
+          "width": "98%",
         }
       }
       type="button"
     >
-      Terminer
+      Passer en valider
     </button>
   </div>
 </div>
@@ -108,17 +112,18 @@ exports[`EndButton render EndButton if one dpfile is rejected 1`] = `
     className="content has-text-centered"
   >
     <button
-      className="button is-primary is-outlined is-medium"
+      className="button is-danger is-medium"
       disabled={false}
       onClick={[Function]}
       style={
         Object {
           "transition": "opacity .2s ease",
+          "width": "98%",
         }
       }
       type="button"
     >
-      Terminer
+      Passer en rejet
     </button>
   </div>
 </div>
@@ -132,16 +137,17 @@ exports[`EndButton render EndButton loading for pending endingLoading "true" 1`]
     className="content has-text-centered"
   >
     <button
-      className="button is-primary is-loading is-outlined is-medium"
+      className="button is-danger is-loading is-medium"
       onClick={[Function]}
       style={
         Object {
           "transition": "opacity .2s ease",
+          "width": "98%",
         }
       }
       type="button"
     >
-      Terminer
+      Passer en rejet
     </button>
   </div>
 </div>
@@ -155,17 +161,18 @@ exports[`EndButton render EndButton locked 1`] = `
     className="content has-text-centered"
   >
     <button
-      className="button is-primary is-outlined is-medium"
+      className="button is-success is-medium"
       disabled={true}
       onClick={[Function]}
       style={
         Object {
           "transition": "opacity .2s ease",
+          "width": "98%",
         }
       }
       type="button"
     >
-      Terminer
+      Passer en valider
     </button>
   </div>
 </div>
@@ -179,17 +186,18 @@ exports[`EndButton render EndButton not loading for pending endingLoading "false
     className="content has-text-centered"
   >
     <button
-      className="button is-primary is-outlined is-medium"
+      className="button is-danger is-medium"
       disabled={false}
       onClick={[Function]}
       style={
         Object {
           "transition": "opacity .2s ease",
+          "width": "98%",
         }
       }
       type="button"
     >
-      Terminer
+      Passer en rejet
     </button>
   </div>
 </div>

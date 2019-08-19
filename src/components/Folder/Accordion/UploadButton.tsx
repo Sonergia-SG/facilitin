@@ -36,7 +36,7 @@ export const UploadButtonComponent = ({
 
       const handleLoad = () => {
         if (typeof reader.result === 'string') {
-          upload(idDpOperation, dpFile.id_file, file, reader.result);
+          upload(idDpOperation, dpFile.id_dp_file, file, reader.result);
         }
 
         reader.removeEventListener('load', handleLoad);
@@ -50,7 +50,13 @@ export const UploadButtonComponent = ({
 
   const maxSize = 5242880;
 
-  const disabled = !(dpFile.statut === -1 || dpFile.statut === 0 || dpFile.statut === 5);
+  const wrongStatus = !(
+    dpFile.statut === -1
+    || dpFile.statut === 0
+    || dpFile.statut === 5
+    || dpFile.statut === undefined
+  );
+  const disabled = wrongStatus && dpFile.id_dp_file > 0;
 
   return (
     <div className="text-center mt-5">

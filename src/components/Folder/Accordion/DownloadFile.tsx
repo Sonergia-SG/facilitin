@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import rest from '../../../tools/rest';
 import { API_PATH } from '../../../variables';
 import { addMessageToQueue } from '../../Alert';
-import {
-  BooleanNumber,
-  SimpleFile,
-} from '../../../store/reducer/entities/types';
+import { BooleanNumber, SimpleFile } from '../../../store/reducer/entities/types';
 
 import downloadDataUri from '../../../tools/file/downloadDataUri';
+import captureException from '../../../tools/errorReporting/captureException';
 
 interface Props {
   file: SimpleFile;
@@ -21,7 +19,7 @@ class DownloadFile extends Component<Props> {
       if (result.status === 200) {
         interface JSON {
           status: 'success' | 'fail';
-          file: Array<{
+          file: {
             id_file: number;
             datecreation: string;
             id_user: number;
@@ -35,16 +33,13 @@ class DownloadFile extends Component<Props> {
               id_file: number;
               binarycontent: string;
             };
-          }>;
+          };
         }
         const json: JSON = await result.json();
 
-        const file = json.file[0];
-        const b64 = `data:${file.mimetype};base64,${
-          file.file_binary.binarycontent
-        }`;
+        const { file } = json;
 
-        downloadDataUri(b64, file.filename);
+        downloadDataUri(file.file_binary.binarycontent, file.filename, file.mimetype);
       } else {
         addMessageToQueue({
           duration: 4000,
@@ -53,7 +48,8 @@ class DownloadFile extends Component<Props> {
         });
       }
     } catch (error) {
-      console.error(error);
+      captureException(error);
+
       addMessageToQueue({
         duration: 4000,
         type: 'error',
@@ -63,15 +59,27 @@ class DownloadFile extends Component<Props> {
   };
 
   render() {
+    const { file } = this.props;
+
+    if (file.id_file !== null && file.id_file > 0) {
+      return (
+        <div style={{ width: 20, margin: '0 3px' }}>
+          <div
+            onClick={this.downloadFile}
+            onKeyPress={this.downloadFile}
+            style={{ cursor: 'pointer' }}
+            role="button"
+            tabIndex={0}
+          >
+            <i style={{ fontSize: 24 }} className="fas fa-file-download" />
+          </div>
+        </div>
+      );
+    }
+
     return (
-      <div style={{ width: 20, margin: '0 3px' }}>
-        <div
-          onClick={this.downloadFile}
-          onKeyPress={this.downloadFile}
-          style={{ cursor: 'pointer' }}
-          role="button"
-          tabIndex={0}
-        >
+      <div style={{ width: 20, margin: '0 3px', opacity: 0.6 }}>
+        <div>
           <i style={{ fontSize: 24 }} className="fas fa-file-download" />
         </div>
       </div>

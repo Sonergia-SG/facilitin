@@ -31,7 +31,7 @@ const Left = ({
 }: Props) => (
   <div className="Left-container">
     <GeneralInfos loading={loading} title={title} data={data} checkPoints={data.point_controles} />
-    <SecondaryData data={data} locked={locked} />
+    <SecondaryData data={data} locked={locked} pending={pending} />
     <CheckPointsSummary
       checkPoints={data.point_controles}
       handleAccordionClick={handleAccordionClick}

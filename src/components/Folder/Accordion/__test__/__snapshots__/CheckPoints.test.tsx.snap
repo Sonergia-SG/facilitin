@@ -9,7 +9,6 @@ exports[`CheckPoints can't update checkpoint if it's an automatic checkpoint 1`]
   >
     <thead>
       <tr>
-        <th />
         <th>
           Oui
         </th>
@@ -26,53 +25,25 @@ exports[`CheckPoints can't update checkpoint if it's an automatic checkpoint 1`]
         <td
           className="CheckPoints-Table-Center"
         >
-          <Picto
-            checkPoint={
-              Object {
-                "automatique": 1,
-                "id_categorie": 0,
-                "id_penalite": 1,
-                "id_point_controle": 0,
-                "is_controle_file": 0,
-                "nom": "Checkpoint test",
-                "pivot": Object {
-                  "id_dp_file": 0,
-                  "id_dp_operation": 0,
-                  "id_point_controle": 0,
-                  "valide": 0,
-                },
-                "pointcontrolcategories": Object {
-                  "code_categorie": "CAT",
-                  "id_point_controle_categorie": 0,
-                  "nom_categorie": "NAME",
-                },
-              }
-            }
-          />
-        </td>
-        <td
-          className="CheckPoints-Table-Center"
-        >
-          <input
+          <Radio
             checked={false}
             disabled={true}
             id="0_yes"
             name="0"
             onChange={[Function]}
-            type="radio"
             value="yes"
           />
         </td>
         <td
           className="CheckPoints-Table-Center"
         >
-          <input
+          <Radio
             checked={true}
+            customColor="#FF6C60"
             disabled={true}
             id="0_no"
             name="0"
             onChange={[Function]}
-            type="radio"
             value="no"
           />
         </td>
@@ -87,6 +58,24 @@ exports[`CheckPoints can't update checkpoint if it's an automatic checkpoint 1`]
       </tr>
     </tbody>
   </table>
+  <Modal
+    actions={
+      Object {
+        "cancel": Object {
+          "handle": [Function],
+          "title": "Annuler",
+        },
+        "confirm": Object {
+          "handle": [Function],
+          "title": "Rejet du document",
+        },
+        "type": "alert",
+      }
+    }
+    displayModal={false}
+    message="La non-validation de ce point de contrôle entraine un rejet du document undefined, êtes-vous certain de vouloir continuer ?"
+    title="Point de contrôle non conforme"
+  />
 </div>
 `;
 
@@ -99,7 +88,6 @@ exports[`CheckPoints render correctly during folder loading 1`] = `
   >
     <thead>
       <tr>
-        <th />
         <th>
           Oui
         </th>
@@ -116,53 +104,25 @@ exports[`CheckPoints render correctly during folder loading 1`] = `
         <td
           className="CheckPoints-Table-Center"
         >
-          <Picto
-            checkPoint={
-              Object {
-                "automatique": 0,
-                "id_categorie": 0,
-                "id_penalite": 1,
-                "id_point_controle": 0,
-                "is_controle_file": 0,
-                "nom": "Checkpoint test",
-                "pivot": Object {
-                  "id_dp_file": 0,
-                  "id_dp_operation": 0,
-                  "id_point_controle": 0,
-                  "valide": 1,
-                },
-                "pointcontrolcategories": Object {
-                  "code_categorie": "CAT",
-                  "id_point_controle_categorie": 0,
-                  "nom_categorie": "NAME",
-                },
-              }
-            }
-          />
-        </td>
-        <td
-          className="CheckPoints-Table-Center"
-        >
-          <input
+          <Radio
             checked={true}
             disabled={true}
             id="0_yes"
             name="0"
             onChange={[Function]}
-            type="radio"
             value="yes"
           />
         </td>
         <td
           className="CheckPoints-Table-Center"
         >
-          <input
+          <Radio
             checked={false}
+            customColor="#FCB322"
             disabled={true}
             id="0_no"
             name="0"
             onChange={[Function]}
-            type="radio"
             value="no"
           />
         </td>
@@ -177,6 +137,24 @@ exports[`CheckPoints render correctly during folder loading 1`] = `
       </tr>
     </tbody>
   </table>
+  <Modal
+    actions={
+      Object {
+        "cancel": Object {
+          "handle": [Function],
+          "title": "Annuler",
+        },
+        "confirm": Object {
+          "handle": [Function],
+          "title": "Rejet du document",
+        },
+        "type": "alert",
+      }
+    }
+    displayModal={false}
+    message="La non-validation de ce point de contrôle entraine un rejet du document undefined, êtes-vous certain de vouloir continuer ?"
+    title="Point de contrôle non conforme"
+  />
 </div>
 `;
 
@@ -189,7 +167,6 @@ exports[`CheckPoints render correctly when locked 1`] = `
   >
     <thead>
       <tr>
-        <th />
         <th>
           Oui
         </th>
@@ -206,53 +183,25 @@ exports[`CheckPoints render correctly when locked 1`] = `
         <td
           className="CheckPoints-Table-Center"
         >
-          <Picto
-            checkPoint={
-              Object {
-                "automatique": 0,
-                "id_categorie": 0,
-                "id_penalite": 1,
-                "id_point_controle": 0,
-                "is_controle_file": 0,
-                "nom": "Checkpoint test",
-                "pivot": Object {
-                  "id_dp_file": 0,
-                  "id_dp_operation": 0,
-                  "id_point_controle": 0,
-                  "valide": 0,
-                },
-                "pointcontrolcategories": Object {
-                  "code_categorie": "CAT",
-                  "id_point_controle_categorie": 0,
-                  "nom_categorie": "NAME",
-                },
-              }
-            }
-          />
-        </td>
-        <td
-          className="CheckPoints-Table-Center"
-        >
-          <input
+          <Radio
             checked={false}
             disabled={true}
             id="0_yes"
             name="0"
             onChange={[Function]}
-            type="radio"
             value="yes"
           />
         </td>
         <td
           className="CheckPoints-Table-Center"
         >
-          <input
+          <Radio
             checked={true}
+            customColor="#FF6C60"
             disabled={true}
             id="0_no"
             name="0"
             onChange={[Function]}
-            type="radio"
             value="no"
           />
         </td>
@@ -267,6 +216,24 @@ exports[`CheckPoints render correctly when locked 1`] = `
       </tr>
     </tbody>
   </table>
+  <Modal
+    actions={
+      Object {
+        "cancel": Object {
+          "handle": [Function],
+          "title": "Annuler",
+        },
+        "confirm": Object {
+          "handle": [Function],
+          "title": "Rejet du document",
+        },
+        "type": "alert",
+      }
+    }
+    displayModal={false}
+    message="La non-validation de ce point de contrôle entraine un rejet du document undefined, êtes-vous certain de vouloir continuer ?"
+    title="Point de contrôle non conforme"
+  />
 </div>
 `;
 
@@ -279,7 +246,6 @@ exports[`CheckPoints render correctly with checkpoint no traited 1`] = `
   >
     <thead>
       <tr>
-        <th />
         <th>
           Oui
         </th>
@@ -296,53 +262,25 @@ exports[`CheckPoints render correctly with checkpoint no traited 1`] = `
         <td
           className="CheckPoints-Table-Center"
         >
-          <Picto
-            checkPoint={
-              Object {
-                "automatique": 0,
-                "id_categorie": 0,
-                "id_penalite": 1,
-                "id_point_controle": 0,
-                "is_controle_file": 0,
-                "nom": "Checkpoint test",
-                "pivot": Object {
-                  "id_dp_file": 0,
-                  "id_dp_operation": 0,
-                  "id_point_controle": 0,
-                  "valide": -1,
-                },
-                "pointcontrolcategories": Object {
-                  "code_categorie": "CAT",
-                  "id_point_controle_categorie": 0,
-                  "nom_categorie": "NAME",
-                },
-              }
-            }
-          />
-        </td>
-        <td
-          className="CheckPoints-Table-Center"
-        >
-          <input
+          <Radio
             checked={false}
             disabled={false}
             id="0_yes"
             name="0"
             onChange={[Function]}
-            type="radio"
             value="yes"
           />
         </td>
         <td
           className="CheckPoints-Table-Center"
         >
-          <input
+          <Radio
             checked={false}
+            customColor="#FCB322"
             disabled={false}
             id="0_no"
             name="0"
             onChange={[Function]}
-            type="radio"
             value="no"
           />
         </td>
@@ -357,6 +295,24 @@ exports[`CheckPoints render correctly with checkpoint no traited 1`] = `
       </tr>
     </tbody>
   </table>
+  <Modal
+    actions={
+      Object {
+        "cancel": Object {
+          "handle": [Function],
+          "title": "Annuler",
+        },
+        "confirm": Object {
+          "handle": [Function],
+          "title": "Rejet du document",
+        },
+        "type": "alert",
+      }
+    }
+    displayModal={false}
+    message="La non-validation de ce point de contrôle entraine un rejet du document undefined, êtes-vous certain de vouloir continuer ?"
+    title="Point de contrôle non conforme"
+  />
 </div>
 `;
 
@@ -369,7 +325,6 @@ exports[`CheckPoints render correctly with checkpoint sending 1`] = `
   >
     <thead>
       <tr>
-        <th />
         <th>
           Oui
         </th>
@@ -386,53 +341,25 @@ exports[`CheckPoints render correctly with checkpoint sending 1`] = `
         <td
           className="CheckPoints-Table-Center"
         >
-          <Picto
-            checkPoint={
-              Object {
-                "automatique": 0,
-                "id_categorie": 0,
-                "id_penalite": 1,
-                "id_point_controle": 0,
-                "is_controle_file": 0,
-                "nom": "Checkpoint test",
-                "pivot": Object {
-                  "id_dp_file": 0,
-                  "id_dp_operation": 0,
-                  "id_point_controle": 0,
-                  "valide": 1,
-                },
-                "pointcontrolcategories": Object {
-                  "code_categorie": "CAT",
-                  "id_point_controle_categorie": 0,
-                  "nom_categorie": "NAME",
-                },
-              }
-            }
-          />
-        </td>
-        <td
-          className="CheckPoints-Table-Center"
-        >
-          <input
+          <Radio
             checked={true}
             disabled={true}
             id="0_yes"
             name="0"
             onChange={[Function]}
-            type="radio"
             value="yes"
           />
         </td>
         <td
           className="CheckPoints-Table-Center"
         >
-          <input
+          <Radio
             checked={false}
+            customColor="#FCB322"
             disabled={true}
             id="0_no"
             name="0"
             onChange={[Function]}
-            type="radio"
             value="no"
           />
         </td>
@@ -447,6 +374,24 @@ exports[`CheckPoints render correctly with checkpoint sending 1`] = `
       </tr>
     </tbody>
   </table>
+  <Modal
+    actions={
+      Object {
+        "cancel": Object {
+          "handle": [Function],
+          "title": "Annuler",
+        },
+        "confirm": Object {
+          "handle": [Function],
+          "title": "Rejet du document",
+        },
+        "type": "alert",
+      }
+    }
+    displayModal={false}
+    message="La non-validation de ce point de contrôle entraine un rejet du document undefined, êtes-vous certain de vouloir continuer ?"
+    title="Point de contrôle non conforme"
+  />
 </div>
 `;
 
@@ -459,7 +404,6 @@ exports[`CheckPoints render correctly with checkpoint valid 1`] = `
   >
     <thead>
       <tr>
-        <th />
         <th>
           Oui
         </th>
@@ -476,53 +420,25 @@ exports[`CheckPoints render correctly with checkpoint valid 1`] = `
         <td
           className="CheckPoints-Table-Center"
         >
-          <Picto
-            checkPoint={
-              Object {
-                "automatique": 0,
-                "id_categorie": 0,
-                "id_penalite": 1,
-                "id_point_controle": 0,
-                "is_controle_file": 0,
-                "nom": "Checkpoint test",
-                "pivot": Object {
-                  "id_dp_file": 0,
-                  "id_dp_operation": 0,
-                  "id_point_controle": 0,
-                  "valide": 1,
-                },
-                "pointcontrolcategories": Object {
-                  "code_categorie": "CAT",
-                  "id_point_controle_categorie": 0,
-                  "nom_categorie": "NAME",
-                },
-              }
-            }
-          />
-        </td>
-        <td
-          className="CheckPoints-Table-Center"
-        >
-          <input
+          <Radio
             checked={true}
             disabled={false}
             id="0_yes"
             name="0"
             onChange={[Function]}
-            type="radio"
             value="yes"
           />
         </td>
         <td
           className="CheckPoints-Table-Center"
         >
-          <input
+          <Radio
             checked={false}
+            customColor="#FCB322"
             disabled={false}
             id="0_no"
             name="0"
             onChange={[Function]}
-            type="radio"
             value="no"
           />
         </td>
@@ -537,6 +453,24 @@ exports[`CheckPoints render correctly with checkpoint valid 1`] = `
       </tr>
     </tbody>
   </table>
+  <Modal
+    actions={
+      Object {
+        "cancel": Object {
+          "handle": [Function],
+          "title": "Annuler",
+        },
+        "confirm": Object {
+          "handle": [Function],
+          "title": "Rejet du document",
+        },
+        "type": "alert",
+      }
+    }
+    displayModal={false}
+    message="La non-validation de ce point de contrôle entraine un rejet du document undefined, êtes-vous certain de vouloir continuer ?"
+    title="Point de contrôle non conforme"
+  />
 </div>
 `;
 
@@ -549,7 +483,6 @@ exports[`CheckPoints render correctly with default checkpoint 1`] = `
   >
     <thead>
       <tr>
-        <th />
         <th>
           Oui
         </th>
@@ -566,53 +499,25 @@ exports[`CheckPoints render correctly with default checkpoint 1`] = `
         <td
           className="CheckPoints-Table-Center"
         >
-          <Picto
-            checkPoint={
-              Object {
-                "automatique": 0,
-                "id_categorie": 0,
-                "id_penalite": 1,
-                "id_point_controle": 0,
-                "is_controle_file": 0,
-                "nom": "Checkpoint test",
-                "pivot": Object {
-                  "id_dp_file": 0,
-                  "id_dp_operation": 0,
-                  "id_point_controle": 0,
-                  "valide": 0,
-                },
-                "pointcontrolcategories": Object {
-                  "code_categorie": "CAT",
-                  "id_point_controle_categorie": 0,
-                  "nom_categorie": "NAME",
-                },
-              }
-            }
-          />
-        </td>
-        <td
-          className="CheckPoints-Table-Center"
-        >
-          <input
+          <Radio
             checked={false}
             disabled={false}
             id="0_yes"
             name="0"
             onChange={[Function]}
-            type="radio"
             value="yes"
           />
         </td>
         <td
           className="CheckPoints-Table-Center"
         >
-          <input
+          <Radio
             checked={true}
+            customColor="#FF6C60"
             disabled={false}
             id="0_no"
             name="0"
             onChange={[Function]}
-            type="radio"
             value="no"
           />
         </td>
@@ -627,5 +532,23 @@ exports[`CheckPoints render correctly with default checkpoint 1`] = `
       </tr>
     </tbody>
   </table>
+  <Modal
+    actions={
+      Object {
+        "cancel": Object {
+          "handle": [Function],
+          "title": "Annuler",
+        },
+        "confirm": Object {
+          "handle": [Function],
+          "title": "Rejet du document",
+        },
+        "type": "alert",
+      }
+    }
+    displayModal={false}
+    message="La non-validation de ce point de contrôle entraine un rejet du document undefined, êtes-vous certain de vouloir continuer ?"
+    title="Point de contrôle non conforme"
+  />
 </div>
 `;
