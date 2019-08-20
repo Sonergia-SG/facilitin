@@ -1,0 +1,168 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SecondaryData Input render rigth Simple case - disabled 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_nom"
+  >
+    test :
+  </label>
+  <input
+    className="Input input"
+    disabled={true}
+    name="moa_nom"
+    onChange={[Function]}
+    placeholder="test :"
+    type="text"
+    value="Sonergia"
+  />
+  <p
+    className="Input-Error-Msg"
+  />
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth Simple case - pending value 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_nom"
+  >
+    test :
+  </label>
+  <input
+    className="Input input is-info"
+    disabled={false}
+    name="moa_nom"
+    onChange={[Function]}
+    placeholder="test :"
+    type="text"
+    value="So"
+  />
+  <p
+    className="Input-Error-Msg"
+  />
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth Simple case 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_nom"
+  >
+    test :
+  </label>
+  <input
+    className="Input input"
+    disabled={false}
+    name="moa_nom"
+    onChange={[Function]}
+    placeholder="test :"
+    type="text"
+    value="Sonergia"
+  />
+  <p
+    className="Input-Error-Msg"
+  />
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with invalid bic 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_tel"
+  >
+    tel :
+  </label>
+  <input
+    className="Input input is-danger"
+    disabled={false}
+    name="moa_tel"
+    onChange={[Function]}
+    placeholder="tel :"
+    type="text"
+    value="06.06.06.06"
+  />
+  <p
+    className="Input-Error-Msg"
+  >
+    Format BIC semble invalide
+  </p>
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with invalid iban 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_tel"
+  >
+    tel :
+  </label>
+  <input
+    className="Input input is-danger"
+    disabled={false}
+    name="moa_tel"
+    onChange={[Function]}
+    placeholder="tel :"
+    type="text"
+    value="06.06.06.06"
+  />
+  <p
+    className="Input-Error-Msg"
+  >
+    Format IBAN semble invalide
+  </p>
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with invalid phone 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_tel"
+  >
+    tel :
+  </label>
+  <input
+    className="Input input is-danger"
+    disabled={false}
+    name="moa_tel"
+    onChange={[Function]}
+    placeholder="tel :"
+    type="text"
+    value="06.06.06.06"
+  />
+  <p
+    className="Input-Error-Msg"
+  >
+    Format invalide (XX.XX.XX.XX.XX)
+  </p>
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with valid phone 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_tel"
+  >
+    tel :
+  </label>
+  <input
+    className="Input input"
+    disabled={false}
+    name="moa_tel"
+    onChange={[Function]}
+    placeholder="tel :"
+    type="text"
+    value="06.06.06.06.06"
+  />
+  <p
+    className="Input-Error-Msg"
+  />
+</Fragment>
+`;

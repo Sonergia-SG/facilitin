@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SaveButton disabled if not edited 1`] = `
+<button
+  className="button is-success is-rounded is-small "
+  disabled={true}
+  onClick={[Function]}
+  style={
+    Object {
+      "margin": "0 3px",
+    }
+  }
+  type="button"
+>
+  Save
+</button>
+`;
+
+exports[`SaveButton disbled without value update 1`] = `
+<button
+  className="button is-success is-rounded is-small "
+  disabled={true}
+  onClick={[Function]}
+  style={
+    Object {
+      "margin": "0 3px",
+    }
+  }
+  type="button"
+>
+  Save
+</button>
+`;
+
+exports[`SaveButton in danger mode with invalid field 1`] = `
+<button
+  className="button is-danger is-rounded is-small "
+  disabled={true}
+  onClick={[Function]}
+  style={
+    Object {
+      "margin": "0 3px",
+    }
+  }
+  type="button"
+>
+  Save
+</button>
+`;
+
+exports[`SaveButton in danger mode with invalid field and disabled 1`] = `
+<button
+  className="button is-danger is-rounded is-small "
+  disabled={true}
+  onClick={[Function]}
+  style={
+    Object {
+      "margin": "0 3px",
+    }
+  }
+  type="button"
+>
+  Save
+</button>
+`;
+
+exports[`SaveButton in success mode with all valid field and enabled 1`] = `
+<button
+  className="button is-success is-rounded is-small "
+  disabled={false}
+  onClick={[Function]}
+  style={
+    Object {
+      "margin": "0 3px",
+    }
+  }
+  type="button"
+>
+  Save
+</button>
+`;
+
+exports[`SaveButton loading 1`] = `
+<button
+  className="button is-success is-rounded is-small is-loading"
+  disabled={false}
+  onClick={[Function]}
+  style={
+    Object {
+      "margin": "0 3px",
+    }
+  }
+  type="button"
+>
+  Save
+</button>
+`;
