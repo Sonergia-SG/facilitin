@@ -16,11 +16,18 @@ import {
 } from '../../../../store/reducer/entities/types';
 import { FolderPendingItem } from '../../../../store/reducer/views/folder/types';
 
-type GenericUpdate = (idDpOperation: number, key: string, value: string) => void;
+type GenericUpdate = (
+  idDpOperation: number,
+  key: string,
+  value: string
+) => void;
 
 interface Props {
   idDpOperation: number;
-  valueKey: keyof FolderMOAString | keyof FolderMOEString | keyof FolderSiteString;
+  valueKey:
+  | keyof FolderMOAString
+  | keyof FolderMOEString
+  | keyof FolderSiteString;
   label: string;
   disabled: boolean;
   dossierprime: FolderFull;
@@ -29,7 +36,7 @@ interface Props {
   value?: string | null;
   values: Array<{
     key: string;
-    label: string;
+    value: string;
   }>;
   update:
   | GenericUpdate
@@ -75,7 +82,7 @@ const Select = ({
       >
         {values.map(o => (
           <option key={o.key} value={o.key}>
-            {o.label}
+            {o.value}
           </option>
         ))}
       </select>

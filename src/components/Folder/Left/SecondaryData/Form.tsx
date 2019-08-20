@@ -103,8 +103,9 @@ const Form = ({
             />
           );
         }
-        default:
-          return <div />;
+        default: {
+          return null;
+        }
       }
     })}
   </>

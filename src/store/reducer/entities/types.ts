@@ -11,6 +11,7 @@ import {
   FOLDER_UPDATE_SITE_LOADED,
   FOLDER_FILE_ENDING_LOADED,
 } from '../../types';
+import { Forms } from '../../../components/Folder/Left/SecondaryData/types';
 
 export interface User {
   id_user: number;
@@ -235,6 +236,7 @@ export interface OperationSimple {
   id_operation: number;
   code_operation: string;
   statut?: OperationStatus;
+  forms: Forms;
   moderemuneration: {
     id_remuneration: number;
     delai_instruction: string;

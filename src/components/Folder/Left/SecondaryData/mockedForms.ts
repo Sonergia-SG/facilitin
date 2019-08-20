@@ -45,15 +45,15 @@ const formsData: Forms = {
           values: [
             {
               key: 'male',
-              label: 'Masculin',
+              value: 'Masculin',
             },
             {
               key: 'female',
-              label: 'Féminin',
+              value: 'Féminin',
             },
             {
               key: 'other',
-              label: 'Autre',
+              value: 'Autre',
             },
           ],
           key: 'moa_civilite',

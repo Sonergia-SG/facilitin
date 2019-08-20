@@ -76,9 +76,9 @@ const SecondaryData = ({ data, locked, pending }: Props) => {
           onMouseEnter={select('MOA')}
           onClick={editMode('MOA')}
           onKeyPress={editMode('MOA')}
-          className={`SecondaryData-Item${cantChangeSection ? '' : ' SecondaryDataSelectable'}${
-            moaSelected ? ' SecondaryData-Item-Selected' : ''
-          }`}
+          className={`SecondaryData-Item${
+            cantChangeSection ? '' : ' SecondaryDataSelectable'
+          }${moaSelected ? ' SecondaryData-Item-Selected' : ''}`}
           role="button"
           tabIndex={0}
         >
@@ -89,9 +89,9 @@ const SecondaryData = ({ data, locked, pending }: Props) => {
           onMouseEnter={select('MOE')}
           onClick={editMode('MOE')}
           onKeyPress={editMode('MOE')}
-          className={`SecondaryData-Item${cantChangeSection ? '' : ' SecondaryDataSelectable'}${
-            moeSelected ? ' SecondaryData-Item-Selected' : ''
-          }`}
+          className={`SecondaryData-Item${
+            cantChangeSection ? '' : ' SecondaryDataSelectable'
+          }${moeSelected ? ' SecondaryData-Item-Selected' : ''}`}
           role="button"
           tabIndex={0}
         >
@@ -102,9 +102,9 @@ const SecondaryData = ({ data, locked, pending }: Props) => {
           onMouseEnter={select('SITE')}
           onClick={editMode('SITE')}
           onKeyPress={editMode('SITE')}
-          className={`SecondaryData-Item${cantChangeSection ? '' : ' SecondaryDataSelectable'}${
-            siteSelected ? ' SecondaryData-Item-Selected' : ''
-          }`}
+          className={`SecondaryData-Item${
+            cantChangeSection ? '' : ' SecondaryDataSelectable'
+          }${siteSelected ? ' SecondaryData-Item-Selected' : ''}`}
           role="button"
           tabIndex={0}
         >
@@ -122,7 +122,7 @@ const SecondaryData = ({ data, locked, pending }: Props) => {
                 idDossierPrime={data.id_dossierprime}
                 cancel={cancel}
                 locked={locked}
-                def={forms.moa}
+                def={data.forms.moa}
               />
             </div>
           )}
