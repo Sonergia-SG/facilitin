@@ -15,13 +15,26 @@ import {
   FolderSiteString,
 } from '../../../../store/reducer/entities/types';
 import { FolderPendingItem } from '../../../../store/reducer/views/folder/types';
+import { FormFieldTextRules } from './types';
+import validateFormat from './validateFormat';
+import inputStatusClass from './inputStatusClass';
+import formatErrorMsg from './formatErrorMsg';
+import resolveInputValue from './resolveInputValue';
 
-type GenericUpdate = (idDpOperation: number, key: string, value: string) => void;
+type GenericUpdate = (
+  idDpOperation: number,
+  key: string,
+  value: string
+) => void;
 
 interface Props {
   idDpOperation: number;
-  valueKey: keyof FolderMOAString | keyof FolderMOEString | keyof FolderSiteString;
+  valueKey:
+  | keyof FolderMOAString
+  | keyof FolderMOEString
+  | keyof FolderSiteString;
   label: string;
+  rules?: FormFieldTextRules;
   disabled: boolean;
   dossierprime: FolderFull;
   pending?: FolderPendingItem;
@@ -39,6 +52,7 @@ const Input = ({
   pending,
   valueKey,
   value,
+  rules,
   dossierprime,
   label,
   disabled,
@@ -48,8 +62,13 @@ const Input = ({
   type,
 }: Props) => {
   const v = idx(pending, _ => _[pendingKey][valueKey]);
-  const originalValue = value || dossierprime[valueKey];
-  const cleanOriginalValue = originalValue === null ? undefined : originalValue;
+  const inputValue = resolveInputValue({
+    pending,
+    pendingKey,
+    valueKey,
+    defValue: value,
+    dossierprime,
+  });
 
   const isEdited = v !== undefined;
 
@@ -57,18 +76,23 @@ const Input = ({
     update(idDpOperation, valueKey, e.target.value);
   };
 
+  const valid = validateFormat(rules, inputValue);
+
   return (
     <Fragment>
-      <label className="Input-Label" htmlFor={valueKey}>{label}</label>
+      <label className="Input-Label" htmlFor={valueKey}>
+        {label}
+      </label>
       <input
         type={type || 'text'}
         name={valueKey}
         placeholder={label}
-        className={`Input input${isEdited ? ' is-info' : ''}`}
+        className={`Input input${inputStatusClass(isEdited, !valid)}`}
         disabled={disabled}
-        value={typeof v === 'string' ? v : cleanOriginalValue}
+        value={inputValue}
         onChange={handleChange}
       />
+      <p className="Input-Error-Msg">{formatErrorMsg(rules, inputValue)}</p>
     </Fragment>
   );
 };

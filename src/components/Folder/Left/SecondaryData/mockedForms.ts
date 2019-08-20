@@ -74,9 +74,12 @@ const formsData: Forms = {
     },
     {
       label: 'Télèphone',
-      value: '063214',
+      value: '06.32.14.12.12',
       key: 'moe_tel',
       type: 'text',
+      rules: {
+        format: 'phone',
+      },
     },
     {
       label: 'Commentaire',

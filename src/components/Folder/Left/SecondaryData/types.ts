@@ -22,11 +22,18 @@ export interface FormFieldDate {
   type: 'date';
 }
 
+export interface FormFieldTextPhoneRule {
+  format: 'phone';
+}
+
+export type FormFieldTextRules = FormFieldTextPhoneRule;
+
 export interface FormFieldText {
   label: string;
   value: string | null;
   key: keyof FolderMOAString | keyof FolderMOEString | keyof FolderSiteString;
   type: 'text';
+  rules?: FormFieldTextRules;
 }
 
 export interface FormFieldNumber {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import idx from 'idx';
 import {
   folderUpdateMoaValue,
   folderCleanMoaValue,
@@ -14,6 +15,8 @@ import { AppState } from '../../../../store';
 import Form from './Form';
 
 import { GenericForms } from './types';
+import validateFormat from './validateFormat';
+import SaveButton from './SaveButton';
 
 interface ConnectProps {
   idDpOperation: number;
@@ -93,15 +96,18 @@ const MOA = ({
             {'Fermer'}
           </button>
         )}
-        <button
-          type="button"
-          onClick={() => post(idDossierPrime, idDpOperation)}
-          style={{ margin: '0 3px' }}
-          disabled={!edit || !edited}
-          className={`button is-success is-rounded is-small ${loading ? 'is-loading' : ''}`}
-        >
-          {'Save'}
-        </button>
+        <SaveButton
+          idDpOperation={idDpOperation}
+          idDossierPrime={idDossierPrime}
+          dossierprime={dossierprime}
+          edit={edit}
+          edited={edited}
+          loading={loading}
+          pending={pending}
+          post={post}
+          pendingKey="moa"
+          def={def}
+        />
       </div>
     </div>
   );
@@ -111,5 +117,9 @@ export default connect(
   (s: AppState, p: ConnectProps) => ({
     pending: s.views.folder.pending[p.idDpOperation],
   }),
-  { updateMoa: folderUpdateMoaValue, clean: folderCleanMoaValue, post: updateMoaValues },
+  {
+    updateMoa: folderUpdateMoaValue,
+    clean: folderCleanMoaValue,
+    post: updateMoaValues,
+  },
 )(MOA);
