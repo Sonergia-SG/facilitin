@@ -18,7 +18,10 @@ const formsData: Forms = {
       label: 'BIC',
       value: '124545253425',
       key: 'moa_bic',
-      type: 'number',
+      type: 'text',
+      rules: {
+        format: 'bic',
+      },
     },
     {
       label: 'Fonction MOA',

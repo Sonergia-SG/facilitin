@@ -10,6 +10,8 @@ const formatErrorMsg = (rules?: FormFieldTextRules, value?: string | null) => {
   switch (format) {
     case 'phone':
       return 'Format invalide (XX.XX.XX.XX.XX)';
+    case 'bic':
+      return 'Format BIC semble invalide';
     default:
       return '';
   }

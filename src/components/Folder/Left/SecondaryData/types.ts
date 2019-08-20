@@ -22,11 +22,15 @@ export interface FormFieldDate {
   type: 'date';
 }
 
+export interface FormFieldTextBicRule {
+  format: 'bic';
+}
+
 export interface FormFieldTextPhoneRule {
   format: 'phone';
 }
 
-export type FormFieldTextRules = FormFieldTextPhoneRule;
+export type FormFieldTextRules = FormFieldTextPhoneRule | FormFieldTextBicRule;
 
 export interface FormFieldText {
   label: string;
