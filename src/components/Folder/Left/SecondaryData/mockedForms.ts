@@ -95,12 +95,18 @@ const formsData: Forms = {
       value: '',
       key: 'moe_bic',
       type: 'text',
+      rules: {
+        format: 'bic',
+      },
     },
     {
       label: 'Iban',
       value: '',
       key: 'moe_iban',
       type: 'text',
+      rules: {
+        format: 'iban',
+      },
     },
     {
       label: 'Addresse',

@@ -12,6 +12,8 @@ const formatErrorMsg = (rules?: FormFieldTextRules, value?: string | null) => {
       return 'Format invalide (XX.XX.XX.XX.XX)';
     case 'bic':
       return 'Format BIC semble invalide';
+    case 'iban':
+      return 'Format IBAN semble invalide';
     default:
       return '';
   }

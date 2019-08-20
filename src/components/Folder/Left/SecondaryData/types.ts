@@ -26,11 +26,18 @@ export interface FormFieldTextBicRule {
   format: 'bic';
 }
 
+export interface FormFieldTextIbanRule {
+  format: 'iban';
+}
+
 export interface FormFieldTextPhoneRule {
   format: 'phone';
 }
 
-export type FormFieldTextRules = FormFieldTextPhoneRule | FormFieldTextBicRule;
+export type FormFieldTextRules =
+  | FormFieldTextPhoneRule
+  | FormFieldTextBicRule
+  | FormFieldTextIbanRule;
 
 export interface FormFieldText {
   label: string;
