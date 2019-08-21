@@ -4,8 +4,6 @@ import './SecondataData.css';
 import idx from 'idx';
 import { OperationFull } from '../../../../store/reducer/entities/types';
 
-import forms from './mockedForms';
-
 import Card from '../../../../Common/UIKIT/Card';
 import MOA from './MOA';
 import MOE from './MOE';
