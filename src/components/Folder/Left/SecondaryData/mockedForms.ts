@@ -64,6 +64,15 @@ const formsData: Forms = {
   ],
   moe: [
     {
+      label: 'Numéro fiscale',
+      value: '0123453456789',
+      key: 'moa_email',
+      type: 'text',
+      rules: {
+        format: 'num_fiscal',
+      },
+    },
+    {
       label: 'Denomination',
       value: 'Mr',
       key: 'moe_denomination',

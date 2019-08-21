@@ -34,6 +34,10 @@ export interface FormFieldTextSiretRule {
   format: 'siret';
 }
 
+export interface FormFieldTextFiscalNumRule {
+  format: 'num_fiscal';
+}
+
 export interface FormFieldTextPhoneRule {
   format: 'phone';
 }
@@ -42,7 +46,8 @@ export type FormFieldTextRules =
   | FormFieldTextPhoneRule
   | FormFieldTextBicRule
   | FormFieldTextIbanRule
-  | FormFieldTextSiretRule;
+  | FormFieldTextSiretRule
+  | FormFieldTextFiscalNumRule;
 
 export interface FormFieldText {
   label: string;

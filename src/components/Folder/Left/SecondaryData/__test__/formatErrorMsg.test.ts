@@ -58,4 +58,16 @@ describe('formatErrorMsg', () => {
 
     expect(message).toEqual('');
   });
+
+  it('display good message with invalid fiscal number', () => {
+    const message = formatErrorMsg({ format: 'num_fiscal' }, '123456789765');
+
+    expect(message).toEqual('Numéro fiscale invalide');
+  });
+
+  it('display good message with valid fiscal number', () => {
+    const message = formatErrorMsg({ format: 'num_fiscal' }, '1234567897654');
+
+    expect(message).toEqual('');
+  });
 });

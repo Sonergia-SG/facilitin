@@ -258,4 +258,46 @@ describe('SecondaryData Input', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('render rigth with valid fiscal number', () => {
+    const wrapper = shallow(
+      <Input
+        key="azer"
+        label="tel :"
+        valueKey="moa_tel"
+        value="7895345340001"
+        type="text"
+        rules={{ format: 'num_fiscal' }}
+        idDpOperation={1}
+        disabled={false}
+        dossierprime={defaultDossierPrime}
+        pending={undefined}
+        pendingKey="moa"
+        update={() => {}}
+      />,
+    );
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('render rigth with invalid fiscal number', () => {
+    const wrapper = shallow(
+      <Input
+        key="azer"
+        label="tel :"
+        valueKey="moa_tel"
+        value="78953453azez"
+        type="text"
+        rules={{ format: 'num_fiscal' }}
+        idDpOperation={1}
+        disabled={false}
+        dossierprime={defaultDossierPrime}
+        pending={undefined}
+        pendingKey="moa"
+        update={() => {}}
+      />,
+    );
+
+    expect(wrapper).toMatchSnapshot();
+  });
 });

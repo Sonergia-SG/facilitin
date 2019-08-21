@@ -16,6 +16,8 @@ const formatErrorMsg = (rules?: FormFieldTextRules, value?: string | null) => {
       return 'IBAN invalide';
     case 'siret':
       return 'SIRET invalide';
+    case 'num_fiscal':
+      return 'Numéro fiscale invalide';
     default:
       return '';
   }

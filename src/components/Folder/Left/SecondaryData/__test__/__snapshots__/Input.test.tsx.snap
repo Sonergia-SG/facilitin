@@ -94,6 +94,31 @@ exports[`SecondaryData Input render rigth with invalid bic 1`] = `
 </Fragment>
 `;
 
+exports[`SecondaryData Input render rigth with invalid fiscal number 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_tel"
+  >
+    tel :
+  </label>
+  <input
+    className="Input input is-danger"
+    disabled={false}
+    name="moa_tel"
+    onChange={[Function]}
+    placeholder="tel :"
+    type="text"
+    value="78953453azez"
+  />
+  <p
+    className="Input-Error-Msg"
+  >
+    Numéro fiscale invalide
+  </p>
+</Fragment>
+`;
+
 exports[`SecondaryData Input render rigth with invalid iban 1`] = `
 <Fragment>
   <label
@@ -166,6 +191,29 @@ exports[`SecondaryData Input render rigth with invalid siret 1`] = `
   >
     SIRET invalide
   </p>
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with valid fiscal number 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_tel"
+  >
+    tel :
+  </label>
+  <input
+    className="Input input"
+    disabled={false}
+    name="moa_tel"
+    onChange={[Function]}
+    placeholder="tel :"
+    type="text"
+    value="78 95 345 340 001"
+  />
+  <p
+    className="Input-Error-Msg"
+  />
 </Fragment>
 `;
 
