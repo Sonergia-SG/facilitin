@@ -16,7 +16,7 @@ describe('formatErrorMsg', () => {
   it('display good message with invalid bic', () => {
     const message = formatErrorMsg({ format: 'bic' }, 'QSD');
 
-    expect(message).toEqual('Format BIC semble invalide');
+    expect(message).toEqual('BIC invalide');
   });
 
   it('display good message with valid bic', () => {
@@ -28,7 +28,7 @@ describe('formatErrorMsg', () => {
   it('display good message with invalid iban', () => {
     const message = formatErrorMsg({ format: 'iban' }, 'QSD');
 
-    expect(message).toEqual('Format IBAN semble invalide');
+    expect(message).toEqual('IBAN invalide');
   });
 
   it('display good message with valid iban', () => {
@@ -43,6 +43,30 @@ describe('formatErrorMsg', () => {
 
   it('display good message with no rules', () => {
     const message = formatErrorMsg(undefined, 'qsdf');
+
+    expect(message).toEqual('');
+  });
+
+  it('display good message with invalid siret', () => {
+    const message = formatErrorMsg({ format: 'siret' }, '78953453400018');
+
+    expect(message).toEqual('SIRET invalide');
+  });
+
+  it('display good message with valid siret', () => {
+    const message = formatErrorMsg({ format: 'siret' }, '78953453400019');
+
+    expect(message).toEqual('');
+  });
+
+  it('display good message with invalid fiscal number', () => {
+    const message = formatErrorMsg({ format: 'num_fiscal' }, '123456789765');
+
+    expect(message).toEqual('Numéro fiscale invalide');
+  });
+
+  it('display good message with valid fiscal number', () => {
+    const message = formatErrorMsg({ format: 'num_fiscal' }, '1234567897654');
 
     expect(message).toEqual('');
   });
