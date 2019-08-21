@@ -74,6 +74,7 @@ const Form = ({
               valueKey={d.key}
               value={d.value}
               type={d.type}
+              rules={d.type === 'text' ? d.rules : undefined}
               idDpOperation={idDpOperation}
               disabled={disabledInput}
               dossierprime={dossierprime}

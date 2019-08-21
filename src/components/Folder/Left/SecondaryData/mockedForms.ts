@@ -18,7 +18,10 @@ const formsData: Forms = {
       label: 'BIC',
       value: '124545253425',
       key: 'moa_bic',
-      type: 'number',
+      type: 'text',
+      rules: {
+        format: 'bic',
+      },
     },
     {
       label: 'Fonction MOA',
@@ -74,9 +77,12 @@ const formsData: Forms = {
     },
     {
       label: 'Télèphone',
-      value: '063214',
+      value: '06.32.14.12.12',
       key: 'moe_tel',
       type: 'text',
+      rules: {
+        format: 'phone',
+      },
     },
     {
       label: 'Commentaire',
@@ -89,12 +95,18 @@ const formsData: Forms = {
       value: '',
       key: 'moe_bic',
       type: 'text',
+      rules: {
+        format: 'bic',
+      },
     },
     {
       label: 'Iban',
       value: '',
       key: 'moe_iban',
       type: 'text',
+      rules: {
+        format: 'iban',
+      },
     },
     {
       label: 'Addresse',

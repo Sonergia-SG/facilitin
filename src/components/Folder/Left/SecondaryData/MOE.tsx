@@ -13,6 +13,7 @@ import { AppState } from '../../../../store';
 
 import { GenericForms } from './types';
 import Form from './Form';
+import SaveButton from './SaveButton';
 
 interface ConnectProps {
   idDpOperation: number;
@@ -92,15 +93,18 @@ const MOE = ({
             {'Fermer'}
           </button>
         )}
-        <button
-          type="button"
-          onClick={() => post(idDossierPrime, idDpOperation)}
-          style={{ margin: '0 3px' }}
-          disabled={!edit || !edited}
-          className={`button is-success is-rounded is-small ${loading ? 'is-loading' : ''}`}
-        >
-          {'Save'}
-        </button>
+        <SaveButton
+          idDpOperation={idDpOperation}
+          idDossierPrime={idDossierPrime}
+          dossierprime={dossierprime}
+          edit={edit}
+          edited={edited}
+          loading={loading}
+          pending={pending}
+          post={post}
+          pendingKey="moe"
+          def={def}
+        />
       </div>
     </div>
   );
@@ -110,5 +114,9 @@ export default connect(
   (s: AppState, p: ConnectProps) => ({
     pending: s.views.folder.pending[p.idDpOperation],
   }),
-  { updateMoe: folderUpdateMoeValue, clean: folderCleanMoeValue, post: updateMoeValues },
+  {
+    updateMoe: folderUpdateMoeValue,
+    clean: folderCleanMoeValue,
+    post: updateMoeValues,
+  },
 )(MOE);

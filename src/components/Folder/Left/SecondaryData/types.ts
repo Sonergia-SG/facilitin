@@ -22,11 +22,29 @@ export interface FormFieldDate {
   type: 'date';
 }
 
+export interface FormFieldTextBicRule {
+  format: 'bic';
+}
+
+export interface FormFieldTextIbanRule {
+  format: 'iban';
+}
+
+export interface FormFieldTextPhoneRule {
+  format: 'phone';
+}
+
+export type FormFieldTextRules =
+  | FormFieldTextPhoneRule
+  | FormFieldTextBicRule
+  | FormFieldTextIbanRule;
+
 export interface FormFieldText {
   label: string;
   value: string | null;
   key: keyof FolderMOAString | keyof FolderMOEString | keyof FolderSiteString;
   type: 'text';
+  rules?: FormFieldTextRules;
 }
 
 export interface FormFieldNumber {
