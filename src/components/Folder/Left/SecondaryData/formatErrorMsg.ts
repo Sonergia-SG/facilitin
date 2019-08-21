@@ -11,9 +11,11 @@ const formatErrorMsg = (rules?: FormFieldTextRules, value?: string | null) => {
     case 'phone':
       return 'Format invalide (XX.XX.XX.XX.XX)';
     case 'bic':
-      return 'Format BIC semble invalide';
+      return 'BIC invalide';
     case 'iban':
-      return 'Format IBAN semble invalide';
+      return 'IBAN invalide';
+    case 'siret':
+      return 'SIRET invalide';
     default:
       return '';
   }

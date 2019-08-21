@@ -216,4 +216,46 @@ describe('SecondaryData Input', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('render rigth with invalid siret', () => {
+    const wrapper = shallow(
+      <Input
+        key="azer"
+        label="tel :"
+        valueKey="moa_tel"
+        value="78953453400018"
+        type="text"
+        rules={{ format: 'siret' }}
+        idDpOperation={1}
+        disabled={false}
+        dossierprime={defaultDossierPrime}
+        pending={undefined}
+        pendingKey="moa"
+        update={() => {}}
+      />,
+    );
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('render rigth with valid siret', () => {
+    const wrapper = shallow(
+      <Input
+        key="azer"
+        label="tel :"
+        valueKey="moa_tel"
+        value="78953453400019"
+        type="text"
+        rules={{ format: 'siret' }}
+        idDpOperation={1}
+        disabled={false}
+        dossierprime={defaultDossierPrime}
+        pending={undefined}
+        pendingKey="moa"
+        update={() => {}}
+      />,
+    );
+
+    expect(wrapper).toMatchSnapshot();
+  });
 });

@@ -121,4 +121,28 @@ describe('validateFormat', () => {
 
     expect(valid).toBe(false);
   });
+
+  it('valid SIRET (78953453400019)', () => {
+    const valid = validateFormat({ format: 'siret' }, '78953453400019');
+
+    expect(valid).toBe(true);
+  });
+
+  it('valid SIRET (78953453400018)', () => {
+    const valid = validateFormat({ format: 'siret' }, '78953453400018');
+
+    expect(valid).toBe(false);
+  });
+
+  it('invalid SIRET (7895345340001)', () => {
+    const valid = validateFormat({ format: 'siret' }, '7895345340001');
+
+    expect(valid).toBe(false);
+  });
+
+  it('invalid SIRET (7895345340001A)', () => {
+    const valid = validateFormat({ format: 'siret' }, '7895345340001A');
+
+    expect(valid).toBe(false);
+  });
 });

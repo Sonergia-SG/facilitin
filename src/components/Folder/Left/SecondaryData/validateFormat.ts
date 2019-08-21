@@ -4,6 +4,7 @@ import { FormFieldTextRules } from './types';
 import phone from '../../../../Common/regex/phone';
 import bic from '../../../../Common/regex/bic';
 import iban from '../../../../Common/regex/iban';
+import siret from '../../../../Common/validator/siret';
 
 const validateFormat = (rules?: FormFieldTextRules, value?: string | null) => {
   const format = idx(rules, _ => _.format);
@@ -15,6 +16,8 @@ const validateFormat = (rules?: FormFieldTextRules, value?: string | null) => {
       return bic.test(value || '');
     case 'iban':
       return iban.test(value || '');
+    case 'siret':
+      return siret.test(value || '');
     default:
       return true;
   }
