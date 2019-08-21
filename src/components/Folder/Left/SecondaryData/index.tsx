@@ -148,7 +148,7 @@ const SecondaryData = ({ data, locked, pending }: Props) => {
                 idDossierPrime={data.id_dossierprime}
                 cancel={cancel}
                 locked={locked}
-                def={forms.site}
+                def={data.forms.site}
               />
             </div>
           )}
