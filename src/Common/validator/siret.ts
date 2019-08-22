@@ -6,7 +6,7 @@ const isValidSiret = (siret: string) => {
 
   const { somme } = siret.split('').reduce(
     (r, v, cpt) => {
-      const char = parseInt(siret.charAt(cpt), 10);
+      const char = parseInt(v, 10);
 
       if (cpt % 2 === 0) {
         const multiple = char * 2;
