@@ -121,4 +121,40 @@ describe('validateFormat', () => {
 
     expect(valid).toBe(false);
   });
+
+  it('valid SIRET (78953453400019)', () => {
+    const valid = validateFormat({ format: 'siret' }, '78953453400019');
+
+    expect(valid).toBe(true);
+  });
+
+  it('invalid SIRET (78953453400018)', () => {
+    const valid = validateFormat({ format: 'siret' }, '78953453400018');
+
+    expect(valid).toBe(false);
+  });
+
+  it('invalid SIRET (7895345340001)', () => {
+    const valid = validateFormat({ format: 'siret' }, '7895345340001');
+
+    expect(valid).toBe(false);
+  });
+
+  it('invalid SIRET (7895345340001A)', () => {
+    const valid = validateFormat({ format: 'siret' }, '7895345340001A');
+
+    expect(valid).toBe(false);
+  });
+
+  it('valid fiscal number (1234567897654)', () => {
+    const valid = validateFormat({ format: 'num_fiscal' }, '1234567897654');
+
+    expect(valid).toBe(true);
+  });
+
+  it('invalid fiscal number (123456789765)', () => {
+    const valid = validateFormat({ format: 'num_fiscal' }, '123456789765');
+
+    expect(valid).toBe(false);
+  });
 });
