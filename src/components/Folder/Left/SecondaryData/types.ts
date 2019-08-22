@@ -9,7 +9,7 @@ export interface FormFieldList {
   value: string | null;
   values: Array<{
     key: string;
-    label: string;
+    value: string;
   }>;
   key: keyof FolderMOAString | keyof FolderMOEString | keyof FolderSiteString;
   type: 'list';

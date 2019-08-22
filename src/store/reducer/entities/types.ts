@@ -11,6 +11,7 @@ import {
   FOLDER_UPDATE_SITE_LOADED,
   FOLDER_FILE_ENDING_LOADED,
 } from '../../types';
+import { Forms, FormDef } from '../../../components/Folder/Left/SecondaryData/types';
 
 export interface User {
   id_user: number;
@@ -235,6 +236,7 @@ export interface OperationSimple {
   id_operation: number;
   code_operation: string;
   statut?: OperationStatus;
+  forms: Forms;
   moderemuneration: {
     id_remuneration: number;
     delai_instruction: string;
@@ -312,30 +314,9 @@ export interface FoldersLogoutAction {
   type: typeof LOGOUT;
 }
 
-export interface FoldersUpdateMoaLoaded {
-  type: typeof FOLDER_UPDATE_MOA_LOADED;
-  id_dossierprime: number;
-  values: { [index: string]: string };
-}
-
-export interface FoldersUpdateMoeLoaded {
-  type: typeof FOLDER_UPDATE_MOE_LOADED;
-  id_dossierprime: number;
-  values: { [index: string]: string };
-}
-
-export interface FoldersUpdateSiteLoaded {
-  type: typeof FOLDER_UPDATE_SITE_LOADED;
-  id_dossierprime: number;
-  values: { [index: string]: string | null };
-}
-
 export type FoldersActions =
   | FoldersFolderLoadedAction
   | FoldersLogoutAction
-  | FoldersUpdateMoaLoaded
-  | FoldersUpdateMoeLoaded
-  | FoldersUpdateSiteLoaded
   | FoldersListLoadedAction;
 
 export interface CheckPointsFolderLoadedAction {
@@ -406,9 +387,30 @@ export interface OperationsLogoutAction {
   type: typeof LOGOUT;
 }
 
+export interface OperationsUpdateSiteLoadedAction {
+  type: typeof FOLDER_UPDATE_SITE_LOADED;
+  idDpOperation: number;
+  values: Array<FormDef>;
+}
+
+export interface OperationsUpdateMoaLoadedAction {
+  type: typeof FOLDER_UPDATE_MOA_LOADED;
+  idDpOperation: number;
+  values: Array<FormDef>;
+}
+
+export interface OperationsUpdateMoeLoadedAction {
+  type: typeof FOLDER_UPDATE_MOE_LOADED;
+  idDpOperation: number;
+  values: Array<FormDef>;
+}
+
 export type OperationsActions =
   | OperationsFolderLoadedAction
   | OperationsListLoadedAction
+  | OperationsUpdateSiteLoadedAction
+  | OperationsUpdateMoaLoadedAction
+  | OperationsUpdateMoeLoadedAction
   | OperationsLogoutAction;
 
 export interface UsersCommentsListLoadedAction {
