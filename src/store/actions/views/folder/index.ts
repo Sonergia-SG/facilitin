@@ -74,7 +74,6 @@ import {
 } from '../../../reducer/views/folder/types';
 import { ListListLoadedNormalized } from '../../../reducer/views/list/type';
 import {
-  FoldersUpdateMoaLoaded,
   CheckPointsFolderUpdateCheckpointLoadingAction,
   CheckPointsFolderUpdateChekpointLoadedAction,
   CheckPointsFolderUpdateCheckpointErrorAction,
@@ -82,9 +81,11 @@ import {
   FoldersUpdateMoeLoaded,
   FileStatus,
   OperationsUpdateSiteLoadedAction,
+  OperationsUpdateMoaLoadedAction,
 } from '../../../reducer/entities/types';
 import rest from '../../../../tools/rest';
 import { FormDef } from '../../../../components/Folder/Left/SecondaryData/types';
+import populateValues from './populateValues';
 
 interface FolderUpdateCheckPointLoadingParams {
   folderId: number;
@@ -332,12 +333,10 @@ export const folderUpdateMoaLoading = (idDpOperation: number): FolderFolderUpdat
 
 export const folderUpdateMoaLoaded = (
   idDpOperation: number,
-  iddossierprime: number,
-  values: { [index: string]: string },
-): FolderFolderUpdateMoaLoaded & FoldersUpdateMoaLoaded => ({
+  values: Array<FormDef>,
+): FolderFolderUpdateMoaLoaded & OperationsUpdateMoaLoadedAction => ({
   type: FOLDER_UPDATE_MOA_LOADED,
   idDpOperation,
-  id_dossierprime: iddossierprime,
   values,
 });
 
@@ -352,15 +351,16 @@ export const updateMoaValues = (
 ): ThunkAction => async (dispatch, getState) => {
   try {
     const pending = getState().views.folder.pending[idDpOperation];
+    const oldValues = getState().entities.operations[idDpOperation].forms.moa;
 
     if (!pending) throw new Error('Pending is missing for MOa update');
-    const values = pending.moa || {};
+    const values = populateValues(oldValues, pending.moa || {});
 
     dispatch(folderUpdateMoaLoading(idDpOperation));
 
     const res = await rest(`${API_PATH}dossierprimes/${idDossierPrime}`, {
       method: 'put',
-      body: JSON.stringify(values),
+      body: JSON.stringify(pending.moa || {}),
     });
 
     if (res.status === 200) {
@@ -369,7 +369,7 @@ export const updateMoaValues = (
         type: 'info',
         message: 'Les infos du MOA ont étaient mise à jour',
       });
-      dispatch(folderUpdateMoaLoaded(idDpOperation, idDossierPrime, values));
+      dispatch(folderUpdateMoaLoaded(idDpOperation, values));
     } else {
       addMessageToQueue({
         duration: 4500,
@@ -483,17 +483,7 @@ export const updateSiteValues = (
     const oldValues = getState().entities.operations[idDpOperation].forms.site;
 
     if (!pending) throw new Error('Pending is missing for MOE update');
-    const updatedKeys = Object.keys(pending.site || {});
-    const values = oldValues.map((v) => {
-      if (v.type !== 'section' && pending.site && updatedKeys.includes(v.key)) {
-        return {
-          ...v,
-          value: pending.site[v.key],
-        };
-      }
-
-      return v;
-    });
+    const values = populateValues(oldValues, pending.site || {});
 
     dispatch(folderUpdateSiteLoading(idDpOperation));
 

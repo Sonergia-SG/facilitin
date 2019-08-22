@@ -3,7 +3,11 @@ import merge from 'lodash.merge';
 
 import { Operations, OperationsActions } from './types';
 import {
-  LOGOUT, FOLDER_LOADED, LIST_LOADED, FOLDER_UPDATE_SITE_LOADED,
+  LOGOUT,
+  FOLDER_LOADED,
+  LIST_LOADED,
+  FOLDER_UPDATE_SITE_LOADED,
+  FOLDER_UPDATE_MOA_LOADED,
 } from '../../types';
 
 const operations = (state: Operations = {}, action: OperationsActions): Operations => {
@@ -13,6 +17,7 @@ const operations = (state: Operations = {}, action: OperationsActions): Operatio
       const { operations: o } = action.normalized.entities;
       return merge({}, state, o);
     }
+    case FOLDER_UPDATE_MOA_LOADED:
     case FOLDER_UPDATE_SITE_LOADED: {
       const oldOp = state[action.idDpOperation];
       return {
