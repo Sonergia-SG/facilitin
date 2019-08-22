@@ -78,10 +78,10 @@ import {
   CheckPointsFolderUpdateChekpointLoadedAction,
   CheckPointsFolderUpdateCheckpointErrorAction,
   FilesFolcerCheckPointLoaded,
-  FoldersUpdateMoeLoaded,
   FileStatus,
   OperationsUpdateSiteLoadedAction,
   OperationsUpdateMoaLoadedAction,
+  OperationsUpdateMoeLoadedAction,
 } from '../../../reducer/entities/types';
 import rest from '../../../../tools/rest';
 import { FormDef } from '../../../../components/Folder/Left/SecondaryData/types';
@@ -397,12 +397,10 @@ export const folderUpdateMoeLoading = (idDpOperation: number): FolderFolderUpdat
 
 export const folderUpdateMoeLoaded = (
   idDpOperation: number,
-  iddossierprime: number,
-  values: { [index: string]: string },
-): FolderFolderUpdateMoeLoaded & FoldersUpdateMoeLoaded => ({
+  values: Array<FormDef>,
+): FolderFolderUpdateMoeLoaded & OperationsUpdateMoeLoadedAction => ({
   type: FOLDER_UPDATE_MOE_LOADED,
   idDpOperation,
-  id_dossierprime: iddossierprime,
   values,
 });
 
@@ -417,15 +415,16 @@ export const updateMoeValues = (
 ): ThunkAction => async (dispatch, getState) => {
   try {
     const pending = getState().views.folder.pending[idDpOperation];
+    const oldValues = getState().entities.operations[idDpOperation].forms.moe;
 
     if (!pending) throw new Error('Pending is missing for MOE update');
-    const values = pending.moe || {};
+    const values = populateValues(oldValues, pending.moe || {});
 
     dispatch(folderUpdateMoeLoading(idDpOperation));
 
     const res = await rest(`${API_PATH}dossierprimes/${idDossierPrime}`, {
       method: 'put',
-      body: JSON.stringify(values),
+      body: JSON.stringify(pending.moe || {}),
     });
 
     if (res.status === 200) {
@@ -434,7 +433,7 @@ export const updateMoeValues = (
         type: 'info',
         message: 'Les infos du MOE ont étaient mise à jour',
       });
-      dispatch(folderUpdateMoeLoaded(idDpOperation, idDossierPrime, values));
+      dispatch(folderUpdateMoeLoaded(idDpOperation, values));
     } else {
       addMessageToQueue({
         duration: 4500,

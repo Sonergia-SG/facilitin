@@ -314,16 +314,9 @@ export interface FoldersLogoutAction {
   type: typeof LOGOUT;
 }
 
-export interface FoldersUpdateMoeLoaded {
-  type: typeof FOLDER_UPDATE_MOE_LOADED;
-  id_dossierprime: number;
-  values: { [index: string]: string };
-}
-
 export type FoldersActions =
   | FoldersFolderLoadedAction
   | FoldersLogoutAction
-  | FoldersUpdateMoeLoaded
   | FoldersListLoadedAction;
 
 export interface CheckPointsFolderLoadedAction {
@@ -406,11 +399,18 @@ export interface OperationsUpdateMoaLoadedAction {
   values: Array<FormDef>;
 }
 
+export interface OperationsUpdateMoeLoadedAction {
+  type: typeof FOLDER_UPDATE_MOE_LOADED;
+  idDpOperation: number;
+  values: Array<FormDef>;
+}
+
 export type OperationsActions =
   | OperationsFolderLoadedAction
   | OperationsListLoadedAction
   | OperationsUpdateSiteLoadedAction
   | OperationsUpdateMoaLoadedAction
+  | OperationsUpdateMoeLoadedAction
   | OperationsLogoutAction;
 
 export interface UsersCommentsListLoadedAction {

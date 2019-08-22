@@ -8,6 +8,7 @@ import {
   LIST_LOADED,
   FOLDER_UPDATE_SITE_LOADED,
   FOLDER_UPDATE_MOA_LOADED,
+  FOLDER_UPDATE_MOE_LOADED,
 } from '../../types';
 
 const operations = (state: Operations = {}, action: OperationsActions): Operations => {
@@ -17,7 +18,32 @@ const operations = (state: Operations = {}, action: OperationsActions): Operatio
       const { operations: o } = action.normalized.entities;
       return merge({}, state, o);
     }
-    case FOLDER_UPDATE_MOA_LOADED:
+    case FOLDER_UPDATE_MOE_LOADED: {
+      const oldOp = state[action.idDpOperation];
+      return {
+        ...state,
+        [action.idDpOperation]: {
+          ...oldOp,
+          forms: {
+            ...oldOp.forms,
+            moe: action.values,
+          },
+        },
+      };
+    }
+    case FOLDER_UPDATE_MOA_LOADED: {
+      const oldOp = state[action.idDpOperation];
+      return {
+        ...state,
+        [action.idDpOperation]: {
+          ...oldOp,
+          forms: {
+            ...oldOp.forms,
+            moa: action.values,
+          },
+        },
+      };
+    }
     case FOLDER_UPDATE_SITE_LOADED: {
       const oldOp = state[action.idDpOperation];
       return {
