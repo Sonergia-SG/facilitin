@@ -11,7 +11,7 @@ import {
   FOLDER_UPDATE_SITE_LOADED,
   FOLDER_FILE_ENDING_LOADED,
 } from '../../types';
-import { Forms } from '../../../components/Folder/Left/SecondaryData/types';
+import { Forms, FormDef } from '../../../components/Folder/Left/SecondaryData/types';
 
 export interface User {
   id_user: number;
@@ -326,18 +326,11 @@ export interface FoldersUpdateMoeLoaded {
   values: { [index: string]: string };
 }
 
-export interface FoldersUpdateSiteLoaded {
-  type: typeof FOLDER_UPDATE_SITE_LOADED;
-  id_dossierprime: number;
-  values: { [index: string]: string | null };
-}
-
 export type FoldersActions =
   | FoldersFolderLoadedAction
   | FoldersLogoutAction
   | FoldersUpdateMoaLoaded
   | FoldersUpdateMoeLoaded
-  | FoldersUpdateSiteLoaded
   | FoldersListLoadedAction;
 
 export interface CheckPointsFolderLoadedAction {
@@ -408,9 +401,16 @@ export interface OperationsLogoutAction {
   type: typeof LOGOUT;
 }
 
+export interface OperationsUpdateSiteLoadedAction {
+  type: typeof FOLDER_UPDATE_SITE_LOADED;
+  idDpOperation: number;
+  values: Array<FormDef>;
+}
+
 export type OperationsActions =
   | OperationsFolderLoadedAction
   | OperationsListLoadedAction
+  | OperationsUpdateSiteLoadedAction
   | OperationsLogoutAction;
 
 export interface UsersCommentsListLoadedAction {

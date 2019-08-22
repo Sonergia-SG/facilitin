@@ -80,10 +80,11 @@ import {
   CheckPointsFolderUpdateCheckpointErrorAction,
   FilesFolcerCheckPointLoaded,
   FoldersUpdateMoeLoaded,
-  FoldersUpdateSiteLoaded,
   FileStatus,
+  OperationsUpdateSiteLoadedAction,
 } from '../../../reducer/entities/types';
 import rest from '../../../../tools/rest';
+import { FormDef } from '../../../../components/Folder/Left/SecondaryData/types';
 
 interface FolderUpdateCheckPointLoadingParams {
   folderId: number;
@@ -461,12 +462,10 @@ export const folderUpdateSiteLoading = (idDpOperation: number): FolderFolderUpda
 
 export const folderUpdateSiteLoaded = (
   idDpOperation: number,
-  iddossierprime: number,
-  values: { [index: string]: string | null },
-): FolderFolderUpdateSiteLoaded & FoldersUpdateSiteLoaded => ({
+  values: Array<FormDef>,
+): FolderFolderUpdateSiteLoaded & OperationsUpdateSiteLoadedAction => ({
   type: FOLDER_UPDATE_SITE_LOADED,
   idDpOperation,
-  id_dossierprime: iddossierprime,
   values,
 });
 
@@ -481,15 +480,26 @@ export const updateSiteValues = (
 ): ThunkAction => async (dispatch, getState) => {
   try {
     const pending = getState().views.folder.pending[idDpOperation];
+    const oldValues = getState().entities.operations[idDpOperation].forms.site;
 
     if (!pending) throw new Error('Pending is missing for MOE update');
-    const values = pending.site || {};
+    const updatedKeys = Object.keys(pending.site || {});
+    const values = oldValues.map((v) => {
+      if (v.type !== 'section' && pending.site && updatedKeys.includes(v.key)) {
+        return {
+          ...v,
+          value: pending.site[v.key],
+        };
+      }
+
+      return v;
+    });
 
     dispatch(folderUpdateSiteLoading(idDpOperation));
 
     const res = await rest(`${API_PATH}dossierprimes/${idDossierPrime}`, {
       method: 'put',
-      body: JSON.stringify(values),
+      body: JSON.stringify(pending.site || {}),
     });
 
     if (res.status === 200) {
@@ -498,7 +508,7 @@ export const updateSiteValues = (
         type: 'info',
         message: 'Les infos du MOE ont étaient mise à jour',
       });
-      dispatch(folderUpdateSiteLoaded(idDpOperation, idDossierPrime, values));
+      dispatch(folderUpdateSiteLoaded(idDpOperation, values));
     } else {
       addMessageToQueue({
         duration: 4500,
