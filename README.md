@@ -1,4 +1,32 @@
+# themis doc
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Dynamic form
+
+### Add new type
+
+This PR can be a good start if you don’t want to omit some steps : https://bitbucket.org/sonergia/themis/pull-requests/97/feat-dynamicforms-rules/diff
+
+> Add SIRET and fiscal number validation
+
+Important steps :
+
+- Add validator at right place
+  - `Common/regex/*` if validation can be done with simple regex
+  - `Common/validator/*` for a more complex check
+- Add specific TS types at `components/Folder/Left/SecondaryData/types.ts`
+- Add related case to
+  - `components/Folder/Left/SecondaryData/validateFormat.ts`
+  - `components/Folder/Left/SecondaryData/formatErrorMsg.ts`
+- Add related test cases.
+  - `components/Folder/Left/SecondaryData/__test__/Input.test.tsx`
+  - `components/Folder/Left/SecondaryData/__test__/formatErrorMsg.test.ts`
+  - `components/Folder/Left/SecondaryData/__test__/validateFormat.test.ts`
+
+> **Bonus :** It can be usefull to help users to type value. Example of _format_ / _unformat_ input can be found in `components/Folder/Left/SecondaryData/Input.tsx`.
+>
+> It is a win-win situation. Users can type more easly their values, plus they just can keep-clean the display value. Furthermore we can easily format datas to send clean values to the api.
 
 ## Available Scripts
 
