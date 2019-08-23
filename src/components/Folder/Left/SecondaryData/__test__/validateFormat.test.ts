@@ -169,4 +169,46 @@ describe('validateFormat', () => {
 
     expect(valid).toBe(false);
   });
+
+  it('valid email (igor.eschalier@sonergia.fr)', () => {
+    const valid = validateFormat(
+      { format: 'email' },
+      'igor.eschalier@sonergia.fr',
+    );
+
+    expect(valid).toBe(true);
+  });
+
+  it('invalid email (igor.eschalier@sonergia)', () => {
+    const valid = validateFormat(
+      { format: 'email' },
+      'igor.eschalier@sonergia',
+    );
+
+    expect(valid).toBe(false);
+  });
+
+  it('invalid email (igor.eschalier)', () => {
+    const valid = validateFormat({ format: 'email' }, 'igor.eschalier');
+
+    expect(valid).toBe(false);
+  });
+
+  it('valid email (John23@example.com)', () => {
+    const valid = validateFormat({ format: 'email' }, 'John23@example.com');
+
+    expect(valid).toBe(true);
+  });
+
+  it('valid email (John+-@example.com)', () => {
+    const valid = validateFormat({ format: 'email' }, 'John23+-@example.com');
+
+    expect(valid).toBe(true);
+  });
+
+  it('valid email (John/@example.com)', () => {
+    const valid = validateFormat({ format: 'email' }, 'John23/@example.com');
+
+    expect(valid).toBe(true);
+  });
 });

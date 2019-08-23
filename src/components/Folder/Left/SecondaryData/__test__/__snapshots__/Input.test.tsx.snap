@@ -94,6 +94,31 @@ exports[`SecondaryData Input render rigth with invalid bic 1`] = `
 </Fragment>
 `;
 
+exports[`SecondaryData Input render rigth with invalid email 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_email"
+  >
+    email :
+  </label>
+  <input
+    className="Input input is-danger"
+    disabled={false}
+    name="moa_email"
+    onChange={[Function]}
+    placeholder="email :"
+    type="text"
+    value="0421"
+  />
+  <p
+    className="Input-Error-Msg"
+  >
+    Email invalide
+  </p>
+</Fragment>
+`;
+
 exports[`SecondaryData Input render rigth with invalid fiscal number 1`] = `
 <Fragment>
   <label
@@ -216,6 +241,29 @@ exports[`SecondaryData Input render rigth with invalid siret 1`] = `
   >
     SIRET invalide
   </p>
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with valid email 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_email"
+  >
+    email :
+  </label>
+  <input
+    className="Input input"
+    disabled={false}
+    name="moa_email"
+    onChange={[Function]}
+    placeholder="email :"
+    type="text"
+    value="igor.eschalier@sonergia.fr"
+  />
+  <p
+    className="Input-Error-Msg"
+  />
 </Fragment>
 `;
 

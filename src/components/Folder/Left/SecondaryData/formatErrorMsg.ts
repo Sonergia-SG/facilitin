@@ -20,6 +20,8 @@ const formatErrorMsg = (rules?: FormFieldTextRules, value?: string | null) => {
       return 'Numéro fiscale invalide';
     case 'code_postal':
       return 'Code postal invalide';
+    case 'email':
+      return 'Email invalide';
     default:
       return '';
   }

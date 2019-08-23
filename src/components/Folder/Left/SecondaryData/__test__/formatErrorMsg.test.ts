@@ -82,4 +82,19 @@ describe('formatErrorMsg', () => {
 
     expect(message).toEqual('');
   });
+
+  it('display good message with invalid email', () => {
+    const message = formatErrorMsg({ format: 'email' }, '0421');
+
+    expect(message).toEqual('Email invalide');
+  });
+
+  it('display good message with valid email', () => {
+    const message = formatErrorMsg(
+      { format: 'email' },
+      'igor.eschalier@sonergia.fr',
+    );
+
+    expect(message).toEqual('');
+  });
 });

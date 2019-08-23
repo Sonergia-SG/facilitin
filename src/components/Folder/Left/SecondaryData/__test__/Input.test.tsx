@@ -342,4 +342,46 @@ describe('SecondaryData Input', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('render rigth with valid email', () => {
+    const wrapper = shallow(
+      <Input
+        key="azer"
+        label="email :"
+        valueKey="moa_email"
+        value="igor.eschalier@sonergia.fr"
+        type="text"
+        rules={{ format: 'email' }}
+        idDpOperation={1}
+        disabled={false}
+        dossierprime={defaultDossierPrime}
+        pending={undefined}
+        pendingKey="moa"
+        update={() => {}}
+      />,
+    );
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('render rigth with invalid email', () => {
+    const wrapper = shallow(
+      <Input
+        key="azer"
+        label="email :"
+        valueKey="moa_email"
+        value="0421"
+        type="text"
+        rules={{ format: 'email' }}
+        idDpOperation={1}
+        disabled={false}
+        dossierprime={defaultDossierPrime}
+        pending={undefined}
+        pendingKey="moa"
+        update={() => {}}
+      />,
+    );
+
+    expect(wrapper).toMatchSnapshot();
+  });
 });
