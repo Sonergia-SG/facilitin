@@ -27,7 +27,7 @@ const resolveInputValue = ({
 }: Props) => {
   const v = idx(pending, _ => _[pendingKey][valueKey]);
   const originalValue = defValue || dossierprime[valueKey];
-  const cleanOriginalValue = originalValue === null ? undefined : originalValue;
+  const cleanOriginalValue = originalValue === null || originalValue === undefined ? '' : originalValue;
 
   return typeof v === 'string' ? v : cleanOriginalValue;
 };

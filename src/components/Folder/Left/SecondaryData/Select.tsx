@@ -59,7 +59,7 @@ const Select = ({
 }: Props) => {
   const v = idx(pending, _ => _[pendingKey][valueKey]);
   const originalValue = value || dossierprime[valueKey];
-  const cleanOriginalValue = originalValue === null ? undefined : originalValue;
+  const cleanOriginalValue = originalValue === null || originalValue === undefined ? '' : originalValue;
 
   const isEdited = v !== undefined;
 
