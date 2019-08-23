@@ -49,10 +49,21 @@ interface Props {
 }
 
 const format = (value?: string, rules?: FormFieldTextRules) => {
-  if (rules && rules.format === 'num_fiscal') {
+  if (idx(rules, _ => _.format) === 'num_fiscal') {
     if (/^[0-9]+$/.test(value || '')) {
       return (value || '').split('').reduce((r, v, i) => {
         if (i === 2 || i === 4 || i === 7 || i === 10) return `${r} ${v}`;
+
+        return `${r}${v}`;
+      }, '');
+    }
+  } else if (idx(rules, _ => _.format) === 'phone') {
+    if (/^[0-9.]+$/.test(value || '')) {
+      return (value || '').split('').reduce((r, v, i) => {
+        const dotIndex = [2, 5, 8, 11];
+        if (dotIndex.includes(i) && v !== '.') {
+          return `${r}.${v}`;
+        }
 
         return `${r}${v}`;
       }, '');
@@ -63,7 +74,7 @@ const format = (value?: string, rules?: FormFieldTextRules) => {
 };
 
 const unformat = (newvalue?: string, rules?: FormFieldTextRules) => {
-  if (rules && rules.format === 'num_fiscal') {
+  if (idx(rules, _ => _.format) === 'num_fiscal') {
     if (/^[0-9\s]+$/.test(newvalue || '')) {
       return (newvalue || '').replace(/\s/g, '');
     }
