@@ -157,4 +157,16 @@ describe('validateFormat', () => {
 
     expect(valid).toBe(false);
   });
+
+  it('valid postal code (04210)', () => {
+    const valid = validateFormat({ format: 'code_postal' }, '04210');
+
+    expect(valid).toBe(true);
+  });
+
+  it('invalid postal code (0421)', () => {
+    const valid = validateFormat({ format: 'code_postal' }, '0421');
+
+    expect(valid).toBe(false);
+  });
 });

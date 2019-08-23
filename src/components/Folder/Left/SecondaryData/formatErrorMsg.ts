@@ -18,6 +18,8 @@ const formatErrorMsg = (rules?: FormFieldTextRules, value?: string | null) => {
       return 'SIRET invalide';
     case 'num_fiscal':
       return 'Numéro fiscale invalide';
+    case 'code_postal':
+      return 'Code postal invalide';
     default:
       return '';
   }

@@ -42,11 +42,16 @@ export interface FormFieldTextPhoneRule {
   format: 'phone';
 }
 
+export interface FormFieldTextPostalCodeRule {
+  format: 'code_postal';
+}
+
 export type FormFieldTextRules =
   | FormFieldTextPhoneRule
   | FormFieldTextBicRule
   | FormFieldTextIbanRule
   | FormFieldTextSiretRule
+  | FormFieldTextPostalCodeRule
   | FormFieldTextFiscalNumRule;
 
 export interface FormFieldText {
