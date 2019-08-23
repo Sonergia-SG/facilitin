@@ -1,14 +1,30 @@
 {
-  "short_name": "Sonergia",
-  "name": "Create React App Sample",
+  "short_name": "Facilit'in",
+  "name": "Facilit'in",
   "icons": [
     {
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "/icons-64.ico",
+      "type": "image/x-icon",
+      "sizes": "64x64"
+    },
+    {
+      "src": "/icons-32.ico",
+      "type": "image/x-icon",
+      "sizes": "32x32"
+    },
+    {
+      "src": "/icons-24.ico",
+      "type": "image/x-icon",
+      "sizes": "24x24"
+    },
+    {
+      "src": "/icons-16.ico",
+      "type": "image/x-icon",
+      "sizes": "16x16"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#fa9819",
   "background_color": "#ffffff"
 }
