@@ -15,6 +15,17 @@ export interface FormFieldList {
   type: 'list';
 }
 
+export interface FormFieldRadio {
+  label: string;
+  value: string | null;
+  values: Array<{
+    key: string;
+    value: string;
+  }>;
+  key: keyof FolderMOAString | keyof FolderMOEString | keyof FolderSiteString;
+  type: 'radio';
+}
+
 export interface FormFieldDate {
   label: string;
   value: string | null;
@@ -78,7 +89,8 @@ export type FormFieldDef =
   | FormFieldDate
   | FormFieldText
   | FormFieldNumber
-  | FormFieldList;
+  | FormFieldList
+  | FormFieldRadio;
 
 export interface FormSectionDef {
   label: string;
