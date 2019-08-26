@@ -60,6 +60,8 @@ const PDFReader = ({ idFile }: { idFile: number }) => {
 
         setPage(pageNumber);
         if (init) updateScale();
+
+        canvasRef.current.scrollIntoView();
       }
     }
   };
