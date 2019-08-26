@@ -100,6 +100,13 @@ const list = (state: ListState = initialState, action: ListAction): ListState =>
           ...state.search,
           ...action.search,
         },
+        tab: {
+          ...state.tab,
+          [state.selectedTab]: {
+            ...state.tab[state.selectedTab],
+            page: 0,
+          },
+        },
       };
     case LIST_CHANGE_TAB:
       return {

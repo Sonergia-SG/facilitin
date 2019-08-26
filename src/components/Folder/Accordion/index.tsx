@@ -201,7 +201,7 @@ export const AccordionComponent = ({
         title="Terminer l'instruction"
         message="Le document est en rejet. Voulez vous terminer l'instruction ?"
         actions={{
-          type: 'dialog',
+          type: 'alert',
           cancel: {
             handle: () => {
               ending(folderId);

@@ -5,6 +5,7 @@ import { addMessageToQueue } from '../../Alert';
 import { BooleanNumber, SimpleFile } from '../../../store/reducer/entities/types';
 
 import downloadDataUri from '../../../tools/file/downloadDataUri';
+import captureException from '../../../tools/errorReporting/captureException';
 
 interface Props {
   file: SimpleFile;
@@ -47,7 +48,8 @@ class DownloadFile extends Component<Props> {
         });
       }
     } catch (error) {
-      console.error(error);
+      captureException(error);
+
       addMessageToQueue({
         duration: 4000,
         type: 'error',

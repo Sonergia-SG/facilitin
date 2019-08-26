@@ -37,7 +37,7 @@ const DeleteFile = ({ file, deleteF }: Props) => {
         title="Suppression du fichier"
         message="Supprimer un fichier est irréversible, souhaitez-vous poursuivre ?"
         actions={{
-          type: 'confirm',
+          type: 'alert',
           cancel: {
             handle: () => {
               setDpModal(false);
@@ -57,4 +57,7 @@ const DeleteFile = ({ file, deleteF }: Props) => {
   );
 };
 
-export default connect(null, { deleteF: deleteFile })(DeleteFile);
+export default connect(
+  null,
+  { deleteF: deleteFile },
+)(DeleteFile);

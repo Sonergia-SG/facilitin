@@ -378,6 +378,8 @@ export const updateMoaValues = (
       dispatch(folderUpdateMoaError(idDpOperation));
     }
   } catch (error) {
+    captureException(error);
+
     addMessageToQueue({
       duration: 4500,
       type: 'error',
@@ -441,6 +443,8 @@ export const updateMoeValues = (
       dispatch(folderUpdateMoeError(idDpOperation));
     }
   } catch (error) {
+    captureException(error);
+
     addMessageToQueue({
       duration: 4500,
       type: 'error',
@@ -504,6 +508,8 @@ export const updateSiteValues = (
       dispatch(folderUpdateSiteError(idDpOperation));
     }
   } catch (error) {
+    captureException(error);
+
     addMessageToQueue({
       duration: 4500,
       type: 'error',
