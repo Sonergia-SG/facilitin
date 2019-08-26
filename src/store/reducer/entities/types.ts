@@ -11,6 +11,7 @@ import {
   FOLDER_UPDATE_SITE_LOADED,
   FOLDER_FILE_ENDING_LOADED,
 } from '../../types';
+import { Forms, FormDef } from '../../../components/Folder/Left/SecondaryData/types';
 
 export interface User {
   id_user: number;
@@ -48,11 +49,12 @@ export type DOCUMENT_INPROGRESS = 0;
 export type DOCUMENT_INCOMPLET = 5;
 export type DOCUMENT_REJECTED = 10;
 export type DOCUMENT_VALIDATED = 15;
-export type FileStatus = | MISSING_FILE
-| DOCUMENT_INPROGRESS
-| DOCUMENT_INCOMPLET
-| DOCUMENT_REJECTED
-| DOCUMENT_VALIDATED;
+export type FileStatus =
+  | MISSING_FILE
+  | DOCUMENT_INPROGRESS
+  | DOCUMENT_INCOMPLET
+  | DOCUMENT_REJECTED
+  | DOCUMENT_VALIDATED;
 
 export interface SimpleFile {
   id_dp_file: number;
@@ -161,11 +163,14 @@ export interface FolderSiteString {
   date_fin_travaux: string | null;
 }
 
-export interface SimpleFolder extends FolderMOAString, FolderMOEString, FolderSiteString {
+export interface SimpleFolder
+  extends FolderMOAString,
+  FolderMOEString,
+  FolderSiteString {
   id_dp_operation: number;
   id_dossierprime: number;
   code_operation: string;
-  moa_est_societe: 0;
+  moa_est_societe: number;
   moa_is_syndic: BooleanNumber;
   moa_no_siret: BooleanNumber;
   moa_categorie_menage: number;
@@ -231,6 +236,7 @@ export interface OperationSimple {
   id_operation: number;
   code_operation: string;
   statut?: OperationStatus;
+  forms: Forms;
   moderemuneration: {
     id_remuneration: number;
     delai_instruction: string;
@@ -288,10 +294,11 @@ export interface FilesLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type FilesActions = | FilesFolderLoadedAction
-| FilesFolcerCheckPointLoaded
-| FilesLogoutAction
-| FileEndingLoaded;
+export type FilesActions =
+  | FilesFolderLoadedAction
+  | FilesFolcerCheckPointLoaded
+  | FilesLogoutAction
+  | FileEndingLoaded;
 
 export interface FoldersFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -307,30 +314,10 @@ export interface FoldersLogoutAction {
   type: typeof LOGOUT;
 }
 
-export interface FoldersUpdateMoaLoaded {
-  type: typeof FOLDER_UPDATE_MOA_LOADED;
-  id_dossierprime: number;
-  values: { [index: string]: string };
-}
-
-export interface FoldersUpdateMoeLoaded {
-  type: typeof FOLDER_UPDATE_MOE_LOADED;
-  id_dossierprime: number;
-  values: { [index: string]: string };
-}
-
-export interface FoldersUpdateSiteLoaded {
-  type: typeof FOLDER_UPDATE_SITE_LOADED;
-  id_dossierprime: number;
-  values: { [index: string]: string | null };
-}
-
-export type FoldersActions = | FoldersFolderLoadedAction
-| FoldersLogoutAction
-| FoldersUpdateMoaLoaded
-| FoldersUpdateMoeLoaded
-| FoldersUpdateSiteLoaded
-| FoldersListLoadedAction;
+export type FoldersActions =
+  | FoldersFolderLoadedAction
+  | FoldersLogoutAction
+  | FoldersListLoadedAction;
 
 export interface CheckPointsFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -366,12 +353,13 @@ export interface CheckPointsFolderUpdateCheckpointErrorAction {
   preValue: BooleanNumber;
 }
 
-export type CheckPointsActions = | CheckPointsFolderUpdateCheckpointLoadingAction
-| CheckPointsFolderUpdateChekpointLoadedAction
-| CheckPointsFolderUpdateCheckpointErrorAction
-| CheckPointsFolderLoadedAction
-| CheckPointsListLoadedAction
-| CheckPointsLogoutAction;
+export type CheckPointsActions =
+  | CheckPointsFolderUpdateCheckpointLoadingAction
+  | CheckPointsFolderUpdateChekpointLoadedAction
+  | CheckPointsFolderUpdateCheckpointErrorAction
+  | CheckPointsFolderLoadedAction
+  | CheckPointsListLoadedAction
+  | CheckPointsLogoutAction;
 
 export interface CheckPointCategoriesFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -382,8 +370,9 @@ export interface CheckPointCategoriesLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type CheckPointCategoriesActions = | CheckPointCategoriesFolderLoadedAction
-| CheckPointCategoriesLogoutAction;
+export type CheckPointCategoriesActions =
+  | CheckPointCategoriesFolderLoadedAction
+  | CheckPointCategoriesLogoutAction;
 
 export interface OperationsFolderLoadedAction {
   type: typeof FOLDER_LOADED;
@@ -398,9 +387,31 @@ export interface OperationsLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type OperationsActions = | OperationsFolderLoadedAction
-| OperationsListLoadedAction
-| OperationsLogoutAction;
+export interface OperationsUpdateSiteLoadedAction {
+  type: typeof FOLDER_UPDATE_SITE_LOADED;
+  idDpOperation: number;
+  values: Array<FormDef>;
+}
+
+export interface OperationsUpdateMoaLoadedAction {
+  type: typeof FOLDER_UPDATE_MOA_LOADED;
+  idDpOperation: number;
+  values: Array<FormDef>;
+}
+
+export interface OperationsUpdateMoeLoadedAction {
+  type: typeof FOLDER_UPDATE_MOE_LOADED;
+  idDpOperation: number;
+  values: Array<FormDef>;
+}
+
+export type OperationsActions =
+  | OperationsFolderLoadedAction
+  | OperationsListLoadedAction
+  | OperationsUpdateSiteLoadedAction
+  | OperationsUpdateMoaLoadedAction
+  | OperationsUpdateMoeLoadedAction
+  | OperationsLogoutAction;
 
 export interface UsersCommentsListLoadedAction {
   type: typeof COMMENTS_LIST_LOADED;

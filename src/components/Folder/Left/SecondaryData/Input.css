@@ -1,6 +1,6 @@
 .Input-Label {
   margin-bottom: 5px;
-  margin-top: 15px;
+  margin-top: 0;
   font-size: 13px;
   font-weight: 700;
   color: #767676;
@@ -14,11 +14,19 @@
   transition: bakground-color 0.2s ease;
 }
 
-.Input:focus {
+.Input:not(.Input-Error-Msg):focus {
   border-color: #1fb5ad;
   box-shadow: none;
 }
 
 .Input:disabled {
   background-color: #eee;
+}
+
+.Input-Error-Msg {
+  color: #fa8564;
+  margin-top: 3px;
+  font-size: 12px;
+  text-align: right;
+  min-height: 18px;
 }

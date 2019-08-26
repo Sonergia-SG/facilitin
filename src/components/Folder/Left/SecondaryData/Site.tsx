@@ -11,7 +11,9 @@ import { FolderFull } from '../../../../store/reducer/entities/types';
 import { FolderPendingItem } from '../../../../store/reducer/views/folder/types';
 import { AppState } from '../../../../store';
 
-import Input from './Input';
+import { GenericForms } from './types';
+import Form from './Form';
+import SaveButton from './SaveButton';
 
 interface ConnectProps {
   idDpOperation: number;
@@ -19,6 +21,7 @@ interface ConnectProps {
   edit: boolean;
   dossierprime?: FolderFull;
   cancel: () => void;
+  def: GenericForms;
   locked: boolean;
 }
 
@@ -39,6 +42,7 @@ const Site = ({
   pending,
   updateSite,
   clean,
+  def,
   locked,
 }: Props) => {
   if (!dossierprime) return <p>Unavailable</p>;
@@ -46,89 +50,18 @@ const Site = ({
   const loading = !!pending && !!pending.siteLoading;
   const edited = !!pending && !!pending.site;
 
-  const disabledInput = !edit || loading || locked;
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <Input
-        label="Nom du site :"
-        valueKey="adresse_travaux_nomsite"
+      <Form
+        def={def}
         idDpOperation={idDpOperation}
-        disabled={disabledInput}
+        formKey="site"
         dossierprime={dossierprime}
         pending={pending}
-        pendingKey="site"
-        update={updateSite}
-      />
-      <Input
-        label="Rue :"
-        valueKey="adresse_travaux_rue"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="site"
-        update={updateSite}
-      />
-      <Input
-        label="Rue complément :"
-        valueKey="adresse_travaux_rue2"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="site"
-        update={updateSite}
-      />
-      <Input
-        label="Code postal :"
-        valueKey="adresse_travaux_cp"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="site"
-        update={updateSite}
-      />
-      <Input
-        label="Ville :"
-        valueKey="adresse_travaux_ville"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="site"
-        update={updateSite}
-      />
-      <Input
-        label="Début des travaux :"
-        valueKey="date_debut_travaux"
-        type="date"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="site"
-        update={
-          (id: number, key: string, value: string) => {
-            updateSite(id, key, value === '' ? null : value);
-          }
-        }
-      />
-      <Input
-        label="Fin des travaux :"
-        type="date"
-        valueKey="date_fin_travaux"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="site"
-        update={
-          (id: number, key: string, value: string) => {
-            updateSite(id, key, value === '' ? null : value);
-          }
-        }
+        edit={edit}
+        locked={locked}
+        loading={loading}
+        updater={updateSite}
       />
       <div
         style={{
@@ -160,15 +93,18 @@ const Site = ({
             {'Fermer'}
           </button>
         )}
-        <button
-          type="button"
-          onClick={() => post(idDossierPrime, idDpOperation)}
-          style={{ margin: '0 3px' }}
-          disabled={!edit || !edited}
-          className={`button is-success is-rounded is-small ${loading ? 'is-loading' : ''}`}
-        >
-          {'Save'}
-        </button>
+        <SaveButton
+          idDpOperation={idDpOperation}
+          idDossierPrime={idDossierPrime}
+          dossierprime={dossierprime}
+          edit={edit}
+          edited={edited}
+          loading={loading}
+          pending={pending}
+          post={post}
+          pendingKey="site"
+          def={def}
+        />
       </div>
     </div>
   );
@@ -178,5 +114,9 @@ export default connect(
   (s: AppState, p: ConnectProps) => ({
     pending: s.views.folder.pending[p.idDpOperation],
   }),
-  { updateSite: folderUpdateSiteValue, clean: folderCleanSiteValue, post: updateSiteValues },
+  {
+    updateSite: folderUpdateSiteValue,
+    clean: folderCleanSiteValue,
+    post: updateSiteValues,
+  },
 )(Site);
