@@ -1,7 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+  useState, useEffect, useRef, ReactNode,
+} from 'react';
+import ResizeObserver from 'resize-observer-polyfill';
 
 interface Props {
-  children: JSX.Element;
+  children: ReactNode;
 }
 
 const AnimatedHeight = ({ children }: Props) => {
@@ -16,6 +19,25 @@ const AnimatedHeight = ({ children }: Props) => {
       }
     }
   });
+
+  useEffect(() => {
+    const container = ref.current;
+
+    const ro = new ResizeObserver((entries) => {
+      const entry = entries[0];
+
+      if (entry) {
+        const { height: h } = entry.contentRect;
+        setHeight(h);
+      }
+    });
+
+    if (container !== null) ro.observe(container);
+
+    return () => {
+      if (container !== null) ro.disconnect();
+    };
+  }, []);
 
   return (
     <div style={{ height, overflow: 'hidden', transition: 'height .2s ease' }}>

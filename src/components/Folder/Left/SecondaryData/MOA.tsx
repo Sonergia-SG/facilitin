@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import idx from 'idx';
 import {
   folderUpdateMoaValue,
   folderCleanMoaValue,
@@ -11,7 +12,11 @@ import { FolderFull } from '../../../../store/reducer/entities/types';
 import { FolderPendingItem } from '../../../../store/reducer/views/folder/types';
 import { AppState } from '../../../../store';
 
-import Input from './Input';
+import Form from './Form';
+
+import { GenericForms } from './types';
+import validateFormat from './validateFormat';
+import SaveButton from './SaveButton';
 
 interface ConnectProps {
   idDpOperation: number;
@@ -27,6 +32,7 @@ interface Props extends ConnectProps {
   updateMoa: typeof folderUpdateMoaValue;
   post: any;
   clean: typeof folderCleanMoaValue;
+  def: GenericForms;
 }
 
 const MOA = ({
@@ -39,6 +45,7 @@ const MOA = ({
   pending,
   updateMoa,
   clean,
+  def,
   locked,
 }: Props) => {
   if (!dossierprime) return <p>Unavailable</p>;
@@ -46,79 +53,18 @@ const MOA = ({
   const loading = !!pending && !!pending.moaLoading;
   const edited = !!pending && !!pending.moa;
 
-  const disabledInput = !edit || loading || locked;
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <Input
-        label="Nom MOA : "
-        valueKey="moa_nom"
+      <Form
+        def={def}
         idDpOperation={idDpOperation}
-        disabled={disabledInput}
+        formKey="moa"
         dossierprime={dossierprime}
         pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Prénom MOA : "
-        valueKey="moa_prenom"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Fonction MOA : "
-        valueKey="moa_fonction"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Adresse rue : "
-        valueKey="moa_rue"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Adresse rue 2 : "
-        valueKey="moa_rue2"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Code Postal : "
-        valueKey="moa_cp"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
-      />
-      <Input
-        label="Ville : "
-        valueKey="moa_ville"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moa"
-        update={updateMoa}
+        edit={edit}
+        locked={locked}
+        loading={loading}
+        updater={updateMoa}
       />
       <div
         style={{
@@ -150,15 +96,18 @@ const MOA = ({
             {'Fermer'}
           </button>
         )}
-        <button
-          type="button"
-          onClick={() => post(idDossierPrime, idDpOperation)}
-          style={{ margin: '0 3px' }}
-          disabled={!edit || !edited}
-          className={`button is-success is-rounded is-small ${loading ? 'is-loading' : ''}`}
-        >
-          {'Save'}
-        </button>
+        <SaveButton
+          idDpOperation={idDpOperation}
+          idDossierPrime={idDossierPrime}
+          dossierprime={dossierprime}
+          edit={edit}
+          edited={edited}
+          loading={loading}
+          pending={pending}
+          post={post}
+          pendingKey="moa"
+          def={def}
+        />
       </div>
     </div>
   );
@@ -168,5 +117,9 @@ export default connect(
   (s: AppState, p: ConnectProps) => ({
     pending: s.views.folder.pending[p.idDpOperation],
   }),
-  { updateMoa: folderUpdateMoaValue, clean: folderCleanMoaValue, post: updateMoaValues },
+  {
+    updateMoa: folderUpdateMoaValue,
+    clean: folderCleanMoaValue,
+    post: updateMoaValues,
+  },
 )(MOA);

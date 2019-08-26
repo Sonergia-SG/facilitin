@@ -11,7 +11,9 @@ import { FolderFull } from '../../../../store/reducer/entities/types';
 import { FolderPendingItem } from '../../../../store/reducer/views/folder/types';
 import { AppState } from '../../../../store';
 
-import Input from './Input';
+import { GenericForms } from './types';
+import Form from './Form';
+import SaveButton from './SaveButton';
 
 interface ConnectProps {
   idDpOperation: number;
@@ -27,6 +29,7 @@ interface Props extends ConnectProps {
   updateMoe: typeof folderUpdateMoeValue;
   post: any;
   clean: typeof folderCleanMoeValue;
+  def: GenericForms;
 }
 
 const MOE = ({
@@ -39,6 +42,7 @@ const MOE = ({
   pending,
   updateMoe,
   clean,
+  def,
   locked,
 }: Props) => {
   if (!dossierprime) return <p>Unavailable</p>;
@@ -46,160 +50,18 @@ const MOE = ({
   const loading = !!pending && !!pending.moeLoading;
   const edited = !!pending && !!pending.moe;
 
-  const disabledInput = !edit || loading || locked;
-
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <Input
-        label="Denomination :"
-        valueKey="moe_denomination"
+      <Form
+        def={def}
         idDpOperation={idDpOperation}
-        disabled={disabledInput}
+        formKey="moe"
         dossierprime={dossierprime}
         pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Siret :"
-        valueKey="moe_siret"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Télèphone :"
-        valueKey="moe_tel"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Fax :"
-        valueKey="moe_fax"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Rue :"
-        valueKey="moe_rue"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Code postal :"
-        valueKey="moe_cp"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Ville :"
-        valueKey="moe_ville"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Commentaire :"
-        valueKey="moe_commentaire"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Email :"
-        valueKey="moe_individu_email"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Contact :"
-        valueKey="moe_contact"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Contact prenom :"
-        valueKey="moe_contact_prenom"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Contact mobile :"
-        valueKey="moe_contact_mobile"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Contact fonction :"
-        valueKey="moe_contact_fonction"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="BIC :"
-        valueKey="moe_bic"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
-      />
-      <Input
-        label="Iban :"
-        valueKey="moe_iban"
-        idDpOperation={idDpOperation}
-        disabled={disabledInput}
-        dossierprime={dossierprime}
-        pending={pending}
-        pendingKey="moe"
-        update={updateMoe}
+        edit={edit}
+        locked={locked}
+        loading={loading}
+        updater={updateMoe}
       />
       <div
         style={{
@@ -231,15 +93,18 @@ const MOE = ({
             {'Fermer'}
           </button>
         )}
-        <button
-          type="button"
-          onClick={() => post(idDossierPrime, idDpOperation)}
-          style={{ margin: '0 3px' }}
-          disabled={!edit || !edited}
-          className={`button is-success is-rounded is-small ${loading ? 'is-loading' : ''}`}
-        >
-          {'Save'}
-        </button>
+        <SaveButton
+          idDpOperation={idDpOperation}
+          idDossierPrime={idDossierPrime}
+          dossierprime={dossierprime}
+          edit={edit}
+          edited={edited}
+          loading={loading}
+          pending={pending}
+          post={post}
+          pendingKey="moe"
+          def={def}
+        />
       </div>
     </div>
   );
@@ -249,5 +114,9 @@ export default connect(
   (s: AppState, p: ConnectProps) => ({
     pending: s.views.folder.pending[p.idDpOperation],
   }),
-  { updateMoe: folderUpdateMoeValue, clean: folderCleanMoeValue, post: updateMoeValues },
+  {
+    updateMoe: folderUpdateMoeValue,
+    clean: folderCleanMoeValue,
+    post: updateMoeValues,
+  },
 )(MOE);

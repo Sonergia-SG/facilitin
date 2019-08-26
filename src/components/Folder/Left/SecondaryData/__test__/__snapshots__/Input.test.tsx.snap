@@ -1,0 +1,360 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SecondaryData Input render rigth Simple case - disabled 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_nom"
+  >
+    test :
+  </label>
+  <input
+    className="Input input"
+    disabled={true}
+    name="moa_nom"
+    onChange={[Function]}
+    placeholder="test :"
+    type="text"
+    value="Sonergia"
+  />
+  <p
+    className="Input-Error-Msg"
+  />
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth Simple case - pending value 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_nom"
+  >
+    test :
+  </label>
+  <input
+    className="Input input is-info"
+    disabled={false}
+    name="moa_nom"
+    onChange={[Function]}
+    placeholder="test :"
+    type="text"
+    value="So"
+  />
+  <p
+    className="Input-Error-Msg"
+  />
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth Simple case 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_nom"
+  >
+    test :
+  </label>
+  <input
+    className="Input input"
+    disabled={false}
+    name="moa_nom"
+    onChange={[Function]}
+    placeholder="test :"
+    type="text"
+    value="Sonergia"
+  />
+  <p
+    className="Input-Error-Msg"
+  />
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with invalid bic 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_tel"
+  >
+    tel :
+  </label>
+  <input
+    className="Input input is-danger"
+    disabled={false}
+    name="moa_tel"
+    onChange={[Function]}
+    placeholder="tel :"
+    type="text"
+    value="06.06.06.06"
+  />
+  <p
+    className="Input-Error-Msg"
+  >
+    BIC invalide
+  </p>
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with invalid email 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_email"
+  >
+    email :
+  </label>
+  <input
+    className="Input input is-danger"
+    disabled={false}
+    name="moa_email"
+    onChange={[Function]}
+    placeholder="email :"
+    type="text"
+    value="0421"
+  />
+  <p
+    className="Input-Error-Msg"
+  >
+    Email invalide
+  </p>
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with invalid fiscal number 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_tel"
+  >
+    tel :
+  </label>
+  <input
+    className="Input input is-danger"
+    disabled={false}
+    name="moa_tel"
+    onChange={[Function]}
+    placeholder="tel :"
+    type="text"
+    value="78953453azez"
+  />
+  <p
+    className="Input-Error-Msg"
+  >
+    Numéro fiscale invalide
+  </p>
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with invalid iban 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_tel"
+  >
+    tel :
+  </label>
+  <input
+    className="Input input is-danger"
+    disabled={false}
+    name="moa_tel"
+    onChange={[Function]}
+    placeholder="tel :"
+    type="text"
+    value="06.06.06.06"
+  />
+  <p
+    className="Input-Error-Msg"
+  >
+    IBAN invalide
+  </p>
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with invalid phone 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_tel"
+  >
+    tel :
+  </label>
+  <input
+    className="Input input is-danger"
+    disabled={false}
+    name="moa_tel"
+    onChange={[Function]}
+    placeholder="tel :"
+    type="text"
+    value="06.06.06.06"
+  />
+  <p
+    className="Input-Error-Msg"
+  >
+    Format invalide (XX.XX.XX.XX.XX)
+  </p>
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with invalid postal code 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_cp"
+  >
+    code postal :
+  </label>
+  <input
+    className="Input input is-danger"
+    disabled={false}
+    name="moa_cp"
+    onChange={[Function]}
+    placeholder="code postal :"
+    type="text"
+    value="0421"
+  />
+  <p
+    className="Input-Error-Msg"
+  >
+    Code postal invalide
+  </p>
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with invalid siret 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_tel"
+  >
+    tel :
+  </label>
+  <input
+    className="Input input is-danger"
+    disabled={false}
+    name="moa_tel"
+    onChange={[Function]}
+    placeholder="tel :"
+    type="text"
+    value="78953453400018"
+  />
+  <p
+    className="Input-Error-Msg"
+  >
+    SIRET invalide
+  </p>
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with valid email 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_email"
+  >
+    email :
+  </label>
+  <input
+    className="Input input"
+    disabled={false}
+    name="moa_email"
+    onChange={[Function]}
+    placeholder="email :"
+    type="text"
+    value="igor.eschalier@sonergia.fr"
+  />
+  <p
+    className="Input-Error-Msg"
+  />
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with valid fiscal number 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_tel"
+  >
+    tel :
+  </label>
+  <input
+    className="Input input"
+    disabled={false}
+    name="moa_tel"
+    onChange={[Function]}
+    placeholder="tel :"
+    type="text"
+    value="78 95 345 340 001"
+  />
+  <p
+    className="Input-Error-Msg"
+  />
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with valid phone 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_tel"
+  >
+    tel :
+  </label>
+  <input
+    className="Input input"
+    disabled={false}
+    name="moa_tel"
+    onChange={[Function]}
+    placeholder="tel :"
+    type="text"
+    value="06.06.06.06.06"
+  />
+  <p
+    className="Input-Error-Msg"
+  />
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with valid postal code 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_cp"
+  >
+    code postal :
+  </label>
+  <input
+    className="Input input"
+    disabled={false}
+    name="moa_cp"
+    onChange={[Function]}
+    placeholder="code postal :"
+    type="text"
+    value="04210"
+  />
+  <p
+    className="Input-Error-Msg"
+  />
+</Fragment>
+`;
+
+exports[`SecondaryData Input render rigth with valid siret 1`] = `
+<Fragment>
+  <label
+    className="Input-Label"
+    htmlFor="moa_tel"
+  >
+    tel :
+  </label>
+  <input
+    className="Input input"
+    disabled={false}
+    name="moa_tel"
+    onChange={[Function]}
+    placeholder="tel :"
+    type="text"
+    value="78953453400019"
+  />
+  <p
+    className="Input-Error-Msg"
+  />
+</Fragment>
+`;
