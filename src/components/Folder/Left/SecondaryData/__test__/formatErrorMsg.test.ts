@@ -70,4 +70,31 @@ describe('formatErrorMsg', () => {
 
     expect(message).toEqual('');
   });
+
+  it('display good message with invalid postal code', () => {
+    const message = formatErrorMsg({ format: 'code_postal' }, '0421');
+
+    expect(message).toEqual('Code postal invalide');
+  });
+
+  it('display good message with valid postal code', () => {
+    const message = formatErrorMsg({ format: 'code_postal' }, '04210');
+
+    expect(message).toEqual('');
+  });
+
+  it('display good message with invalid email', () => {
+    const message = formatErrorMsg({ format: 'email' }, '0421');
+
+    expect(message).toEqual('Email invalide');
+  });
+
+  it('display good message with valid email', () => {
+    const message = formatErrorMsg(
+      { format: 'email' },
+      'igor.eschalier@sonergia.fr',
+    );
+
+    expect(message).toEqual('');
+  });
 });
