@@ -45,10 +45,7 @@ interface Props {
 }
 
 const Footer = ({ actions }: Props) => (
-  <footer
-    className="modal-card-foot"
-    style={{ display: 'flex', flexDirection: 'row-reverse' }}
-  >
+  <footer className="modal-card-foot" style={{ display: 'flex', flexDirection: 'row-reverse' }}>
     <button
       className={`button ${resolveColorByType(actions.type)}`}
       type="button"
@@ -57,11 +54,9 @@ const Footer = ({ actions }: Props) => (
     >
       {actions.confirm.title}
     </button>
-    {actions.type !== 'alert' && (
-      <button className="button" type="button" onClick={actions.cancel.handle}>
-        {actions.cancel.title}
-      </button>
-    )}
+    <button className="button" type="button" onClick={actions.cancel.handle}>
+      {actions.cancel.title}
+    </button>
   </footer>
 );
 
