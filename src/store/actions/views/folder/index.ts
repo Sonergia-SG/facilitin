@@ -154,7 +154,9 @@ export const folderUpdateCheckPointError = ({
   prevValue,
 });
 
-export const folderUpdateLoading = (idDpOperation: number): FolderFolderLoadingAction => ({
+export const folderUpdateLoading = (
+  idDpOperation: number,
+): FolderFolderLoadingAction => ({
   type: FOLDER_LOADING,
   idDpOperation,
 });
@@ -168,7 +170,9 @@ export const folderUpdateLoaded = (
   normalized,
 });
 
-export const folderUpdateError = (idDpOperation: number): FolderFolderErrorAction => ({
+export const folderUpdateError = (
+  idDpOperation: number,
+): FolderFolderErrorAction => ({
   type: FOLDER_ERROR,
   idDpOperation,
 });
@@ -206,22 +210,30 @@ export const folderUpdateSiteValue = (
   value,
 });
 
-export const folderCleanMoaValue = (idDpOperation: number): FolderFoldercleanMoaValue => ({
+export const folderCleanMoaValue = (
+  idDpOperation: number,
+): FolderFoldercleanMoaValue => ({
   type: FOLDER_CLEAN_MOA_VALUE,
   idDpOperation,
 });
 
-export const folderCleanMoeValue = (idDpOperation: number): FolderFoldercleanMoeValue => ({
+export const folderCleanMoeValue = (
+  idDpOperation: number,
+): FolderFoldercleanMoeValue => ({
   type: FOLDER_CLEAN_MOE_VALUE,
   idDpOperation,
 });
 
-export const folderCleanSiteValue = (idDpOperation: number): FolderFoldercleanSiteValue => ({
+export const folderCleanSiteValue = (
+  idDpOperation: number,
+): FolderFoldercleanSiteValue => ({
   type: FOLDER_CLEAN_SITE_VALUE,
   idDpOperation,
 });
 
-export const fetchFolder = (idDpOperation: number): ThunkAction => async (dispatch) => {
+export const fetchFolder = (
+  idDpOperation: number,
+): ThunkAction => async (dispatch) => {
   dispatch(folderUpdateLoading(idDpOperation));
 
   try {
@@ -236,7 +248,8 @@ export const fetchFolder = (idDpOperation: number): ThunkAction => async (dispat
       addMessageToQueue({
         duration: 2500,
         type: 'error',
-        message: "Erreur pendant la récupération des informations de l'opération",
+        message:
+          "Erreur pendant la récupération des informations de l'opération",
       });
       dispatch(folderUpdateError(idDpOperation));
     }
@@ -259,10 +272,22 @@ export const updateFolderCheckPoint = ({
 }: {
   folderId: number;
   checkPointId: number;
-  idDpFile: number;
+  idDpFile?: number;
   newValue: 0 | 1;
 }): ThunkAction => async (dispatch, getState) => {
-  const checkPoint = getState().entities.checkPoints[`${checkPointId}_${idDpFile}`];
+  if (idDpFile === undefined) {
+    addMessageToQueue({
+      duration: 2500,
+      type: 'error',
+      message: 'Erreur pendant la mise à jour du point de contrôle',
+    });
+
+    return;
+  }
+
+  const checkPoint = getState().entities.checkPoints[
+    `${checkPointId}_${idDpFile}`
+  ];
   const prevValue = checkPoint ? checkPoint.pivot.valide : 0;
 
   const dispatchError = () => {
@@ -292,13 +317,16 @@ export const updateFolderCheckPoint = ({
   );
 
   try {
-    const result = await rest(`${API_PATH}actions/${folderId}/controles/${checkPointId}`, {
-      method: 'put',
-      body: JSON.stringify({
-        valide: prevValue === 1 ? 0 : 1,
-        id_dp_file: idDpFile,
-      }),
-    });
+    const result = await rest(
+      `${API_PATH}actions/${folderId}/controles/${checkPointId}`,
+      {
+        method: 'put',
+        body: JSON.stringify({
+          valide: prevValue === 1 ? 0 : 1,
+          id_dp_file: idDpFile,
+        }),
+      },
+    );
 
     if (result.status === 200) {
       const json: FolderUpdateCheckPointResponse = await result.json();
@@ -326,7 +354,9 @@ export const updateFolderCheckPoint = ({
   }
 };
 
-export const folderUpdateMoaLoading = (idDpOperation: number): FolderFolderUpdateMoaLoading => ({
+export const folderUpdateMoaLoading = (
+  idDpOperation: number,
+): FolderFolderUpdateMoaLoading => ({
   type: FOLDER_UPDATE_MOA_LOADING,
   idDpOperation,
 });
@@ -340,7 +370,9 @@ export const folderUpdateMoaLoaded = (
   values,
 });
 
-export const folderUpdateMoaError = (idDpOperation: number): FolderFolderUpdateMoaError => ({
+export const folderUpdateMoaError = (
+  idDpOperation: number,
+): FolderFolderUpdateMoaError => ({
   type: FOLDER_UPDATE_MOA_ERROR,
   idDpOperation,
 });
@@ -390,7 +422,9 @@ export const updateMoaValues = (
   }
 };
 
-export const folderUpdateMoeLoading = (idDpOperation: number): FolderFolderUpdateMoeLoading => ({
+export const folderUpdateMoeLoading = (
+  idDpOperation: number,
+): FolderFolderUpdateMoeLoading => ({
   type: FOLDER_UPDATE_MOE_LOADING,
   idDpOperation,
 });
@@ -404,7 +438,9 @@ export const folderUpdateMoeLoaded = (
   values,
 });
 
-export const folderUpdateMoeError = (idDpOperation: number): FolderFolderUpdateMoeError => ({
+export const folderUpdateMoeError = (
+  idDpOperation: number,
+): FolderFolderUpdateMoeError => ({
   type: FOLDER_UPDATE_MOE_ERROR,
   idDpOperation,
 });
@@ -454,7 +490,9 @@ export const updateMoeValues = (
   }
 };
 
-export const folderUpdateSiteLoading = (idDpOperation: number): FolderFolderUpdateSiteLoading => ({
+export const folderUpdateSiteLoading = (
+  idDpOperation: number,
+): FolderFolderUpdateSiteLoading => ({
   type: FOLDER_UPDATE_SITE_LOADING,
   idDpOperation,
 });
@@ -468,7 +506,9 @@ export const folderUpdateSiteLoaded = (
   values,
 });
 
-export const folderUpdateSiteError = (idDpOperation: number): FolderFolderUpdateSiteError => ({
+export const folderUpdateSiteError = (
+  idDpOperation: number,
+): FolderFolderUpdateSiteError => ({
   type: FOLDER_UPDATE_SITE_ERROR,
   idDpOperation,
 });
@@ -547,7 +587,8 @@ export const folderEnding: FolderEnding = idDpOperation => async (dispatch) => {
       case 1:
         addMessageToQueue({
           duration: 5000,
-          message: "Catégories de documents manquants ,l'instruction ne peut être terminée",
+          message:
+            "Catégories de documents manquants ,l'instruction ne peut être terminée",
           type: 'error',
         });
         break;
@@ -561,7 +602,8 @@ export const folderEnding: FolderEnding = idDpOperation => async (dispatch) => {
       case 3:
         addMessageToQueue({
           duration: 5000,
-          message: "L'action est en cours d'instruction et ne peut être terminée",
+          message:
+            "L'action est en cours d'instruction et ne peut être terminée",
           type: 'error',
         });
         break;
@@ -579,9 +621,12 @@ export const folderEnding: FolderEnding = idDpOperation => async (dispatch) => {
   try {
     dispatch(folderEndingLoading(idDpOperation));
 
-    const result = await rest(`${API_PATH}actions/${idDpOperation}/terminerinstruction`, {
-      method: 'put',
-    });
+    const result = await rest(
+      `${API_PATH}actions/${idDpOperation}/terminerinstruction`,
+      {
+        method: 'put',
+      },
+    );
 
     switch (result.status) {
       case 200:
@@ -616,7 +661,10 @@ type FolderUpdateFileLoading = (
   idDpFile: number
 ) => FolderFolderUpdateFileLoading;
 
-export const folderUpdateFileLoading: FolderUpdateFileLoading = (idDpOperation, idDpFile) => ({
+export const folderUpdateFileLoading: FolderUpdateFileLoading = (
+  idDpOperation,
+  idDpFile,
+) => ({
   type: FOLDER_FILE_UPDATE_LOADING,
   idDpOperation,
   idDpFile,
@@ -627,7 +675,10 @@ type FolderUpdateFileLoaded = (
   idDpFile: number
 ) => FolderFolderUpdateFileLoaded;
 
-export const folderUpdateFileLoaded: FolderUpdateFileLoaded = (idDpOperation, idDpFile) => ({
+export const folderUpdateFileLoaded: FolderUpdateFileLoaded = (
+  idDpOperation,
+  idDpFile,
+) => ({
   type: FOLDER_FILE_UPDATE_LOADED,
   idDpOperation,
   idDpFile,
@@ -635,10 +686,13 @@ export const folderUpdateFileLoaded: FolderUpdateFileLoaded = (idDpOperation, id
 
 type FolderUpdateFileError = (
   idDpOperation: number,
-  idDpFile: number,
+  idDpFile: number
 ) => FolderFolderUpdateFileError;
 
-export const folderUpdateFileError: FolderUpdateFileError = (idDpOperation, idDpFile) => ({
+export const folderUpdateFileError: FolderUpdateFileError = (
+  idDpOperation,
+  idDpFile,
+) => ({
   type: FOLDER_FILE_UPDATE_ERROR,
   idDpOperation,
   idDpFile,
