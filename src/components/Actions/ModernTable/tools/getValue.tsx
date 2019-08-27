@@ -15,7 +15,7 @@ const getValue = (v: OperationFull, key: SortedId) => {
     case 'delai':
       return v.moderemuneration.delai_instruction;
     default:
-      return v[key];
+      return `${v[key]}`;
   }
 };
 
