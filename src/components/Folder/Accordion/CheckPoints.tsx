@@ -153,7 +153,7 @@ export const CheckPointsComponent = ({
             title: 'Annuler',
           },
           confirm: {
-            handle: () => {
+            handle: async () => {
               setModalState({
                 display: false,
                 data: { chekcpoint: undefined },
@@ -161,7 +161,7 @@ export const CheckPointsComponent = ({
               const { chekcpoint } = modalState.data;
 
               if (chekcpoint !== undefined) {
-                updateCheckPoint({
+                await updateCheckPoint({
                   folderId,
                   checkPointId: chekcpoint.id_point_controle,
                   idDpFile: chekcpoint.pivot.id_dp_file,

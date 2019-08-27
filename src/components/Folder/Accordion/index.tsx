@@ -71,7 +71,6 @@ export const AccordionComponent = ({
 
   const litigeLoading = idx(pending, _ => _.litige[file.id_dp_file].loading) || false;
   const [displayModal, toggleModal] = useOpenModalAfterLoading(
-    litigeLoading,
     file.statut,
     goNext,
   );
