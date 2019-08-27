@@ -322,7 +322,7 @@ export const updateFolderCheckPoint = ({
       {
         method: 'put',
         body: JSON.stringify({
-          valide: prevValue === 1 ? 0 : 1,
+          valide: newValue,
           id_dp_file: idDpFile,
         }),
       },
