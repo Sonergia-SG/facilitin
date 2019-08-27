@@ -10,8 +10,8 @@ const useOpenModalAfterLoading = (
   const prev = useRef(status);
 
   useEffect(() => {
-    if (prev.current !== 10 && status === 10) {
-      if (status === 10) toggleModal(true);
+    if (prev.current !== status) {
+      if (prev.current !== 10 && status === 10) toggleModal(true);
       else goNext();
     }
 
