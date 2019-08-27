@@ -45,6 +45,21 @@ interface Props extends RouteComponentProps {
   listState: ListState;
 }
 
+type MustFilter = (search: ListSearch) => boolean;
+
+const mustFilter: MustFilter = search => Object.values(search).some(v => !!v);
+
+type DataFilter = (
+  data: Array<OperationFull>,
+  search: ListSearch
+) => Array<OperationFull>;
+
+export const dataFilter: DataFilter = (data, search) => (mustFilter(search)
+  ? data.filter(row => Object.keys(search).every(key => String(
+    getValue(row, key as keyof ListSearch).toLocaleLowerCase(),
+  ).includes(search[key as keyof ListSearch].toLocaleLowerCase())))
+  : data);
+
 const Actions = ({
   load,
   updateSearch,
@@ -69,12 +84,7 @@ const Actions = ({
 
   const mappedData: [OperationFull] = denormalize(data, [operation], entities);
 
-  const mustFilter = Object.values(search).some(v => !!v);
-  const filteredData = mustFilter
-    ? mappedData.filter(row => Object.keys(search).every(key => String(
-      getValue(row, key as keyof ListSearch).toLocaleLowerCase(),
-    ).includes(search[key as keyof ListSearch].toLocaleLowerCase())))
-    : mappedData;
+  const filteredData = dataFilter(mappedData, search);
 
   return (
     <div

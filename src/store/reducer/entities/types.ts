@@ -11,7 +11,10 @@ import {
   FOLDER_UPDATE_SITE_LOADED,
   FOLDER_FILE_ENDING_LOADED,
 } from '../../types';
-import { Forms, FormDef } from '../../../components/Folder/Left/SecondaryData/types';
+import {
+  Forms,
+  FormDef,
+} from '../../../components/Folder/Left/SecondaryData/types';
 
 export interface User {
   id_user: number;
@@ -251,8 +254,8 @@ export interface Operation extends OperationSimple {
 
 export interface OperationFull extends OperationSimple {
   dossierprime?: FolderFull;
-  dossierprimefile?: [FileFull];
-  point_controles: [CheckPoint];
+  dossierprimefile?: Array<FileFull>;
+  point_controles: Array<CheckPoint>;
 }
 
 export interface Operations {
