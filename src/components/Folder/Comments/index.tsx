@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { useTransition, animated } from 'react-spring';
 
@@ -122,10 +122,19 @@ const List = ({ comments }: { comments: Array<CommentFull> }) => {
     }),
   });
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current !== null) {
+      const top = scrollRef.current.scrollHeight - scrollRef.current.clientHeight;
+      scrollRef.current.scrollTo({ top });
+    }
+  }, [comments.length]);
+
   return (
-    <div className="Comments-List">
-      {transitions.reverse().map(({ item, key, props }) => (
-        <animated.div key={key} style={props}>
+    <div ref={scrollRef} className="Comments-List">
+      {transitions.map(({ item, key, props }) => (
+        <animated.div key={key} style={{ ...props }}>
           <Comment comment={item} />
         </animated.div>
       ))}
