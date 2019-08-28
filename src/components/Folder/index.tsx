@@ -47,7 +47,9 @@ class Folder extends Component<Props, State> {
       this.setState({ selectedAccordion: index });
 
       setTimeout(() => {
-        const el = document.querySelector(`.divAccordion:nth-child(${index + 1})`);
+        const el = document.querySelector(
+          `.divAccordion:nth-child(${index + 1})`,
+        );
 
         if (el) {
           el.scrollIntoView({

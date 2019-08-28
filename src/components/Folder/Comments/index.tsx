@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { useTransition, animated } from 'react-spring';
 
@@ -15,10 +15,15 @@ import Empty from '../Empty';
 
 import CommentBox from './CommentBox';
 import Comment from './Comment';
-import { Operation, Entities, CommentFull } from '../../../store/reducer/entities/types';
+import {
+  Operation,
+  Entities,
+  CommentFull,
+} from '../../../store/reducer/entities/types';
 import { AppState } from '../../../store';
 import { CommentsByFolders } from '../../../store/reducer/views/comments/types';
 import { comment } from '../../../store/reducer/entities/schema';
+import sortComments from '../helpers/sortComments';
 
 interface Props {
   action: Operation;
@@ -39,7 +44,11 @@ class Comments extends Component<Props> {
 
   render() {
     const {
-      commentsOpened, commentState, entities, action, toggleComments,
+      commentsOpened,
+      commentState,
+      entities,
+      action,
+      toggleComments,
     } = this.props;
 
     const loading = commentState ? commentState.pending.loading : true;
@@ -61,17 +70,24 @@ class Comments extends Component<Props> {
       [comment],
       entities,
     );
+    const sortedComments = sortComments(normalizedComments);
 
     return (
       <div
-        className={`Comments-Container Comments-Container_${commentsOpened ? 'Opened' : 'Closed'}`}
+        className={`Comments-Container Comments-Container_${
+          commentsOpened ? 'Opened' : 'Closed'
+        }`}
       >
         <div className="Comments-Container-Inner">
-          <List comments={normalizedComments} />
+          <List comments={sortedComments} />
           <CommentBox
             idDpFolder={action.id_dp_operation}
             update={this.props.updateNewCommentMessage}
-            post={() => this.props.postComment(action.id_dp_operation, action.id_dossierprime)}
+            post={() => this.props.postComment(
+              action.id_dp_operation,
+              action.id_dossierprime,
+            )
+            }
             message={commentState.pending.newMessage}
             loading={commentState.pending.postLoading}
           />
@@ -106,10 +122,19 @@ const List = ({ comments }: { comments: Array<CommentFull> }) => {
     }),
   });
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current !== null) {
+      const top = scrollRef.current.scrollHeight - scrollRef.current.clientHeight;
+      scrollRef.current.scrollTo({ top });
+    }
+  }, [comments.length]);
+
   return (
-    <div className="Comments-List">
-      {transitions.reverse().map(({ item, key, props }) => (
-        <animated.div key={key} style={props}>
+    <div ref={scrollRef} className="Comments-List">
+      {transitions.map(({ item, key, props }) => (
+        <animated.div key={key} style={{ ...props }}>
           <Comment comment={item} />
         </animated.div>
       ))}
