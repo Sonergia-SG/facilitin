@@ -19,7 +19,6 @@ import { folderEnding, folderFileEnding } from '../../../store/actions/views/fol
 
 import { FileFull as SonergiaFile, CheckPoint } from '../../../store/reducer/entities/types';
 
-import fileFolderDisplayType from '../helper/fileFolderDisplayType';
 import lockedByStatus from './tools/lockedByStatus';
 
 import './Accordion.css';
@@ -117,7 +116,7 @@ export const AccordionComponent = ({
             role="button"
             tabIndex={0}
           >
-            <div>{fileFolderDisplayType(file)}</div>
+            <div>{file.type_document}</div>
             <div
               className="AccordionHeader-Ico"
               style={{

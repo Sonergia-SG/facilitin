@@ -2,7 +2,6 @@ import React from 'react';
 
 import { OperationFull, CheckPoint } from '../../../store/reducer/entities/types';
 
-import fileFolderDisplayType from '../helper/fileFolderDisplayType';
 import isRejected from './helpers/checkPointRejected';
 import isLitige from './helpers/checkPointInLitige';
 
@@ -62,7 +61,7 @@ const CheckPointsSummary = ({
                     className={`item_menu_gauche ${active ? 'left-active' : ''}`}
                     id={`${index}pp`}
                   >
-                    {fileFolderDisplayType(file)}
+                    {file.type_document}
                   </h4>
                 </div>
                 <p

@@ -11,10 +11,7 @@ import {
   FOLDER_UPDATE_SITE_LOADED,
   FOLDER_FILE_ENDING_LOADED,
 } from '../../types';
-import {
-  Forms,
-  FormDef,
-} from '../../../components/Folder/Left/SecondaryData/types';
+import { Forms, FormDef } from '../../../components/Folder/Left/SecondaryData/types';
 
 export interface User {
   id_user: number;
@@ -82,6 +79,7 @@ export interface SimpleFile {
   is_etat_recapitulatif: BooleanNumber;
   is_ah: BooleanNumber;
   is_horodatage: BooleanNumber;
+  type_document?: string;
   is_subrogation: BooleanNumber;
   statut: FileStatus;
   litige?: BooleanNumber;
@@ -166,10 +164,7 @@ export interface FolderSiteString {
   date_fin_travaux: string | null;
 }
 
-export interface SimpleFolder
-  extends FolderMOAString,
-  FolderMOEString,
-  FolderSiteString {
+export interface SimpleFolder extends FolderMOAString, FolderMOEString, FolderSiteString {
   id_dp_operation: number;
   id_dossierprime: number;
   code_operation: string;
