@@ -17,6 +17,10 @@ exports[`GeneralInfos render correctly with all checkpoints valid 1`] = `
       Dossier N°
     </h1>
     <h2>
+      Operation N°
+      23234234
+    </h2>
+    <h2>
       BAR-TH-113
     </h2>
   </DarkHeader>
@@ -135,6 +139,10 @@ exports[`GeneralInfos render correctly with litige checkpoints 1`] = `
     >
       Dossier N°
     </h1>
+    <h2>
+      Operation N°
+      23234234
+    </h2>
     <h2>
       BAR-TH-113
     </h2>
@@ -255,6 +263,10 @@ exports[`GeneralInfos render correctly with rejected checkpoints 1`] = `
       Dossier N°
     </h1>
     <h2>
+      Operation N°
+      23234234
+    </h2>
+    <h2>
       BAR-TH-113
     </h2>
   </DarkHeader>
@@ -373,6 +385,10 @@ exports[`GeneralInfos render correctly with untraited checkpoints 1`] = `
     >
       Dossier N°
     </h1>
+    <h2>
+      Operation N°
+      23234234
+    </h2>
     <h2>
       BAR-TH-113
     </h2>
