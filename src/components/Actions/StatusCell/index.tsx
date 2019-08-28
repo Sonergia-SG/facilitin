@@ -8,7 +8,7 @@ import isLitige from '../../Folder/Left/helpers/checkPointInLitige';
 
 interface Props {
   original: {
-    point_controles: [CheckPoint];
+    point_controles: Array<CheckPoint>;
   };
 }
 
