@@ -16,6 +16,7 @@ import Loading from '../../Loading';
 interface ConnectProps {
   file: SonergiaFile;
   idDpOperation: number;
+  disabled?: boolean;
 }
 
 interface Props extends ConnectProps {
@@ -24,7 +25,11 @@ interface Props extends ConnectProps {
 }
 
 export const UploadButtonComponent = ({
-  loading, file: dpFile, upload, idDpOperation,
+  loading,
+  file: dpFile,
+  upload,
+  idDpOperation,
+  disabled,
 }: Props) => {
   const input = useRef(null);
 
@@ -56,7 +61,8 @@ export const UploadButtonComponent = ({
     || dpFile.statut === 5
     || dpFile.statut === undefined
   );
-  const disabled = wrongStatus && dpFile.id_dp_file > 0;
+  const internDisabled = wrongStatus && dpFile.id_dp_file > 0;
+  const d = disabled || internDisabled;
 
   return (
     <div className="text-center mt-5">
@@ -78,7 +84,7 @@ export const UploadButtonComponent = ({
           minSize={0}
           maxSize={maxSize}
           multiple={false}
-          disabled={disabled}
+          disabled={d}
         >
           {({
             getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles,
@@ -90,9 +96,9 @@ export const UploadButtonComponent = ({
                 <i
                   style={{
                     fontSize: 24,
-                    cursor: 'pointer',
+                    cursor: d ? 'auto' : 'pointer',
                     margin: '0 3px',
-                    opacity: disabled ? 0.6 : 1,
+                    opacity: d ? 0.6 : 1,
                   }}
                   className="fas fa-file-upload"
                 />

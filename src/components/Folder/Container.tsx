@@ -8,6 +8,7 @@ import idx from 'idx';
 import { AppState } from '../../store';
 import { Entities, CommentFull } from '../../store/reducer/entities/types';
 import { comment } from '../../store/reducer/entities/schema';
+import sortComments from './helpers/sortComments';
 
 interface Props {
   children: ReactNode;
@@ -26,8 +27,13 @@ const Container = ({
   userId,
   commentsOpened,
 }: Props) => {
-  const normalizedComments: Array<CommentFull> = denormalize(comments, [comment], entities);
-  const lastComment = idx(normalizedComments, _ => _[normalizedComments.length - 1]);
+  const normalizedComments: Array<CommentFull> = denormalize(
+    comments,
+    [comment],
+    entities,
+  );
+  const sortedComments = sortComments(normalizedComments);
+  const lastComment = idx(sortedComments, _ => _[sortedComments.length - 1]);
 
   const lastMsgUserId = idx(lastComment, _ => _.user.id_user);
   const displayLastMessage = lastMsgUserId === undefined ? false : lastMsgUserId !== userId;

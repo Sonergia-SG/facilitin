@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, HandleThunkActionCreator } from 'react-redux';
 import idx from 'idx';
 
 import { CheckPoint } from '../../../store/reducer/entities/types';
-import { updateFolderCheckPoint } from '../../../store/actions/views/folder';
+import {
+  updateFolderCheckPoint,
+  fetchFolder,
+} from '../../../store/actions/views/folder';
 
 import './CheckPoints.css';
 import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
@@ -17,7 +20,8 @@ interface Props {
   fileId: number;
   filename: string;
   folderId: number;
-  updateCheckPoint: any;
+  updateCheckPoint: HandleThunkActionCreator<typeof updateFolderCheckPoint>;
+  updateFolder: HandleThunkActionCreator<typeof fetchFolder>;
   lockedByStatus: boolean;
   pending: FolderPendingItem | undefined;
   locked: boolean;
@@ -30,6 +34,7 @@ export const CheckPointsComponent = ({
   folderId,
   lockedByStatus,
   updateCheckPoint,
+  updateFolder,
   pending,
   locked,
 }: Props) => {
@@ -148,7 +153,7 @@ export const CheckPointsComponent = ({
             title: 'Annuler',
           },
           confirm: {
-            handle: () => {
+            handle: async () => {
               setModalState({
                 display: false,
                 data: { chekcpoint: undefined },
@@ -156,12 +161,14 @@ export const CheckPointsComponent = ({
               const { chekcpoint } = modalState.data;
 
               if (chekcpoint !== undefined) {
-                updateCheckPoint({
+                await updateCheckPoint({
                   folderId,
                   checkPointId: chekcpoint.id_point_controle,
                   idDpFile: chekcpoint.pivot.id_dp_file,
                   newValue: 0,
                 });
+
+                updateFolder(folderId);
               }
             },
             title: 'Rejet du document',
@@ -174,5 +181,5 @@ export const CheckPointsComponent = ({
 
 export default connect(
   null,
-  { updateCheckPoint: updateFolderCheckPoint },
+  { updateCheckPoint: updateFolderCheckPoint, updateFolder: fetchFolder },
 )(CheckPointsComponent);

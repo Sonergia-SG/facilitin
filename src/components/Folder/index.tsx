@@ -70,10 +70,11 @@ class Folder extends Component<Props, State> {
     const folderId = parseInt(match.params.folderId, 10);
     const action = entities.operations[folderId];
 
+    const lockedStatus = [2, 3, 8, 10, 15, 16, 17, 18];
     // ! during dev process we can use this option to unlock action
     const locked = location.search.includes('unlock')
       ? false
-      : !!idx(action, _ => _.statut.code_statut === 8);
+      : !!idx(action, _ => lockedStatus.includes(_.statut.code_statut));
 
     return (
       <Container

@@ -12,6 +12,7 @@ import {
   folderUpdateSiteValue,
 } from '../../../../store/actions';
 import Select from './Select';
+import Radio from './Radio';
 
 interface Props {
   def: GenericForms;
@@ -22,10 +23,7 @@ interface Props {
   edit: boolean;
   locked: boolean;
   loading: boolean;
-  updater:
-  | typeof folderUpdateMoaValue
-  | typeof folderUpdateMoeValue
-  | typeof folderUpdateSiteValue;
+  updater: typeof folderUpdateMoaValue | typeof folderUpdateMoeValue | typeof folderUpdateSiteValue;
 }
 
 const Form = ({
@@ -94,6 +92,21 @@ const Form = ({
               valueKey={d.key}
               value={d.value}
               values={d.values}
+              idDpOperation={idDpOperation}
+              disabled={disabledInput}
+              dossierprime={dossierprime}
+              pending={pending}
+              pendingKey={formKey}
+              update={updater}
+            />
+          );
+        }
+        case 'radio': {
+          const disabledInput = !edit || loading || locked;
+
+          return (
+            <Radio
+              data={d}
               idDpOperation={idDpOperation}
               disabled={disabledInput}
               dossierprime={dossierprime}

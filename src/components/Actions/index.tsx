@@ -25,7 +25,11 @@ import { operation } from '../../store/reducer/entities/schema';
 
 import { AppState } from '../../store';
 import { Entities, OperationFull } from '../../store/reducer/entities/types';
-import { ListState, Tab as TabType, ListSearch } from '../../store/reducer/views/list/type';
+import {
+  ListState,
+  Tab as TabType,
+  ListSearch,
+} from '../../store/reducer/views/list/type';
 import { UserFonction } from '../../store/reducer/user/types';
 import getValue from './ModernTable/tools/getValue';
 
@@ -40,6 +44,21 @@ interface Props extends RouteComponentProps {
   entities: Entities;
   listState: ListState;
 }
+
+type MustFilter = (search: ListSearch) => boolean;
+
+const mustFilter: MustFilter = search => Object.values(search).some(v => !!v);
+
+type DataFilter = (
+  data: Array<OperationFull>,
+  search: ListSearch
+) => Array<OperationFull>;
+
+export const dataFilter: DataFilter = (data, search) => (mustFilter(search)
+  ? data.filter(row => Object.keys(search).every(key => String(
+    getValue(row, key as keyof ListSearch).toLocaleLowerCase(),
+  ).includes(search[key as keyof ListSearch].toLocaleLowerCase())))
+  : data);
 
 const Actions = ({
   load,
@@ -65,23 +84,16 @@ const Actions = ({
 
   const mappedData: [OperationFull] = denormalize(data, [operation], entities);
 
-  const mustFilter = Object.values(search).some(v => !!v);
-  const filteredData = mustFilter
-    ? mappedData.filter(row => (
-      Object.keys(search).every(key => (
-        String(getValue(row, (key as keyof ListSearch)))
-          .includes(search[(key as keyof ListSearch)])
-      ))
-    ))
-    : mappedData;
+  const filteredData = dataFilter(mappedData, search);
 
   return (
-    <div style={{
-      backgroundColor: '#f1f2f7',
-      marginBottom: 30,
-      borderRadius: 2,
-      overflow: 'hidden',
-    }}
+    <div
+      style={{
+        backgroundColor: '#f1f2f7',
+        marginBottom: 30,
+        borderRadius: 2,
+        overflow: 'hidden',
+      }}
     >
       <div className="has-text-centered content-loading">
         <div id="loading_liste">
@@ -89,10 +101,18 @@ const Actions = ({
         </div>
       </div>
       <Tabs>
-        <Tab selected={selectedTab} index={0} onClick={load}>{userFonction === 'instructeur_initial' ? 'A traiter' : 'Incomplet'}</Tab>
-        <Tab selected={selectedTab} index={1} onClick={load}>{userFonction === 'instructeur_initial' ? 'Incomplet' : 'A traiter'}</Tab>
-        <Tab selected={selectedTab} index={2} onClick={load}>Rejet</Tab>
-        <Tab selected={selectedTab} index={3} onClick={load}>Validés</Tab>
+        <Tab selected={selectedTab} index={0} onClick={load}>
+          {userFonction === 'instructeur_initial' ? 'A traiter' : 'Incomplet'}
+        </Tab>
+        <Tab selected={selectedTab} index={1} onClick={load}>
+          {userFonction === 'instructeur_initial' ? 'Incomplet' : 'A traiter'}
+        </Tab>
+        <Tab selected={selectedTab} index={2} onClick={load}>
+          Rejet
+        </Tab>
+        <Tab selected={selectedTab} index={3} onClick={load}>
+          Validés
+        </Tab>
       </Tabs>
       <div style={{ backgroundColor: '#fff', padding: 10 }}>
         <ModernTable

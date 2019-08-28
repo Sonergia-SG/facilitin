@@ -79,6 +79,7 @@ export interface SimpleFile {
   is_etat_recapitulatif: BooleanNumber;
   is_ah: BooleanNumber;
   is_horodatage: BooleanNumber;
+  type_document?: string;
   is_subrogation: BooleanNumber;
   statut: FileStatus;
   litige?: BooleanNumber;
@@ -163,10 +164,7 @@ export interface FolderSiteString {
   date_fin_travaux: string | null;
 }
 
-export interface SimpleFolder
-  extends FolderMOAString,
-  FolderMOEString,
-  FolderSiteString {
+export interface SimpleFolder extends FolderMOAString, FolderMOEString, FolderSiteString {
   id_dp_operation: number;
   id_dossierprime: number;
   code_operation: string;
@@ -251,8 +249,8 @@ export interface Operation extends OperationSimple {
 
 export interface OperationFull extends OperationSimple {
   dossierprime?: FolderFull;
-  dossierprimefile?: [FileFull];
-  point_controles: [CheckPoint];
+  dossierprimefile?: Array<FileFull>;
+  point_controles: Array<CheckPoint>;
 }
 
 export interface Operations {
