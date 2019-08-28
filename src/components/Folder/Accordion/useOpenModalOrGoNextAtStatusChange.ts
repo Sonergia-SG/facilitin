@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { FileStatus } from '../../../store/reducer/entities/types';
 
-const useOpenModalAfterLoading = (
+const useOpenModalOrGoNextAtStatusChange = (
   status: FileStatus,
   goNext: () => void,
 ): [boolean, React.Dispatch<React.SetStateAction<boolean>>] => {
@@ -21,4 +21,4 @@ const useOpenModalAfterLoading = (
   return [displayModal, toggleModal];
 };
 
-export default useOpenModalAfterLoading;
+export default useOpenModalOrGoNextAtStatusChange;

@@ -15,15 +15,9 @@ import DropZone from './DropZone';
 
 import Modal from '../../../Common/UIKIT/Modal';
 
-import {
-  folderEnding,
-  folderFileEnding,
-} from '../../../store/actions/views/folder';
+import { folderEnding, folderFileEnding } from '../../../store/actions/views/folder';
 
-import {
-  FileFull as SonergiaFile,
-  CheckPoint,
-} from '../../../store/reducer/entities/types';
+import { FileFull as SonergiaFile, CheckPoint } from '../../../store/reducer/entities/types';
 
 import fileFolderDisplayType from '../helper/fileFolderDisplayType';
 import lockedByStatus from './tools/lockedByStatus';
@@ -31,7 +25,7 @@ import lockedByStatus from './tools/lockedByStatus';
 import './Accordion.css';
 import { FolderPendingItem } from '../../../store/reducer/views/folder/types';
 
-import useOpenModalAfterLoading from './useOpenModalAfterLoading';
+import useOpenModalOrGoNextAtStatusChange from './useOpenModalOrGoNextAtStatusChange';
 
 import MissingFile from './MissingFile';
 
@@ -70,10 +64,7 @@ export const AccordionComponent = ({
   const selectedRef = useRef(isSelected);
 
   const litigeLoading = idx(pending, _ => _.litige[file.id_dp_file].loading) || false;
-  const [displayModal, toggleModal] = useOpenModalAfterLoading(
-    file.statut,
-    goNext,
-  );
+  const [displayModal, toggleModal] = useOpenModalOrGoNextAtStatusChange(file.statut, goNext);
 
   const [previewOppened, togglePreview] = useState(false);
 
@@ -117,9 +108,7 @@ export const AccordionComponent = ({
           style={{
             backgroundColor: statusColor(file),
           }}
-          className={`accordion-header${
-            isSelected ? ' accordion-header-is-active' : ' '
-          }`}
+          className={`accordion-header${isSelected ? ' accordion-header-is-active' : ' '}`}
         >
           <div
             className="AccordionHeader-Button"
@@ -144,13 +133,9 @@ export const AccordionComponent = ({
             {file.id_file ? (
               <div className="Accordion-Box">
                 <div className="Accordion-File-Header">
-                  <ToggleViewer
-                    toggle={toggleAndCroll}
-                    viewerOpened={previewOppened}
-                  />
+                  <ToggleViewer toggle={toggleAndCroll} viewerOpened={previewOppened} />
                   <DownloadFile file={file} />
                   <UploadButton file={file} idDpOperation={folderId} />
-                  {' '}
                   <DeleteFile file={file} />
                   <h3 className="Accordion-File-name">{file.filename}</h3>
                 </div>

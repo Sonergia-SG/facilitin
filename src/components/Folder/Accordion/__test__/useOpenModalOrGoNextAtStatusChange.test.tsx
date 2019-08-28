@@ -1,12 +1,12 @@
 import { act } from 'react-dom/test-utils';
 import handleHook from '../../../../tools/test/handleHook';
 
-import useOpenModalAfterLoading from '../useOpenModalAfterLoading';
+import useOpenModalOrGoNextAtStatusChange from '../useOpenModalOrGoNextAtStatusChange';
 
 describe('TestHooks', () => {
   it('test', () => {
     const { result, wrapper } = handleHook(
-      useOpenModalAfterLoading,
+      useOpenModalOrGoNextAtStatusChange,
       { value: false },
       p => p.value,
     );
