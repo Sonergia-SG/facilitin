@@ -11,7 +11,7 @@ interface ToReturn<T> {
 type HandleHook = <T extends {}, R>(
   hook: (...args: Array<any>) => R,
   initialProps: T,
-  updater: (props: T) => any
+  updater: (props: T) => Array<any>
 ) => ToReturn<T>;
 
 const handleHook: HandleHook = (hook, initialProps, updater) => {
@@ -22,7 +22,7 @@ const handleHook: HandleHook = (hook, initialProps, updater) => {
   };
 
   const ComponentWithHook = (props: typeof initialProps) => {
-    toReturn.result = hook(updater(props));
+    toReturn.result = hook(...updater(props));
     return null;
   };
 
