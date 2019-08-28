@@ -1,22 +1,28 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { StatelessComponent } from 'react';
+import React, { StatelessComponent, FunctionComponent } from 'react';
 import { mount } from 'enzyme';
 
-interface ToReturn {
-  ComponentWithHook: StatelessComponent | undefined;
+interface ToReturn<T> {
+  ComponentWithHook: FunctionComponent<T> | undefined;
   wrapper: any | undefined;
   result: any | undefined;
 }
 
-const handleHook = (hook: any, initialProps: any, updater: (props: any) => any) => {
-  const toReturn: ToReturn = {
+type HandleHook = <T extends {}, R>(
+  hook: (...args: Array<any>) => R,
+  initialProps: T,
+  updater: (props: T) => Array<any>
+) => ToReturn<T>;
+
+const handleHook: HandleHook = (hook, initialProps, updater) => {
+  const toReturn: ToReturn<typeof initialProps> = {
     ComponentWithHook: undefined,
     wrapper: undefined,
     result: undefined,
   };
 
-  const ComponentWithHook = (props: any) => {
-    toReturn.result = hook(updater(props));
+  const ComponentWithHook = (props: typeof initialProps) => {
+    toReturn.result = hook(...updater(props));
     return null;
   };
 
