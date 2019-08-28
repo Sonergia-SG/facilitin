@@ -11,20 +11,18 @@ import './MissingFile.css';
 interface Props {
   file: SimpleFile;
   loading: boolean;
+  locked: boolean;
   folderId: number;
   fileEnding: HandleThunkActionCreator<typeof folderFileEnding>;
 }
 
 const MissingFile = ({
-  file,
-  loading,
-  folderId,
-  fileEnding,
+  file, loading, folderId, locked, fileEnding,
 }: Props) => (
   <div className="MissingFile-container">
     <div style={{ width: 190 }} className="notification has-text-centered tilebordered">
       <div className="content">
-        <UploadButton file={file} idDpOperation={folderId} />
+        <UploadButton file={file} idDpOperation={folderId} disabled={locked} />
       </div>
     </div>
     <div className="MissingFile-infos">
@@ -33,9 +31,8 @@ const MissingFile = ({
         <button
           type="button"
           style={{ transition: 'background-color 0.4s ease' }}
-          className={`button is-success ${
-            loading ? ' is-loading' : ''
-          }`}
+          className={`button is-success ${loading ? ' is-loading' : ''}`}
+          disabled={locked}
           onClick={() => {
             fileEnding(folderId, file.id_dp_file, 15);
           }}
@@ -45,9 +42,8 @@ const MissingFile = ({
         <button
           type="button"
           style={{ transition: 'background-color 0.4s ease' }}
-          className={`button is-warning ${
-            loading ? ' is-loading' : ''
-          }`}
+          className={`button is-warning ${loading ? ' is-loading' : ''}`}
+          disabled={locked}
           onClick={() => {
             fileEnding(folderId, file.id_dp_file, 5);
           }}

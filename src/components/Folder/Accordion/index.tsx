@@ -178,6 +178,7 @@ export const AccordionComponent = ({
                 loading={false}
                 folderId={folderId}
                 fileEnding={fileEnding}
+                locked={locked}
               />
             )}
           </DropZone>
