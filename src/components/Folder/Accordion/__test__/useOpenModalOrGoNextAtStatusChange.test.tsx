@@ -7,16 +7,16 @@ describe('TestHooks', () => {
   it('test', () => {
     const { result, wrapper } = handleHook(
       useOpenModalOrGoNextAtStatusChange,
-      { value: false },
-      p => p.value,
+      { status: 0 },
+      p => p.status,
     );
 
     setTimeout(() => expect(result[0]).toBe(false), 0);
 
-    wrapper.setProps({ value: true });
+    wrapper.setProps({ status: 5 });
     setTimeout(() => expect(result[0]).toBe(false), 0);
 
-    wrapper.setProps({ value: false });
+    wrapper.setProps({ status: 10 });
     setTimeout(() => expect(result[0]).toBe(true), 0);
 
     act(() => {
